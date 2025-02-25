@@ -237,8 +237,7 @@ class CollectionAdapter extends UpdateAdapter
 		}
 
 		$this->xmlParser = xml_parser_create('');
-		xml_set_object($this->xmlParser, $this);
-		xml_set_element_handler($this->xmlParser, '_startElement', '_endElement');
+		xml_set_element_handler($this->xmlParser, [$this, '_startElement'], [$this, '_endElement']);
 
 		if (!xml_parse($this->xmlParser, $response->body))
 		{

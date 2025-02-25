@@ -30,6 +30,10 @@
       {
         "type": "vcs",
         "url": "https://github.com/NielBuys/JoomlaInput.git"
+      },
+      {
+        "type": "vcs",
+        "url": "https://github.com/NielBuys/JoomlaApplication.git"
       }
     ],
     "require": {
