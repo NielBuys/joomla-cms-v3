@@ -43,10 +43,10 @@ class Http
 	 *
 	 * @since   1.7.3
 	 */
-	public function __construct(Registry $options = null, TransportInterface $transport = null)
+	public function __construct(?Registry $options = null, ?TransportInterface $transport = null)
 	{
-		$this->options   = isset($options) ? $options : new Registry;
-		$this->transport = isset($transport) ? $transport : HttpFactory::getAvailableDriver($this->options);
+		$this->options   = $options ?? new Registry;
+		$this->transport = $transport ?? HttpFactory::getAvailableDriver($this->options);
 	}
 
 	/**
@@ -91,8 +91,10 @@ class Http
 	 *
 	 * @since   1.7.3
 	 */
-	public function options($url, array $headers = null, $timeout = null)
+	public function options($url, ?array $headers = null, $timeout = null)
 	{
+		$headers = $headers ?? [];
+
 		// Look for headers set in the options.
 		$temp = (array) $this->options->get('headers');
 
@@ -124,8 +126,9 @@ class Http
 	 *
 	 * @since   1.7.3
 	 */
-	public function head($url, array $headers = null, $timeout = null)
+	public function head($url, ?array $headers = null, $timeout = null)
 	{
+		$headers = $headers ?? [];
 		// Look for headers set in the options.
 		$temp = (array) $this->options->get('headers');
 
@@ -157,8 +160,9 @@ class Http
 	 *
 	 * @since   1.7.3
 	 */
-	public function get($url, array $headers = null, $timeout = null)
+	public function get($url, ?array $headers = null, $timeout = null)
 	{
+		$headers = $headers ?? [];
 		// Look for headers set in the options.
 		$temp = (array) $this->options->get('headers');
 
@@ -191,8 +195,9 @@ class Http
 	 *
 	 * @since   1.7.3
 	 */
-	public function post($url, $data, array $headers = null, $timeout = null)
+	public function post($url, $data, ?array $headers = null, $timeout = null)
 	{
+		$headers = $headers ?? [];
 		// Look for headers set in the options.
 		$temp = (array) $this->options->get('headers');
 
@@ -225,8 +230,9 @@ class Http
 	 *
 	 * @since   1.7.3
 	 */
-	public function put($url, $data, array $headers = null, $timeout = null)
+	public function put($url, $data, ?array $headers = null, $timeout = null)
 	{
+		$headers = $headers ?? [];
 		// Look for headers set in the options.
 		$temp = (array) $this->options->get('headers');
 
@@ -258,8 +264,9 @@ class Http
 	 *
 	 * @since   1.7.3
 	 */
-	public function delete($url, array $headers = null, $timeout = null)
+	public function delete($url, ?array $headers = null, $timeout = null)
 	{
+		$headers = $headers ?? [];
 		// Look for headers set in the options.
 		$temp = (array) $this->options->get('headers');
 
@@ -291,8 +298,9 @@ class Http
 	 *
 	 * @since   1.7.3
 	 */
-	public function trace($url, array $headers = null, $timeout = null)
+	public function trace($url, ?array $headers = null, $timeout = null)
 	{
+		$headers = $headers ?? [];
 		// Look for headers set in the options.
 		$temp = (array) $this->options->get('headers');
 
@@ -325,8 +333,9 @@ class Http
 	 *
 	 * @since   3.0.1
 	 */
-	public function patch($url, $data, array $headers = null, $timeout = null)
+	public function patch($url, $data, ?array $headers = null, $timeout = null)
 	{
+		$headers = $headers ?? [];
 		// Look for headers set in the options.
 		$temp = (array) $this->options->get('headers');
 

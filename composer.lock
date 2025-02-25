@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "0b50e97f0b6e9b0d20b8f5963b1c7183",
+    "content-hash": "6546cc06aa6ee9779b369f6709f70347",
     "packages": [
         {
             "name": "google/recaptcha",
@@ -106,16 +106,16 @@
         },
         {
             "name": "joomla/application",
-            "version": "1.9.3",
+            "version": "1.9.4",
             "source": {
                 "type": "git",
-                "url": "https://github.com/joomla-framework/application.git",
-                "reference": "2a2fee9fa2ebb07c0d28da07f6e4ea3c56b77d16"
+                "url": "https://github.com/NielBuys/JoomlaApplication.git",
+                "reference": "cc21ade0c7fcb78aad10c929353e9e5ef4e4f4b2"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/joomla-framework/application/zipball/2a2fee9fa2ebb07c0d28da07f6e4ea3c56b77d16",
-                "reference": "2a2fee9fa2ebb07c0d28da07f6e4ea3c56b77d16",
+                "url": "https://api.github.com/repos/NielBuys/JoomlaApplication/zipball/cc21ade0c7fcb78aad10c929353e9e5ef4e4f4b2",
+                "reference": "cc21ade0c7fcb78aad10c929353e9e5ef4e4f4b2",
                 "shasum": ""
             },
             "require": {
@@ -149,7 +149,11 @@
                     "Joomla\\Application\\": "src/"
                 }
             },
-            "notification-url": "https://packagist.org/downloads/",
+            "autoload-dev": {
+                "psr-4": {
+                    "Joomla\\Application\\Tests\\": "Tests/"
+                }
+            },
             "license": [
                 "GPL-2.0-or-later"
             ],
@@ -161,20 +165,19 @@
                 "joomla"
             ],
             "support": {
-                "issues": "https://github.com/joomla-framework/application/issues",
-                "source": "https://github.com/joomla-framework/application/tree/1.9.3"
+                "source": "https://github.com/NielBuys/JoomlaApplication/tree/1.9.4"
             },
             "funding": [
                 {
-                    "url": "https://community.joomla.org/sponsorship-campaigns.html",
-                    "type": "custom"
+                    "type": "github",
+                    "url": "https://github.com/joomla"
                 },
                 {
-                    "url": "https://github.com/joomla",
-                    "type": "github"
+                    "type": "custom",
+                    "url": "https://community.joomla.org/sponsorship-campaigns.html"
                 }
             ],
-            "time": "2022-01-25T17:10:25+00:00"
+            "time": "2025-02-25T13:45:30+00:00"
         },
         {
             "name": "joomla/archive",

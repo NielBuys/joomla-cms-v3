@@ -244,17 +244,17 @@
         },
         {
             "name": "joomla/application",
-            "version": "1.9.3",
-            "version_normalized": "1.9.3.0",
+            "version": "1.9.4",
+            "version_normalized": "1.9.4.0",
             "source": {
                 "type": "git",
-                "url": "https://github.com/joomla-framework/application.git",
-                "reference": "2a2fee9fa2ebb07c0d28da07f6e4ea3c56b77d16"
+                "url": "https://github.com/NielBuys/JoomlaApplication.git",
+                "reference": "cc21ade0c7fcb78aad10c929353e9e5ef4e4f4b2"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/joomla-framework/application/zipball/2a2fee9fa2ebb07c0d28da07f6e4ea3c56b77d16",
-                "reference": "2a2fee9fa2ebb07c0d28da07f6e4ea3c56b77d16",
+                "url": "https://api.github.com/repos/NielBuys/JoomlaApplication/zipball/cc21ade0c7fcb78aad10c929353e9e5ef4e4f4b2",
+                "reference": "cc21ade0c7fcb78aad10c929353e9e5ef4e4f4b2",
                 "shasum": ""
             },
             "require": {
@@ -277,7 +277,7 @@
                 "joomla/session": "To use AbstractWebApplication with session support, install joomla/session",
                 "joomla/uri": "To use AbstractWebApplication, install joomla/uri"
             },
-            "time": "2022-01-25T17:10:25+00:00",
+            "time": "2025-02-25T13:45:30+00:00",
             "type": "joomla-package",
             "extra": {
                 "branch-alias": {
@@ -290,7 +290,11 @@
                     "Joomla\\Application\\": "src/"
                 }
             },
-            "notification-url": "https://packagist.org/downloads/",
+            "autoload-dev": {
+                "psr-4": {
+                    "Joomla\\Application\\Tests\\": "Tests/"
+                }
+            },
             "license": [
                 "GPL-2.0-or-later"
             ],
@@ -302,17 +306,16 @@
                 "joomla"
             ],
             "support": {
-                "issues": "https://github.com/joomla-framework/application/issues",
-                "source": "https://github.com/joomla-framework/application/tree/1.9.3"
+                "source": "https://github.com/NielBuys/JoomlaApplication/tree/1.9.4"
             },
             "funding": [
                 {
-                    "url": "https://community.joomla.org/sponsorship-campaigns.html",
-                    "type": "custom"
+                    "type": "github",
+                    "url": "https://github.com/joomla"
                 },
                 {
-                    "url": "https://github.com/joomla",
-                    "type": "github"
+                    "type": "custom",
+                    "url": "https://community.joomla.org/sponsorship-campaigns.html"
                 }
             ],
             "install-path": "../joomla/application"
