@@ -52,7 +52,7 @@ class PlgContentPagebreak extends JPlugin
 	 *
 	 * @since   1.6
 	 */
-	public function onContentPrepare($context, &$row, &$params, $page = 0)
+	public function onContentPrepare($context, $row, $params, $page = 0)
 	{
 		$canProceed = $context === 'com_content.article';
 
