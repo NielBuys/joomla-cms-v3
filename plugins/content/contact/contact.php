@@ -36,7 +36,7 @@ class PlgContentContact extends JPlugin
 	 *
 	 * @return  boolean	True on success.
 	 */
-	public function onContentPrepare($context, &$row, $params, $page = 0)
+	public function onContentPrepare($context, $row, $params, $page = 0)
 	{
 		$allowed_contexts = array('com_content.category', 'com_content.article', 'com_content.featured');
 

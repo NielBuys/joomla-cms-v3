@@ -29,7 +29,7 @@ class PlgContentFields extends JPlugin
 	 *
 	 * @since  3.7.0
 	 */
-	public function onContentPrepare($context, &$item, &$params, $page = 0)
+	public function onContentPrepare($context, $item, $params, $page = 0)
 	{
 		// If the item has a context, overwrite the existing one
 		if ($context == 'com_finder.indexer' && !empty($item->context))
