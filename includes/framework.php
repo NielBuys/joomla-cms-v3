@@ -8,6 +8,7 @@
 
 defined('_JEXEC') or die;
 
+use Joomla\CMS\Uri\Uri;
 use Joomla\Utilities\IpHelper;
 
 // Joomla system checks.
@@ -33,7 +34,8 @@ if (!file_exists(JPATH_CONFIGURATION . '/configuration.php')
 {
 	if (file_exists(JPATH_INSTALLATION . '/index.php'))
 	{
-		header('Location: ' . substr($_SERVER['REQUEST_URI'], 0, strpos($_SERVER['REQUEST_URI'], 'index.php')) . 'installation/index.php');
+		// fix for CVE-2023-21723
+		header('Location: ' . Uri::base() . 'installation/index.php');
 
 		exit;
 	}

@@ -138,9 +138,10 @@ class Uri extends \Joomla\Uri\Uri
 		{
 			$config = \JFactory::getConfig();
 			$uri = static::getInstance();
-			$live_site = ($uri->isSsl()) ? str_replace('http://', 'https://', $config->get('live_site')?? '') : $config->get('live_site');
+			$live_site_config = $config->get('live_site') ?: '';
+			$live_site = ($uri->isSsl()) ? str_replace('http://', 'https://', $live_site_config) : $live_site_config;
 
-			if (trim($live_site ?? '') != '')
+			if (trim($live_site) != '')
 			{
 				$uri = static::getInstance($live_site);
 				static::$base['prefix'] = $uri->toString(array('scheme', 'host', 'port'));
