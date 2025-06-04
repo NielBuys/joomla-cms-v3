@@ -20,6 +20,8 @@
 				description="COM_WRAPPER_FIELD_URL_DESC"
 				size="30"
 				required="true"
+				validate="url"
+				filter="url"
 			/>
 		</fieldset>
 

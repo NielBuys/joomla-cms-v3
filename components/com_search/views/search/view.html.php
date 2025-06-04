@@ -18,7 +18,10 @@ use Joomla\String\StringHelper;
  */
 class SearchViewSearch extends JViewLegacy
 {
-	/**
+
+    protected $pagination = null;
+
+    /**
 	 * Execute and display a template script.
 	 *
 	 * @param   string  $tpl  The name of the template file to parse; automatically searches through the template paths.
@@ -129,6 +132,26 @@ class SearchViewSearch extends JViewLegacy
 
 			// Flag indicates to not add limitstart=0 to URL
 			$pagination->hideEmptyLimitstart = true;
+
+		    // Add additional parameters
+				$queryParameterList = [
+					'searchword'  => 'string',
+					'searchphrase'  => 'string',
+					'areas' => 'array',
+					'ordering' => 'string'
+				];
+
+		    foreach ($queryParameterList as $parameter => $filter)
+				{
+			$value = $app->input->get($parameter, null, $filter);
+
+			if (is_null($value))
+					{
+			    continue;
+			}
+
+			$pagination->setAdditionalUrlParam($parameter, $value);
+		    }
 
 			if ($state->get('match') === 'exact')
 			{
