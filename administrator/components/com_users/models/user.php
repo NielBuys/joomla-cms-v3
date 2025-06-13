@@ -286,6 +286,9 @@ class UsersModelUser extends JModelAdmin
 
 			// Reload the user record with the updated OTP configuration
 			$user->load($pk);
+
+		    // destroy the session after OTP settings have been updated by the user. Mitigating CVE-2023-21722
+		    UserHelper::destroyUserSessions($user->id, true);
 		}
 
 		// Bind the data.
