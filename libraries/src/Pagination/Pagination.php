@@ -11,6 +11,7 @@ namespace Joomla\CMS\Pagination;
 defined('JPATH_PLATFORM') or die;
 
 use Joomla\CMS\Application\CMSApplication;
+use Joomla\CMS\Router\Route;
 
 /**
  * Pagination Class. Provides a common interface for content pagination for the Joomla! CMS.
@@ -764,104 +765,133 @@ class Pagination
 	 *
 	 * @since   1.5
 	 */
-	protected function _buildDataObject()
-	{
-		$data = new \stdClass;
+    protected function _buildDataObject()
+    {
+        $data = new \stdClass;
 
-		// Build the additional URL parameters string.
-		$params = '';
+        // Build the additional URL parameters string.
+        $params = '';
 
-		if (!empty($this->additionalUrlParams))
-		{
-			foreach ($this->additionalUrlParams as $key => $value)
-			{
-				$params .= '&' . $key . '=' . $value;
-			}
-		}
+        // Platform defaults
+        $defaultUrlParams = [
+            'format' => 'CMD',
+            'option' => 'CMD',
+            'view'   => 'CMD',
+            'layout' => 'CMD',
+            'tpl'    => 'CMD',
+            'id'     => 'INT',
+            'Itemid' => 'STRING',
+        ];
 
-		$data->all = new PaginationObject(\JText::_('JLIB_HTML_VIEW_ALL'), $this->prefix);
+        // Prepare the routes
+        $params = [];
 
-		if (!$this->viewall)
-		{
-			$data->all->base = '0';
-			$data->all->link = \JRoute::_($params . '&' . $this->prefix . 'limitstart=');
-		}
+        // Use platform defaults if parameter doesn't already exist.
+        foreach ($defaultUrlParams as $param => $filter) {
+            $value = $this->app->input->get($param, null, $filter);
 
-		// Set the start and previous data objects.
-		$data->start    = new PaginationObject(\JText::_('JLIB_HTML_START'), $this->prefix);
-		$data->previous = new PaginationObject(\JText::_('JPREV'), $this->prefix);
+            if ($value === null) {
+                continue;
+            }
 
-		if ($this->pagesCurrent > 1)
-		{
-			$page = ($this->pagesCurrent - 2) * $this->limit;
+            $params[$param] = $value;
+        }
 
-			if ($this->hideEmptyLimitstart)
-			{
-				$data->start->link = \JRoute::_($params . '&' . $this->prefix . 'limitstart=');
-			}
-			else
-			{
-				$data->start->link = \JRoute::_($params . '&' . $this->prefix . 'limitstart=0');
-			}
+        if (!empty($this->additionalUrlParams))
+        {
+            foreach ($this->additionalUrlParams as $key => $value)
+            {
+                $params[$key] = $value;
+            }
+        }
 
-			$data->start->base    = '0';
-			$data->previous->base = $page;
+        $params = http_build_query($params);
 
-			if ($page === 0 && $this->hideEmptyLimitstart)
-			{
-				$data->previous->link = $data->start->link;
-			}
-			else
-			{
-				$data->previous->link = \JRoute::_($params . '&' . $this->prefix . 'limitstart=' . $page);
-			}
-		}
+        $data->all = new PaginationObject(\JText::_('JLIB_HTML_VIEW_ALL'), $this->prefix);
 
-		// Set the next and end data objects.
-		$data->next = new PaginationObject(\JText::_('JNEXT'), $this->prefix);
-		$data->end  = new PaginationObject(\JText::_('JLIB_HTML_END'), $this->prefix);
+        if (!$this->viewall)
+        {
+            $data->all->base = '0';
+            $data->all->link = Route::_('index.php?' . $params . '&' . $this->prefix . 'limitstart=');
+        }
 
-		if ($this->pagesCurrent < $this->pagesTotal)
-		{
-			$next = $this->pagesCurrent * $this->limit;
-			$end  = ($this->pagesTotal - 1) * $this->limit;
+        // Set the start and previous data objects.
+        $data->start    = new PaginationObject(\JText::_('JLIB_HTML_START'), $this->prefix);
+        $data->previous = new PaginationObject(\JText::_('JPREV'), $this->prefix);
 
-			$data->next->base = $next;
-			$data->next->link = \JRoute::_($params . '&' . $this->prefix . 'limitstart=' . $next);
-			$data->end->base  = $end;
-			$data->end->link  = \JRoute::_($params . '&' . $this->prefix . 'limitstart=' . $end);
-		}
+        if ($this->pagesCurrent > 1)
+        {
+            $page = ($this->pagesCurrent - 2) * $this->limit;
 
-		$data->pages = array();
-		$stop        = $this->pagesStop;
+            if ($this->hideEmptyLimitstart)
+            {
+                $data->start->link = Route::_('index.php?' . $params . '&' . $this->prefix . 'limitstart=');
+            }
+            else
+            {
+                $data->start->link = Route::_('index.php?' . $params . '&' . $this->prefix . 'limitstart=0');
+            }
 
-		for ($i = $this->pagesStart; $i <= $stop; $i++)
-		{
-			$offset = ($i - 1) * $this->limit;
+            $data->start->base    = '0';
+            $data->previous->base = $page;
 
-			$data->pages[$i] = new PaginationObject($i, $this->prefix);
+            if ($page === 0 && $this->hideEmptyLimitstart)
+            {
+                $data->previous->link = $data->start->link;
+            }
+            else
+            {
+                $data->previous->link = Route::_('index.php?' . $params . '&' . $this->prefix . 'limitstart=' . $page);
+            }
+        }
 
-			if ($i != $this->pagesCurrent || $this->viewall)
-			{
-				$data->pages[$i]->base = $offset;
+        // Set the next and end data objects.
+        $data->next = new PaginationObject(\JText::_('JNEXT'), $this->prefix);
+        $data->end  = new PaginationObject(\JText::_('JLIB_HTML_END'), $this->prefix);
 
-				if ($offset === 0 && $this->hideEmptyLimitstart)
-				{
-					$data->pages[$i]->link = $data->start->link;
-				}
-				else
-				{
-					$data->pages[$i]->link = \JRoute::_($params . '&' . $this->prefix . 'limitstart=' . $offset);
-				}
-			}
-			else
-			{
-				$data->pages[$i]->active = true;
-			}
-		}
+        if ($this->pagesCurrent < $this->pagesTotal)
+        {
+            $next = $this->pagesCurrent * $this->limit;
+            $end  = ($this->pagesTotal - 1) * $this->limit;
 
-		return $data;
-	}
+            $data->next->base = $next;
+            $data->next->link = Route::_('index.php?' . $params . '&' . $this->prefix . 'limitstart=' . $next);
+            $data->end->base  = $end;
+            $data->end->link  = Route::_('index.php?' . $params . '&' . $this->prefix . 'limitstart=' . $end);
+        }
+
+        $data->pages = array();
+        $stop        = $this->pagesStop;
+
+        for ($i = $this->pagesStart; $i <= $stop; $i++)
+        {
+            $offset = ($i - 1) * $this->limit;
+
+            $data->pages[$i] = new PaginationObject($i, $this->prefix);
+
+            if ($i != $this->pagesCurrent || $this->viewall)
+            {
+                $data->pages[$i]->base = $offset;
+
+                if ($offset === 0 && $this->hideEmptyLimitstart)
+                {
+                    $data->pages[$i]->link = $data->start->link;
+                }
+                else
+                {
+                    $data->pages[$i]->link = Route::_(
+                        'index.php?' . $params . '&' . $this->prefix . 'limitstart=' . $offset
+                    );
+                }
+            }
+            else
+            {
+                $data->pages[$i]->active = true;
+            }
+        }
+
+        return $data;
+    }
 
 	/**
 	 * Modifies a property of the object, creating it if it does not already exist.

@@ -9,6 +9,7 @@
 
 defined('_JEXEC') or die;
 
+use Joomla\CMS\Factory;
 use Joomla\CMS\Helper\SearchHelper;
 
 /**
@@ -79,7 +80,7 @@ class FinderViewSearch extends JViewLegacy
 	 */
 	public function display($tpl = null)
 	{
-		$app    = JFactory::getApplication();
+		$app = Factory::getApplication();
 		$params = $app->getParams();
 
 		// Get view data.
@@ -95,6 +96,34 @@ class FinderViewSearch extends JViewLegacy
 
 		// Flag indicates to not add limitstart=0 to URL
 		$pagination->hideEmptyLimitstart = true;
+
+		$this->pagination = &$pagination;
+		
+		// Add additional parameters
+		$queryParameterList = [
+		    'f'  => 'int',
+		    't'  => 'array',
+		    'q'  => 'string',
+		    'l'  => 'cmd',
+		    'd1' => 'string',
+		    'd2' => 'string',
+		    'w1' => 'string',
+		    'w2' => 'string',
+		    'filter_order' => 'word',
+		    'filter_order_Dir' => 'word'
+		];
+
+		foreach ($queryParameterList as $parameter => $filter)
+		{
+		    $value = $app->input->get($parameter, null, $filter);
+
+		    if (is_null($value))
+			{
+		        continue;
+		    }
+
+		    $this->pagination->setAdditionalUrlParam($parameter, $value);
+		}
 
 		// Check for errors.
 		if (count($errors = $this->get('Errors')))

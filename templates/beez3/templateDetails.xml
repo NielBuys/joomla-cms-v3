@@ -79,6 +79,9 @@
 				<field 
 					name="logo"
 					type="media"
+					schemes="http,https,ftp,ftps,data,file"
+					validate="url"
+					relative="true"
 					label="TPL_BEEZ3_FIELD_LOGO_LABEL" 
 					description="TPL_BEEZ3_FIELD_LOGO_DESC" 
 				/>
