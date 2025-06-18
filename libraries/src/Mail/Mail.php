@@ -326,22 +326,36 @@ class Mail extends \PHPMailer
 				foreach ($combined as $recipientEmail => $recipientName)
 				{
 					$recipientEmail = MailHelper::cleanLine($recipientEmail);
-					$recipientName = MailHelper::cleanLine($recipientName);
+					$recipientName  = MailHelper::cleanLine($recipientName);
 
-					// Wrapped in try/catch if PHPMailer is configured to throw exceptions
 					try
 					{
-						// Check for boolean false return if exception handling is disabled
-						if (call_user_func('parent::' . $method, $recipientEmail, $recipientName) === false)
+						switch ($method)
+						{
+							case 'addAddress':
+								$result = parent::addAddress($recipientEmail, $recipientName);
+								break;
+							case 'addCC':
+								$result = parent::addCC($recipientEmail, $recipientName);
+								break;
+							case 'addBCC':
+								$result = parent::addBCC($recipientEmail, $recipientName);
+								break;
+							case 'addReplyTo':
+								$result = parent::addReplyTo($recipientEmail, $recipientName);
+								break;
+							default:
+								throw new \InvalidArgumentException("Invalid mailer method: $method");
+						}
+
+						if ($result === false)
 						{
 							return false;
 						}
 					}
 					catch (\phpmailerException $e)
 					{
-						// The parent method will have already called the logging callback, just log our deprecated error handling message
 						Log::add(__METHOD__ . '() will not catch phpmailerException objects as of 4.0.', Log::WARNING, 'deprecated');
-
 						return false;
 					}
 				}
@@ -354,20 +368,34 @@ class Mail extends \PHPMailer
 				{
 					$to = MailHelper::cleanLine($to);
 
-					// Wrapped in try/catch if PHPMailer is configured to throw exceptions
 					try
 					{
-						// Check for boolean false return if exception handling is disabled
-						if (call_user_func('parent::' . $method, $to, $name) === false)
+						switch ($method)
+						{
+							case 'addAddress':
+								$result = parent::addAddress($to, $name);
+								break;
+							case 'addCC':
+								$result = parent::addCC($to, $name);
+								break;
+							case 'addBCC':
+								$result = parent::addBCC($to, $name);
+								break;
+							case 'addReplyTo':
+								$result = parent::addReplyTo($to, $name);
+								break;
+							default:
+								throw new \InvalidArgumentException("Invalid mailer method: $method");
+						}
+
+						if ($result === false)
 						{
 							return false;
 						}
 					}
 					catch (\phpmailerException $e)
 					{
-						// The parent method will have already called the logging callback, just log our deprecated error handling message
 						Log::add(__METHOD__ . '() will not catch phpmailerException objects as of 4.0.', Log::WARNING, 'deprecated');
-
 						return false;
 					}
 				}
@@ -377,20 +405,34 @@ class Mail extends \PHPMailer
 		{
 			$recipient = MailHelper::cleanLine($recipient);
 
-			// Wrapped in try/catch if PHPMailer is configured to throw exceptions
 			try
 			{
-				// Check for boolean false return if exception handling is disabled
-				if (call_user_func('parent::' . $method, $recipient, $name) === false)
+				switch ($method)
+				{
+					case 'addAddress':
+						$result = parent::addAddress($recipient, $name);
+						break;
+					case 'addCC':
+						$result = parent::addCC($recipient, $name);
+						break;
+					case 'addBCC':
+						$result = parent::addBCC($recipient, $name);
+						break;
+					case 'addReplyTo':
+						$result = parent::addReplyTo($recipient, $name);
+						break;
+					default:
+						throw new \InvalidArgumentException("Invalid mailer method: $method");
+				}
+
+				if ($result === false)
 				{
 					return false;
 				}
 			}
 			catch (\phpmailerException $e)
 			{
-				// The parent method will have already called the logging callback, just log our deprecated error handling message
 				Log::add(__METHOD__ . '() will not catch phpmailerException objects as of 4.0.', Log::WARNING, 'deprecated');
-
 				return false;
 			}
 		}
