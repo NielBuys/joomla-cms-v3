@@ -196,8 +196,8 @@ class CategoriesModelCategory extends JModelAdmin
 
 			if (!empty($result->id))
 			{
-				$result->tags = new JHelperTags;
-				$result->tags->getTagIds($result->id, $result->extension . '.category');
+				$helper = new JHelperTags;
+				$result->tags = $helper->getTagIds($result->id, $result->extension . '.category');
 			}
 		}
 
