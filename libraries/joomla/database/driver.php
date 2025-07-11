@@ -1942,33 +1942,41 @@ abstract class JDatabaseDriver extends JDatabase implements JDatabaseInterface
 	}
 
 	/**
-	 * Quote strings coming from quoteName call.
+	 * Properly quotes a string intended to be used as a table or column name,
+	 * protecting against SQL injection via name quoting.
 	 *
-	 * @param   array  $strArr  Array of strings coming from quoteName dot-explosion.
+	 * @param   array|string  $strArr  A string or array of strings (table/column names).
 	 *
-	 * @return  string  Dot-imploded string of quoted parts.
-	 *
-	 * @since 1.7.3
+	 * @return  string  The safely quoted name.
 	 */
 	protected function quoteNameStr($strArr)
 	{
-		$parts = array();
 		$q = $this->nameQuote;
+		$parts = [];
+
+		// Ensure $strArr is an array
+		$strArr = (array) $strArr;
 
 		foreach ($strArr as $part)
 		{
-			if (is_null($part))
+			if (is_null($part) || $part === '')
 			{
 				continue;
 			}
 
-			if (strlen($q) == 1)
+			// Strip control characters and null bytes
+			$part = preg_replace('/[\x00-\x1F\x7F]/u', '', $part);
+
+			// Strip any existing name quotes to prevent double escaping
+			if (is_array($q))
 			{
-				$parts[] = $q . str_replace($q, $q . $q, $part) . $q;
+				$part = str_replace([$q[0], $q[1]], '', $part);
+				$parts[] = $q[0] . $part . $q[1];
 			}
 			else
 			{
-				$parts[] = $q[0] . str_replace($q[1], $q[1] . $q[1], $part) . $q[1];
+				$part = str_replace($q, '', $part);
+				$parts[] = $q . $part . $q;
 			}
 		}
 
