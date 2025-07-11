@@ -581,23 +581,29 @@ class FOFDatabaseDriverJoomla extends FOFDatabase implements FOFDatabaseInterfac
 	 */
 	protected function quoteNameStr($strArr)
 	{
-		$parts = array();
 		$q = $this->nameQuote;
+		$parts = [];
+
+		// Ensure array input
+		$strArr = (array) $strArr;
 
 		foreach ($strArr as $part)
 		{
-			if (is_null($part))
+			if (is_null($part) || $part === '')
 			{
 				continue;
 			}
 
-			if (strlen($q) == 1)
-			{
-				$parts[] = $q . $part . $q;
-			}
-			else
-			{
+			// Remove control chars and dangerous characters
+			$part = preg_replace('/[\x00-\x1F\x7F]/u', '', $part);
+
+			// Strip existing quote characters
+			if (is_array($q)) {
+				$part = str_replace([$q[0], $q[1]], '', $part);
 				$parts[] = $q[0] . $part . $q[1];
+			} else {
+				$part = str_replace($q, '', $part);
+				$parts[] = $q . $part . $q;
 			}
 		}
 
