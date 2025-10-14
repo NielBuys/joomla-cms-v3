@@ -128,14 +128,14 @@ class PlgCaptchaRecaptcha extends JPlugin
 	/**
 	 * Calls an HTTP POST function to verify if the user's guess was correct
 	 *
-	 * @param   string  $code  Answer provided by user. Not needed for the Recaptcha implementation
+	 * @param   string  $data  Answer provided by user. Not needed for the Recaptcha implementation
 	 *
 	 * @return  True if the answer is correct, false otherwise
 	 *
 	 * @since   2.5
 	 * @throws  \RuntimeException
 	 */
-	public function onCheckAnswer($code = null)
+	public function onCheckAnswer($data = null)
 	{
 		$input      = \JFactory::getApplication()->input;
 		$privatekey = $this->params->get('private_key');
@@ -146,13 +146,13 @@ class PlgCaptchaRecaptcha extends JPlugin
 		{
 			case '1.0':
 				$challenge = $input->get('recaptcha_challenge_field', '', 'string');
-				$response  = $code ? $code : $input->get('recaptcha_response_field', '', 'string');
+				$response  = $input->get('recaptcha_response_field', '', 'string');
 				$spam      = ($challenge === '' || $response === '');
 				break;
+
 			case '2.0':
-				// Challenge Not needed in 2.0 but needed for getResponse call
 				$challenge = null;
-				$response  = $code ? $code : $input->get('g-recaptcha-response', '', 'string');
+				$response  = $input->get('g-recaptcha-response', '', 'string');
 				$spam      = ($response === '');
 				break;
 		}
