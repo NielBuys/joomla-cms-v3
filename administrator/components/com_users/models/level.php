@@ -158,7 +158,7 @@ class UsersModelLevel extends AdminModel
 		$result = parent::getItem($pk);
 
 		// Convert the params field to an array.
-		$result->rules = json_decode($result->rules);
+		$result->rules = is_string($result->rules) ? json_decode($result->rules) : [];
 
 		return $result;
 	}
