@@ -65,7 +65,11 @@ class FOFDatabaseDriverJoomla extends FOFDatabase implements FOFDatabaseInterfac
 		try
 		{
 			$refProp = $reflection->getProperty('nameQuote');
-			$refProp->setAccessible(true);
+			// Check if the PHP version is less than 8.1.0 (80100)
+			// The setAccessible() method is a no-op (no operation) in PHP 8.1+
+			if (PHP_VERSION_ID < 80100) {
+				$refProp->setAccessible(true);
+			}
 			$this->nameQuote = $refProp->getValue($this->dbo);
 		}
 		catch (Exception $e)

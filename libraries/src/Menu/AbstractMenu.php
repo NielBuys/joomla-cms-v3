@@ -172,7 +172,7 @@ class AbstractMenu
 	{
 		$result = null;
 
-		if (isset($this->_items[$id]))
+		if (isset($this->_items[$id ?? '']))
 		{
 			$result = &$this->_items[$id];
 		}
@@ -237,7 +237,7 @@ class AbstractMenu
 	 */
 	public function setActive($id)
 	{
-		if (isset($this->_items[$id]))
+		if (isset($this->_items[$id ?? '']))
 		{
 			$this->_active = $id;
 
