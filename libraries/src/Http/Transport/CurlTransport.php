@@ -221,7 +221,9 @@ class CurlTransport implements TransportInterface
 		$info = curl_getinfo($ch);
 
 		// Close the connection.
-		curl_close($ch);
+		if (PHP_VERSION_ID < 80500) {
+			curl_close($ch);
+		}
 
 		$response = $this->getResponse($content, $info);
 
