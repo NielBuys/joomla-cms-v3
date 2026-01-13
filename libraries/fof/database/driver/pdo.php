@@ -1027,6 +1027,50 @@ abstract class FOFDatabaseDriverPdo extends FOFDatabaseDriver
 	}
 
 	/**
+	 * Modern serialization method for PHP 8.1+
+	 *
+	 * @return array
+	 *
+	 * @since 5.0 (or whatever new version you are using)
+	 */
+	public function __serialize(): array
+	{
+		$data = array();
+		$reflect = new ReflectionClass($this);
+		$properties = $reflect->getProperties();
+
+		foreach ($properties as $property) {
+			// Use the same logic as __sleep(): Do not serialize static or PDO properties
+			if ($property->isStatic() === false && !($this->{$property->name} instanceof PDO)) {
+				// Instead of just the name, return the name and the value
+				$data[$property->name] = $this->{$property->name};
+			}
+		}
+
+		return $data;
+	}
+
+	/**
+	 * Modern unserialization method for PHP 8.1+
+	 * Replaces __wakeup() and loads properties from __serialize().
+	 *
+	 * @param array $data The data returned from __serialize().
+	 *
+	 * @return void
+	 */
+	public function __unserialize(array $data): void
+	{
+		// 1. Restore the properties from the $data array (this replaces PHP's default restoration)
+		foreach ($data as $key => $value) {
+			$this->$key = $value;
+		}
+
+		// 2. Re-establish the database connection (This is the logic from your original __wakeup())
+		// Note: If $this->options was included in the serialized data, this is safe.
+		$this->__construct($this->options);
+	}
+
+	/**
 	 * PDO does not support serialize
 	 *
 	 * @return  array

@@ -923,6 +923,57 @@ class User extends \JObject
 	}
 
 	/**
+	 * Method to allow serialize the object with minimal properties (PHP 8.1+).
+	 *
+	 * @return  array  The properties (key/value pairs) to include in serialization.
+	 *
+	 * @since   4.0.0
+	 */
+	public function __serialize(): array
+	{
+		// The equivalent of 'return array('id');' from __sleep()
+		return ['id' => $this->id];
+	}
+
+	/**
+	 * Method to recover the full object on unserialize (PHP 8.1+).
+	 *
+	 * @param   array  $data  The property key/value pairs to restore.
+	 *
+	 * @return  void
+	 *
+	 * @since   4.0.0
+	 */
+	public function __unserialize(array $data): void
+	{
+		// 1. Restore the properties saved in __serialize()
+		// This replaces the default property restoration that __sleep() relies on.
+		foreach ($data as $key => $value) {
+			$this->$key = $value;
+		}
+
+		// 2. Execute the re-initialization logic from the original __wakeup()
+		// Initialise some variables
+		$this->userHelper = new UserWrapper;
+		$this->_params    = new Registry;
+
+		// Load the user if it exists
+		if (!empty($this->id) && $this->load($this->id))
+		{
+			// Push user into cached instances.
+			self::$instances[$this->id] = $this;
+		}
+		else
+		{
+			// Initialise
+			$this->id = 0;
+			$this->sendEmail = 0;
+			$this->aid = 0;
+			$this->guest = 1;
+		}
+	}
+
+	/**
 	 * Method to allow serialize the object with minimal properties.
 	 *
 	 * @return  array  The names of the properties to include in serialization.

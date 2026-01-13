@@ -355,12 +355,12 @@ class MenusModelMenu extends JModelForm
 
 			$menuType = $params->get('menutype');
 
-			if (!isset($result[$menuType]))
+			if (!isset($result[$menuType ?? '']))
 			{
-				$result[$menuType] = array();
+				$result[$menuType ?? ''] = array();
 			}
 
-			$result[$menuType][] = & $module;
+			$result[$menuType ?? ''][] = & $module;
 		}
 
 		return $result;
