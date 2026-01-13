@@ -249,6 +249,20 @@ abstract class ModuleHelper
 			return '';
 		}
 
+		/**
+		 * SECURITY PATCH: CVE-2024-40747
+		 * Added January 2026 by N8 Solutions
+		 * Ensure module chrome attributes are escaped to prevent XSS.
+		 */
+		foreach ($attribs as $key => $value)
+		{
+			if (is_string($value))
+			{
+				$attribs[$key] = htmlspecialchars($value, ENT_QUOTES, 'UTF-8');
+			}
+		}
+		/** END N8 SOLUTIONS SECURITY PATCH **/
+
 		foreach (explode(' ', $attribs['style']) as $style)
 		{
 			$chromeMethod = 'modChrome_' . $style;

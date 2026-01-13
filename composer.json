@@ -33,6 +33,10 @@
       },
       {
         "type": "vcs",
+        "url": "https://github.com/NielBuys/j3_filter"
+      },
+      {
+        "type": "vcs",
         "url": "https://github.com/NielBuys/JoomlaApplication.git"
       }
     ],

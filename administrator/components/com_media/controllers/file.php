@@ -115,6 +115,21 @@ class MediaControllerFile extends JControllerLegacy
 			// Make the filename safe
 			$file['name'] = JFile::makeSafe($file['name']);
 
+			/**
+			 * SECURITY PATCH: CVE-2025-22213
+			 * Added January 2026 by N8 Solutions
+			 */
+			// Strictly prevent upload of executable PHP or system extensions
+			$ext = strtolower(JFile::getExt($file['name']));
+			$forbidden = array('php', 'phtml', 'php5', 'php7', 'php8', 'phps', 'shtml', 'pl', 'py', 'cgi', 'asp', 'aspx');
+			
+			if (in_array($ext, $forbidden))
+			{
+			    $this->setMessage(JText::_('COM_MEDIA_ERROR_WARNUPLOADTYPE'), 'error');
+			    return false;
+			}
+			/** END N8 SOLUTIONS SECURITY PATCH **/
+
 			// We need a url safe name
 			$fileparts = pathinfo(COM_MEDIA_BASE . '/' . $this->folder . '/' . $file['name']);
 
