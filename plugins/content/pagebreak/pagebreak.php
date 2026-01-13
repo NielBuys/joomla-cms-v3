@@ -286,7 +286,13 @@ class PlgContentPagebreak extends JPlugin
 		$this->list[1]->liClass = ($limitstart === 0 && $showall === 0) ? 'toclink active' : 'toclink';
 		$this->list[1]->class   = $this->list[1]->liClass;
 		$this->list[1]->link    = JRoute::_(ContentHelperRoute::getArticleRoute($row->slug, $row->catid, $row->language));
-		$this->list[1]->title   = $heading;
+		
+		/**
+		 * SECURITY PATCH: CVE-2025-63083
+		 * Added January 2026 by N8 Solutions
+		 */
+		$this->list[1]->title   = htmlspecialchars($heading, ENT_QUOTES, 'UTF-8');
+		/** END N8 SOLUTIONS SECURITY PATCH **/
 
 		$i = 2;
 
@@ -298,11 +304,11 @@ class PlgContentPagebreak extends JPlugin
 
 				if (@$attrs2['alt'])
 				{
-					$title = stripslashes($attrs2['alt']);
+					$title = (string) $attrs2['alt'];
 				}
 				elseif (@$attrs2['title'])
 				{
-					$title = stripslashes($attrs2['title']);
+					$title = (string) $attrs2['title'];
 				}
 				else
 				{
@@ -316,7 +322,14 @@ class PlgContentPagebreak extends JPlugin
 
 			$this->list[$i]          = new stdClass;
 			$this->list[$i]->link    = JRoute::_(ContentHelperRoute::getArticleRoute($row->slug, $row->catid, $row->language) . '&limitstart=' . ($i - 1));
-			$this->list[$i]->title   = $title;
+			
+			/**
+			 * SECURITY PATCH: CVE-2025-63083
+			 * Added January 2026 by N8 Solutions
+			 */
+			$this->list[$i]->title   = htmlspecialchars($title, ENT_QUOTES, 'UTF-8');
+			/** END N8 SOLUTIONS SECURITY PATCH **/
+			
 			$this->list[$i]->liClass = ($limitstart === $i - 1) ? 'active' : '';
 			$this->list[$i]->class   = ($limitstart === $i - 1) ? 'toclink active' : 'toclink';
 

@@ -325,8 +325,24 @@ class InputFilter
 		$attrSubSet[0] = strtolower($attrSubSet[0]);
 		$attrSubSet[1] = html_entity_decode(strtolower($attrSubSet[1]), $quoteStyle, 'UTF-8');
 
-		// Remove common XSS-evasion characters
-		$attrSubSet[1] = str_replace(["\t", "\n", " ", "\0"], "", $attrSubSet[1]);
+		/**
+		 * SECURITY PATCH: CVE-2025-54476 & CVE-2025-63082
+		 * Added January 2026 by N8 Solutions (Backported from Joomla 5.x)
+		 */
+		
+		// 1. Strip hidden control characters to prevent filter bypass (CVE-2025-54476)
+		$attrSubSet[1] = preg_replace('/[\x00-\x1F\x7F-\x9F]/u', '', $attrSubSet[1]);
+
+		// 2. Block malicious Data URLs that could contain XSS payloads (CVE-2025-63082)
+		if (stripos($attrSubSet[1], 'data:') === 0)
+		{
+			// Only allow safe image base64 patterns. Reject all others.
+			if (!preg_match('/^data:image\/(png|gif|jpe?g|webp);base64,/i', $attrSubSet[1]))
+			{
+				return true; 
+			}
+		}
+		/** END N8 SOLUTIONS SECURITY PATCH **/
 
 		return (strpos($attrSubSet[1], 'expression') !== false && $attrSubSet[0] === 'style')
 			|| preg_match('/(?:(?:java|vb|live)script|behaviour|mocha)(?::|&colon;|&column;)/', $attrSubSet[1]) !== 0;

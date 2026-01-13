@@ -1951,36 +1951,37 @@ abstract class JDatabaseDriver extends JDatabase implements JDatabaseInterface
 	 */
 	protected function quoteNameStr($strArr)
 	{
-		$q = $this->nameQuote;
-		$parts = [];
+	    $q = $this->nameQuote;
+	    $parts = array();
+	    $strArr = (array) $strArr;
 
-		// Ensure $strArr is an array
-		$strArr = (array) $strArr;
-
-		foreach ($strArr as $part)
-		{
-			if (is_null($part) || $part === '')
-			{
-				continue;
-			}
-
-			// Strip control characters and null bytes
-			$part = preg_replace('/[\x00-\x1F\x7F]/u', '', $part);
-
-			// Strip any existing name quotes to prevent double escaping
-			if (is_array($q))
-			{
-				$part = str_replace([$q[0], $q[1]], '', $part);
-				$parts[] = $q[0] . $part . $q[1];
-			}
-			else
-			{
-				$part = str_replace($q, '', $part);
-				$parts[] = $q . $part . $q;
-			}
+	    foreach ($strArr as $part)
+	    {
+		if (is_null($part) || $part === '') {
+		    continue;
 		}
 
-		return implode('.', $parts);
+		// 1. BLOCK: CVE-2025-25226 - Reject if suspicious
+		if (strpos($part, "\x00") !== false || strpos($part, '\\') !== false)
+		{
+		    throw new InvalidArgumentException('Invalid database identifier.');
+		}
+
+		// 2. CLEAN: Your control character logic (Good for PHP 8.5/Strict)
+		$part = preg_replace('/[\x00-\x1F\x7F]/u', '', $part);
+
+		// 3. ESCAPE: Use the PR's doubling logic (Standard SQL behavior)
+		if (strlen($q) == 1)
+		{
+		    $parts[] = $q . str_replace($q, $q . $q, $part) . $q;
+		}
+		else
+		{
+		    $parts[] = $q[0] . str_replace($q[1], $q[1] . $q[1], $part) . $q[1];
+		}
+	    }
+
+	    return implode('.', $parts);
 	}
 
 	/**
