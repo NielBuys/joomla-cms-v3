@@ -1,9 +1,9 @@
 <?php return array(
     'root' => array(
         'name' => 'joomla/joomla-cms',
-        'pretty_version' => 'dev-master',
-        'version' => 'dev-master',
-        'reference' => '05e278ce398dcfcf048caaaae134d7907da71da3',
+        'pretty_version' => 'dev-3.10-dev',
+        'version' => 'dev-3.10-dev',
+        'reference' => 'e75aefdbf78094b4bee44497909c024977c3b8fc',
         'type' => 'project',
         'install_path' => __DIR__ . '/../../../',
         'aliases' => array(),
@@ -137,9 +137,9 @@
             'dev_requirement' => false,
         ),
         'joomla/joomla-cms' => array(
-            'pretty_version' => 'dev-master',
-            'version' => 'dev-master',
-            'reference' => '05e278ce398dcfcf048caaaae134d7907da71da3',
+            'pretty_version' => 'dev-3.10-dev',
+            'version' => 'dev-3.10-dev',
+            'reference' => 'e75aefdbf78094b4bee44497909c024977c3b8fc',
             'type' => 'project',
             'install_path' => __DIR__ . '/../../../',
             'aliases' => array(),
