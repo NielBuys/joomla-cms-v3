@@ -58,6 +58,7 @@ When ready, it can be moved to an online hosting account of your choice.
 Updates are free!
 ---------------------
 * Always use the [latest version](https://github.com/NielBuys/joomla-cms/releases).
+* To update an Official Joomla! v3.10.12 with the Fork of Joomla! CMS v3, [download the latest "Joomla_3.*.*-Stable-Update_Package.zip" version from](https://github.com/NielBuys/joomla-cms/releases). Navigate to Components -> Joomla! Update -> Upload & Update. Browse for the downloaded file and click the Upload & Install button. Important: Back up your website before proceeding.
 
 Where can you get support and help?
 ---------------------
