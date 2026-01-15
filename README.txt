@@ -1,8 +1,7 @@
 1- What is this?
-	* This is a Joomla! installation/upgrade package to version 3.x
+	* This is a Fork of Joomla! CMS v3 installation/upgrade package. The purpose of this fork is to renew the end-of-life Joomla 3 framework. It aims to stay current with security updates, PHP versions, and maintain backward compatibility without disrupting existing codebases.
 	* Joomla! Official site: https://www.joomla.org
-	* Joomla! 3.10 version history - https://docs.joomla.org/Special:MyLanguage/Joomla_3.10_version_history
-	* Detailed changes in the Changelog: https://github.com/joomla/joomla-cms/commits/3.10-dev
+	* Fork of Joomla! CMS v3 version history - https://github.com/NielBuys/joomla-cms/releases
 
 2- What is Joomla?
 	* Joomla! is a Content Management System (CMS) which enables you to build Web sites and powerful online applications.
@@ -35,12 +34,13 @@
 	* Check out the template management information: https://docs.joomla.org/Special:MyLanguage/Portal:Template_Management
 
 8- Ready to install Joomla?
-	* Check the minimum requirements
+	* Check the minimum requirements (PHP 8.5 ready)
 		PHP minimum v7.1, recommended v8.2 
 			(Magic Quotes GPC, MB String Overload = off)
 			(Zlib Compression Support, XML Support, INI Parser Support, JSON Support, MB Language = Default, Intl support), 
 		MySQL minimum v5.1, recommended v5.5.3 + (InnoDB support required)
 		Apache minimum v2.0, recommended v2.4 + (with mod_mysql, mod_xml, and mod_zlib)
+	* Download the Fork of Joomla! CMS v3 latest version - https://github.com/NielBuys/joomla-cms-v3/releases 
 	* How do you install Joomla - https://docs.joomla.org/Special:MyLanguage/J3.x:Installing_Joomla
 	* You could start your Joomla! experience building your site on a local test server.
 	When ready it can be moved to an online hosting account of your choice.
@@ -59,18 +59,18 @@
 
 11- Do you already have a Joomla! site that's not built with Joomla! 3.x ?
 	* What's new in Joomla! 3.x: https://www.joomla.org/3
+	* What's new in the Fork of Joomla! CMS v3: https://github.com/NielBuys/joomla-cms-v3/releases?
 	* What are the main differences from 2.5 to 3? https://docs.joomla.org/Special:MyLanguage/What_are_the_major_differences_between_Joomla!_2.5_and_3.x%3F
 	* How to migrate from 2.5.x to 3.x? Tutorial: https://docs.joomla.org/Special:MyLanguage/Joomla_2.5_to_3.x_Step_by_Step_Migration
 	* How to migrate from 1.5.x to 3.x? Tutorial: https://docs.joomla.org/Special:MyLanguage/Joomla_1.5_to_3.x_Step_by_Step_Migration
 
 12- Do you want to improve Joomla?
-	* Where to request a feature? https://issues.joomla.org
+	* Where to request a feature? https://github.com/NielBuys/joomla-cms-v3/issues
 	* How do you report a bug? https://docs.joomla.org/Special:MyLanguage/Filing_bugs_and_issues
 	* Get Involved: Joomla! is a community developed software. Join the community at https://volunteers.joomla.org
 	* Documentation for Developers: https://docs.joomla.org/Special:MyLanguage/Portal:Developers
 	* Documentation for Web designers: https://docs.joomla.org/Special:MyLanguage/Web_designers
-
-NOTE: Build release steps: After version up commit, release and tag created in github run: "php build/build.php" then release files will be in "build/tmp/packages"
+	* NOTE: Build release steps: After version up commit, release and tag created in github run: "php build/build.php" then release files will be in "build/tmp/packages"
 
 Copyright:
 	* (C) 2005 Open Source Matters, Inc. <https://www.joomla.org>
