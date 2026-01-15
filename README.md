@@ -1,4 +1,4 @@
-Fork of Joomla! CMS v3™
+Fork of Joomla! CMS v3
 ======================
 
 What is this?
