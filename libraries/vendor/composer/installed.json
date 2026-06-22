@@ -670,17 +670,17 @@
         },
         {
             "name": "joomla/filter",
-            "version": "1.4.7",
-            "version_normalized": "1.4.7.0",
+            "version": "1.4.8",
+            "version_normalized": "1.4.8.0",
             "source": {
                 "type": "git",
-                "url": "https://github.com/joomla-framework/filter.git",
-                "reference": "156c03c2cc620086ce12bd912f7a0b757884ddde"
+                "url": "https://github.com/NielBuys/j3_filter.git",
+                "reference": "0741747caf7abe30fe386ebb3e4836bde2e9c95c"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/joomla-framework/filter/zipball/156c03c2cc620086ce12bd912f7a0b757884ddde",
-                "reference": "156c03c2cc620086ce12bd912f7a0b757884ddde",
+                "url": "https://api.github.com/repos/NielBuys/j3_filter/zipball/0741747caf7abe30fe386ebb3e4836bde2e9c95c",
+                "reference": "0741747caf7abe30fe386ebb3e4836bde2e9c95c",
                 "shasum": ""
             },
             "require": {
@@ -695,7 +695,7 @@
             "suggest": {
                 "joomla/language": "Required only if you want to use `OutputFilter::stringURLSafe`."
             },
-            "time": "2024-08-20T15:36:53+00:00",
+            "time": "2026-06-22T10:30:16+00:00",
             "type": "joomla-package",
             "extra": {
                 "branch-alias": {
@@ -708,7 +708,11 @@
                     "Joomla\\Filter\\": "src/"
                 }
             },
-            "notification-url": "https://packagist.org/downloads/",
+            "autoload-dev": {
+                "psr-4": {
+                    "Joomla\\Filter\\Tests\\": "Tests/"
+                }
+            },
             "license": [
                 "GPL-2.0-or-later"
             ],
@@ -720,17 +724,16 @@
                 "joomla"
             ],
             "support": {
-                "issues": "https://github.com/joomla-framework/filter/issues",
-                "source": "https://github.com/joomla-framework/filter/tree/1.4.7"
+                "source": "https://github.com/NielBuys/j3_filter/tree/1.4.8"
             },
             "funding": [
                 {
-                    "url": "https://community.joomla.org/sponsorship-campaigns.html",
-                    "type": "custom"
+                    "type": "github",
+                    "url": "https://github.com/joomla"
                 },
                 {
-                    "url": "https://github.com/joomla",
-                    "type": "github"
+                    "type": "custom",
+                    "url": "https://community.joomla.org/sponsorship-campaigns.html"
                 }
             ],
             "install-path": "../joomla/filter"
