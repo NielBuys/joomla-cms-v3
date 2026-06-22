@@ -12,9 +12,9 @@ JSession::checkToken('get') or die(JText::_('JINVALID_TOKEN'));
 
 ?>
 <h3>
-<?php echo JText::sprintf('COM_CONTENTHISTORY_PREVIEW_SUBTITLE_DATE', $this->item->save_date); ?>
+<?php echo JText::sprintf('COM_CONTENTHISTORY_PREVIEW_SUBTITLE_DATE', $this->escape($this->item->save_date)); ?>
 <?php if ($this->item->version_note) : ?>
-	&nbsp;&nbsp;<?php echo JText::sprintf('COM_CONTENTHISTORY_PREVIEW_SUBTITLE', $this->item->version_note); ?>
+	&nbsp;&nbsp;<?php echo JText::sprintf('COM_CONTENTHISTORY_PREVIEW_SUBTITLE', $this->escape($this->item->version_note)); ?>
 <?php endif; ?>
 </h3>
 <table class="table table-striped" >
@@ -30,15 +30,16 @@ JSession::checkToken('get') or die(JText::_('JINVALID_TOKEN'));
 		<td></td><tr>
 		<?php foreach ($value->value as $subName => $subValue) : ?>
 			<?php if ($subValue) : ?>
+				<?php $subValue->value = (is_object($subValue->value) || is_array($subValue->value)) ? json_encode($subValue->value) : $subValue->value; ?>
 				<tr>
 				<td><i>&nbsp;&nbsp;<?php echo $subValue->label; ?></i></td>
-				<td><?php echo $subValue->value; ?></td>
+				<td><?php echo $this->escape($subValue->value); ?></td>
 				</tr>
 			<?php endif; ?>
 		<?php endforeach; ?>
 	<?php else : ?>
-		<td><strong><?php echo $value->label; ?></strong></td>
-		<td><?php echo $value->value; ?></td>
+		<td><strong><?php echo $this->escape($value->label); ?></strong></td>
+		<td><?php echo $this->escape($value->value); ?></td>
 	<?php endif; ?>
 	</tr>
 <?php endforeach; ?>
