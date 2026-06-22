@@ -1,13 +1,12 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <extension version="3.6" type="file" method="upgrade">
 	<name>files_joomla</name>
-	<author>Joomla! Project</author>
-	<authorEmail>admin@joomla.org</authorEmail>
-	<authorUrl>www.joomla.org</authorUrl>
+	<author>Niel Buys</author>
+	<authorUrl>https://github.com/NielBuys/joomla-cms-v3</authorUrl>
 	<copyright>(C) 2019 Open Source Matters, Inc.</copyright>
 	<license>GNU General Public License version 2 or later; see LICENSE.txt</license>
-	<version>3.11.12</version>
-	<creationDate>November 2024</creationDate>
+	<version>3.11.13</version>
+	<creationDate>June 2026</creationDate>
 	<description>FILES_JOOMLA_XML_DESCRIPTION</description>
 
 	<scriptfile>administrator/components/com_admin/script.php</scriptfile>
@@ -47,6 +46,13 @@
 	</fileset>
 
 	<updateservers>
-		<server name="Joomla! Core" type="collection">https://update.joomla.org/core/list.xml</server>
+		<!--
+			No update server configured yet for this fork.
+			To enable in-CMS updates in future, host an update XML and uncomment/replace below:
+			<server name="NielBuys Joomla 3 Fork" type="collection">https://your-domain.example/update/list.xml</server>
+
+			Original Joomla core update server (do NOT use on this fork - would offer stock Joomla files):
+			<server name="Joomla! Core" type="collection">https://update.joomla.org/core/list.xml</server>
+		-->
 	</updateservers>
 </extension>
