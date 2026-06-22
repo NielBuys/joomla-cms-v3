@@ -511,16 +511,16 @@
         },
         {
             "name": "joomla/filter",
-            "version": "1.4.7",
+            "version": "1.4.8",
             "source": {
                 "type": "git",
                 "url": "https://github.com/NielBuys/j3_filter.git",
-                "reference": "156c03c2cc620086ce12bd912f7a0b757884ddde"
+                "reference": "0741747caf7abe30fe386ebb3e4836bde2e9c95c"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/NielBuys/j3_filter/zipball/156c03c2cc620086ce12bd912f7a0b757884ddde",
-                "reference": "156c03c2cc620086ce12bd912f7a0b757884ddde",
+                "url": "https://api.github.com/repos/NielBuys/j3_filter/zipball/0741747caf7abe30fe386ebb3e4836bde2e9c95c",
+                "reference": "0741747caf7abe30fe386ebb3e4836bde2e9c95c",
                 "shasum": ""
             },
             "require": {
@@ -562,9 +562,19 @@
                 "joomla"
             ],
             "support": {
-                "source": "https://github.com/NielBuys/j3_filter/tree/1.4.7"
+                "source": "https://github.com/NielBuys/j3_filter/tree/1.4.8"
             },
-            "time": "2024-08-20T15:36:53+00:00"
+            "funding": [
+                {
+                    "type": "github",
+                    "url": "https://github.com/joomla"
+                },
+                {
+                    "type": "custom",
+                    "url": "https://community.joomla.org/sponsorship-campaigns.html"
+                }
+            ],
+            "time": "2026-06-22T10:30:16+00:00"
         },
         {
             "name": "joomla/image",

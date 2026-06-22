@@ -161,7 +161,7 @@ class UsersModelRemind extends JModelForm
 
 		// Assemble the login link.
 		$link = 'index.php?option=com_users&view=login';
-		$mode = $config->get('force_ssl', 0) == 2 ? 1 : (-1);
+		$mode = $config->get('force_ssl', 0) == 2 ? JRoute::TLS_FORCE : JRoute::TLS_IGNORE;
 
 		// Put together the email template data.
 		$data = ArrayHelper::fromObject($user);
