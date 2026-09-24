@@ -69,12 +69,31 @@ class Cli extends Input
 	/**
 	 * Method to serialize the input.
 	 *
-	 * @return  string  The serialized input.
+	 * Returns an array rather than a string: Joomla\Input\Input declares
+	 * `serialize(): array` since the Serializable deprecation fix, and a child that
+	 * widens that return type is a fatal error. This class kept the old string form
+	 * and so could not be loaded at all — which took every CLI application with it,
+	 * because Joomla\CMS\Input\Cli is only ever loaded by one.
+	 *
+	 * @return  array  The serialized input.
 	 *
 	 * @since   3.0.0
 	 * @deprecated  5.0  Use Joomla\Input\Cli instead
 	 */
-	public function serialize()
+	public function serialize(): array
+	{
+		return $this->__serialize();
+	}
+
+	/**
+	 * Method to serialize the input.
+	 *
+	 * @return  array  The serialized input.
+	 *
+	 * @since   3.10.0
+	 * @deprecated  5.0  Use Joomla\Input\Cli instead
+	 */
+	public function __serialize(): array
 	{
 		// Load all of the inputs.
 		$this->loadAllInputs();
@@ -84,24 +103,65 @@ class Cli extends Input
 		unset($inputs['env']);
 		unset($inputs['server']);
 
-		// Serialize the executable, args, options, data, and inputs.
-		return serialize(array($this->executable, $this->args, $this->options, $this->data, $inputs));
+		// Return an array representation of the object's state, keeping the
+		// executable and args this class adds on top of the parent's three keys.
+		return array(
+			'executable' => $this->executable,
+			'args'       => $this->args,
+			'options'    => $this->options,
+			'data'       => $this->data,
+			'inputs'     => $inputs,
+		);
 	}
 
 	/**
 	 * Method to unserialize the input.
 	 *
-	 * @param   string  $input  The serialized input.
+	 * Accepts the array produced by serialize() as well as a string from an older
+	 * release, so payloads written before this fix still restore.
 	 *
-	 * @return  Input  The input object.
+	 * @param   array|string  $input  The serialized input.
+	 *
+	 * @return  void
 	 *
 	 * @since   3.0.0
 	 * @deprecated  5.0  Use Joomla\Input\Cli instead
 	 */
 	public function unserialize($input)
 	{
-		// Unserialize the executable, args, options, data, and inputs.
-		list($this->executable, $this->args, $this->options, $this->data, $this->inputs) = unserialize($input);
+		$this->__unserialize($input);
+	}
+
+	/**
+	 * Method to unserialize the input.
+	 *
+	 * @param   array|string  $data  The serialized input.
+	 *
+	 * @return  void
+	 *
+	 * @since   3.10.0
+	 * @deprecated  5.0  Use Joomla\Input\Cli instead
+	 */
+	public function __unserialize($data)
+	{
+		if (!is_array($data))
+		{
+			$data = unserialize($data);
+		}
+
+		if (array_key_exists(0, $data))
+		{
+			// Payload written before this fix: a positional list.
+			list($this->executable, $this->args, $this->options, $this->data, $this->inputs) = $data;
+		}
+		else
+		{
+			$this->executable = isset($data['executable']) ? $data['executable'] : null;
+			$this->args       = isset($data['args']) ? $data['args'] : array();
+			$this->options    = isset($data['options']) ? $data['options'] : array();
+			$this->data       = isset($data['data']) ? $data['data'] : array();
+			$this->inputs     = isset($data['inputs']) ? $data['inputs'] : array();
+		}
 
 		// Load the filter.
 		if (isset($this->options['filter']))
