@@ -426,10 +426,39 @@ class Input implements \Serializable, \Countable
 			$this->filter = new Filter\InputFilter;
 		}
 	}
-	public function __unserialize($input)
+	/**
+	 * Method to unserialize the input.
+	 *
+	 * PHP hands __unserialize() the array __serialize() returned, so this cannot
+	 * call unserialize() on it - doing so raised
+	 * "unserialize(): Argument #1 ($data) must be of type string, array given"
+	 * and made unserialize(serialize($input)) fail on every Input object. A string
+	 * from an older release is still accepted, so stored payloads restore.
+	 *
+	 * @param   array|string  $data  The serialized input.
+	 *
+	 * @return  void
+	 *
+	 * @since   1.0
+	 */
+	public function __unserialize($data)
 	{
-		// Unserialize the options, data, and inputs.
-		list($this->options, $this->data, $this->inputs) = unserialize($input);
+		if (!is_array($data))
+		{
+			$data = unserialize($data);
+		}
+
+		if (array_key_exists(0, $data))
+		{
+			// Payload written before the array form: a positional list.
+			list($this->options, $this->data, $this->inputs) = $data;
+		}
+		else
+		{
+			$this->options = isset($data['options']) ? $data['options'] : array();
+			$this->data    = isset($data['data']) ? $data['data'] : array();
+			$this->inputs  = isset($data['inputs']) ? $data['inputs'] : array();
+		}
 
 		// Load the filter.
 		if (isset($this->options['filter']))

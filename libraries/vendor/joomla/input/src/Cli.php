@@ -64,11 +64,27 @@ class Cli extends Input
 	/**
 	 * Method to serialize the input.
 	 *
-	 * @return  string  The serialized input.
+	 * Returns an array, not a string: Input::serialize() is declared `: array`
+	 * since the Serializable deprecation fix, and a child that widens that return
+	 * type cannot be loaded at all. See __serialize() below, which this delegates to.
+	 *
+	 * @return  array  The serialized input.
 	 *
 	 * @since   1.0
 	 */
-	public function serialize()
+	public function serialize(): array
+	{
+		return $this->__serialize();
+	}
+
+	/**
+	 * Method to serialize the input.
+	 *
+	 * @return  array  The serialized input.
+	 *
+	 * @since   1.0
+	 */
+	public function __serialize(): array
 	{
 		// Load all of the inputs.
 		$this->loadAllInputs();
@@ -77,8 +93,15 @@ class Cli extends Input
 		$inputs = $this->inputs;
 		unset($inputs['env'], $inputs['server']);
 
-		// Serialize the executable, args, options, data, and inputs.
-		return serialize(array($this->executable, $this->args, $this->options, $this->data, $inputs));
+		// Return an array representation of the object's state, keeping the
+		// executable and args this class adds on top of the parent's three keys.
+		return array(
+			'executable' => $this->executable,
+			'args'       => $this->args,
+			'options'    => $this->options,
+			'data'       => $this->data,
+			'inputs'     => $inputs,
+		);
 	}
 
 	/**
@@ -100,7 +123,10 @@ class Cli extends Input
 	/**
 	 * Method to unserialize the input.
 	 *
-	 * @param   string  $input  The serialized input.
+	 * Accepts the array produced by serialize() as well as a string written by an
+	 * older release, so stored payloads still restore.
+	 *
+	 * @param   array|string  $input  The serialized input.
 	 *
 	 * @return  void
 	 *
@@ -108,8 +134,38 @@ class Cli extends Input
 	 */
 	public function unserialize($input)
 	{
-		// Unserialize the executable, args, options, data, and inputs.
-		list($this->executable, $this->args, $this->options, $this->data, $this->inputs) = unserialize($input);
+		$this->__unserialize($input);
+	}
+
+	/**
+	 * Method to unserialize the input.
+	 *
+	 * @param   array|string  $data  The serialized input.
+	 *
+	 * @return  void
+	 *
+	 * @since   1.0
+	 */
+	public function __unserialize($data)
+	{
+		if (!is_array($data))
+		{
+			$data = unserialize($data);
+		}
+
+		if (array_key_exists(0, $data))
+		{
+			// Payload written before this fix: a positional list.
+			list($this->executable, $this->args, $this->options, $this->data, $this->inputs) = $data;
+		}
+		else
+		{
+			$this->executable = isset($data['executable']) ? $data['executable'] : null;
+			$this->args       = isset($data['args']) ? $data['args'] : array();
+			$this->options    = isset($data['options']) ? $data['options'] : array();
+			$this->data       = isset($data['data']) ? $data['data'] : array();
+			$this->inputs     = isset($data['inputs']) ? $data['inputs'] : array();
+		}
 
 		// Load the filter.
 		if (isset($this->options['filter']))
