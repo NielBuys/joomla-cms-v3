@@ -35,6 +35,7 @@ function usage($command)
 	echo 'Usage: php ' . $command . ' [options]' . PHP_EOL;
 	echo PHP_TAB . '[options]:' . PHP_EOL;
 	echo PHP_TAB . PHP_TAB . '--remote <remote>:' . PHP_TAB . 'The git remote reference to build from (ex: `tags/3.8.6`, `4.0-dev`), defaults to the most recent tag for the repository' . PHP_EOL;
+	echo PHP_TAB . PHP_TAB . '--repo <owner/name>:' . PHP_TAB . 'The GitHub repository the release will be published to, used for the download links in github_release.txt (ex: `joomla/joomla-cms`), defaults to the `origin` remote' . PHP_EOL;
 	echo PHP_TAB . PHP_TAB . '--exclude-zip:' . PHP_TAB . PHP_TAB . 'Exclude the generation of .zip packages' . PHP_EOL;
 	echo PHP_TAB . PHP_TAB . '--exclude-gzip:' . PHP_TAB . PHP_TAB . 'Exclude the generation of .tar.gz packages' . PHP_EOL;
 	echo PHP_TAB . PHP_TAB . '--exclude-bzip2:' . PHP_TAB . 'Exclude the generation of .tar.bz2 packages' . PHP_EOL;
@@ -68,9 +69,10 @@ $tmp      = $here . '/tmp';
 $fullpath = $tmp . '/' . $time;
 
 // Parse input options
-$options = getopt('', ['help', 'remote::', 'exclude-zip', 'exclude-gzip', 'exclude-bzip2']);
+$options = getopt('', ['help', 'remote::', 'repo::', 'exclude-zip', 'exclude-gzip', 'exclude-bzip2']);
 
 $remote       = isset($options['remote']) ? $options['remote'] : false;
+$releaseRepo  = isset($options['repo']) ? trim($options['repo']) : '';
 $excludeZip   = isset($options['exclude-zip']);
 $excludeGzip  = isset($options['exclude-gzip']);
 $excludeBzip2 = isset($options['exclude-bzip2']);
@@ -95,6 +97,28 @@ if (!$remote)
 
 	// We are in release mode so we need the extra text files
 	$includeExtraTextfiles = true;
+}
+
+// Work out which GitHub repository the download links should point at.
+if ($releaseRepo === '')
+{
+	chdir($repo);
+	ob_start();
+	passthru($systemGit . ' config --get remote.origin.url', $originStatus);
+	$originUrl = trim(ob_get_clean());
+	chdir($here);
+
+	// Matches both the https://host/owner/name(.git) and the git@host:owner/name(.git) forms.
+	if ($originStatus === 0 && preg_match('#[:/]([\\w.-]+/[\\w.-]+?)(?:\\.git)?$#', $originUrl, $matches))
+	{
+		$releaseRepo = $matches[1];
+	}
+}
+
+// Nothing to read the slug from, so fall back to the canonical repository.
+if ($releaseRepo === '')
+{
+	$releaseRepo = 'joomla/joomla-cms';
 }
 
 echo "Start build for remote $remote.\n";
@@ -452,7 +476,7 @@ if ($includeExtraTextfiles)
 		'MINOR'   => 'Update from Joomla! ' . $version . '.x ',
 		'UPGRADE' => 'Update from Joomla! 2.5 or previous 3.x releases ',
 	);
-	$githubLink = 'https://github.com/joomla/joomla-cms/releases/download/' . $tagVersion . '/';
+	$githubLink = 'https://github.com/' . $releaseRepo . '/releases/download/' . $tagVersion . '/';
 
 	foreach ($checksums as $packageName => $packageHashes)
 	{
