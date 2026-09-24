@@ -85,9 +85,22 @@ abstract class JControllerBase implements JController
 	{
 		return serialize($this->input);
 	}
+
+	/**
+	 * Serialize the controller.
+	 *
+	 * __serialize() must return an **array**; returning the string that
+	 * serialize() produces raised "__serialize() must return an array" and made
+	 * serialize() fail on every controller. The input is wrapped in an array here,
+	 * and __unserialize() unwraps it.
+	 *
+	 * @return  array  The controller state.
+	 *
+	 * @since   3.0.0
+	 */
 	public function __serialize()
 	{
-		return serialize($this->input);
+		return array('input' => $this->input);
 	}
 
 	/**
@@ -115,13 +128,33 @@ abstract class JControllerBase implements JController
 
 		return $this;
 	}
-	public function __unserialize($input)
+	/**
+	 * Unserialize the controller.
+	 *
+	 * PHP hands this the array __serialize() returned, so it must not be passed to
+	 * unserialize(). A string from an older release is still accepted, so payloads
+	 * written before this fix restore.
+	 *
+	 * @param   array|string  $data  The serialized controller.
+	 *
+	 * @return  JController  Supports chaining.
+	 *
+	 * @since   3.0.0
+	 * @throws  UnexpectedValueException if input is not the right class.
+	 */
+	public function __unserialize($data)
 	{
 		// Setup dependencies.
 		$this->app = $this->loadApplication();
 
-		// Unserialize the input.
-		$this->input = unserialize($input);
+		if (is_array($data))
+		{
+			$this->input = isset($data['input']) ? $data['input'] : null;
+		}
+		else
+		{
+			$this->input = unserialize($data);
+		}
 
 		if (!($this->input instanceof JInput))
 		{

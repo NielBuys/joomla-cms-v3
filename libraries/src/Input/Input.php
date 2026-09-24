@@ -200,17 +200,49 @@ class Input extends \Joomla\Input\Input
 	/**
 	 * Method to unserialize the input.
 	 *
-	 * @param   string  $input  The serialized input.
+	 * serialize() returns an array since the Serializable deprecation fix, so this
+	 * has to accept one to round-trip. A string from an older release still works.
 	 *
-	 * @return  Input  The input object.
+	 * @param   array|string  $input  The serialized input.
+	 *
+	 * @return  void
 	 *
 	 * @since   3.0.0
 	 * @deprecated  5.0  Use Joomla\Input\Input instead
 	 */
 	public function unserialize($input)
 	{
-		// Unserialize the options, data, and inputs.
-		list($this->options, $this->data, $this->inputs) = unserialize($input);
+		$this->__unserialize($input);
+	}
+
+	/**
+	 * Method to unserialize the input.
+	 *
+	 * @param   array|string  $data  The serialized input.
+	 *
+	 * @return  void
+	 *
+	 * @since   3.10.0
+	 * @deprecated  5.0  Use Joomla\Input\Input instead
+	 */
+	public function __unserialize($data)
+	{
+		if (!is_array($data))
+		{
+			$data = unserialize($data);
+		}
+
+		if (array_key_exists(0, $data))
+		{
+			// Payload written before this fix: a positional list.
+			list($this->options, $this->data, $this->inputs) = $data;
+		}
+		else
+		{
+			$this->options = isset($data['options']) ? $data['options'] : array();
+			$this->data    = isset($data['data']) ? $data['data'] : array();
+			$this->inputs  = isset($data['inputs']) ? $data['inputs'] : array();
+		}
 
 		// Load the filter.
 		if (isset($this->options['filter']))
