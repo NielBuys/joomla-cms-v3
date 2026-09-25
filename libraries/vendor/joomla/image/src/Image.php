@@ -1205,7 +1205,8 @@ class Image implements LoggerAwareInterface
 	{
 		if ($this->isLoaded())
 		{
-			return imagedestroy($this->getHandle());
+			// imagedestroy() has no effect since PHP 8.0 (images are GC'd objects) and is deprecated since PHP 8.5
+			return PHP_VERSION_ID < 80000 ? imagedestroy($this->getHandle()) : true;
 		}
 
 		return false;
@@ -1233,7 +1234,7 @@ class Image implements LoggerAwareInterface
 	 */
 	public function setThumbnailGenerate($quality = true)
 	{
-		$this->generateBestQuality = (boolean) $quality;
+		$this->generateBestQuality = (bool) $quality;
 	}
 
 	/**

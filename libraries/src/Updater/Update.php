@@ -530,9 +530,8 @@ class Update extends \JObject
 		$this->minimum_stability = $minimumStability;
 
 		$this->xmlParser = xml_parser_create('');
-		xml_set_object($this->xmlParser, $this);
-		xml_set_element_handler($this->xmlParser, '_startElement', '_endElement');
-		xml_set_character_data_handler($this->xmlParser, '_characterData');
+		xml_set_element_handler($this->xmlParser, array($this, '_startElement'), array($this, '_endElement'));
+		xml_set_character_data_handler($this->xmlParser, array($this, '_characterData'));
 
 		if (!xml_parse($this->xmlParser, $response->body))
 		{
@@ -547,7 +546,10 @@ class Update extends \JObject
 			return false;
 		}
 
-		xml_parser_free($this->xmlParser);
+		if (PHP_VERSION_ID < 80000)
+		{
+			xml_parser_free($this->xmlParser);
+		}
 
 		return true;
 	}

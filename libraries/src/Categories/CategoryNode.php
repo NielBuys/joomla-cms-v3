@@ -317,11 +317,7 @@ class CategoryNode extends \JObject
 			{
 				$this->_constructor = $constructor;
 			}
-
-			return true;
 		}
-
-		return false;
 	}
 
 	/**

@@ -72,7 +72,10 @@ class Backgroundfill extends ImageFilter
 		imagecopy($this->handle, $bg, 0, 0, 0, 0, $width, $height);
 
 		// Free up memory
-		imagedestroy($bg);
+		if (PHP_VERSION_ID < 80000)
+		{
+			imagedestroy($bg);
+		}
 	}
 
 	/**
