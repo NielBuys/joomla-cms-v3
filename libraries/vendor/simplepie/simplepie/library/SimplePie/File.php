@@ -126,7 +126,10 @@ class SimplePie_File
 				else
 				{
 					$info = curl_getinfo($fp);
-					curl_close($fp);
+					if (PHP_VERSION_ID < 80000)
+					{
+						curl_close($fp);
+					}
 					$this->headers = explode("\r\n\r\n", $this->headers, $info['redirect_count'] + 1);
 					$this->headers = array_pop($this->headers);
 					$parser = new SimplePie_HTTP_Parser($this->headers);
@@ -139,7 +142,8 @@ class SimplePie_File
 						{
 							$this->redirects++;
 							$location = SimplePie_Misc::absolutize_url($this->headers['location'], $url);
-							return $this->__construct($location, $timeout, $redirects, $headers, $useragent, $force_fsockopen);
+							$this->__construct($location, $timeout, $redirects, $headers, $useragent, $force_fsockopen);
+							return;
 						}
 					}
 				}
@@ -221,7 +225,8 @@ class SimplePie_File
 							{
 								$this->redirects++;
 								$location = SimplePie_Misc::absolutize_url($this->headers['location'], $url);
-								return $this->__construct($location, $timeout, $redirects, $headers, $useragent, $force_fsockopen);
+								$this->__construct($location, $timeout, $redirects, $headers, $useragent, $force_fsockopen);
+								return;
 							}
 							if (isset($this->headers['content-encoding']))
 							{
