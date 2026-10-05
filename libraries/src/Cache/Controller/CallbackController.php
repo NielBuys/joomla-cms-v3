@@ -219,7 +219,7 @@ class CallbackController extends CacheController
 		// A Closure can't be serialized, so to generate the ID we'll need to get its hash
 		if (is_a($callback, 'closure'))
 		{
-			$hash = spl_object_hash($callback);
+			$hash = spl_object_id($callback);
 
 			return md5($hash . serialize(array($args)));
 		}

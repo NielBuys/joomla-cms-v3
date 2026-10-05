@@ -389,16 +389,7 @@ abstract class StringHelper
 				$encoding = 'nonrecodable';
 			}
 
-			// If we successfully set encoding it to utf-8 or encoding is sth weird don't recode
-			if ($encoding == 'UTF-8' || $encoding == 'nonrecodable')
-			{
-				return strcoll(utf8_strtolower($str1), utf8_strtolower($str2));
-			}
-
-			return strcoll(
-				static::transcode(utf8_strtolower($str1), 'UTF-8', $encoding),
-				static::transcode(utf8_strtolower($str2), 'UTF-8', $encoding)
-			);
+			return static::collate(utf8_strtolower($str1), utf8_strtolower($str2), $locale, $encoding);
 		}
 
 		return utf8_strcasecmp($str1, $str2);
@@ -446,16 +437,63 @@ abstract class StringHelper
 				$encoding = 'nonrecodable';
 			}
 
-			// If we successfully set encoding it to utf-8 or encoding is sth weird don't recode
-			if ($encoding == 'UTF-8' || $encoding == 'nonrecodable')
-			{
-				return strcoll($str1, $str2);
-			}
-
-			return strcoll(static::transcode($str1, 'UTF-8', $encoding), static::transcode($str2, 'UTF-8', $encoding));
+			return static::collate($str1, $str2, $locale, $encoding);
 		}
 
 		return strcmp($str1, $str2);
+	}
+
+	/**
+	 * Locale aware comparison of two UTF-8 strings
+	 *
+	 * strcoll() is deprecated as of PHP 8.6, so the intl Collator is used when it is available. It compares UTF-8
+	 * directly, so no recoding is needed. Without intl this falls back to strcoll().
+	 *
+	 * @param   string  $str1      string 1 to compare
+	 * @param   string  $str2      string 2 to compare
+	 * @param   string  $locale    The locale set for LC_COLLATE
+	 * @param   string  $encoding  The encoding of that locale: UTF-8, a CP code page or 'nonrecodable'
+	 *
+	 * @return  integer  < 0 if str1 is less than str2; > 0 if str1 is greater than str2, and 0 if they are equal.
+	 *
+	 * @since   3.11.17
+	 */
+	protected static function collate($str1, $str2, $locale, $encoding)
+	{
+		static $collators = array();
+
+		if (class_exists('Collator'))
+		{
+			if (!isset($collators[$locale]))
+			{
+				try
+				{
+					$collators[$locale] = new \Collator($locale);
+				}
+				catch (\Throwable $e)
+				{
+					$collators[$locale] = false;
+				}
+			}
+
+			if ($collators[$locale])
+			{
+				$result = $collators[$locale]->compare($str1, $str2);
+
+				if ($result !== false)
+				{
+					return $result;
+				}
+			}
+		}
+
+		// If we successfully set encoding it to utf-8 or encoding is sth weird don't recode
+		if ($encoding == 'UTF-8' || $encoding == 'nonrecodable')
+		{
+			return strcoll($str1, $str2);
+		}
+
+		return strcoll(static::transcode($str1, 'UTF-8', $encoding), static::transcode($str2, 'UTF-8', $encoding));
 	}
 
 	/**

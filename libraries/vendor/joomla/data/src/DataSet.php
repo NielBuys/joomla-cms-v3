@@ -374,7 +374,7 @@ class DataSet implements DumpableInterface, \ArrayAccess, \Countable, \Iterator
 		}
 
 		// Add this object to the serialized stack.
-		$serialized[] = spl_object_hash($this);
+		$serialized[] = spl_object_id($this);
 		$return = array();
 
 		// Iterate through the objects.

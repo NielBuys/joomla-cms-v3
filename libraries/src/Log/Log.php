@@ -219,12 +219,12 @@ class Log
 			if (is_a($options['callback'], 'closure'))
 			{
 				$callback = $options['callback'];
-				$options['callback'] = spl_object_hash($options['callback']);
+				$options['callback'] = spl_object_id($options['callback']);
 			}
 			elseif (is_array($options['callback']) && count($options['callback']) == 2 && is_object($options['callback'][0]))
 			{
 				$callback = $options['callback'];
-				$options['callback'] = spl_object_hash($options['callback'][0]) . '::' . $options['callback'][1];
+				$options['callback'] = spl_object_id($options['callback'][0]) . '::' . $options['callback'][1];
 			}
 		}
 
