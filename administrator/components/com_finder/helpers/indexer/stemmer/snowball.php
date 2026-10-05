@@ -33,6 +33,9 @@ class FinderIndexerStemmerSnowball extends FinderIndexerStemmer
 		// Language to use if All is specified.
 		static $defaultLang = '';
 
+		// A missing language is used as an array key below; PHP 8.5 deprecates null keys, which already meant ''
+		$lang = (string) $lang;
+
 		// If language is All then try to get site default language.
 		if ($lang === '*' && $defaultLang === '')
 		{

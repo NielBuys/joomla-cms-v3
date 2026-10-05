@@ -494,7 +494,7 @@ class FinderIndexerHelper
 	 *
 	 * @since   2.5
 	 */
-	public static function prepareContent($text, $params = null, FinderIndexerResult $item = null)
+	public static function prepareContent($text, $params = null, ?FinderIndexerResult $item = null)
 	{
 		static $loaded;
 

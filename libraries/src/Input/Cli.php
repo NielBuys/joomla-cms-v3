@@ -48,7 +48,7 @@ class Cli extends Input
 	 * @since   1.7.0
 	 * @deprecated  5.0  Use Joomla\Input\Cli instead
 	 */
-	public function __construct(array $source = null, array $options = array())
+	public function __construct(?array $source = null, array $options = array())
 	{
 		if (isset($options['filter']))
 		{
