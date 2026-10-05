@@ -1100,7 +1100,7 @@ class FOFLess
 			case "comment":
 				$out->lines[] = $prop[1];
 				break;
-			case "import";
+			case "import":
 				list(, $importPath, $importId) = $prop;
 				$importPath = $this->reduce($importPath);
 
@@ -2426,7 +2426,7 @@ class FOFLess
 		}
 
 		// Type based operators
-		$fname = "op_${ltype}_${rtype}";
+		$fname = "op_{$ltype}_{$rtype}";
 
 		if (is_callable(array($this, $fname)))
 		{

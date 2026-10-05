@@ -115,7 +115,10 @@ class FOFDownloadAdapterCurl extends FOFDownloadAdapterAbstract implements FOFDo
 			$error = JText::sprintf('LIB_FOF_DOWNLOAD_ERR_HTTPERROR', $http_status);
 		}
 
-		curl_close($ch);
+		if (PHP_VERSION_ID < 80000)
+		{
+			curl_close($ch);
+		}
 
 		if ($result === false)
 		{
@@ -153,7 +156,10 @@ class FOFDownloadAdapterCurl extends FOFDownloadAdapterAbstract implements FOFDo
 		@curl_setopt($ch, CURLOPT_CAINFO, __DIR__ . '/cacert.pem');
 
 		$data = curl_exec($ch);
-		curl_close($ch);
+		if (PHP_VERSION_ID < 80000)
+		{
+			curl_close($ch);
+		}
 
 		if ($data)
 		{

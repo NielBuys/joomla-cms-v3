@@ -44,8 +44,6 @@ class JNode extends JObject
 	public function __construct()
 	{
 		JLog::add('JNode::__construct() is deprecated.', JLog::WARNING, 'deprecated');
-
-		return true;
 	}
 
 	/**
