@@ -108,7 +108,7 @@ class DaemonApplication extends CliApplication
 	 * @since   1.7.0
 	 * @throws  \RuntimeException
 	 */
-	public function __construct(\JInputCli $input = null, Registry $config = null, \JEventDispatcher $dispatcher = null)
+	public function __construct(?\JInputCli $input = null, ?Registry $config = null, ?\JEventDispatcher $dispatcher = null)
 	{
 		// Verify that the process control extension for PHP is available.
 		if (!defined('SIGHUP'))
