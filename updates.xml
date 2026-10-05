@@ -6,7 +6,9 @@
 		https://raw.githubusercontent.com/NielBuys/joomla-cms-v3/3.10-dev/updates.xml
 
 		Per release: add a new <update> block, bump <version> and the <downloadurl>
-		(the Update Package asset on that release), then push. Highest matching <version> wins.
+		(the Update Package asset on that release), set list.xml's version attribute to the
+		same version (Joomla skips this file unless that is newer than the installed version),
+		then push. Highest matching <version> wins.
 		Integrity hashes are intentionally omitted (downloads are over HTTPS); add
 		<sha256>/<sha384> here later if you want, computed from the uploaded asset.
 	-->

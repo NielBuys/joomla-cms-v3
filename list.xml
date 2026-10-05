@@ -11,5 +11,5 @@
 	Served at: https://raw.githubusercontent.com/NielBuys/joomla-cms-v3/3.10-dev/list.xml
 -->
 <extensionset name="Joomla! Core (NielBuys fork)" description="Joomla 3 fork - community-maintained security updates">
-	<extension name="Joomla" element="joomla" type="file" version="3.0.0" detailsurl="https://raw.githubusercontent.com/NielBuys/joomla-cms-v3/3.10-dev/updates.xml"/>
+	<extension name="Joomla" element="joomla" type="file" version="3.11.16" detailsurl="https://raw.githubusercontent.com/NielBuys/joomla-cms-v3/3.10-dev/updates.xml"/>
 </extensionset>

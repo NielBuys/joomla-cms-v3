@@ -95,8 +95,11 @@ repository before you build.
 1. **Version up.** Bump `PATCH_VERSION` and `RELDATE` in `libraries/src/Version.php` and
    `<version>` in `administrator/manifests/files/joomla.xml`. Commit as "Version Up 3.11.x".
 2. **Update server entry.** Add a new `<update>` block for the version to the top of
-   `updates.xml` (leave the older blocks in place) and commit it. Do this *before* tagging,
-   or the copy of `updates.xml` inside the package will lag one release behind.
+   `updates.xml` (leave the older blocks in place), set the `version` attribute in
+   `list.xml` to the new version, and commit both. Joomla only reads `updates.xml` when
+   the `list.xml` version is higher than the installed one, so if `list.xml` is not bumped
+   the release is never offered. Do this *before* tagging, or the copies inside the
+   package will lag one release behind.
 3. **Tag and push.** `git tag -a 3.11.x -m "Joomla 3.11.x (fork release)"`, then
    `git push origin 3.10-dev 3.11.x`. If you create the tag on GitHub instead, run
    `git fetch --tags` locally before building.
