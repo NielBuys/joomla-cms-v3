@@ -195,6 +195,45 @@ abstract class JSessionStorage implements SessionHandlerInterface
 	}
 
 	/**
+	 * Create a new session identifier.
+	 *
+	 * PHP 8.6 warns when a SessionHandlerInterface class lacks this method, and PHP 9.0 requires it.
+	 * The identifier is generated here rather than with session_create_id(), which calls back into
+	 * this method while a session is active (e.g. in session_regenerate_id()) and would recurse.
+	 *
+	 * @return  string  The session identifier.
+	 *
+	 * @since   3.11.17
+	 */
+	public function create_sid(): string
+	{
+		// Honour session.sid_length; hex characters are valid for every session.sid_bits_per_character
+		$length = max(22, min(256, (int) ini_get('session.sid_length') ?: 32));
+
+		return substr(bin2hex(random_bytes((int) ceil($length / 2))), 0, $length);
+	}
+
+	/**
+	 * Check whether a session identifier refers to an existing session.
+	 *
+	 * PHP 8.6 warns when a SessionHandlerInterface class lacks this method, and PHP 9.0 requires it.
+	 * This matches PHP's own check for handlers without validateId(): a session exists when reading it
+	 * returns data.
+	 *
+	 * @param   string  $id  The session identifier.
+	 *
+	 * @return  boolean  True when the session exists.
+	 *
+	 * @since   3.11.17
+	 */
+	public function validateId(string $id): bool
+	{
+		$data = $this->read($id);
+
+		return \is_string($data) && $data !== '';
+	}
+
+	/**
 	 * Test to see if the SessionHandler is available.
 	 *
 	 * @return  boolean  True on success, false otherwise.

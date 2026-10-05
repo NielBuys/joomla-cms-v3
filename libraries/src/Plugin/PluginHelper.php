@@ -160,7 +160,7 @@ abstract class PluginHelper
 		$dispatcher = $dispatcher ?: \JEventDispatcher::getInstance();
 
 		// Get the dispatcher's hash to allow plugins to be registered to unique dispatchers
-		$dispatcherHash = spl_object_hash($dispatcher);
+		$dispatcherHash = spl_object_id($dispatcher);
 
 		if (!isset($loaded[$dispatcherHash]))
 		{
@@ -232,7 +232,7 @@ abstract class PluginHelper
 		$dispatcher = $dispatcher ?: \JEventDispatcher::getInstance();
 
 		// Get the dispatcher's hash to allow paths to be tracked against unique dispatchers
-		$dispatcherHash = spl_object_hash($dispatcher);
+		$dispatcherHash = spl_object_id($dispatcher);
 
 		if (!isset($paths[$dispatcherHash]))
 		{

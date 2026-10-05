@@ -101,7 +101,7 @@ class Node
 	 */
 	public function addChild(Node $child)
 	{
-		$hash = spl_object_hash($child);
+		$hash = spl_object_id($child);
 
 		if (isset($child->parent))
 		{
@@ -129,7 +129,7 @@ class Node
 	 */
 	public function removeChild(Node $child)
 	{
-		$hash = spl_object_hash($child);
+		$hash = spl_object_id($child);
 
 		if (isset($this->children[$hash]))
 		{
