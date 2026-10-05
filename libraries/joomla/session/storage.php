@@ -95,17 +95,12 @@ abstract class JSessionStorage implements SessionHandlerInterface
 	 */
 	public function register()
 	{
-	//	if (!headers_sent())
-	//	{
-	//		session_set_save_handler(
-	//			array($this, 'open'),
-	//			array($this, 'close'),
-	//			array($this, 'read'),
-	//			array($this, 'write'),
-	//			array($this, 'destroy'),
-	//			array($this, 'gc')
-	//		);
-	//	}
+		if (!headers_sent())
+		{
+			// Pass the object: the separate callables form is deprecated since PHP 8.4. Joomla's session handler
+			// already writes the session at shutdown, so PHP does not need to register its own shutdown write.
+			session_set_save_handler($this, false);
+		}
 	}
 
 	/**
