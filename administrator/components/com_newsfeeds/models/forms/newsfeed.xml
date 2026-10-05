@@ -106,6 +106,7 @@
 			required="true"
 			filter="url"
 			validate="url"
+			schemes="http,https"
 		/>
 
 		<field
@@ -321,6 +322,9 @@
 				<field
 					name="image_second"
 					type="media"
+					schemes="http,https,ftp,ftps,data,file"
+					validate="url"
+					relative="true"
 					label="COM_NEWSFEEDS_FIELD_SECOND_LABEL"
 					description="COM_NEWSFEEDS_FIELD_SECOND_DESC"
 				/>
