@@ -146,6 +146,22 @@ final class Version
 	const URL = '<a href="https://www.joomla.org">Joomla!</a> is Free Software released under the GNU General Public License.';
 
 	/**
+	 * Name of this maintained fork of Joomla 3.
+	 *
+	 * @var    string
+	 * @since  3.11.16
+	 */
+	const FORK_NAME = 'Fork of Joomla! CMS v3';
+
+	/**
+	 * Home page of this maintained fork of Joomla 3.
+	 *
+	 * @var    string
+	 * @since  3.11.16
+	 */
+	const FORK_URL = 'https://github.com/NielBuys/joomla-cms-v3';
+
+	/**
 	 * Magic getter providing access to constants previously defined as class member vars.
 	 *
 	 * @param   string  $name  The name of the property.

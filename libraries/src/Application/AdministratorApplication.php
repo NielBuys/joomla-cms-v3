@@ -12,6 +12,7 @@ defined('JPATH_PLATFORM') or die;
 
 use Joomla\CMS\Component\ComponentHelper;
 use Joomla\CMS\Input\Input;
+use Joomla\CMS\Version;
 use Joomla\Registry\Registry;
 
 /**
@@ -96,7 +97,7 @@ class AdministratorApplication extends CMSApplication
 
 		$document->setTitle($this->get('sitename') . ' - ' . \JText::_('JADMINISTRATION'));
 		$document->setDescription($this->get('MetaDesc'));
-		$document->setGenerator('Joomla! - Open Source Content Management');
+		$document->setGenerator('Joomla! - Open Source Content Management - ' . Version::FORK_NAME . ' (maintained)');
 
 		$contents = ComponentHelper::renderComponent($component);
 		$document->setBuffer($contents, 'component');

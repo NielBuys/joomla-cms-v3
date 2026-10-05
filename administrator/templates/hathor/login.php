@@ -124,6 +124,10 @@ else
 	<!-- Footer -->
 	<div id="footer">
 		<p class="copyright">
+			<a href="<?php echo JVersion::FORK_URL; ?>" target="_blank" rel="noopener noreferrer"><?php echo JVersion::FORK_NAME; ?></a>
+			&middot; <?php echo JText::_('JFORK_MAINTAINED'); ?>
+		</p>
+		<p class="copyright">
 			<?php
 			// Fix wrong display of Joomla!® in RTL language
 			if ($lang->isRtl())
