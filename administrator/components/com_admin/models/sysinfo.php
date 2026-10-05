@@ -319,7 +319,7 @@ class AdminModelSysInfo extends JModelLegacy
 			'phpversion'            => phpversion(),
 			'server'                => isset($_SERVER['SERVER_SOFTWARE']) ? $_SERVER['SERVER_SOFTWARE'] : getenv('SERVER_SOFTWARE'),
 			'sapi_name'             => php_sapi_name(),
-			'version'               => $version->getLongVersion(),
+			'version'               => JText::sprintf('JFORK_VERSION', $version->getLongVersion()),
 			'platform'              => $platform->getLongVersion(),
 			'useragent'             => isset($_SERVER['HTTP_USER_AGENT']) ? $_SERVER['HTTP_USER_AGENT'] : '',
 		);

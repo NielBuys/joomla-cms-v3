@@ -12,6 +12,7 @@ defined('JPATH_PLATFORM') or die;
 
 use Joomla\CMS\Component\ComponentHelper;
 use Joomla\CMS\Input\Input;
+use Joomla\CMS\Version;
 use Joomla\Registry\Registry;
 
 /**
@@ -184,11 +185,11 @@ final class SiteApplication extends CMSApplication
 		// Add version number or not based on global configuration
 		if ($this->get('MetaVersion', 0))
 		{
-			$document->setGenerator('Joomla! - Open Source Content Management - Version ' . JVERSION);
+			$document->setGenerator('Joomla! - Open Source Content Management - Version ' . JVERSION . ' - ' . Version::FORK_NAME . ' (maintained)');
 		}
 		else
 		{
-			$document->setGenerator('Joomla! - Open Source Content Management');
+			$document->setGenerator('Joomla! - Open Source Content Management - ' . Version::FORK_NAME . ' (maintained)');
 		}
 
 		$contents = ComponentHelper::renderComponent($component);

@@ -36,7 +36,7 @@ abstract class ModVersionHelper
 
 		if (!empty($product))
 		{
-			$versionText = $version::PRODUCT . ' ' . $versionText;
+			$versionText = JText::sprintf('JFORK_VERSION', $version::PRODUCT . ' ' . $versionText);
 		}
 
 		return $versionText;
