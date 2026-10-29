@@ -4,8 +4,10 @@ about: Report a security issue
 
 ---
 
-Security issues should **NOT** be reported on this repository.
+Security issues should **NOT** be reported in public issues.
 
-If you believe you have found a security issue, please contact the Joomla Security Strike Team via email at security@joomla.org or through the contact form at https://developer.joomla.org/security/contact-the-team.html.
+If you believe you have found a security issue in this fork, report it privately at
+https://github.com/NielBuys/joomla-cms-v3/security/advisories/new.
 
-Please see https://developer.joomla.org/security.html for more information on how the Joomla project responds to security issues.
+See [SECURITY.md](https://github.com/NielBuys/joomla-cms-v3/blob/3.10-dev/.github/SECURITY.md) for
+what to report here and how reports are handled.
