@@ -140,7 +140,12 @@ var SqueezeBox = {
 
 		if (this.element && this.options.parse) {
 			var obj = this.element.getProperty(this.options.parse);
-			if (obj && (obj = JSON.decode(obj, this.options.parseSecure))) this.setOptions(obj);
+			// Joomla 3 fork: parse the link's rel attribute as data only. MooTools
+			// JSON.decode falls back to eval(), so rel values are run as code;
+			// SqueezeBox.parseRel (below) never evaluates. It accepts strict JSON and
+			// the legacy lenient form, rejects anything else, and refuses prototype-
+			// polluting keys. Options are applied only when it returns an object.
+			if (obj && (obj = SqueezeBox.parseRel(obj))) this.setOptions(obj);
 		}
 		this.url = ((this.element) ? (this.element.get('href')) : subject) || this.options.url || '';
 
@@ -348,6 +353,75 @@ var SqueezeBox = {
 	handlers: new Hash(),
 
 	parsers: new Hash()
+};
+
+/**
+ * Joomla 3 fork: turn a modal link's rel attribute into an options object WITHOUT
+ * eval. Accepts strict JSON and the legacy lenient form
+ * (single-quoted strings, unquoted keys, e.g. {handler:'iframe',size:{x:600,y:600}}).
+ * Returns a plain object, or null when the value is not a pure data object literal.
+ * Values carrying a prototype-polluting key are rejected.
+ */
+SqueezeBox.parseRel = function (str) {
+	if (typeof str != 'string') {
+		return null;
+	}
+
+	var s = str.replace(/^\s+|\s+$/g, '');
+
+	// A single brace-delimited object and nothing else.
+	if (s.charAt(0) != '{' || s.charAt(s.length - 1) != '}') {
+		return null;
+	}
+
+	// Only the characters a data object of strings, numbers and nested
+	// objects/arrays needs. No parentheses, backtick, backslash, '=' or ';'.
+	if (!/^[\w\s{}\[\]:,.+'"-]*$/.test(s)) {
+		return null;
+	}
+
+	// Normalise the legacy lenient form to strict JSON, then parse as data only.
+	var json = s
+			.replace(/'([^'"\\]*)'/g, '"$1"')
+			.replace(/([{\[,]\s*)([A-Za-z_$][\w$]*)(\s*:)/g, '$1"$2"$3'),
+		data;
+
+	try {
+		data = JSON.parse(json);
+	} catch (e) {
+		return null;
+	}
+
+	if (data === null || typeof data != 'object') {
+		return null;
+	}
+
+	// Reject anything carrying a prototype-polluting key at any depth.
+	var safe = (function check(o) {
+		if (!o || typeof o != 'object') {
+			return true;
+		}
+
+		var hasOwn = Object.prototype.hasOwnProperty,
+			blocked = ['__proto__', 'constructor', 'prototype'],
+			i, k;
+
+		for (i = 0; i < blocked.length; i++) {
+			if (hasOwn.call(o, blocked[i])) {
+				return false;
+			}
+		}
+
+		for (k in o) {
+			if (hasOwn.call(o, k) && !check(o[k])) {
+				return false;
+			}
+		}
+
+		return true;
+	})(data);
+
+	return safe ? data : null;
 };
 
 SqueezeBox.extend(new Events(function(){})).extend(new Options(function(){})).extend(new Chain(function(){}));
