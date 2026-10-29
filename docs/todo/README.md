@@ -33,16 +33,16 @@ depend on it. The JavaScript library upgrades do not, so they can be done in par
 | TinyMCE | 4.5.12 | 17 advisories, including three High-severity XSS issues from June 2026 | [tinymce.md](tinymce.md) | TinyMCE 8.x, replacing 4.5.12 in the existing editor plugin |
 | Bootstrap (JavaScript) | 2.3.2 | Six XSS advisories with no 2.x fix upstream | [bootstrap.md](bootstrap.md) | Fixes patched into 2.3.2 |
 | jQuery and jQuery Migrate | 1.12.4 (Joomla-patched) and 1.4.1 | A hand-patched 2016 build that scanners flag as vulnerable | [jquery.md](jquery.md) | jQuery 3.x with Migrate 3.x, and jQuery 4 as an option |
+| MooTools Core and More | 1.6.0, the last release | CVE-2021-23432 (prototype pollution) and CVE-2021-32821 (ReDoS); no fix upstream, project abandoned | [mootools.md](mootools.md) | Fixes patched into 1.6.0, and less MooTools loading in core |
 
 **Suggested order:**
 
 1. PHP minimum, then sodium_compat and symfony/yaml.
-2. In parallel: CodeMirror 5.65 first (a drop-in upgrade), then TinyMCE, Bootstrap and jQuery.
-   TinyMCE and jQuery need the most testing.
+2. In parallel: CodeMirror 5.65 first (a drop-in upgrade), then TinyMCE, Bootstrap, jQuery and
+   MooTools. TinyMCE and jQuery need the most testing.
 
-**MooTools** is not on the list. The audit lists version 1.4.5, but this fork already ships 1.6.0
-(`media/system/js/mootools-*.js`). 1.4.5 broke Google's scripts. 1.6.0 is the last MooTools
-release; the project is no longer maintained.
+The audit lists MooTools 1.4.5, but this fork already ships 1.6.0, the last release. 1.4.5 broke
+Google's scripts. [mootools.md](mootools.md) covers the advisories that still affect 1.6.0.
 
 ## What "backward compatible" means here
 
