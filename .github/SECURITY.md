@@ -1,37 +1,55 @@
-# Security Policies and Procedures
+# Security Policy
 
-This document outlines security procedures and policies for the `Joomla! Project`.
+This repository is a community fork of Joomla! 3. It is not made, endorsed or supported by Open
+Source Matters or the Joomla! Project. The Joomla! Security Strike Team (JSST) does not handle
+security issues in this fork, so please do not send reports about it to them.
 
-  * [Reporting a Bug](#reporting-a-bug)
-  * [Response Handling](#response-handling)
-  * [Security Announcement Policy](#security-announcement-policy)
-  * [Further Details on the Joomla! Security Policies](https://security.joomla.org)
+## Reporting a vulnerability
 
-## Reporting a Bug
+Report vulnerabilities **privately**, through GitHub:
 
-The `Joomla` team and community take all security bugs in `Joomla` seriously. The Joomla! Security Strike Team (JSST) oversees the project's security issues and follows some specific procedures when dealing with these issues.
+1. Open [Report a vulnerability](https://github.com/NielBuys/joomla-cms-v3/security/advisories/new).
+   You can also reach it from the repository's **Security** tab.
+2. Describe the issue, the affected files or URLs, and the steps to reproduce it.
+3. Submit the report. Only you and the maintainers can see it.
 
-If you find a possible vulnerability, please report it to the JSST using the [online form](https://developer.joomla.org/security/contact-the-team.html) or via email at security@joomla.org
+Please **do not** report vulnerabilities in public issues, pull requests or discussions.
 
-We maintain a list of [GPG keys and addresses](https://developer.joomla.org/security/gpg-keys.html) for the security@joomla.org address and members of the JSST to allow signed and encrypted communications.
+### What to report here
 
-To report an issue in a Joomla! extension, please submit it to the [Vulnerable Extensions List.](https://vel.joomla.org/submit-vel)
+- Vulnerabilities in this fork's code, including changes made only in this fork.
+- Vulnerabilities in the original Joomla 3 code that are still present in this fork. Joomla 3 has
+  reached end of life, so the Joomla project no longer fixes them.
+- Vulnerabilities in the third-party libraries this fork bundles, for example in
+  `libraries/vendor` or `media/`, when they can be reached through this fork.
 
-For support with a site which has been attacked, please visit the [Joomla! Forum.](https://forum.joomla.org/viewforum.php?f=714)
+### What not to report here
 
-Thank you for improving the security of `Joomla`.
+- Vulnerabilities in third-party Joomla extensions. Report them to the extension's developer, and
+  to the [Vulnerable Extensions List](https://vel.joomla.org/submit-vel).
+- Vulnerabilities in Joomla 4, 5 or 6. Report them to the
+  [Joomla Security Strike Team](https://developer.joomla.org/security/contact-the-team.html).
+- Help with a site that has already been attacked. Ask in the
+  [Joomla! Forum](https://forum.joomla.org/viewforum.php?f=714).
 
-## Response Handling
+## Supported versions
 
-The JSST aims to ensure all issues are handled in a timely manner and for clear communication between the team and issue reporters. We have established the following guidelines for responding to issue reports:
+Security fixes are made only for the latest release of this fork. Update to it before reporting.
 
-* Within 24 hours every report gets acknowledged
-* Within 7 days every report gets a further response stating either
-    * the issue is closed (and why)
-    * the issue is still under investigation; if needed, additional information will be requested
-* Within 21 days every report must be resolved unless there are exceptional circumstances requiring additional time
+## How reports are handled
 
-## Security Announcement Policy
-* Verified vulnerabilities will only be publicly announced AFTER a release is issued which fixes the vulnerability.
-* All announcements will contain as much information as possible, but will NOT contain step-by-step instructions for the vulnerability.
-* The `Joomla! Project` will properly credit individuals and/or organizations who responsibly disclose security issues to the JSST. You can indicate the way you would like to be referred to in the advisory about the vulnerability. Our preference is to use full names. If you do not specify then we will use the contact name associated with the email address the report was received from. You can also request a pseudonym or having your name withheld.
+This fork is maintained by volunteers, so response times are best effort. The aim is to:
+
+- acknowledge a report within 14 days,
+- confirm or reject it, with the reason, once it has been investigated, and
+- keep you informed in the private advisory until a fix is released.
+
+## Disclosure
+
+- A confirmed vulnerability is only made public after a release that fixes it is available.
+- The fix is announced in the release notes and published as a GitHub security advisory.
+  Where appropriate, a CVE is requested through GitHub.
+- Announcements describe the issue and the fix, but do not include step-by-step exploit
+  instructions.
+- Reporters are credited in the advisory unless they ask not to be. You can choose your full name,
+  a pseudonym, or no credit at all.
