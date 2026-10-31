@@ -102,7 +102,34 @@ class FieldsControllerGroup extends JControllerForm
 	 */
 	protected function allowAdd($data = array())
 	{
-		return JFactory::getUser()->authorise('core.create', $this->component);
+		return $this->isPostedContextAllowed($data) && JFactory::getUser()->authorise('core.create', $this->component);
+	}
+
+	/**
+	 * Checks that the input data does not name a context of another component than the one
+	 * the permissions are checked for.
+	 *
+	 * @param   array  $data  An array of input data.
+	 *
+	 * @return  boolean
+	 *
+	 * @since   3.11.19
+	 */
+	private function isPostedContextAllowed($data)
+	{
+		if (!isset($data['context']) || $data['context'] === '')
+		{
+			return true;
+		}
+
+		if (!is_string($data['context']))
+		{
+			return false;
+		}
+
+		list($postedOption) = explode('.', $data['context']);
+
+		return $postedOption === $this->component;
 	}
 
 	/**
@@ -119,6 +146,12 @@ class FieldsControllerGroup extends JControllerForm
 	{
 		$recordId = (int) isset($data[$key]) ? $data[$key] : 0;
 		$user = JFactory::getUser();
+
+		// A field group cannot be saved into the context of another component
+		if (!$this->isPostedContextAllowed($data))
+		{
+			return false;
+		}
 
 		// Zero record (parent_id:0), return component edit permission by calling parent controller method
 		if (!$recordId)

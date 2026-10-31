@@ -92,6 +92,26 @@ class FieldsModelField extends JModelAdmin
 			$field = $this->getItem($data['id']);
 		}
 
+		// A field can only be saved into a group of its own component
+		if (!empty($data['group_id']))
+		{
+			$context = $field ? $field->context : '';
+
+			if (isset($data['context']) && is_string($data['context']) && $data['context'] !== '')
+			{
+				$context = $data['context'];
+			}
+
+			list($component) = explode('.', (string) $context);
+
+			if ($this->getGroupComponent($data['group_id']) !== $component)
+			{
+				$this->setError(JText::_('JLIB_APPLICATION_ERROR_SAVE_NOT_PERMITTED'));
+
+				return false;
+			}
+		}
+
 		if (!isset($data['label']) && isset($data['params']['label']))
 		{
 			$data['label'] = $data['params']['label'];
