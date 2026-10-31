@@ -758,17 +758,17 @@
         },
         {
             "name": "joomla/registry",
-            "version": "1.6.6",
-            "version_normalized": "1.6.6.0",
+            "version": "1.6.7",
+            "version_normalized": "1.6.7.0",
             "source": {
                 "type": "git",
                 "url": "https://github.com/NielBuys/JoomlaRegistry.git",
-                "reference": "1247723ff3da2816d9c662f8e9613392b3e3948b"
+                "reference": "457e20f0e226f6bee43ddfc0b1986e0a1d1af898"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/NielBuys/JoomlaRegistry/zipball/1247723ff3da2816d9c662f8e9613392b3e3948b",
-                "reference": "1247723ff3da2816d9c662f8e9613392b3e3948b",
+                "url": "https://api.github.com/repos/NielBuys/JoomlaRegistry/zipball/457e20f0e226f6bee43ddfc0b1986e0a1d1af898",
+                "reference": "457e20f0e226f6bee43ddfc0b1986e0a1d1af898",
                 "shasum": ""
             },
             "require": {
@@ -786,7 +786,7 @@
             "suggest": {
                 "symfony/yaml": "Install symfony/yaml if you require YAML support."
             },
-            "time": "2026-10-31T14:13:57+00:00",
+            "time": "2026-10-31T16:51:50+00:00",
             "type": "joomla-package",
             "extra": {
                 "branch-alias": {
@@ -815,7 +815,7 @@
                 "registry"
             ],
             "support": {
-                "source": "https://github.com/NielBuys/JoomlaRegistry/tree/1.6.6"
+                "source": "https://github.com/NielBuys/JoomlaRegistry/tree/1.6.7"
             },
             "install-path": "../joomla/registry"
         },

@@ -55,6 +55,27 @@ class JRegistryFormatYamlTest extends TestCasePhpunit
 				array('u' => '@a', 'v' => '%b', 'w' => '`c`', 'list' => array('@x')),
 			),
 			'reserved indicator with comment' => array("user: @admin # the admin\n", array('user' => '@admin')),
+			'reserved indicators > and # without a space' => array(
+				"k: >foo\nl: @foo#bar\n",
+				array('k' => '>foo', 'l' => '@foo#bar'),
+			),
+			// 2.8 read a mapping value that contains ": " as a string
+			'colon in a value' => array(
+				"a: x: y # note\np:\n  a[0]: see: here\n  http://x: a: b\n",
+				array('a' => 'x: y', 'p' => array('a[0]' => 'see: here', 'http://x' => 'a: b')),
+			),
+			'custom tag' => array("k: !foo bar\n", array('k' => '!foo bar')),
+			// 2.8 used these keys as PHP array keys
+			'null, boolean and float keys' => array(
+				"p:\n  null: a\n  true: b\nq:\n  false: c\n  1.0: d\n  1e3: e\n  .5: f\n",
+				array('p' => array('' => 'a', 1 => 'b'), 'q' => array(0 => 'c', 1 => 'd', 1000 => 'e', '0.5' => 'f')),
+			),
+			'duplicate key with a block scalar' => array("a: 1\na: |\n  a: text\nb: 2\n", array('a' => 1, 'b' => 2)),
+			'duplicate key with a comment inside' => array(
+				"a: 1\nb: 2\na:\n# c\n  x: 1\nc: 3\n",
+				array('a' => 1, 'b' => 2, 'c' => 3),
+			),
+			'duplicate key after a tab' => array("a:\t1\na: 2\n", array('a' => 1)),
 		);
 	}
 
@@ -100,6 +121,7 @@ class JRegistryFormatYamlTest extends TestCasePhpunit
 			'deep inline nesting' => array(str_repeat('[', 2000) . str_repeat(']', 2000)),
 			'php object tag' => array("obj: !php/object:O:8:\"stdClass\":0:{}\n"),
 			'duplicate key in an inline mapping' => array("m: {a: 1, a: 2}\n"),
+			'reserved indicator in a flow collection' => array("k: [@a, b]\n"),
 		);
 	}
 

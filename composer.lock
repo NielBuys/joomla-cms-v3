@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "3bc126f403330590bd4a5e745dad3f54",
+    "content-hash": "8d3345196f10d15003364c5522716c11",
     "packages": [
         {
             "name": "google/recaptcha",
@@ -728,16 +728,16 @@
         },
         {
             "name": "joomla/registry",
-            "version": "1.6.6",
+            "version": "1.6.7",
             "source": {
                 "type": "git",
                 "url": "https://github.com/NielBuys/JoomlaRegistry.git",
-                "reference": "1247723ff3da2816d9c662f8e9613392b3e3948b"
+                "reference": "457e20f0e226f6bee43ddfc0b1986e0a1d1af898"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/NielBuys/JoomlaRegistry/zipball/1247723ff3da2816d9c662f8e9613392b3e3948b",
-                "reference": "1247723ff3da2816d9c662f8e9613392b3e3948b",
+                "url": "https://api.github.com/repos/NielBuys/JoomlaRegistry/zipball/457e20f0e226f6bee43ddfc0b1986e0a1d1af898",
+                "reference": "457e20f0e226f6bee43ddfc0b1986e0a1d1af898",
                 "shasum": ""
             },
             "require": {
@@ -782,9 +782,9 @@
                 "registry"
             ],
             "support": {
-                "source": "https://github.com/NielBuys/JoomlaRegistry/tree/1.6.6"
+                "source": "https://github.com/NielBuys/JoomlaRegistry/tree/1.6.7"
             },
-            "time": "2026-10-31T14:13:57+00:00"
+            "time": "2026-10-31T16:51:50+00:00"
         },
         {
             "name": "joomla/session",

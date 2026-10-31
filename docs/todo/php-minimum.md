@@ -8,7 +8,7 @@ library upgrades. The minimum was first planned as 8.1 and was raised to 8.3 bef
 - **Forks.** Every package that had direct edits, or a `php` constraint that excluded PHP 8, now comes from a fork
   under NielBuys. The Joomla framework packages: `JoomlaApplication` 1.9.5, `JoomlaData` 1.2.1, `JoomlaDI` 1.5.2, `JoomlaEvent`
   1.3.1, `JoomlaFilesystem` 1.6.3, `j3_filter` 1.4.9, `JoomlaImage` 1.5.2, `JoomlaInput` 1.5.1, `JoomlaLdap` 1.5.1,
-  `JoomlaRegistry` 1.6.5, `JoomlaSession` 1.6.1 and `JoomlaString` 1.4.7. Each fork branches from the tag
+  `JoomlaRegistry` 1.6.7, `JoomlaSession` 1.6.1 and `JoomlaString` 1.4.7. Each fork branches from the tag
   `composer.lock` named (branch `1.x-j3` for the new forks) and carries only the vendor edits and the `php`
   constraint.
 - **PHPMailer** moved to the official `phpmailer/phpmailer` 7.x. `JMail` extends the namespaced class. The 5.2 class

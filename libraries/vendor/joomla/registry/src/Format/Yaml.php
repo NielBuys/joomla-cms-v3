@@ -29,6 +29,22 @@ class Yaml extends AbstractRegistryFormat
 	const MAX_VALUES = 1000000;
 
 	/**
+	 * The most bytes stringToObject() parses again while it repairs old-style lines, so repairs stay fast.
+	 *
+	 * @var    integer
+	 * @since  1.6.7
+	 */
+	const MAX_REPAIR_BYTES = 10000000;
+
+	/**
+	 * A block mapping key at the start of a line, plain, single-quoted or double-quoted, and the colon after it.
+	 *
+	 * @var    string
+	 * @since  1.6.7
+	 */
+	const KEY_PATTERN = '([^\s#\-{\[\'"][^:{}\[\]]*|\'[^\']*\'|"[^"]*"):(?:[ \t]|$)';
+
+	/**
 	 * The YAML parser class.
 	 *
 	 * @var    \Symfony\Component\Yaml\Parser
@@ -77,10 +93,11 @@ class Yaml extends AbstractRegistryFormat
 	 * Parse a YAML formatted string and convert it into an object.
 	 * We use the json_* methods to convert the parsed YAML array to an object.
 	 *
-	 * symfony/yaml 3.0 and later reject two things that 2.x accepted: duplicate mapping keys, and plain scalars that
-	 * start with a reserved indicator (`@`, `%`, a backtick or `|`). So that YAML stored under 2.x still loads, the
-	 * line the parser reports is repaired the way 2.x read it and the string is parsed again. Every other error,
-	 * including the parser's limits on nesting and alias expansion, is still thrown.
+	 * symfony/yaml 3.0 and later reject YAML that 2.x accepted: duplicate mapping keys, plain scalars that start with
+	 * a reserved indicator or a tag or contain ": ", and null, boolean or float mapping keys. So that YAML stored
+	 * under 2.x still loads, the line the parser reports is repaired the way 2.x read it and the string is parsed
+	 * again; see repairLine(). Every other error, including the parser's limits on nesting and alias expansion, is
+	 * still thrown, and so is any error once MAX_REPAIR_BYTES have been parsed again.
 	 *
 	 * @param   string  $data     YAML formatted string to convert.
 	 * @param   array   $options  Options used by the formatter.
@@ -93,8 +110,8 @@ class Yaml extends AbstractRegistryFormat
 	{
 		$data = trim($data);
 
-		// Each attempt repairs one line, so a document with many old-style lines needs as many attempts
-		for ($attempt = 0; ; $attempt++)
+		// Each attempt repairs one line and parses the whole document again, so the total is capped by size
+		for ($reparsed = 0; ; $reparsed += strlen($data))
 		{
 			try
 			{
@@ -104,7 +121,7 @@ class Yaml extends AbstractRegistryFormat
 			}
 			catch (ParseException $e)
 			{
-				$repaired = $attempt < 100 ? $this->repairLine($data, $e) : null;
+				$repaired = $reparsed + strlen($data) <= self::MAX_REPAIR_BYTES ? $this->repairLine($data, $e) : null;
 
 				if ($repaired === null)
 				{
@@ -153,12 +170,16 @@ class Yaml extends AbstractRegistryFormat
 	 * Repairs the line a parse error points at, the way symfony/yaml 2.x read it.
 	 *
 	 * - A duplicate key in a block mapping: 2.x kept the first value, so the later key and its nested lines are removed.
-	 * - A plain scalar that starts with a reserved indicator: 2.x read it as a string, so it is quoted.
+	 * - A plain scalar that starts with a reserved indicator (@ % ` | >) or a tag, or a mapping value that contains
+	 *   ": ": 2.x read it as a string, so it is quoted.
+	 * - A null, boolean or float mapping key: 2.x used PHP's array key for it, so it is replaced by that key, quoted.
+	 *
+	 * Inside flow collections ([...] and {...}) nothing is repaired, so those errors are still thrown.
 	 *
 	 * @param   string          $data   The YAML string.
 	 * @param   ParseException  $error  The parse error.
 	 *
-	 * @return  string|null  The repaired string, or null if the error is not one of these two.
+	 * @return  string|null  The repaired string, or null if the error is not one of these.
 	 *
 	 * @since   1.6.6
 	 */
@@ -177,21 +198,44 @@ class Yaml extends AbstractRegistryFormat
 
 		if (strpos($message, 'Duplicate key') === 0)
 		{
-			// Only a "key: value" line of a block mapping whose own key is the duplicate; a duplicate inside an inline
-			// mapping or a sequence item is left alone
-			if (!preg_match('/^Duplicate key "(.*)" detected/', $message, $duplicate)
-				|| !preg_match('/^( *)([^\s#\-{\[\'"][^:{}\[\]]*|\'[^\']*\'|"[^"]*"):(?: |$)/', $line, $matches)
-				|| trim($matches[2], '\'" ') !== $duplicate[1])
+			if (!preg_match('/^Duplicate key "(.*)" detected/', $message, $duplicate))
 			{
 				return null;
 			}
 
-			$indent = strlen($matches[1]);
-			$end    = $index + 1;
+			// The duplicate is this line's key when an earlier key of the same block mapping has its name. Otherwise it
+			// may be inside an inline mapping on this line, as in "a: {a: 1, a: 2}", which is not repaired.
+			$isKeyLine = preg_match('/^( *)' . self::KEY_PATTERN . '/', $line, $matches)
+				&& trim($matches[2], '\'" ') === $duplicate[1]
+				&& $this->hasEarlierSibling($lines, $index, strlen($matches[1]), $duplicate[1]);
 
-			// Remove the nested lines that belong to the duplicate key too
+			// When the later value is a block scalar or a nested block, the error points at a line inside it, so the
+			// key is on the closest less indented line above
+			if (!$isKeyLine)
+			{
+				$index = $this->findParentKey($lines, $index, $duplicate[1]);
+
+				if ($index === null)
+				{
+					return null;
+				}
+
+				preg_match('/^( *)/', $lines[$index], $matches);
+
+				if (!$this->hasEarlierSibling($lines, $index, strlen($matches[1]), $duplicate[1]))
+				{
+					return null;
+				}
+			}
+
+			$indent = strlen($matches[1]);
+
+			$end = $index + 1;
+
+			// Remove the nested lines that belong to the duplicate key too, and comments between them
 			while (isset($lines[$end])
-				&& (trim($lines[$end]) === '' || strlen($lines[$end]) - strlen(ltrim($lines[$end], ' ')) > $indent))
+				&& (trim($lines[$end]) === '' || ltrim($lines[$end])[0] === '#'
+				|| strlen($lines[$end]) - strlen(ltrim($lines[$end], ' ')) > $indent))
 			{
 				$end++;
 			}
@@ -201,20 +245,184 @@ class Yaml extends AbstractRegistryFormat
 			return implode("\n", $lines);
 		}
 
-		if (strpos($message, 'cannot start a plain scalar') !== false)
+		if (strpos($message, 'Non-string keys are not supported') === 0 || strpos($message, 'Numeric keys are not supported') === 0)
 		{
-			// "key: @value" or "- @value", with an optional comment after the value
-			if (!preg_match('/^(\s*(?:- +)?(?:[^\s#\'"{\[][^:{}\[\]]*: +)?)([@%`|][^#]*?)(\s+#.*)?$/', $line, $matches))
+			$keys = 'null|Null|NULL|~|true|True|TRUE|false|False|FALSE|[-+]?(?:\d+\.?\d*|\.\d+)(?:[eE][-+]?\d+)?';
+
+			if (!preg_match('/^(\s*(?:- +)?)(' . $keys . ')(:(?:[ \t].*)?)$/', $line, $matches))
 			{
 				return null;
 			}
 
-			$comment       = isset($matches[3]) ? $matches[3] : '';
-			$lines[$index] = $matches[1] . "'" . str_replace("'", "''", $matches[2]) . "'" . $comment;
+			$lines[$index] = $matches[1] . "'" . $this->phpArrayKey($matches[2]) . "'" . $matches[3];
 
 			return implode("\n", $lines);
 		}
 
+		// The start of the value, and whether a "key: " must come before it
+		if (strpos($message, 'cannot start a plain scalar') !== false)
+		{
+			$value = '[@%`|>]';
+			$keyed = '?';
+		}
+		elseif (strpos($message, 'Tags support is not enabled') === 0)
+		{
+			$value = '![^\s!]*\s';
+			$keyed = '?';
+		}
+		elseif (strpos($message, 'A colon cannot be used in an unquoted mapping value') === 0)
+		{
+			// Only after a key, so a line that does not have the "key: value" form is never quoted as a whole
+			$value = '[^\s#\'"{\[!&*]';
+			$keyed = '';
+		}
+		else
+		{
+			return null;
+		}
+
+		// "key: value" or "- value". The key runs to the first ": ", so keys such as a[0] or http://x work. The value
+		// runs to the end of the line, and a comment is split off afterwards without a regular expression, so a long
+		// line cannot make the match backtrack.
+		$key = '[^\s#\'"{\[](?:[^:]|:(?![ \t]))*?:[ \t]+';
+
+		if (!preg_match('/^(\s*(?:- +)?(?:' . $key . ')' . $keyed . ')(' . $value . '.*)$/', $line, $matches))
+		{
+			return null;
+		}
+
+		$value   = $matches[2];
+		$comment = '';
+
+		for ($hash = strpos($value, '#'); $hash !== false; $hash = strpos($value, '#', $hash + 1))
+		{
+			if (ctype_space($value[$hash - 1]))
+			{
+				$end     = strlen(rtrim(substr($value, 0, $hash)));
+				$comment = substr($value, $end);
+				$value   = substr($value, 0, $end);
+				break;
+			}
+		}
+
+		$lines[$index] = $matches[1] . "'" . str_replace("'", "''", $value) . "'" . $comment;
+
+		return implode("\n", $lines);
+	}
+
+	/**
+	 * Converts a null, boolean or float mapping key to the array key symfony/yaml 2.x gave it.
+	 *
+	 * 2.x parsed the key as a scalar and used it as a PHP array key, so null became '', true 1 and false 0. It
+	 * converted a float to a string first, so 1.5 stayed '1.5', 1.0 became '1' and 1e3 became '1000'.
+	 *
+	 * @param   string  $key  The key as written.
+	 *
+	 * @return  string
+	 *
+	 * @since   1.6.7
+	 */
+	private function phpArrayKey($key)
+	{
+		switch (strtolower($key))
+		{
+			case 'null':
+			case '~':
+				return '';
+
+			case 'true':
+				return '1';
+
+			case 'false':
+				return '0';
+		}
+
+		return (string) (float) $key;
+	}
+
+	/**
+	 * Finds the block mapping key that a line belongs to, when that key is the given duplicate.
+	 *
+	 * @param   array    $lines  The document's lines.
+	 * @param   integer  $index  A line inside the duplicate key's value.
+	 * @param   string   $key    The duplicate key.
+	 *
+	 * @return  integer|null  The line of the key, or null if the closest less indented line is not that key.
+	 *
+	 * @since   1.6.7
+	 */
+	private function findParentKey(array $lines, $index, $key)
+	{
+		$indent = strlen($lines[$index]) - strlen(ltrim($lines[$index], ' '));
+
+		for ($i = $index - 1; $i >= 0; $i--)
+		{
+			$text = ltrim($lines[$i], ' ');
+
+			if ($text === '' || $text[0] === '#' || strlen($lines[$i]) - strlen($text) >= $indent)
+			{
+				continue;
+			}
+
+			if (preg_match('/^ *' . self::KEY_PATTERN . '/', $lines[$i], $matches)
+				&& trim($matches[1], '\'" ') === $key)
+			{
+				return $i;
+			}
+
+			return null;
+		}
+
 		return null;
+	}
+
+	/**
+	 * Checks whether a block mapping has a key before the given line.
+	 *
+	 * @param   array    $lines   The document's lines.
+	 * @param   integer  $index   The line of the later key.
+	 * @param   integer  $indent  The indentation of that key.
+	 * @param   string   $key     The key.
+	 *
+	 * @return  boolean
+	 *
+	 * @since   1.6.7
+	 */
+	private function hasEarlierSibling(array $lines, $index, $indent, $key)
+	{
+		for ($i = $index - 1; $i >= 0; $i--)
+		{
+			$text = ltrim($lines[$i], ' ');
+
+			if ($text === '' || $text[0] === '#')
+			{
+				continue;
+			}
+
+			$lineIndent = strlen($lines[$i]) - strlen($text);
+			$keyIndent  = $lineIndent;
+
+			// In "- a: 1" the key starts after the dash, where the mapping's other keys line up
+			if (preg_match('/^(?:- +)+/', $text, $dash))
+			{
+				$keyIndent += strlen($dash[0]);
+				$text       = substr($text, strlen($dash[0]));
+			}
+
+			if ($keyIndent === $indent
+				&& preg_match('/^' . self::KEY_PATTERN . '/', $text, $matches)
+				&& trim($matches[1], '\'" ') === $key)
+			{
+				return true;
+			}
+
+			// A less indented line is the parent, or the sequence item the mapping starts in
+			if ($lineIndent < $indent)
+			{
+				return false;
+			}
+		}
+
+		return false;
 	}
 }

@@ -90,7 +90,7 @@
         "joomla/image": "^1.5.2",
         "joomla/input": "^1.5.1",
         "joomla/ldap": "^1.5.1",
-        "joomla/registry": "^1.6.6",
+        "joomla/registry": "^1.6.7",
         "joomla/session": "^1.6.1",
         "joomla/string": "^1.4.7",
         "joomla/uri": "~1.2",

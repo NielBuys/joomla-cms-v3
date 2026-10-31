@@ -1,7 +1,7 @@
 # Upgrade symfony/yaml 2.8.52 to 7.4 LTS
 
 **Status:** done on the `tasks/upgrade-symfony-yaml` branch, for release 3.12: symfony/yaml 7.4.22, with
-`joomla/registry` 1.6.6 from the NielBuys fork. See [Result](#result) below; the plan is kept for reference.
+`joomla/registry` 1.6.7 from the NielBuys fork. See [Result](#result) below; the plan is kept for reference.
 
 **Why:** four denial-of-service advisories. The first three, all rated Low, were published in May
 2026:
@@ -113,12 +113,20 @@ The table is a checklist. Confirm each row against the Symfony 3.0, 4.0, 5.0, 6.
 A corpus of 42 documents ran through `Registry::loadString(..., 'YAML')` before and after the upgrade, on PHP 8.6.
 `tests/unit/suites/libraries/joomla/registry/JRegistryFormatYamlTest.php` keeps the important cases.
 
-**Handled in the `JoomlaRegistry` fork (1.6.6), so the YAML loads as it did under 2.8:**
+**Handled in the `JoomlaRegistry` fork (1.6.7), so the YAML loads as it did under 2.8.** 7.4 alone throws on each
+of these:
 
-- Duplicate keys in a block mapping: the first value is kept, as 2.8 did. 7.4 alone throws.
-- Plain scalars that start with `@`, `%`, a backtick or `|`: read as strings, as 2.8 did. 7.4 alone throws.
+- Duplicate keys in a block mapping: the first value is kept, as 2.8 did. This includes a later value that is a
+  block scalar or a nested block, and comment lines inside it.
+- Plain scalars that start with `@`, `%`, a backtick, `|` or `>`, or with a custom tag such as `!foo bar`: read as
+  strings.
+- A mapping value that contains `": "`, such as `a: x: y`: read as the string `"x: y"`.
+- `null`, `~`, `true`, `false` and float mapping keys: replaced by the PHP array key 2.8 used (`''`, `1`, `0`, and
+  floats converted to strings, so `1.0` becomes `1`).
 
-The fork repairs only the line the parser reports and parses again. Every other error is still thrown.
+The fork repairs only the line the parser reports and parses again. Every other error is still thrown, and so is any
+error once 10 MB have been parsed again, so a large document with many old-style lines can still fail. Inside flow
+collections (`[...]` and `{...}`) nothing is repaired; for example `k: [@a, b]` throws.
 
 **Fixed by the upgrade:** literal (`|`) and folded (`>`) block scalars. 2.8 failed on them with a `TypeError` on
 PHP 8.
@@ -133,6 +141,7 @@ PHP 8.
 | `!!binary` and `!!str` tags | Kept as text, with the tag | Decoded |
 | `!php/object` tags | Loaded as `null` | `ParseException` |
 | A duplicate key inside an inline mapping, `{a: 1, a: 2}` | Loaded | `ParseException` |
+| A reserved indicator inside a flow collection, `[@a, b]` | Loaded | `ParseException` |
 | Dumping a string with a `'` | `'it''s'` | `"it's"`, which reads back the same |
 
 **Limits.** The fork also caps a parsed document at one million values. 7.4 allows up to 128 aliases, and a
