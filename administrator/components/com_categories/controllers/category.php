@@ -58,7 +58,66 @@ class CategoriesControllerCategory extends JControllerForm
 	{
 		$user = JFactory::getUser();
 
+		// A category cannot be saved into another extension, or under a category of another extension
+		if (!$this->isPostedExtensionAllowed($data) || !$this->isPostedParentAllowed($data))
+		{
+			return false;
+		}
+
 		return ($user->authorise('core.create', $this->extension) || count($user->getAuthorisedCategories($this->extension, 'core.create')));
+	}
+
+	/**
+	 * Checks that the input data does not name another extension than the one the
+	 * permissions are checked for.
+	 *
+	 * @param   array  $data  An array of input data.
+	 *
+	 * @return  boolean
+	 *
+	 * @since   3.11.19
+	 */
+	private function isPostedExtensionAllowed($data)
+	{
+		if (!isset($data['extension']) || $data['extension'] === '')
+		{
+			return true;
+		}
+
+		return is_string($data['extension']) && $data['extension'] === $this->extension;
+	}
+
+	/**
+	 * Checks that the input data does not name a parent category of another extension than
+	 * the one the permissions are checked for. The root category is allowed.
+	 *
+	 * @param   array  $data  An array of input data.
+	 *
+	 * @return  boolean
+	 *
+	 * @since   3.11.19
+	 */
+	private function isPostedParentAllowed($data)
+	{
+		if (!isset($data['parent_id']) || $data['parent_id'] === '')
+		{
+			return true;
+		}
+
+		if (!is_scalar($data['parent_id']))
+		{
+			return false;
+		}
+
+		$parentId = (int) $data['parent_id'];
+		$table    = JTable::getInstance('Category');
+
+		if ($parentId === 0 || $parentId === (int) $table->getRootId())
+		{
+			return true;
+		}
+
+		return $table->load($parentId) && $table->extension === $this->extension;
 	}
 
 	/**
@@ -75,6 +134,25 @@ class CategoriesControllerCategory extends JControllerForm
 	{
 		$recordId = (int) isset($data[$key]) ? $data[$key] : 0;
 		$user = JFactory::getUser();
+		$record = null;
+
+		// A category cannot be saved into another extension, or under a category of another extension
+		if (!$this->isPostedExtensionAllowed($data) || !$this->isPostedParentAllowed($data))
+		{
+			return false;
+		}
+
+		if ($recordId)
+		{
+			// Get the existing record
+			$record = $this->getModel()->getItem((int) $recordId);
+
+			// Validate that the category belongs to the extension of the request
+			if (empty($record->id) || $record->extension !== $this->extension)
+			{
+				return false;
+			}
+		}
 
 		// Check "edit" permission on record asset (explicit or inherited)
 		if ($user->authorise('core.edit', $this->extension . '.category.' . $recordId))
@@ -85,9 +163,6 @@ class CategoriesControllerCategory extends JControllerForm
 		// Check "edit own" permission on record asset (explicit or inherited)
 		if ($user->authorise('core.edit.own', $this->extension . '.category.' . $recordId))
 		{
-			// Need to do a lookup from the model to get the owner
-			$record = $this->getModel()->getItem($recordId);
-
 			if (empty($record))
 			{
 				return false;
