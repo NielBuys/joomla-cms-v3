@@ -33,15 +33,15 @@ November 2027.
 
 ## Where the minimum is set
 
-These places currently disagree:
+On the 3.11.x line (`3.10-dev`), from 3.11.19:
 
 | Place | Current value |
 |---|---|
-| `composer.json`, `require.php` and `config.platform.php` | `>=7.1.0` and `7.1.0` |
-| `index.php`, `JOOMLA_MINIMUM_PHP` | `7.1.0` |
-| `administrator/index.php` and `installation/index.php`, `JOOMLA_MINIMUM_PHP` | `5.3.10` (out of date) |
-| `updates.xml`, `<php_minimum>` in each release entry | `7.2.5` |
-| `README.md`, "Check the minimum requirements" | "PHP minimum v7.1, recommended v8.2" |
+| `composer.json`, `require.php` and `config.platform.php` | `>=7.1.0` and `7.1.0`, unchanged: the locked Joomla 1.x packages declare `~7.0`, so Composer cannot resolve them on a higher platform. Only developers running Composer see this. |
+| `index.php`, `JOOMLA_MINIMUM_PHP` | `8.0.0` (was `7.1.0`) |
+| `administrator/index.php` and `installation/index.php`, `JOOMLA_MINIMUM_PHP` | `8.0.0` (was `5.3.10`) |
+| `updates.xml`, `<php_minimum>` in each release entry | `8.0.0` from 3.11.19 |
+| `README.md` and `README.txt`, "Check the minimum requirements" | "PHP minimum v8.0, recommended v8.2" |
 
 `JOOMLA_MINIMUM_PHP` controls three things:
 
