@@ -12,10 +12,22 @@ library upgrades. The minimum was first planned as 8.1 and was raised to 8.3 bef
   `composer.lock` named (branch `1.x-j3` for the new forks) and carries only the vendor edits and the `php`
   constraint.
 - **PHPMailer** moved to the official `phpmailer/phpmailer` 7.x. `JMail` extends the namespaced class. The 5.2 class
-  names `PHPMailer`, `phpmailerException`, `SMTP` and `POP3` remain available as aliases for extensions.
+  names `PHPMailer`, `phpmailerException`, `SMTP` and `POP3` remain available as aliases for extensions. Two
+  changes reach extensions and go in the release notes:
+  - `$mail->ReplyTo` and `getReplyToAddresses()` are a list of `[address, name]` pairs. 5.2 keyed them by the
+    lowercase address.
+  - The public `$Version` property is gone; use the `PHPMailer\PHPMailer\PHPMailer::VERSION` constant.
 - **lessphp** moved to `splitbrain/lesserphp`, the maintained fork of `leafo/lessphp`. It compiles every core
   template's LESS to the same CSS as before. `wikimedia/less.php` was tried first, but it cannot compile the
   Bootstrap 2 LESS that isis and protostar use. The `lessc` class names remain available as aliases.
+  - `lessc` is `JLessCompat`, which puts back the lessphp methods lesserphp dropped or changed: `checkedCompile()`,
+    `cachedCompile()`, `parse()`, `ccompile()`, `cexecute()`, `allParsedFiles()`, `addParsedFile()`,
+    `throwError()`, the `assert*()` helpers, `preg_quote()`, `setFormatter()` with a name such as `'compressed'`,
+    and the file argument to the constructor. `JLess` extends it.
+  - For the release notes: a subclass of `lessc` or `JLess` that overrides `compile()` must now declare its
+    `string` return type, and one that overrides lessphp's protected compiler methods may need changes.
+- **symfony/polyfill-mbstring** stays a runtime requirement. 3.10 loaded it on every request, and core calls
+  `mb_*` functions without checking for the extension, so hosts without `mbstring` still need it.
 - **google/recaptcha and SimplePie** come from the `recaptcha` 1.2.5 and `simplepie` 1.3.4 forks, which carry the
   former direct edits. No official recaptcha release both supports PHP 8.3 and drops the deprecated `curl_close()`
   call, and SimplePie 1.9.0 still calls `curl_close()` and `xml_parser_free()`. Moving to their current releases
