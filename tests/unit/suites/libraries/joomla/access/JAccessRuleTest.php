@@ -14,7 +14,7 @@
  *
  * @since    1.7.0
  */
-class JAccessRuleTest extends \PHPUnit\Framework\TestCase
+class JAccessRuleTest extends TestCasePhpunit
 {
 	/**
 	 * Tests the \Joomla\CMS\Access\Rule::__construct and \Joomla\CMS\Access\Rule::__toString methods.

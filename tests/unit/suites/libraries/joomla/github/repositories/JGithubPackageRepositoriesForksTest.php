@@ -19,7 +19,7 @@ require_once JPATH_PLATFORM . '/joomla/github/forks.php';
  *
  * @since       1.7.0
  */
-class JGithubPackageRepositoriesForksTest extends \PHPUnit\Framework\TestCase
+class JGithubPackageRepositoriesForksTest extends TestCasePhpunit
 {
 	/**
 	 * @var    JRegistry  Options for the GitHub object.
@@ -59,7 +59,7 @@ class JGithubPackageRepositoriesForksTest extends \PHPUnit\Framework\TestCase
 	 *
 	 * @return void
 	 */
-	protected function setUp()
+	protected function setUp(): void
 	{
 		parent::setUp();
 
@@ -101,12 +101,13 @@ class JGithubPackageRepositoriesForksTest extends \PHPUnit\Framework\TestCase
 	/**
 	 * Tests the create method - failure
 	 *
-	 * @expectedException  DomainException
 	 *
 	 * @return void
 	 */
 	public function testCreateFailure()
 	{
+		$this->expectException('DomainException');
+
 		$returnData = new stdClass;
 		$returnData->code = 501;
 		$returnData->body = $this->errorString;
@@ -149,12 +150,13 @@ class JGithubPackageRepositoriesForksTest extends \PHPUnit\Framework\TestCase
 	/**
 	 * Tests the getList method - failure
 	 *
-	 * @expectedException  DomainException
 	 *
 	 * @return void
 	 */
 	public function testGetListFailure()
 	{
+		$this->expectException('DomainException');
+
 		$returnData = new stdClass;
 		$returnData->code = 500;
 		$returnData->body = $this->errorString;

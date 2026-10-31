@@ -3,7 +3,8 @@
 This folder holds the plans for bringing the third-party libraries bundled with this fork up to
 date. The goal is to do it without breaking existing sites, templates or extensions.
 
-**Status:** planned. None of these upgrades has started yet. Last reviewed 2026-10-29.
+**Status:** the PHP minimum is being raised on the `3.12-dev` branch (see [php-minimum.md](php-minimum.md)). The other
+upgrades are planned. Last reviewed 2026-10-31.
 
 Library versions and advisories change quickly. Before starting a workflow, check every version
 number and advisory in it again.
@@ -21,14 +22,15 @@ versions, so the findings apply here too.
 
 ## The plan
 
-The first step raises the fork's minimum PHP version to **8.1**. The two PHP library upgrades
+The first step raises the fork's minimum PHP version to **8.3**. The two PHP library upgrades
 depend on it. The JavaScript library upgrades do not, so they can be done in parallel.
 
 | Library | Current | Problem | Plan | Target |
 |---|---|---|---|---|
-| PHP minimum | 7.1 | Holds back every PHP dependency. Some fixes live only as edits in `libraries/vendor`. | [php-minimum.md](php-minimum.md) | PHP 8.1, with every vendor fix kept in a fork |
+| PHP minimum | 7.1 | Holds back every PHP dependency. Some fixes live only as edits in `libraries/vendor`. | [php-minimum.md](php-minimum.md) | PHP 8.3, with every vendor fix kept in a fork |
 | paragonie/sodium_compat | 1.17.1 | CVE-2025-69277 (Moderate) | [sodium-compat.md](sodium-compat.md) | Latest 2.x (2.5.0 or later) |
-| symfony/yaml | 2.8.52 | CVE-2026-45304, CVE-2026-45305 and CVE-2026-45133: parser denial of service (Low) | [symfony-yaml.md](symfony-yaml.md) | 6.4 LTS (6.4.40 or later) |
+| symfony/yaml | 2.8.52 | CVE-2026-45304, CVE-2026-45305, CVE-2026-45133 and CVE-2026-109413: parser denial of service | [symfony-yaml.md](symfony-yaml.md) | 7.4 LTS (7.4.18 or later) |
+| PHP 8.4 deprecations | 234 implicitly nullable parameters in 102 core files | A deprecation each time those classes load, including every form validation | [implicit-nullable.md](implicit-nullable.md) | `?Type $x = null` everywhere, for `3.10-dev` and `3.12-dev` |
 | CodeMirror | 5.60.0 | Old 5.x release; CodeMirror 6 is the current major version | [codemirror.md](codemirror.md) | Latest 5.65.x, then CodeMirror 6 as an optional editor |
 | TinyMCE | 4.5.12 | 17 advisories, including three High-severity XSS issues from June 2026 | [tinymce.md](tinymce.md) | TinyMCE 8.x, replacing 4.5.12 in the existing editor plugin |
 | Bootstrap (JavaScript) | 2.3.2 | Six XSS advisories with no 2.x fix upstream | [bootstrap.md](bootstrap.md) | Fixes patched into 2.3.2 |
@@ -49,7 +51,7 @@ Google's scripts. [mootools.md](mootools.md) covers the advisories that still af
 Every plan in this folder follows these rules:
 
 1. **Compatibility is about code, not server versions.** Sites running a PHP version below the
-   fork's minimum (8.1 once [php-minimum.md](php-minimum.md) is done) are not offered new
+   fork's minimum (8.3 once [php-minimum.md](php-minimum.md) is done) are not offered new
    releases. They keep the last release that supports their PHP. Any library release that
    supports the minimum may be used.
 2. **Public names stay the same.** Extensions call these directly, so they keep working:

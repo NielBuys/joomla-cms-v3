@@ -16,7 +16,7 @@ require_once __DIR__ . '/stubs/messagequeue/mock.application.php';
  * @subpackage  Log
  * @since       1.7.0
  */
-class JLogLoggerMessageQueueTest extends \PHPUnit\Framework\TestCase
+class JLogLoggerMessageQueueTest extends TestCasePhpunit
 {
 	/**
 	 * @var   mixed  The main application object from JFactory while we mock it out.
@@ -29,7 +29,7 @@ class JLogLoggerMessageQueueTest extends \PHPUnit\Framework\TestCase
 	 *
 	 * @return void
 	 */
-	public function setUp()
+	public function setUp(): void
 	{
 		parent::setUp();
 
@@ -42,7 +42,7 @@ class JLogLoggerMessageQueueTest extends \PHPUnit\Framework\TestCase
 	 *
 	 * @return void
 	 */
-	public function tearDown()
+	public function tearDown(): void
 	{
 		JFactory::$application = $this->app;
 		parent::tearDown();

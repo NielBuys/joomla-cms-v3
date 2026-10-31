@@ -17,7 +17,7 @@ require_once __DIR__ . '/stubs/callback/helper.php';
  * @subpackage  Log
  * @since       3.0.1
  */
-class JLogLoggerCallbackTest extends \PHPUnit\Framework\TestCase
+class JLogLoggerCallbackTest extends TestCasePhpunit
 {
 	/**
 	 * Test the JLogLoggerCallback::__construct method.
@@ -180,10 +180,11 @@ class JLogLoggerCallbackTest extends \PHPUnit\Framework\TestCase
 	 * @return  null
 	 *
 	 * @since   3.0.1
-	 * @expectedException  RuntimeException
 	 */
 	public function testConstructorForException()
 	{
+		$this->expectException('RuntimeException');
+
 		$options = array();
 
 		new JLogLoggerCallback($options);

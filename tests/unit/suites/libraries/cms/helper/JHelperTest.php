@@ -47,7 +47,7 @@ class JHelperTest extends TestCaseDatabase
 	 *
 	 * @since   3.2
 	 */
-	protected function setUp()
+	protected function setUp(): void
 	{
 		parent::setUp();
 
@@ -61,7 +61,7 @@ class JHelperTest extends TestCaseDatabase
 	 * Tears down the fixture, for example, closes a network connection.
 	 * This method is called after a test is executed.
 	 */
-	protected function tearDown()
+	protected function tearDown(): void
 	{
 		unset($this->object);
 		$this->restoreFactoryState();

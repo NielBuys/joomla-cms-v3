@@ -17,7 +17,7 @@ require_once __DIR__ . '/stubs/JGithubObjectMock.php';
  *
  * @since       1.7.0
  */
-class JGithubObjectTest extends \PHPUnit\Framework\TestCase
+class JGithubObjectTest extends TestCasePhpunit
 {
 	/**
 	 * @var    JRegistry  Options for the GitHub object.
@@ -45,7 +45,7 @@ class JGithubObjectTest extends \PHPUnit\Framework\TestCase
 	 *
 	 * @return void
 	 */
-	protected function setUp()
+	protected function setUp(): void
 	{
 		parent::setUp();
 
@@ -63,7 +63,7 @@ class JGithubObjectTest extends \PHPUnit\Framework\TestCase
 	 * @see     \PHPUnit\Framework\TestCase::tearDown()
 	 * @since   3.6
 	 */
-	protected function tearDown()
+	protected function tearDown(): void
 	{
 		unset($this->options, $this->client, $this->object);
 		parent::tearDown();

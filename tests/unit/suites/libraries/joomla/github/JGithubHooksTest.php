@@ -14,7 +14,7 @@
  * @subpackage  Github
  * @since       3.1.4
  */
-class JGithubHooksTest extends \PHPUnit\Framework\TestCase
+class JGithubHooksTest extends TestCasePhpunit
 {
 	/**
 	 * @var    JRegistry  Options for the GitHub object.
@@ -60,7 +60,7 @@ class JGithubHooksTest extends \PHPUnit\Framework\TestCase
 	 *
 	 * @since   3.1.4
 	 */
-	protected function setUp()
+	protected function setUp(): void
 	{
 		parent::setUp();
 
@@ -79,7 +79,7 @@ class JGithubHooksTest extends \PHPUnit\Framework\TestCase
 	 * @see     \PHPUnit\Framework\TestCase::tearDown()
 	 * @since   3.6
 	 */
-	protected function tearDown()
+	protected function tearDown(): void
 	{
 		unset($this->options, $this->response, $this->client, $this->object);
 		parent::tearDown();
@@ -162,10 +162,11 @@ class JGithubHooksTest extends \PHPUnit\Framework\TestCase
 	 *
 	 * @since   3.1.4
 	 *
-	 * @expectedException  RuntimeException
 	 */
 	public function testCreateUnauthorisedEvent()
 	{
+		$this->expectException('RuntimeException');
+
 		$this->object->create('joomla', 'joomla-platform', 'acunote', array('token' => '123456789'), array('push', 'faker'));
 	}
 
@@ -312,10 +313,11 @@ class JGithubHooksTest extends \PHPUnit\Framework\TestCase
 	 *
 	 * @since   3.1.4
 	 *
-	 * @expectedException  RuntimeException
 	 */
 	public function testEditUnauthorisedEvent()
 	{
+		$this->expectException('RuntimeException');
+
 		$this->object->edit('joomla', 'joomla-platform', 42, 'acunote', array('token' => '123456789'), array('push', 'faker'));
 	}
 
@@ -349,10 +351,11 @@ class JGithubHooksTest extends \PHPUnit\Framework\TestCase
 	 *
 	 * @since   3.1.4
 	 *
-	 * @expectedException  DomainException
 	 */
 	public function testGetFailure()
 	{
+		$this->expectException('DomainException');
+
 		$this->response->code = 500;
 		$this->response->body = $this->errorString;
 
@@ -394,10 +397,11 @@ class JGithubHooksTest extends \PHPUnit\Framework\TestCase
 	 *
 	 * @since   3.1.4
 	 *
-	 * @expectedException  DomainException
 	 */
 	public function testGetListFailure()
 	{
+		$this->expectException('DomainException');
+
 		$this->response->code = 500;
 		$this->response->body = $this->errorString;
 
@@ -439,10 +443,11 @@ class JGithubHooksTest extends \PHPUnit\Framework\TestCase
 	 *
 	 * @since   3.1.4
 	 *
-	 * @expectedException  DomainException
 	 */
 	public function testTestFailure()
 	{
+		$this->expectException('DomainException');
+
 		$this->response->code = 500;
 		$this->response->body = $this->errorString;
 

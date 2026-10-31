@@ -52,7 +52,7 @@ class JRouterSiteTest extends TestCaseDatabase
 	 *
 	 * @since   3.4
 	 */
-	protected function setUp()
+	protected function setUp(): void
 	{
 		parent::setUp();
 
@@ -71,7 +71,7 @@ class JRouterSiteTest extends TestCaseDatabase
 	 * @see     \PHPUnit\Framework\TestCase::tearDown()
 	 * @since   3.2
 	 */
-	protected function tearDown()
+	protected function tearDown(): void
 	{
 		$_SERVER = $this->server;
 		unset($this->server);

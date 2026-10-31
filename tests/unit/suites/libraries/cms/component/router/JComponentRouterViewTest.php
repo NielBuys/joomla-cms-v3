@@ -36,7 +36,7 @@ class JComponentRouterViewTest extends TestCaseDatabase
 	 *
 	 * @since   3.5
 	 */
-	protected function setUp()
+	protected function setUp(): void
 	{
 		parent::setUp();
 
@@ -56,7 +56,7 @@ class JComponentRouterViewTest extends TestCaseDatabase
 	 * @see     \PHPUnit\Framework\TestCase::tearDown()
 	 * @since   3.6
 	 */
-	protected function tearDown()
+	protected function tearDown(): void
 	{
 		unset($this->object, $app);
 		parent::tearDown();
@@ -334,11 +334,12 @@ class JComponentRouterViewTest extends TestCaseDatabase
 	 * @return  void
 	 *
 	 * @since   3.5
-	 * @expectedException Exception
 	 * @covers  JComponentRouterView::getName
 	 */
 	public function testGetNameException()
 	{
+		$this->expectException('Exception');
+
 		$object = new FakeComponentURLCreator($this->object->app, $this->object->menu);
 		$object->getName();
 	}

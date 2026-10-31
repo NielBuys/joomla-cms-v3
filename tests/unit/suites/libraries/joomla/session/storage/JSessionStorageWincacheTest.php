@@ -12,7 +12,7 @@
  *
  * @since  1.7.0
  */
-class JSessionStorageWincacheTest extends \PHPUnit\Framework\TestCase
+class JSessionStorageWincacheTest extends TestCasePhpunit
 {
 	/**
 	 * @var JSessionStorageWincache
@@ -25,7 +25,7 @@ class JSessionStorageWincacheTest extends \PHPUnit\Framework\TestCase
 	 *
 	 * @return void
 	 */
-	protected function setUp()
+	protected function setUp(): void
 	{
 		// Skip these tests if WinCache isn't available.
 		if (!JSessionStorageWincache::isSupported())
@@ -42,7 +42,7 @@ class JSessionStorageWincacheTest extends \PHPUnit\Framework\TestCase
 	 *
 	 * @return void
 	 */
-	protected function tearDown()
+	protected function tearDown(): void
 	{
 
 	}

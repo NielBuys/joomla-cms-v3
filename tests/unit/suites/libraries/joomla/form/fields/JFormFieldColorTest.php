@@ -25,7 +25,7 @@ class JFormFieldColorTest extends TestCaseDatabase
 	 *
 	 * @since   3.2
 	 */
-	protected function setUp()
+	protected function setUp(): void
 	{
 		parent::setUp();
 
@@ -42,7 +42,7 @@ class JFormFieldColorTest extends TestCaseDatabase
 	 *
 	 * @since   3.2
 	 */
-	protected function tearDown()
+	protected function tearDown(): void
 	{
 		$this->restoreFactoryState();
 

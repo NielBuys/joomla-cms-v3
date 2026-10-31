@@ -14,7 +14,7 @@
  * @subpackage  Input
  * @since       1.7.0
  */
-class JInputCliTest extends \PHPUnit\Framework\TestCase
+class JInputCliTest extends TestCasePhpunit
 {
 	/**
 	 * Test object
@@ -28,7 +28,7 @@ class JInputCliTest extends \PHPUnit\Framework\TestCase
 	 *
 	 * @return void
 	 */
-	protected function setUp()
+	protected function setUp(): void
 	{
 		parent::setUp();
 

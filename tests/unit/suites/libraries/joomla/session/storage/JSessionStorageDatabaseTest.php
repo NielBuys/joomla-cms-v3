@@ -13,7 +13,7 @@
  * @subpackage  Session
  * @since       1.7.0
  */
-class JSessionStorageDatabaseTest extends \PHPUnit\Framework\TestCase
+class JSessionStorageDatabaseTest extends TestCasePhpunit
 {
 	/**
 	 * @var JSessionStorageDatabase
@@ -26,7 +26,7 @@ class JSessionStorageDatabaseTest extends \PHPUnit\Framework\TestCase
 	 *
 	 * @return void
 	 */
-	protected function setUp()
+	protected function setUp(): void
 	{
 		parent::setUp();
 

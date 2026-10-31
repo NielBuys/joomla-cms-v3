@@ -72,7 +72,7 @@ class JLinkedinCompaniesTest extends TestCase
 	 *
 	 * @return void
 	 */
-	protected function setUp()
+	protected function setUp(): void
 	{
 		parent::setUp();
 		$this->backupServer = $_SERVER;
@@ -107,7 +107,7 @@ class JLinkedinCompaniesTest extends TestCase
 	 * @see     \PHPUnit\Framework\TestCase::tearDown()
 	 * @since   3.6
 	 */
-	protected function tearDown()
+	protected function tearDown(): void
 	{
 		$_SERVER = $this->backupServer;
 		unset($this->backupServer, $this->options, $this->input, $this->client, $this->oauth, $this->object);
@@ -202,11 +202,12 @@ class JLinkedinCompaniesTest extends TestCase
 	 *
 	 * @return  void
 	 *
-	 * @expectedException DomainException
 	 * @since   3.2.0
 	 */
 	public function testGetCompaniesFailure()
 	{
+		$this->expectException('DomainException');
+
 		$id = 12345;
 		$name = 'example';
 		$domain = 'example.com';
@@ -276,11 +277,12 @@ class JLinkedinCompaniesTest extends TestCase
 	 *
 	 * @return  void
 	 *
-	 * @expectedException DomainException
 	 * @since   3.2.0
 	 */
 	public function testGetUpdatesFailure()
 	{
+		$this->expectException('DomainException');
+
 		$id = 12345;
 		$type = 'new-hire';
 		$count = 10;
@@ -369,11 +371,12 @@ class JLinkedinCompaniesTest extends TestCase
 	 *
 	 * @return  void
 	 *
-	 * @expectedException DomainException
 	 * @since   3.2.0
 	 */
 	public function testSearchFailure()
 	{
+		$this->expectException('DomainException');
+
 		$fields = '(facets)';
 		$keywords = 'linkedin';
 		$hq = true;
@@ -454,11 +457,12 @@ class JLinkedinCompaniesTest extends TestCase
 	 *
 	 * @return  void
 	 *
-	 * @expectedException DomainException
 	 * @since   3.2.0
 	 */
 	public function testGetFollowedFailure()
 	{
+		$this->expectException('DomainException');
+
 		$fields = '(id,name,email-domains)';
 
 		// Set request parameters.
@@ -517,11 +521,12 @@ class JLinkedinCompaniesTest extends TestCase
 	 *
 	 * @return  void
 	 *
-	 * @expectedException DomainException
 	 * @since   3.2.0
 	 */
 	public function testFollowFailure()
 	{
+		$this->expectException('DomainException');
+
 		$id = '12345';
 
 		$path = '/v1/people/~/following/companies';
@@ -575,11 +580,12 @@ class JLinkedinCompaniesTest extends TestCase
 	 *
 	 * @return  void
 	 *
-	 * @expectedException DomainException
 	 * @since   3.2.0
 	 */
 	public function testUnfollowFailure()
 	{
+		$this->expectException('DomainException');
+
 		$id = '12345';
 
 		$path = '/v1/people/~/following/companies/id=' . $id;
@@ -638,11 +644,12 @@ class JLinkedinCompaniesTest extends TestCase
 	 *
 	 * @return  void
 	 *
-	 * @expectedException DomainException
 	 * @since   3.2.0
 	 */
 	public function testGetSuggestedFailure()
 	{
+		$this->expectException('DomainException');
+
 		$fields = '(id,name,email-domains)';
 		$start = 1;
 		$count = 10;
@@ -711,11 +718,12 @@ class JLinkedinCompaniesTest extends TestCase
 	 *
 	 * @return  void
 	 *
-	 * @expectedException DomainException
 	 * @since   3.2.0
 	 */
 	public function testGetProductsFailure()
 	{
+		$this->expectException('DomainException');
+
 		$id = 12345;
 		$fields = '(id,name,type,creation-timestamp)';
 		$start = 1;

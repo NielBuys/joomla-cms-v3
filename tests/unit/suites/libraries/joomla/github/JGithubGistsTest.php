@@ -15,7 +15,7 @@
  *
  * @since       1.7.0
  */
-class JGithubGistsTest extends \PHPUnit\Framework\TestCase
+class JGithubGistsTest extends TestCasePhpunit
 {
 	/**
 	 * @var    JRegistry  Options for the GitHub object.
@@ -61,7 +61,7 @@ class JGithubGistsTest extends \PHPUnit\Framework\TestCase
 	 *
 	 * @return void
 	 */
-	protected function setUp()
+	protected function setUp(): void
 	{
 		parent::setUp();
 
@@ -80,7 +80,7 @@ class JGithubGistsTest extends \PHPUnit\Framework\TestCase
 	 * @see     \PHPUnit\Framework\TestCase::tearDown()
 	 * @since   3.6
 	 */
-	protected function tearDown()
+	protected function tearDown(): void
 	{
 		unset($this->options, $this->client, $this->response, $this->object);
 		parent::tearDown();
@@ -167,12 +167,13 @@ class JGithubGistsTest extends \PHPUnit\Framework\TestCase
 	/**
 	 * Tests the create method loading file content from a file - file does not exist
 	 *
-	 * @expectedException InvalidArgumentException
 	 *
 	 * @return void
 	 */
 	public function testCreateGistFromFileNotFound()
 	{
+		$this->expectException('InvalidArgumentException');
+
 		$returnData = new stdClass;
 		$returnData->code = 501;
 		$returnData->body = $this->sampleString;

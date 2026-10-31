@@ -32,7 +32,7 @@ class JCategoriesTest extends TestCaseDatabase
 	 *
 	 * @since   3.2
 	 */
-	public function setUp()
+	public function setUp(): void
 	{
 		parent::setUp();
 
@@ -50,7 +50,7 @@ class JCategoriesTest extends TestCaseDatabase
 	 * @see     \PHPUnit\Framework\TestCase::tearDown()
 	 * @since   3.2
 	 */
-	protected function tearDown()
+	protected function tearDown(): void
 	{
 		$this->restoreFactoryState();
 

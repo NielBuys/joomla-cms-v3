@@ -13,7 +13,7 @@
  * @package     Joomla.UnitTest
  * @subpackage  Database
  */
-class JDatabaseImporterPostgresqlTest extends \PHPUnit\Framework\TestCase
+class JDatabaseImporterPostgresqlTest extends TestCasePhpunit
 {
 	/**
 	 * @var    object  The mocked database object for use by test methods.
@@ -28,7 +28,7 @@ class JDatabaseImporterPostgresqlTest extends \PHPUnit\Framework\TestCase
 	/**
 	 * Sets up the testing conditions
 	 */
-	public function setup()
+	public function setup(): void
 	{
 		// Set up the database object mock.
 		$this->dbo = $this->getMockBuilder('JDatabaseDriverPostgresql')
@@ -207,7 +207,7 @@ class JDatabaseImporterPostgresqlTest extends \PHPUnit\Framework\TestCase
 	 * @see     \PHPUnit\Framework\TestCase::tearDown()
 	 * @since   3.6
 	 */
-	protected function tearDown()
+	protected function tearDown(): void
 	{
 		unset($this->dbo);
 	}
@@ -473,10 +473,11 @@ class JDatabaseImporterPostgresqlTest extends \PHPUnit\Framework\TestCase
 	/**
 	 * Tests the check method.
 	 *
-	 * @expectedException Exception
 	 */
 	public function testCheckWithNoDbo()
 	{
+		$this->expectException('Exception');
+
 		$instance = new JDatabaseImporterPostgresql;
 
 		$instance->check();
@@ -485,10 +486,11 @@ class JDatabaseImporterPostgresqlTest extends \PHPUnit\Framework\TestCase
 	/**
 	 * Tests the check method.
 	 *
-	 * @expectedException Exception
 	 */
 	public function testCheckWithNoFrom()
 	{
+		$this->expectException('Exception');
+
 		$instance = new JDatabaseImporterPostgresql;
 		$instance->setDbo($this->dbo);
 

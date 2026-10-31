@@ -31,7 +31,7 @@ class JPaginationTest extends TestCase
 	 *
 	 * @since   3.1
 	 */
-	public function setUp()
+	public function setUp(): void
 	{
 		parent::setUp();
 
@@ -74,7 +74,7 @@ class JPaginationTest extends TestCase
 	 * @see     \PHPUnit\Framework\TestCase::tearDown()
 	 * @since   3.1
 	 */
-	protected function tearDown()
+	protected function tearDown(): void
 	{
 		TestReflection::setValue('JRoute', '_router', array());
 
@@ -322,7 +322,7 @@ class JPaginationTest extends TestCase
 					array(
 						'text' => 'JLIB_HTML_VIEW_ALL',
 						'base' => '0',
-						'link' => 'index.php',
+						'link' => 'index.php?limitstart=',
 						'prefix' => '',
 						'active' => false,
 					),
@@ -361,11 +361,11 @@ class JPaginationTest extends TestCase
 						'prefix' => '',
 						'active' => true,
 					),
-					// Version without '?limitstart='
+					// View all always resets limitstart
 					array(
 						'text' => 'JLIB_HTML_VIEW_ALL',
 						'base' => '0',
-						'link' => 'index.php',
+						'link' => 'index.php?limitstart=',
 						'prefix' => '',
 						'active' => false,
 					),

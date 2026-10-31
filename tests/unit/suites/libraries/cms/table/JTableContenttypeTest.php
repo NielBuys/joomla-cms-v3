@@ -30,7 +30,7 @@ class JTableContenttypeTest extends TestCaseDatabase
 	 *
 	 * @since   3.1
 	 */
-	protected function setUp()
+	protected function setUp(): void
 	{
 		parent::setUp();
 
@@ -45,7 +45,7 @@ class JTableContenttypeTest extends TestCaseDatabase
 	 * @see     \PHPUnit\Framework\TestCase::tearDown()
 	 * @since   3.6
 	 */
-	protected function tearDown()
+	protected function tearDown(): void
 	{
 		unset($this->object);
 		parent::tearDown();
@@ -73,11 +73,12 @@ class JTableContenttypeTest extends TestCaseDatabase
 	 * @return  void
 	 *
 	 * @since   3.1
-	 * @expectedException         UnexpectedValueException
-	 * @expectedExceptionMessage  The title is empty
 	 */
 	public function testCheckFailsWithAnEmptyDataSet()
 	{
+		$this->expectException('UnexpectedValueException');
+		$this->expectExceptionMessage('The title is empty');
+
 		$this->object->check();
 	}
 
@@ -87,11 +88,12 @@ class JTableContenttypeTest extends TestCaseDatabase
 	 * @return  void
 	 *
 	 * @since   3.1
-	 * @expectedException         UnexpectedValueException
-	 * @expectedExceptionMessage  The type_alias is empty
 	 */
 	public function testCheckFailsWithAnEmptyAlias()
 	{
+		$this->expectException('UnexpectedValueException');
+		$this->expectExceptionMessage('The type_alias is empty');
+
 		$this->object->type_title = 'Unit Test';
 		$this->object->check();
 	}

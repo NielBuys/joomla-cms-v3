@@ -29,7 +29,7 @@ class JCryptCipherSimpleTest extends TestCase
 	 *
 	 * @since   3.0.0
 	 */
-	protected function setUp()
+	protected function setUp(): void
 	{
 		parent::setUp();
 
@@ -47,7 +47,7 @@ class JCryptCipherSimpleTest extends TestCase
 	 *
 	 * @since   3.0.0
 	 */
-	protected function tearDown()
+	protected function tearDown(): void
 	{
 		unset($this->_cipher, $this->key);
 		parent::tearDown();

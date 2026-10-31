@@ -217,19 +217,19 @@ class JLogLoggerFormattedTextTest extends TestCase
 		@ unlink($path);
 
 		$logger->addEntry(new JLogEntry('Testing Entry 01'));
-		$this->assertFileNotExists(
+		$this->assertFileDoesNotExist(
 			$path,
 			'Line: ' . __LINE__
 		);
 
 		$logger->addEntry(new JLogEntry('Testing 02', JLog::ERROR));
-		$this->assertFileNotExists(
+		$this->assertFileDoesNotExist(
 			$path,
 			'Line: ' . __LINE__
 		);
 
 		$logger->addEntry(new JLogEntry('Testing3', JLog::EMERGENCY, 'deprecated'));
-		$this->assertFileNotExists(
+		$this->assertFileDoesNotExist(
 			$path,
 			'Line: ' . __LINE__
 		);

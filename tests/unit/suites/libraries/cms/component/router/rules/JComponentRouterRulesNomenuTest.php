@@ -35,7 +35,7 @@ class JComponentRouterRulesNomenuTest extends TestCase
 	 *
 	 * @since   3.4
 	 */
-	protected function setUp()
+	protected function setUp(): void
 	{
 		parent::setUp();
 

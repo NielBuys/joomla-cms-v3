@@ -91,7 +91,7 @@ class JTwitterUsersTest extends TestCase
 	 *
 	 * @return void
 	 */
-	protected function setUp()
+	protected function setUp(): void
 	{
 		$this->backupServer = $_SERVER;
 		$_SERVER['HTTP_HOST'] = 'example.com';
@@ -128,7 +128,7 @@ class JTwitterUsersTest extends TestCase
 	 * @see     \PHPUnit\Framework\TestCase::tearDown()
 	 * @since   3.6
 	 */
-	protected function tearDown()
+	protected function tearDown(): void
 	{
 		$_SERVER = $this->backupServer;
 		unset($this->backupServer, $this->options, $this->input, $this->client, $this->oauth, $this->object);
@@ -221,10 +221,11 @@ class JTwitterUsersTest extends TestCase
 	 *
 	 * @since 3.1.4
 	 * @dataProvider seedFriendshipsLookup
-	 * @expectedException  DomainException
 	 */
 	public function testGetUsersLookupFailure($screen_name, $id)
 	{
+		$this->expectException('DomainException');
+
 		$returnData = new stdClass;
 		$returnData->code = 200;
 		$returnData->body = $this->rateLimit;
@@ -344,10 +345,11 @@ class JTwitterUsersTest extends TestCase
 	 *
 	 * @since 3.1.4
 	 * @dataProvider seedUser
-	 * @expectedException  DomainException
 	 */
 	public function testGetUserProfileBannerFailure($user)
 	{
+		$this->expectException('DomainException');
+
 		$returnData = new stdClass;
 		$returnData->code = 200;
 		$returnData->body = $this->rateLimit;
@@ -442,10 +444,11 @@ class JTwitterUsersTest extends TestCase
 	 * @return  void
 	 *
 	 * @since 3.1.4
-	 * @expectedException  DomainException
 	 */
 	public function testSearchUsersFailure()
 	{
+		$this->expectException('DomainException');
+
 		$query = 'testUser';
 
 		$returnData = new stdClass;
@@ -543,10 +546,11 @@ class JTwitterUsersTest extends TestCase
 	 *
 	 * @since 3.1.4
 	 * @dataProvider seedUser
-	 * @expectedException DomainException
 	 */
 	public function testGetUserFailure($user)
 	{
+		$this->expectException('DomainException');
+
 		$entities = true;
 
 		$returnData = new stdClass;
@@ -659,10 +663,11 @@ class JTwitterUsersTest extends TestCase
 	 *
 	 * @since 3.1.4
 	 * @dataProvider seedUser
-	 * @expectedException DomainException
 	 */
 	public function testGetContributeesFailure($user)
 	{
+		$this->expectException('DomainException');
+
 		$entities = true;
 		$skip_status = true;
 
@@ -777,10 +782,11 @@ class JTwitterUsersTest extends TestCase
 	 *
 	 * @since 3.1.4
 	 * @dataProvider seedUser
-	 * @expectedException DomainException
 	 */
 	public function testGetContributorsFailure($user)
 	{
+		$this->expectException('DomainException');
+
 		$entities = true;
 		$skip_status = true;
 
@@ -874,10 +880,11 @@ class JTwitterUsersTest extends TestCase
 	 * @return  void
 	 *
 	 * @since 3.1.4
-	 * @expectedException DomainException
 	 */
 	public function testGetSuggestionsFailure()
 	{
+		$this->expectException('DomainException');
+
 		$lang = 'fr';
 
 		$returnData = new stdClass;
@@ -957,10 +964,11 @@ class JTwitterUsersTest extends TestCase
 	 * @return  void
 	 *
 	 * @since 3.1.4
-	 * @expectedException DomainException
 	 */
 	public function testGetSuggestionsSlugFailure()
 	{
+		$this->expectException('DomainException');
+
 		$slug = 'twitter';
 		$lang = 'fr';
 
@@ -1037,10 +1045,11 @@ class JTwitterUsersTest extends TestCase
 	 * @return  void
 	 *
 	 * @since 3.1.4
-	 * @expectedException DomainException
 	 */
 	public function testGetSuggestionsSlugMembersFailure()
 	{
+		$this->expectException('DomainException');
+
 		$slug = 'twitter';
 
 		$returnData = new stdClass;

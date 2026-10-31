@@ -30,7 +30,7 @@ class JModelFormTest extends TestCase
 	 *
 	 * @return  void
 	 */
-	public function setUp()
+	public function setUp(): void
 	{
 		// Create mock of abstract class JModelForm to test concrete methods in there
 		$this->object = $this->getMockForAbstractClass('JModelForm');
@@ -46,7 +46,7 @@ class JModelFormTest extends TestCase
 	 * @see     \PHPUnit\Framework\TestCase::tearDown()
 	 * @since   1.7.0
 	 */
-	protected function tearDown()
+	protected function tearDown(): void
 	{
 		// Reset the dispatcher instance.
 		TestReflection::setValue('JEventDispatcher', 'instance', null);

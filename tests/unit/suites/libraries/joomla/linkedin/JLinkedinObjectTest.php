@@ -57,7 +57,7 @@ class JLinkedinObjectTest extends TestCase
 	 *
 	 * @return void
 	 */
-	protected function setUp()
+	protected function setUp(): void
 	{
 		$this->options = new JRegistry;
 		$this->client = $this->getMockBuilder('JHttp')->setMethods(array('get', 'post', 'delete', 'put'))->getMock();
@@ -73,7 +73,7 @@ class JLinkedinObjectTest extends TestCase
 	 *
 	 * @return void
 	 */
-	protected function tearDown()
+	protected function tearDown(): void
 	{
 		unset($this->client, $this->options, $this->object);
 	}

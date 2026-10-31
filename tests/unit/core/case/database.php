@@ -6,14 +6,6 @@
  * @license    GNU General Public License version 2 or later; see LICENSE.txt
  */
 
-if (!class_exists('PHPUnit_Extensions_Database_TestCase'))
-{
-	require_once 'PHPUnit/Extensions/Database/TestCase.php';
-	require_once 'PHPUnit/Extensions/Database/DataSet/XmlDataSet.php';
-	require_once 'PHPUnit/Extensions/Database/DataSet/QueryDataSet.php';
-	require_once 'PHPUnit/Extensions/Database/DataSet/MysqlXmlDataSet.php';
-}
-
 /**
  * Abstract test case class for database testing.
  *
@@ -77,7 +69,7 @@ abstract class TestCaseDatabase extends PHPUnit_Extensions_Database_TestCase
 	 *
 	 * @since   3.0.0
 	 */
-	public static function setUpBeforeClass()
+	public static function setUpBeforeClass(): void
 	{
 		// We always want the default database test case to use an SQLite memory database.
 		$options = array(
@@ -118,7 +110,7 @@ abstract class TestCaseDatabase extends PHPUnit_Extensions_Database_TestCase
 	 *
 	 * @since   3.0.0
 	 */
-	public static function tearDownAfterClass()
+	public static function tearDownAfterClass(): void
 	{
 		JFactory::$database = self::$_stash;
 
@@ -534,7 +526,7 @@ abstract class TestCaseDatabase extends PHPUnit_Extensions_Database_TestCase
 	 *
 	 * @since   3.0.0
 	 */
-	protected function setUp()
+	protected function setUp(): void
 	{
 		if (empty(static::$driver))
 		{

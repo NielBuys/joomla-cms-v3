@@ -35,7 +35,7 @@ class JDatabaseExporterPostgresqlTest extends TestCase
 	 *
 	 * @return  void
 	 */
-	protected function setup()
+	protected function setup(): void
 	{
 		// Set up the database object mock.
 		$this->dbo = $this->getMockDatabase('Postgresql', array('getTableSequences'), '1970-01-01 00:00:00', 'Y-m-d H:i:s');
@@ -146,7 +146,7 @@ class JDatabaseExporterPostgresqlTest extends TestCase
 	 * @see     \PHPUnit\Framework\TestCase::tearDown()
 	 * @since   3.6
 	 */
-	protected function tearDown()
+	protected function tearDown(): void
 	{
 		unset($this->dbo);
 	}
@@ -333,10 +333,11 @@ class JDatabaseExporterPostgresqlTest extends TestCase
 	/**
 	 * Tests the check method.
 	 *
-	 * @expectedException Exception
 	 */
 	public function testCheckWithNoDbo()
 	{
+		$this->expectException('Exception');
+
 		$instance = new JDatabaseExporterPostgresql;
 
 		$instance->check();
@@ -345,10 +346,11 @@ class JDatabaseExporterPostgresqlTest extends TestCase
 	/**
 	 * Tests the check method.
 	 *
-	 * @expectedException Exception
 	 */
 	public function testCheckWithNoTables()
 	{
+		$this->expectException('Exception');
+
 		$instance	= new JDatabaseExporterPostgresql;
 		$instance->setDbo($this->dbo);
 
@@ -375,10 +377,11 @@ class JDatabaseExporterPostgresqlTest extends TestCase
 	/**
 	 * Tests the from method with bad input.
 	 *
-	 * @expectedException Exception
 	 */
 	public function testFromWithBadInput()
 	{
+		$this->expectException('Exception');
+
 		$instance = new JDatabaseExporterPostgresql;
 
 		$instance->from(new stdClass);

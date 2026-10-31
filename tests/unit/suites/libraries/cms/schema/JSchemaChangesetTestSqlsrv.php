@@ -25,7 +25,7 @@ class JSchemaChangesetTestSqlsrv extends TestCaseDatabaseSqlsrv
 	 *
 	 * @return  void
 	 */
-	protected function setUp()
+	protected function setUp(): void
 	{
 		parent::setUp();
 
@@ -41,7 +41,7 @@ class JSchemaChangesetTestSqlsrv extends TestCaseDatabaseSqlsrv
 	 * @see     \PHPUnit\Framework\TestCase::tearDown()
 	 * @since   3.6
 	 */
-	protected function tearDown()
+	protected function tearDown(): void
 	{
 		unset($this->object);
 		parent::tearDown();

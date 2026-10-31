@@ -25,7 +25,7 @@ class JResponseJsonTest extends TestCase
 	 *
 	 * @since  3.1
 	 */
-	public function setUp()
+	public function setUp(): void
 	{
 		parent::setUp();
 
@@ -41,7 +41,7 @@ class JResponseJsonTest extends TestCase
 	 *
 	 * @since  3.1
 	 */
-	public function tearDown()
+	public function tearDown(): void
 	{
 		$this->restoreFactoryState();
 

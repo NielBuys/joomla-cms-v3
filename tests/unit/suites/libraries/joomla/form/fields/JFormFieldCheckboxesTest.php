@@ -25,7 +25,7 @@ class JFormFieldCheckboxesTest extends TestCaseDatabase
 	 *
 	 * @return void
 	 */
-	protected function setUp()
+	protected function setUp(): void
 	{
 		parent::setUp();
 
@@ -47,7 +47,7 @@ class JFormFieldCheckboxesTest extends TestCaseDatabase
 	 *
 	 * @since   3.1
 	 */
-	protected function tearDown()
+	protected function tearDown(): void
 	{
 		$_SERVER = $this->backupServer;
 

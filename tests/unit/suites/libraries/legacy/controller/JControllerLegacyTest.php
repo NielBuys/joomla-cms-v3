@@ -33,7 +33,7 @@ class JControllerLegacyTest extends TestCase
 	 *
 	 * @return  void
 	 */
-	protected function setUp()
+	protected function setUp(): void
 	{
 		if (!defined('JPATH_COMPONENT'))
 		{
@@ -56,7 +56,7 @@ class JControllerLegacyTest extends TestCase
 	 *
 	 * @return  void
 	 */
-	protected function tearDown()
+	protected function tearDown(): void
 	{
 		$this->restoreFactoryState();
 		$this->class = null;

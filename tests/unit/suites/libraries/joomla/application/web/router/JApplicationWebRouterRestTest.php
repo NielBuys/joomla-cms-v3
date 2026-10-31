@@ -171,7 +171,7 @@ class JApplicationWebRouterRestTest extends TestCase
 	 *
 	 * @since   3.1.4
 	 */
-	protected function setUp()
+	protected function setUp(): void
 	{
 		parent::setUp();
 
@@ -186,7 +186,7 @@ class JApplicationWebRouterRestTest extends TestCase
 	 *
 	 * @since   3.1.4
 	 */
-	protected function tearDown()
+	protected function tearDown(): void
 	{
 		$this->_instance = null;
 		$_SERVER['REQUEST_METHOD'] = $this->_method;

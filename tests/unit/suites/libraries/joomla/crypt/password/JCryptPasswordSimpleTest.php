@@ -14,7 +14,7 @@
  * @subpackage  Crypt
  * @since       1.7.0
  */
-class JCryptPasswordSimpleTest extends \PHPUnit\Framework\TestCase
+class JCryptPasswordSimpleTest extends TestCasePhpunit
 {
 	/**
 	 * Data provider for testCreate method.
@@ -63,7 +63,6 @@ class JCryptPasswordSimpleTest extends \PHPUnit\Framework\TestCase
 	 * @param   string   $expected  The expected result
 	 * @param   integer  $cost      The cost value
 	 *
-	 * @expectedException  InvalidArgumentException
 	 *
 	 * @return void
 	 *
@@ -73,6 +72,8 @@ class JCryptPasswordSimpleTest extends \PHPUnit\Framework\TestCase
 	 */
 	public function testCreateException($password, $type, $salt, $expected, $cost)
 	{
+		$this->expectException('InvalidArgumentException');
+
 		$hasher = $this->getMockBuilder('JCryptPasswordSimple')->setMethods(array('getSalt'))->getMock();
 		$hasher->setCost($cost);
 

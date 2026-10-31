@@ -31,7 +31,7 @@ class JCacheTest extends TestCase
 	 *
 	 * @return void
 	 */
-	protected function setUp()
+	protected function setUp(): void
 	{
 		parent::setUp();
 
@@ -48,7 +48,7 @@ class JCacheTest extends TestCase
 	 *
 	 * @return void
 	 */
-	protected function tearDown()
+	protected function tearDown(): void
 	{
 		$this->restoreFactoryState();
 
@@ -461,7 +461,7 @@ class JCacheTest extends TestCase
 		// Collect Garbage
 		$this->object->gc();
 
-		$this->assertFileNotExists($path, "Cache file should not exist.");
+		$this->assertFileDoesNotExist($path, "Cache file should not exist.");
 
 		$this->assertFalse($this->object->get(42, ''));
 

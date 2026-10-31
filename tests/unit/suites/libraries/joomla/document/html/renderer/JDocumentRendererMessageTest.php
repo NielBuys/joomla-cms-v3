@@ -23,7 +23,7 @@ class JDocumentRendererMessageTest extends TestCaseDatabase
 	 *
 	 * This method is called before a test is executed.
 	 */
-	protected function setUp()
+	protected function setUp(): void
 	{
 		parent::setUp();
 
@@ -40,7 +40,7 @@ class JDocumentRendererMessageTest extends TestCaseDatabase
 	 * Tears down the fixture, for example, closes a network connection.
 	 * This method is called after a test is executed.
 	 */
-	protected function tearDown()
+	protected function tearDown(): void
 	{
 		$this->restoreFactoryState();
 
@@ -52,6 +52,6 @@ class JDocumentRendererMessageTest extends TestCaseDatabase
 	 */
 	public function testTheDefaultReturnForRender()
 	{
-		$this->assertContains('<div id="system-message-container"', $this->instance->render('unused'));
+		$this->assertStringContainsString('<div id="system-message-container"', $this->instance->render('unused'));
 	}
 }

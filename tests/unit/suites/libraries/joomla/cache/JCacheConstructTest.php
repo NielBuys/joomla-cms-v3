@@ -15,7 +15,7 @@
  *
  * @since       1.7.0
  */
-class JCacheTest_Construct extends \PHPUnit\Framework\TestCase
+class JCacheTest_Construct extends TestCasePhpunit
 {
 	/**
 	 * Test...

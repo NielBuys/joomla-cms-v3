@@ -198,6 +198,11 @@ class TestMockDatabaseDriver
 	 */
 	public static function mockQuoteName($value)
 	{
+		if (is_array($value))
+		{
+			return array_map(array(__CLASS__, 'mockQuoteName'), $value);
+		}
+
 		return "`$value`";
 	}
 

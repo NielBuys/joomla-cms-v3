@@ -59,7 +59,7 @@ class JGoogleDataPlusTest extends TestCase
 	 * @access protected
 	 * @return void
 	 */
-	protected function setUp()
+	protected function setUp(): void
 	{
 		parent::setUp();
 		$this->backupServer = $_SERVER;
@@ -98,7 +98,7 @@ class JGoogleDataPlusTest extends TestCase
 	 *
 	 * @see     \PHPUnit\Framework\TestCase::tearDown()
 	 */
-	protected function tearDown()
+	protected function tearDown(): void
 	{
 		$_SERVER = $this->backupServer;
 		unset($this->backupServer, $this->options, $this->http, $this->input, $this->auth, $this->oauth, $this->object);

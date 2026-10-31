@@ -87,7 +87,7 @@ class JTwitterProfileTest extends TestCase
 	 *
 	 * @return void
 	 */
-	protected function setUp()
+	protected function setUp(): void
 	{
 		$this->backupServer = $_SERVER;
 		$_SERVER['HTTP_HOST'] = 'example.com';
@@ -124,7 +124,7 @@ class JTwitterProfileTest extends TestCase
 	 * @see     \PHPUnit\Framework\TestCase::tearDown()
 	 * @since   3.6
 	 */
-	protected function tearDown()
+	protected function tearDown(): void
 	{
 		$_SERVER = $this->backupServer;
 		unset($this->backupServer, $this->options, $this->input, $this->client, $this->oauth, $this->object);
@@ -187,10 +187,11 @@ class JTwitterProfileTest extends TestCase
 	 * @return  void
 	 *
 	 * @since 3.1.4
-	 * @expectedException DomainException
 	 */
 	public function testUpdateProfileFailure()
 	{
+		$this->expectException('DomainException');
+
 		$name = 'testUser';
 		$url = 'www.example.com/url';
 		$location = 'San Francisco, CA';
@@ -284,10 +285,11 @@ class JTwitterProfileTest extends TestCase
 	 * @return  void
 	 *
 	 * @since   3.1.4
-	 * @expectedException DomainException
 	 */
 	public function testUpdateProfileBackgroundImageFailure()
 	{
+		$this->expectException('DomainException');
+
 		$image = 'path/to/source';
 		$tile = true;
 		$entities = true;
@@ -374,10 +376,11 @@ class JTwitterProfileTest extends TestCase
 	 * @return  void
 	 *
 	 * @since   3.1.4
-	 * @expectedException DomainException
 	 */
 	public function testUpdateProfileImageFailure()
 	{
+		$this->expectException('DomainException');
+
 		$image = 'path/to/source';
 		$entities = true;
 		$skip_status = true;
@@ -468,10 +471,11 @@ class JTwitterProfileTest extends TestCase
 	 * @return  void
 	 *
 	 * @since   3.1.4
-	 * @expectedException DomainException
 	 */
 	public function testUpdateProfileColorsFailure()
 	{
+		$this->expectException('DomainException');
+
 		$background = 'C0DEED ';
 		$link = '0084B4';
 		$sidebar_border = '0084B4';
@@ -553,10 +557,11 @@ class JTwitterProfileTest extends TestCase
 	 * @return  void
 	 *
 	 * @since   3.1.4
-	 * @expectedException DomainException
 	 */
 	public function testGetSettingsFailure()
 	{
+		$this->expectException('DomainException');
+
 		$returnData = new stdClass;
 		$returnData->code = 200;
 		$returnData->body = $this->rateLimit;
@@ -625,10 +630,11 @@ class JTwitterProfileTest extends TestCase
 	 * @return  void
 	 *
 	 * @since   3.1.4
-	 * @expectedException DomainException
 	 */
 	public function testUpdateSettingsFailure()
 	{
+		$this->expectException('DomainException');
+
 		$location = 1;
 		$sleep_time = true;
 		$start_sleep = 10;

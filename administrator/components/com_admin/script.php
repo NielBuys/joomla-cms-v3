@@ -2058,6 +2058,15 @@ class JoomlaInstallerScript
 			// Joomla 3.10.7-rc1 to 3.10.7 stable
 			'/administrator/components/com_admin/sql/updates/postgresql/3.10.7-2022-02-20.sql.sql',
 			'/administrator/components/com_admin/sql/updates/sqlazure/3.10.7-2022-02-20.sql.sql',
+
+			// Joomla 3.12.0: PHPMailer 5.2 replaced by PHPMailer 7, random_compat 1.x by 2.x
+			'/libraries/vendor/paragonie/random_compat/lib/random_bytes_openssl.php',
+			'/libraries/vendor/phpmailer/phpmailer/PHPMailerAutoload.php',
+			'/libraries/vendor/phpmailer/phpmailer/class.phpmailer.php',
+			'/libraries/vendor/phpmailer/phpmailer/class.phpmaileroauth.php',
+			'/libraries/vendor/phpmailer/phpmailer/class.phpmaileroauthgoogle.php',
+			'/libraries/vendor/phpmailer/phpmailer/class.pop3.php',
+			'/libraries/vendor/phpmailer/phpmailer/class.smtp.php',
 		);
 
 		// TODO There is an issue while deleting folders using the ftp mode
@@ -2302,6 +2311,46 @@ class JoomlaInstallerScript
 			'/libraries/joomla/base',
 			// Joomla 3.10.8
 			'/administrator/components/com_users/models/fields/primaryauthproviders.php',
+
+			// Joomla 3.12.0: leafo/lessphp replaced by splitbrain/lesserphp, PHPMailer 5.2 by PHPMailer 7
+			'/libraries/vendor/leafo/lessphp',
+			'/libraries/vendor/leafo',
+			'/libraries/vendor/phpmailer/phpmailer/extras',
+			// Joomla 3.12.0: polyfills for functions PHP 8.3 has built in
+			'/libraries/vendor/ircmaxell/password-compat',
+			'/libraries/vendor/ircmaxell',
+			'/libraries/vendor/symfony/polyfill-php55',
+			'/libraries/vendor/symfony/polyfill-php56',
+			'/libraries/vendor/symfony/polyfill-php71',
+			'/libraries/vendor/symfony/polyfill-php73',
+			'/libraries/vendor/symfony/polyfill-util',
+			// Joomla 3.12.0: development tools that earlier releases of this fork shipped by mistake
+			'/libraries/vendor/doctrine/instantiator',
+			'/libraries/vendor/doctrine',
+			'/libraries/vendor/friendsofphp/php-cs-fixer',
+			'/libraries/vendor/friendsofphp',
+			'/libraries/vendor/pear/cache_lite/docs',
+			'/libraries/vendor/pear/cache_lite/tests',
+			'/libraries/vendor/phpdocumentor/reflection-common',
+			'/libraries/vendor/phpdocumentor/reflection-docblock',
+			'/libraries/vendor/phpdocumentor/type-resolver',
+			'/libraries/vendor/phpdocumentor',
+			'/libraries/vendor/phpspec/prophecy',
+			'/libraries/vendor/phpspec',
+			'/libraries/vendor/phpunit',
+			'/libraries/vendor/sebastian',
+			'/libraries/vendor/squizlabs/php_codesniffer',
+			'/libraries/vendor/squizlabs',
+			'/libraries/vendor/symfony/console',
+			'/libraries/vendor/symfony/debug',
+			'/libraries/vendor/symfony/event-dispatcher',
+			'/libraries/vendor/symfony/filesystem',
+			'/libraries/vendor/symfony/finder',
+			'/libraries/vendor/symfony/polyfill-mbstring',
+			'/libraries/vendor/symfony/process',
+			'/libraries/vendor/symfony/stopwatch',
+			'/libraries/vendor/webmozart/assert',
+			'/libraries/vendor/webmozart',
 		);
 
 		jimport('joomla.filesystem.file');

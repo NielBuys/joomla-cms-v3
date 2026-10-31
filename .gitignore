@@ -22,6 +22,8 @@
 
 # Test Related Files #
 /phpunit.xml
+/.phpunit.result.cache
+/tests/tmp
 
 # Stubs file holding mapped classes
 /stubs.php
@@ -89,12 +91,6 @@ Desktop.ini
 /libraries/vendor/google/recaptcha/CONTRIBUTING.md
 /libraries/vendor/google/recaptcha/phpunit.xml.dist
 /libraries/vendor/google/recaptcha/README.md
-/libraries/vendor/ircmaxell/password-compat/test
-/libraries/vendor/ircmaxell/password-compat/.travis.yml
-/libraries/vendor/ircmaxell/password-compat/composer.json
-/libraries/vendor/ircmaxell/password-compat/phpunit.xml.dist
-/libraries/vendor/ircmaxell/password-compat/README.md
-/libraries/vendor/ircmaxell/password-compat/version-test.php
 /libraries/vendor/joomla/*/.gitattributes
 /libraries/vendor/joomla/*/.github
 /libraries/vendor/joomla/*/.gitignore
@@ -123,17 +119,6 @@ Desktop.ini
 /libraries/vendor/joomla/session/Joomla/Session/phpunit.xml.dist
 /libraries/vendor/joomla/session/Joomla/Session/README.md
 /libraries/vendor/joomla/session/Joomla/Session/ruleset.xml
-/libraries/vendor/leafo/lessphp/docs
-/libraries/vendor/leafo/lessphp/tests
-/libraries/vendor/leafo/lessphp/.drone.yml
-/libraries/vendor/leafo/lessphp/.gitignore
-/libraries/vendor/leafo/lessphp/.travis.yml
-/libraries/vendor/leafo/lessphp/composer.json
-/libraries/vendor/leafo/lessphp/Makefile
-/libraries/vendor/leafo/lessphp/package.sh
-/libraries/vendor/leafo/lessphp/phpunit.xml.dist
-/libraries/vendor/leafo/lessphp/README.md
-/libraries/vendor/leafo/lessphp/ruleset.xml
 /libraries/vendor/paragonie/random_compat/.gitignore
 /libraries/vendor/paragonie/random_compat/.scrutinizer.yml
 /libraries/vendor/paragonie/random_compat/.travis.yml
@@ -162,6 +147,16 @@ Desktop.ini
 /libraries/vendor/paragonie/sodium_compat/psalm-below-3.xml
 /libraries/vendor/paragonie/sodium_compat/README.md
 /libraries/vendor/paragonie/sodium_compat/src/Core/Curve25519/README.md
+/libraries/vendor/pear/cache_lite/.github
+/libraries/vendor/pear/cache_lite/.gitignore
+/libraries/vendor/pear/cache_lite/.travis.yml
+/libraries/vendor/pear/cache_lite/composer.json
+/libraries/vendor/pear/cache_lite/docs
+/libraries/vendor/pear/cache_lite/package.xml
+/libraries/vendor/pear/cache_lite/phpunit.xml.dist
+/libraries/vendor/pear/cache_lite/README.md
+/libraries/vendor/pear/cache_lite/tests
+/libraries/vendor/pear/cache_lite/TODO
 /libraries/vendor/phpmailer/phpmailer/docs
 /libraries/vendor/phpmailer/phpmailer/examples
 /libraries/vendor/phpmailer/phpmailer/language
@@ -182,6 +177,8 @@ Desktop.ini
 /libraries/vendor/phpmailer/phpmailer/UPGRADING.md
 /libraries/vendor/phpmailer/phpmailer/extras/README.md
 /libraries/vendor/phpmailer/phpmailer/get_oauth_token.php
+/libraries/vendor/phpmailer/phpmailer/COMMITMENT
+/libraries/vendor/phpmailer/phpmailer/SMTPUTF8.md
 /libraries/vendor/psr/container/.gitignore
 /libraries/vendor/psr/container/composer.json
 /libraries/vendor/psr/container/README.md
@@ -193,12 +190,6 @@ Desktop.ini
 /libraries/vendor/symfony/polyfill-ctype/README.md
 /libraries/vendor/symfony/polyfill-php55/composer.json
 /libraries/vendor/symfony/polyfill-php55/README.md
-/libraries/vendor/symfony/polyfill-php56/composer.json
-/libraries/vendor/symfony/polyfill-php56/README.md
-/libraries/vendor/symfony/polyfill-php71/composer.json
-/libraries/vendor/symfony/polyfill-php71/README.md
-/libraries/vendor/symfony/polyfill-php73/composer.json
-/libraries/vendor/symfony/polyfill-php73/README.md
 /libraries/vendor/symfony/polyfill-util/composer.json
 /libraries/vendor/symfony/polyfill-util/README.md
 /libraries/vendor/symfony/polyfill-util/LegacyTestListener.php
@@ -232,6 +223,53 @@ Desktop.ini
 /libraries/vendor/typo3/phar-stream-wrapper/LICENSE
 /libraries/vendor/typo3/phar-stream-wrapper/phpunit.xml
 /libraries/vendor/typo3/phar-stream-wrapper/README.md
+/libraries/vendor/splitbrain/lesserphp/.github
+/libraries/vendor/splitbrain/lesserphp/.gitignore
+/libraries/vendor/splitbrain/lesserphp/.phpcs.xml
+/libraries/vendor/splitbrain/lesserphp/composer.json
+/libraries/vendor/splitbrain/lesserphp/docs
+/libraries/vendor/splitbrain/lesserphp/HISTORY.md
+/libraries/vendor/splitbrain/lesserphp/phpunit.xml
+/libraries/vendor/splitbrain/lesserphp/README.md
+/libraries/vendor/splitbrain/lesserphp/rector.php
+/libraries/vendor/splitbrain/lesserphp/tests
+
+# Development tools from require-dev. Commit libraries/vendor after "composer install --no-dev"
+# so these are never packaged; see tests/unit/README.md
+/libraries/vendor/composer/pcre
+/libraries/vendor/composer/semver
+/libraries/vendor/composer/xdebug-handler
+/libraries/vendor/clue
+/libraries/vendor/doctrine
+/libraries/vendor/ergebnis
+/libraries/vendor/evenement
+/libraries/vendor/fidry
+/libraries/vendor/friendsofphp
+/libraries/vendor/myclabs
+/libraries/vendor/nikic
+/libraries/vendor/phar-io
+/libraries/vendor/phpunit
+/libraries/vendor/react
+/libraries/vendor/sebastian
+/libraries/vendor/squizlabs
+/libraries/vendor/symfony/console
+/libraries/vendor/symfony/deprecation-contracts
+/libraries/vendor/symfony/event-dispatcher
+/libraries/vendor/symfony/event-dispatcher-contracts
+/libraries/vendor/symfony/filesystem
+/libraries/vendor/symfony/finder
+/libraries/vendor/symfony/options-resolver
+/libraries/vendor/symfony/polyfill-intl-grapheme
+/libraries/vendor/symfony/polyfill-intl-normalizer
+/libraries/vendor/symfony/polyfill-mbstring
+/libraries/vendor/symfony/polyfill-php80
+/libraries/vendor/symfony/polyfill-php81
+/libraries/vendor/symfony/polyfill-php84
+/libraries/vendor/symfony/process
+/libraries/vendor/symfony/service-contracts
+/libraries/vendor/symfony/stopwatch
+/libraries/vendor/symfony/string
+/libraries/vendor/theseer
 
 # System Test related files
 tests/codeception/acceptance.suite.yml

@@ -41,7 +41,7 @@ abstract class TestCaseDatabaseMysql extends TestCaseDatabase
 	 *
 	 * @since   3.0.0
 	 */
-	public static function setUpBeforeClass()
+	public static function setUpBeforeClass(): void
 	{
 		if (PHP_MAJOR_VERSION >= 7)
 		{
@@ -115,7 +115,7 @@ abstract class TestCaseDatabaseMysql extends TestCaseDatabase
 	 *
 	 * @since   3.0.0
 	 */
-	public static function tearDownAfterClass()
+	public static function tearDownAfterClass(): void
 	{
 		JFactory::$database = self::$_stash;
 

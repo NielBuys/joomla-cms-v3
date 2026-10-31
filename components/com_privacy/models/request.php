@@ -213,7 +213,7 @@ class PrivacyModelRequest extends JModelAdmin
 			// The email sent and the record is saved, everything is good to go from here
 			return true;
 		}
-		catch (phpmailerException $exception)
+		catch (\PHPMailer\PHPMailer\Exception $exception)
 		{
 			$this->setError($exception->getMessage());
 

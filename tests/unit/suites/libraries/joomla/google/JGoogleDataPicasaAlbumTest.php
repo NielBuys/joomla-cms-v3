@@ -64,7 +64,7 @@ class JGoogleDataPicasaAlbumTest extends TestCase
 	 * @access protected
 	 * @return void
 	 */
-	protected function setUp()
+	protected function setUp(): void
 	{
 		$this->backupServer = $_SERVER;
 		$_SERVER['HTTP_HOST'] = 'mydomain.com';
@@ -101,7 +101,7 @@ class JGoogleDataPicasaAlbumTest extends TestCase
 	 * @access protected
 	 * @return void
 	 */
-	protected function tearDown()
+	protected function tearDown(): void
 	{
 		$_SERVER = $this->backupServer;
 		unset($this->backupServer, $this->options, $this->http, $this->input, $this->auth, $this->oauth, $this->xml, $this->object);
@@ -332,11 +332,12 @@ class JGoogleDataPicasaAlbumTest extends TestCase
 	 * Tests the listPhotos method with wrong XML
 	 *
 	 * @group	JGoogle
-	 * @expectedException UnexpectedValueException
 	 * @return void
 	 */
 	public function testListPhotosException()
 	{
+		$this->expectException('UnexpectedValueException');
+
 		$this->http->expects($this->once())->method('get')->will($this->returnCallback('picasaBadXmlCallback'));
 		$this->object->listPhotos();
 	}
@@ -367,11 +368,12 @@ class JGoogleDataPicasaAlbumTest extends TestCase
 	 * Tests the upload method with an unknown file type
 	 *
 	 * @group	JGoogle
-	 * @expectedException RuntimeException
 	 * @return void
 	 */
 	public function testUploadUnknown()
 	{
+		$this->expectException('RuntimeException');
+
 		$this->object->upload(__DIR__ . DIRECTORY_SEPARATOR . 'photo.txt');
 	}
 
@@ -379,11 +381,12 @@ class JGoogleDataPicasaAlbumTest extends TestCase
 	 * Tests the upload method with an invalid file
 	 *
 	 * @group	JGoogle
-	 * @expectedException PHPUnit_Framework_Error_Warning
 	 * @return void
 	 */
 	public function testUploadFake()
 	{
+		$this->expectException('RuntimeException');
+
 		$this->object->upload(__DIR__ . DIRECTORY_SEPARATOR . 'fakephoto.png');
 	}
 

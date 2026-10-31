@@ -29,7 +29,7 @@ class JApplicationTest extends TestCase
 	 *
 	 * @return  void
 	 */
-	protected function setUp()
+	protected function setUp(): void
 	{
 		$this->object = new JApplication(array('session' => false));
 		parent::setUp();
@@ -41,7 +41,7 @@ class JApplicationTest extends TestCase
 	 *
 	 * @return  void
 	 */
-	protected function tearDown()
+	protected function tearDown(): void
 	{
 		$this->object = null;
 		parent::tearDown();

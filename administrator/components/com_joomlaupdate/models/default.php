@@ -47,14 +47,14 @@ class JoomlaupdateModelDefault extends JModelLegacy
 
 		switch ($params->get('updatesource', 'nochange'))
 		{
-			// "Minor & Patch Release for Current version AND Next Major Release".
+			// "Joomla Next": stable releases of the fork's next minor version
 			case 'next':
-				$updateURL = 'https://update.joomla.org/core/sts/list_sts.xml';
+				$updateURL = 'https://raw.githubusercontent.com/NielBuys/joomla-cms-v3/3.10-dev/list_next.xml';
 				break;
 
-			// "Testing"
+			// "Testing": the fork's release candidates and betas, filtered by the minimum stability setting
 			case 'testing':
-				$updateURL = 'https://update.joomla.org/core/test/list_test.xml';
+				$updateURL = 'https://raw.githubusercontent.com/NielBuys/joomla-cms-v3/3.10-dev/list_test.xml';
 				break;
 
 			// "Custom"

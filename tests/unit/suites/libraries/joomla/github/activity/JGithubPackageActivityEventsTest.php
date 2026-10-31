@@ -14,7 +14,7 @@
  * @subpackage  Github
  * @since       3.1.4
  */
-class JGithubPackageActivityEventsTest extends \PHPUnit\Framework\TestCase
+class JGithubPackageActivityEventsTest extends TestCasePhpunit
 {
 	/**
 	 * @var    JRegistry  Options for the GitHub object.
@@ -88,7 +88,7 @@ class JGithubPackageActivityEventsTest extends \PHPUnit\Framework\TestCase
 	 * @since   3.3.0
 	 * @return  void
 	 */
-	protected function setUp()
+	protected function setUp(): void
 	{
 		parent::setUp();
 

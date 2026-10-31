@@ -28,7 +28,7 @@ class JFeedFactoryTest extends TestCase
 	 *
 	 * @return  void
 	 */
-	protected function setUp()
+	protected function setUp(): void
 	{
 		$this->_instance = new JFeedFactory;
 	}
@@ -38,7 +38,7 @@ class JFeedFactoryTest extends TestCase
 	 *
 	 * @return  void
 	 */
-	protected function tearDown()
+	protected function tearDown(): void
 	{
 		unset($this->_instance);
 	}
@@ -48,10 +48,11 @@ class JFeedFactoryTest extends TestCase
 	 *
 	 * @return  void
 	 *
-	 * @expectedException  RuntimeException
 	 */
 	public function testGetFeedBad()
 	{
+		$this->expectException('RuntimeException');
+
 		$this->markTestSkipped('This test is failing to execute and is locking up the test suite.');
 		$this->_instance->getFeed(JPATH_TEST_STUBS . '/feed/test.bad.feed');
 	}
@@ -61,10 +62,11 @@ class JFeedFactoryTest extends TestCase
 	 *
 	 * @return  void
 	 *
-	 * @expectedException  LogicException
 	 */
 	public function testGetFeedNoParser()
 	{
+		$this->expectException('LogicException');
+
 		$this->_instance->getFeed(JPATH_TEST_STUBS . '/feed/test.myfeed.feed');
 	}
 
@@ -74,10 +76,11 @@ class JFeedFactoryTest extends TestCase
 	 * @return  void
 	 *
 	 * @medium
-	 * @expectedException  RuntimeException
 	 */
 	public function testGetFeedIdn()
 	{
+		$this->expectException('RuntimeException');
+
 		$this->_instance->getFeed('http://джумла-тест.рф/master/article-category-blog?format=feed&type=rss');
 	}
 
@@ -131,10 +134,11 @@ class JFeedFactoryTest extends TestCase
 	 *
 	 * @return  void
 	 *
-	 * @expectedException  InvalidArgumentException
 	 */
 	public function testRegisterParserWithInvalidClass()
 	{
+		$this->expectException('InvalidArgumentException');
+
 		TestReflection::setValue($this->_instance, 'parsers', array());
 
 		$this->_instance->registerParser('mock', 'JFeedParserMocks');
@@ -149,10 +153,11 @@ class JFeedFactoryTest extends TestCase
 	 *
 	 * @return  void
 	 *
-	 * @expectedException  InvalidArgumentException
 	 */
 	public function testRegisterParserWithInvalidTag()
 	{
+		$this->expectException('InvalidArgumentException');
+
 		TestReflection::setValue($this->_instance, 'parsers', array());
 
 		$this->_instance->registerParser('42tag', 'JFeedParserMock');
@@ -183,10 +188,11 @@ class JFeedFactoryTest extends TestCase
 	 *
 	 * @return  void
 	 *
-	 * @expectedException  LogicException
 	 */
 	public function test_fetchFeedParserWithInvalidTag()
 	{
+		$this->expectException('LogicException');
+
 		TestReflection::invoke($this->_instance, '_fetchFeedParser', 'foobar', new XMLReader);
 	}
 }

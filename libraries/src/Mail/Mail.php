@@ -12,13 +12,15 @@ defined('JPATH_PLATFORM') or die;
 
 use Joomla\CMS\Factory;
 use Joomla\CMS\Log\Log;
+use PHPMailer\PHPMailer\Exception as phpmailerException;
+use PHPMailer\PHPMailer\PHPMailer;
 
 /**
  * Email Class.  Provides a common interface to send email from the Joomla! Platform
  *
  * @since  1.7.0
  */
-class Mail extends \PHPMailer
+class Mail extends PHPMailer
 {
 	/**
 	 * Mail instances container.
@@ -47,8 +49,11 @@ class Mail extends \PHPMailer
 	{
 		parent::__construct($exceptions);
 
-		// PHPMailer has an issue using the relative path for its language files
-		$this->setLanguage('en_gb', __DIR__ . '/language/');
+		// PHPMailer reads language files as plain text, so load Joomla's translated strings over its English defaults
+		$PHPMAILER_LANG = array();
+		include __DIR__ . '/language/phpmailer.lang-en_gb.php';
+		static::setLanguage('en');
+		static::$language = array_merge(static::$language, $PHPMAILER_LANG);
 
 		// Configure a callback function to handle errors when $this->debug() is called
 		$this->Debugoutput = function ($message, $level)
@@ -82,7 +87,7 @@ class Mail extends \PHPMailer
 		*
 		* @var string|callable
 		*/
-		\PHPMailer::$validator = 'html5';
+		static::$validator = 'html5';
 	}
 
 	/**
@@ -131,7 +136,7 @@ class Mail extends \PHPMailer
 				// Try sending with default settings
 				$result = parent::send();
 			}
-			catch (\phpmailerException $e)
+			catch (phpmailerException $e)
 			{
 				$result = false;
 
@@ -149,7 +154,7 @@ class Mail extends \PHPMailer
 						// Try it again with TLS turned off
 						$result = parent::send();
 					}
-					catch (\phpmailerException $e)
+					catch (phpmailerException $e)
 					{
 						// Keep false for B/C compatibility
 						$result = false;
@@ -190,7 +195,7 @@ class Mail extends \PHPMailer
 				return false;
 			}
 		}
-		catch (\phpmailerException $e)
+		catch (phpmailerException $e)
 		{
 			// The parent method will have already called the logging callback, just log our deprecated error handling message
 			Log::add(__METHOD__ . '() will not catch phpmailerException objects as of 4.0.', Log::WARNING, 'deprecated');
@@ -248,7 +253,7 @@ class Mail extends \PHPMailer
 				return false;
 			}
 		}
-		catch (\phpmailerException $e)
+		catch (phpmailerException $e)
 		{
 			// The parent method will have already called the logging callback, just log our deprecated error handling message
 			Log::add(__METHOD__ . '() will not catch phpmailerException objects as of 4.0.', Log::WARNING, 'deprecated');
@@ -353,7 +358,7 @@ class Mail extends \PHPMailer
 							return false;
 						}
 					}
-					catch (\phpmailerException $e)
+					catch (phpmailerException $e)
 					{
 						Log::add(__METHOD__ . '() will not catch phpmailerException objects as of 4.0.', Log::WARNING, 'deprecated');
 						return false;
@@ -393,7 +398,7 @@ class Mail extends \PHPMailer
 							return false;
 						}
 					}
-					catch (\phpmailerException $e)
+					catch (phpmailerException $e)
 					{
 						Log::add(__METHOD__ . '() will not catch phpmailerException objects as of 4.0.', Log::WARNING, 'deprecated');
 						return false;
@@ -430,7 +435,7 @@ class Mail extends \PHPMailer
 					return false;
 				}
 			}
-			catch (\phpmailerException $e)
+			catch (phpmailerException $e)
 			{
 				Log::add(__METHOD__ . '() will not catch phpmailerException objects as of 4.0.', Log::WARNING, 'deprecated');
 				return false;
@@ -552,7 +557,7 @@ class Mail extends \PHPMailer
 					return false;
 				}
 			}
-			catch (\phpmailerException $e)
+			catch (phpmailerException $e)
 			{
 				// The parent method will have already called the logging callback, just log our deprecated error handling message
 				Log::add(__METHOD__ . '() will not catch phpmailerException objects as of 4.0.', Log::WARNING, 'deprecated');

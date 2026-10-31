@@ -72,7 +72,7 @@ class JGridInspector extends JGrid
  *
  * @since       1.7.3
  */
-class JGridTest extends \PHPUnit\Framework\TestCase
+class JGridTest extends TestCasePhpunit
 {
 	/**
 	 * Test for JGrid::__construct method.

@@ -17,7 +17,7 @@ require_once __DIR__ . '/stubs/JMediawikiObjectMock.php';
  *
  * @since       3.1.4
  */
-class JMediawikiObjectTest extends \PHPUnit\Framework\TestCase
+class JMediawikiObjectTest extends TestCasePhpunit
 {
 	/**
 	 * @var    JRegistry  Options for the Mediawiki object.
@@ -57,7 +57,7 @@ class JMediawikiObjectTest extends \PHPUnit\Framework\TestCase
 	 *
 	 * @return void
 	 */
-	protected function setUp()
+	protected function setUp(): void
 	{
 		$this->options = new JRegistry;
 		$this->client = $this->getMockBuilder('JMediawikiHttp')->setMethods(array('get', 'post', 'delete', 'patch', 'put'))->getMock();
@@ -74,7 +74,7 @@ class JMediawikiObjectTest extends \PHPUnit\Framework\TestCase
 	 * @see     \PHPUnit\Framework\TestCase::tearDown()
 	 * @since   3.6
 	 */
-	protected function tearDown()
+	protected function tearDown(): void
 	{
 		unset($this->options, $this->client, $this->object);
 	}

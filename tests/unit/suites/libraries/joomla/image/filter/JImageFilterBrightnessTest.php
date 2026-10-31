@@ -23,7 +23,7 @@ class JImageFilterBrightnessTest extends TestCase
 	 *
 	 * @since   2.5.0
 	 */
-	protected function setUp()
+	protected function setUp(): void
 	{
 		// Verify that GD support for PHP is available.
 		if (!extension_loaded('gd'))
@@ -73,10 +73,11 @@ class JImageFilterBrightnessTest extends TestCase
 	 *
 	 * @since   2.5.0
 	 *
-	 * @expectedException  InvalidArgumentException
 	 */
 	public function testExecuteInvalidArgument()
 	{
+		$this->expectException('InvalidArgumentException');
+
 		// Create an image handle of the correct size.
 		$imageHandle = imagecreatetruecolor(100, 100);
 

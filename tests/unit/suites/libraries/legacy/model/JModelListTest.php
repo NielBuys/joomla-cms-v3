@@ -33,7 +33,7 @@ class JModelListTest extends TestCaseDatabase
 	 *
 	 * @return  void
 	 */
-	public function setUp()
+	public function setUp(): void
 	{
 		parent::setUp();
 
@@ -49,7 +49,7 @@ class JModelListTest extends TestCaseDatabase
 	 * Tears down the fixture, for example, closes a network connection.
 	 * This method is called after a test is executed.
 	 */
-	protected function tearDown()
+	protected function tearDown(): void
 	{
 		$this->restoreFactoryState();
 		unset($this->object);

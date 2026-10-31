@@ -10,7 +10,7 @@
 /**
  * Test class for JLayoutBase.
  */
-class JLayoutBaseTest extends \PHPUnit\Framework\TestCase
+class JLayoutBaseTest extends TestCasePhpunit
 {
 	/**
 	 * @var JLayoutBase
@@ -20,7 +20,7 @@ class JLayoutBaseTest extends \PHPUnit\Framework\TestCase
 	/**
 	 * Sets up the test by instantiating JLayoutBase
 	 */
-	protected function setUp()
+	protected function setUp(): void
 	{
 		$this->layoutBase = new JLayoutBase;
 	}
@@ -33,7 +33,7 @@ class JLayoutBaseTest extends \PHPUnit\Framework\TestCase
 	 * @see     \PHPUnit\Framework\TestCase::tearDown()
 	 * @since   3.6
 	 */
-	protected function tearDown()
+	protected function tearDown(): void
 	{
 		unset($this->layoutBase);
 

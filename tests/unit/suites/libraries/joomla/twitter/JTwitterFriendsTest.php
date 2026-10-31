@@ -104,7 +104,7 @@ class JTwitterFriendsTest extends TestCase
 	 *
 	 * @return void
 	 */
-	protected function setUp()
+	protected function setUp(): void
 	{
 		$this->backupServer = $_SERVER;
 		$_SERVER['HTTP_HOST'] = 'example.com';
@@ -141,7 +141,7 @@ class JTwitterFriendsTest extends TestCase
 	 * @see     \PHPUnit\Framework\TestCase::tearDown()
 	 * @since   3.6
 	 */
-	protected function tearDown()
+	protected function tearDown(): void
 	{
 		$_SERVER = $this->backupServer;
 		unset($this->backupServer, $this->options, $this->input, $this->client, $this->oauth, $this->object);
@@ -236,10 +236,11 @@ class JTwitterFriendsTest extends TestCase
 	 *
 	 * @dataProvider  seedUser
 	 * @since   3.1.4
-	 * @expectedException  DomainException
 	 */
 	public function testGetFriendIdsFailure($user)
 	{
+		$this->expectException('DomainException');
+
 		$cursor = 123;
 		$string_ids = true;
 		$count = 5;
@@ -388,10 +389,11 @@ class JTwitterFriendsTest extends TestCase
 	 * @return  void
 	 *
 	 * @since 3.1.4
-	 * @expectedException  DomainException
 	 */
 	public function testGetFriendshipDetailsFailure($user_a, $user_b)
 	{
+		$this->expectException('DomainException');
+
 		$returnData = new stdClass;
 		$returnData->code = 200;
 		$returnData->body = $this->friendshipsRateLimit;
@@ -518,10 +520,11 @@ class JTwitterFriendsTest extends TestCase
 	 *
 	 * @dataProvider  seedUser
 	 * @since   3.1.4
-	 * @expectedException  DomainException
 	 */
 	public function testGetFollowerIdsFailure($user)
 	{
+		$this->expectException('DomainException');
+
 		$cursor = 123;
 		$string_ids = true;
 		$count = 5;
@@ -619,10 +622,11 @@ class JTwitterFriendsTest extends TestCase
 	 * @return  void
 	 *
 	 * @since 3.1.4
-	 * @expectedException  DomainException
 	 */
 	public function testGetFriendshipsIncomingFailure()
 	{
+		$this->expectException('DomainException');
+
 		$cursor = 1243;
 		$string_ids = true;
 
@@ -703,10 +707,11 @@ class JTwitterFriendsTest extends TestCase
 	 * @return  void
 	 *
 	 * @since 3.1.4
-	 * @expectedException  DomainException
 	 */
 	public function testGetFriendshipsOutgoingFailure()
 	{
+		$this->expectException('DomainException');
+
 		$cursor = 1234;
 		$string_ids = true;
 
@@ -812,10 +817,11 @@ class JTwitterFriendsTest extends TestCase
 	 *
 	 * @since   3.1.4
 	 *
-	 * @expectedException  DomainException
 	 */
 	public function testFollowFailure($user)
 	{
+		$this->expectException('DomainException');
+
 		$returnData = new stdClass;
 		$returnData->code = 500;
 		$returnData->body = $this->errorString;
@@ -897,10 +903,11 @@ class JTwitterFriendsTest extends TestCase
 	 *
 	 * @since   3.1.4
 	 *
-	 * @expectedException  DomainException
 	 */
 	public function testUnfollowFailure($user)
 	{
+		$this->expectException('DomainException');
+
 		$returnData = new stdClass;
 		$returnData->code = 500;
 		$returnData->body = $this->errorString;
@@ -1012,10 +1019,11 @@ class JTwitterFriendsTest extends TestCase
 	 *
 	 * @since 3.1.4
 	 * @dataProvider seedFriendshipsLookup
-	 * @expectedException  DomainException
 	 */
 	public function testGetFriendshipsLookupFailure($screen_name, $id)
 	{
+		$this->expectException('DomainException');
+
 		$returnData = new stdClass;
 		$returnData->code = 200;
 		$returnData->body = $this->friendshipsRateLimit;
@@ -1115,10 +1123,11 @@ class JTwitterFriendsTest extends TestCase
 	 *
 	 * @since   3.1.4
 	 *
-	 * @expectedException  DomainException
 	 */
 	public function testUpdateFriendshipFailure($user)
 	{
+		$this->expectException('DomainException');
+
 		$returnData = new stdClass;
 		$returnData->code = 500;
 		$returnData->body = $this->errorString;
@@ -1193,10 +1202,11 @@ class JTwitterFriendsTest extends TestCase
 	 * @return  void
 	 *
 	 * @since 3.1.4
-	 * @expectedException  DomainException
 	 */
 	public function testGetFriendshipNoRetweetIdsFailure()
 	{
+		$this->expectException('DomainException');
+
 		$string_ids = true;
 
 		$returnData = new stdClass;

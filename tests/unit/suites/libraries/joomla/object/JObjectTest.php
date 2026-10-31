@@ -15,7 +15,7 @@
  * @subpackage  Object
  * @since       1.7.0
  */
-class JObjectTest extends \PHPUnit\Framework\TestCase
+class JObjectTest extends TestCasePhpunit
 {
 	/**
 	 * @var  JObject  Test-Object
@@ -35,7 +35,7 @@ class JObjectTest extends \PHPUnit\Framework\TestCase
 	 *
 	 * @return void
 	 */
-	protected function setUp()
+	protected function setUp(): void
 	{
 		parent::setUp();
 
@@ -51,7 +51,7 @@ class JObjectTest extends \PHPUnit\Framework\TestCase
 	 * @see     \PHPUnit\Framework\TestCase::tearDown()
 	 * @since   3.6
 	 */
-	protected function tearDown()
+	protected function tearDown(): void
 	{
 		unset($this->o);
 		parent::tearDown();

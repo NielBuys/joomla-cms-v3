@@ -15,7 +15,7 @@
  *
  * @since       1.7.0
  */
-class JGithubPackageAuthorizationsTest extends \PHPUnit\Framework\TestCase
+class JGithubPackageAuthorizationsTest extends TestCasePhpunit
 {
 	/**
 	 * @var    JRegistry  Options for the GitHub object.
@@ -55,7 +55,7 @@ class JGithubPackageAuthorizationsTest extends \PHPUnit\Framework\TestCase
 	 *
 	 * @since   3.1.4
 	 */
-	protected function setUp()
+	protected function setUp(): void
 	{
 		parent::setUp();
 
@@ -73,7 +73,7 @@ class JGithubPackageAuthorizationsTest extends \PHPUnit\Framework\TestCase
 	 * @see     \PHPUnit\Framework\TestCase::tearDown()
 	 * @since   3.6
 	 */
-	protected function tearDown()
+	protected function tearDown(): void
 	{
 		unset($this->options, $this->client, $this->object);
 		parent::tearDown();
@@ -344,10 +344,11 @@ class JGithubPackageAuthorizationsTest extends \PHPUnit\Framework\TestCase
 	 *
 	 * @since   3.1.4
 	 *
-	 * @expectedException  RuntimeException
 	 */
 	public function testEditTooManyScopes()
 	{
+		$this->expectException('RuntimeException');
+
 		$this->object->edit(42, array(), array('public_repo', 'gist'), array('public_repo', 'gist'), 'My test app', 'https://www.joomla.org');
 	}
 
@@ -382,10 +383,11 @@ class JGithubPackageAuthorizationsTest extends \PHPUnit\Framework\TestCase
 	 *
 	 * @since   3.0.0
 	 *
-	 * @expectedException  DomainException
 	 */
 	public function testGetFailure()
 	{
+		$this->expectException('DomainException');
+
 		$returnData = new stdClass;
 		$returnData->code = 500;
 		$returnData->body = $this->errorString;
@@ -429,10 +431,11 @@ class JGithubPackageAuthorizationsTest extends \PHPUnit\Framework\TestCase
 	 *
 	 * @since   3.1.4
 	 *
-	 * @expectedException  DomainException
 	 */
 	public function testGetListFailure()
 	{
+		$this->expectException('DomainException');
+
 		$returnData = new stdClass;
 		$returnData->code = 500;
 		$returnData->body = $this->errorString;
@@ -476,10 +479,11 @@ class JGithubPackageAuthorizationsTest extends \PHPUnit\Framework\TestCase
 	 *
 	 * @since   3.1.4
 	 *
-	 * @expectedException  DomainException
 	 */
 	public function testGetRateLimitFailure()
 	{
+		$this->expectException('DomainException');
+
 		$returnData = new stdClass;
 		$returnData->code = 500;
 		$returnData->body = $this->errorString;
@@ -558,10 +562,11 @@ class JGithubPackageAuthorizationsTest extends \PHPUnit\Framework\TestCase
 	}
 
 	/**
-	 * @expectedException UnexpectedValueException
 	 */
 	public function testRequestTokenInvalidFormat()
 	{
+		$this->expectException('UnexpectedValueException');
+
 		$returnData = new JHttpResponse;
 		$returnData->code = 200;
 		$returnData->body = '';

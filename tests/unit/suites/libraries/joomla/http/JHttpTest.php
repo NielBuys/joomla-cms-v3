@@ -14,7 +14,7 @@
  * @subpackage  Http
  * @since       3.4
  */
-class JHttpTest extends \PHPUnit\Framework\TestCase
+class JHttpTest extends TestCasePhpunit
 {
 	/**
 	 * @var    \Joomla\Registry\Registry  Options for the JHttp object.
@@ -42,7 +42,7 @@ class JHttpTest extends \PHPUnit\Framework\TestCase
 	 *
 	 * @since   3.4
 	 */
-	protected function setUp()
+	protected function setUp(): void
 	{
 		parent::setUp();
 
@@ -71,7 +71,7 @@ class JHttpTest extends \PHPUnit\Framework\TestCase
 	 * @see     \PHPUnit\Framework\TestCase::tearDown()
 	 * @since   3.6
 	 */
-	protected function tearDown()
+	protected function tearDown(): void
 	{
 		unset($this->options, $this->transport, $this->object);
 		parent::tearDown();

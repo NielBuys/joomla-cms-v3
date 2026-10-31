@@ -31,7 +31,7 @@ class JHtmlFormbehaviorTest extends TestCase
 	 *
 	 * @since   3.1
 	 */
-	protected function setUp()
+	protected function setUp(): void
 	{
 		$this->saveFactoryState();
 
@@ -55,7 +55,7 @@ class JHtmlFormbehaviorTest extends TestCase
 	 *
 	 * @since   3.1
 	 */
-	protected function tearDown()
+	protected function tearDown(): void
 	{
 		$_SERVER = $this->backupServer;
 		unset($this->backupServer);
@@ -99,7 +99,7 @@ class JHtmlFormbehaviorTest extends TestCase
 			'Verify that the Chosen CSS is loaded'
 		);
 
-		$this->assertContains(
+		$this->assertStringContainsString(
 			'$(container).find("testSelect").chosen',
 			$document->_script['text/javascript'],
 			'Verify that the Chosen JS is initialised with the supplied selector'

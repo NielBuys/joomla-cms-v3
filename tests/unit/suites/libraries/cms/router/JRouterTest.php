@@ -39,7 +39,7 @@ class JRouterTest extends TestCase
 	 *
 	 * @since   3.1
 	 */
-	protected function setUp()
+	protected function setUp(): void
 	{
 		parent::setUp();
 
@@ -65,7 +65,7 @@ class JRouterTest extends TestCase
 	 * @see     \PHPUnit\Framework\TestCase::tearDown()
 	 * @since   4.0
 	 */
-	protected function tearDown()
+	protected function tearDown(): void
 	{
 		$_SERVER = $this->server;
 		unset($this->server, $this->object);
@@ -139,11 +139,12 @@ class JRouterTest extends TestCase
 
 	/**
 	 * @since   3.4
-	 * @expectedException RuntimeException
 	 * @testdox getInstance() throws a RuntimeException, if a router for an unknown client is requested
 	 */
 	public function testGetInstanceException()
 	{
+		$this->expectException('RuntimeException');
+
 		JRouter::getInstance('unknown');
 	}
 
@@ -312,10 +313,11 @@ class JRouterTest extends TestCase
 	/**
 	 * @since   3.4
 	 * @testdox Router throws an InvalidArgumentException when attaching a build rule to an undefined stage
-	 * @expectedException InvalidArgumentException
 	 */
 	public function testRouterThrowsInvalidArgumentExceptionWhenAttachingBuildRuleToUndefinedStage()
 	{
+		$this->expectException('InvalidArgumentException');
+
 		$callback = array(
 			function (JRouter $router, JUri $uri)
 			{
@@ -327,10 +329,11 @@ class JRouterTest extends TestCase
 	/**
 	 * @since   3.4
 	 * @testdox Router throws an InvalidArgumentException when attaching a parse rule to an undefined stage
-	 * @expectedException InvalidArgumentException
 	 */
 	public function testRouterThrowsInvalidArgumentExceptionWhenAttachingParseRuleToUndefinedStage()
 	{
+		$this->expectException('InvalidArgumentException');
+
 		$callback = array(
 			function (JRouter $router, JUri $uri)
 			{

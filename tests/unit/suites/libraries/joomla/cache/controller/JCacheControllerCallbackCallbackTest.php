@@ -11,7 +11,7 @@
  * @package     Joomla.UnitTest
  * @subpackage  Cache
  */
-class JCacheControllerCallbackTest_Callback extends \PHPUnit\Framework\TestCase
+class JCacheControllerCallbackTest_Callback extends TestCasePhpunit
 {
 
 	/**
@@ -19,7 +19,7 @@ class JCacheControllerCallbackTest_Callback extends \PHPUnit\Framework\TestCase
 	 *
 	 * @return void
 	 */
-	protected function setUp()
+	protected function setUp(): void
 	{
 		require_once dirname(__DIR__) . '/storage/JCacheStorageMock.php';
 

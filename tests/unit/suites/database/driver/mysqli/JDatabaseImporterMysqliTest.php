@@ -13,7 +13,7 @@
  * @package     Joomla.UnitTest
  * @subpackage  Database
  */
-class JDatabaseImporterMysqliTest extends \PHPUnit\Framework\TestCase
+class JDatabaseImporterMysqliTest extends TestCasePhpunit
 {
 	/**
 	 * @var    object  The mocked database object for use by test methods.
@@ -44,7 +44,7 @@ class JDatabaseImporterMysqliTest extends \PHPUnit\Framework\TestCase
 	 *
 	 * @return  void
 	 */
-	public function setup()
+	public function setup(): void
 	{
 		$this->dbo = $this->getMockBuilder('JDatabaseDriverMysqli')
 			->setMethods(array(
@@ -181,7 +181,7 @@ class JDatabaseImporterMysqliTest extends \PHPUnit\Framework\TestCase
 	 * @see     \PHPUnit\Framework\TestCase::tearDown()
 	 * @since   3.6
 	 */
-	protected function tearDown()
+	protected function tearDown(): void
 	{
 		unset($this->dbo);
 	}
@@ -363,10 +363,11 @@ class JDatabaseImporterMysqliTest extends \PHPUnit\Framework\TestCase
 	/**
 	 * Tests the check method.
 	 *
-	 * @expectedException Exception
 	 */
 	public function testCheckWithNoDbo()
 	{
+		$this->expectException('Exception');
+
 		$instance = new JDatabaseImporterMysqli;
 
 		$instance->check();
@@ -375,10 +376,11 @@ class JDatabaseImporterMysqliTest extends \PHPUnit\Framework\TestCase
 	/**
 	 * Tests the check method.
 	 *
-	 * @expectedException Exception
 	 */
 	public function testCheckWithNoFrom()
 	{
+		$this->expectException('Exception');
+
 		$instance = new JDatabaseImporterMysqli;
 		$instance->setDbo($this->dbo);
 

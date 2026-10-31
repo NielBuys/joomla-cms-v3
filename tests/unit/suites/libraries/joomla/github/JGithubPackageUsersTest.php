@@ -15,7 +15,7 @@
  *
  * @since       1.7.0
  */
-class JGithubPackageUsersTest extends \PHPUnit\Framework\TestCase
+class JGithubPackageUsersTest extends TestCasePhpunit
 {
 	/**
 	 * @var    JRegistry  Options for the GitHub object.
@@ -55,7 +55,7 @@ class JGithubPackageUsersTest extends \PHPUnit\Framework\TestCase
 	 *
 	 * @return void
 	 */
-	protected function setUp()
+	protected function setUp(): void
 	{
 		parent::setUp();
 
@@ -74,7 +74,7 @@ class JGithubPackageUsersTest extends \PHPUnit\Framework\TestCase
 	 * @see     \PHPUnit\Framework\TestCase::tearDown()
 	 * @since   3.6
 	 */
-	protected function tearDown()
+	protected function tearDown(): void
 	{
 		unset($this->options, $this->client, $this->response, $this->object);
 		parent::tearDown();
@@ -124,11 +124,12 @@ class JGithubPackageUsersTest extends \PHPUnit\Framework\TestCase
 	/**
 	 * Tests the getUser method with failure
 	 *
-	 * @expectedException  DomainException
 	 * @return void
 	 */
 	public function testGetFailure()
 	{
+		$this->expectException('DomainException');
+
 		$this->response->code = 404;
 		$this->response->body = '{"message":"Not Found"}';
 
@@ -198,12 +199,13 @@ class JGithubPackageUsersTest extends \PHPUnit\Framework\TestCase
 	/**
 	 * Tests the GetAuthenticatedUser method with failure
 	 *
-	 * @expectedException  DomainException
 	 *
 	 * @return void
 	 */
 	public function testGetAuthenticatedUserFailure()
 	{
+		$this->expectException('DomainException');
+
 		$this->response->code = 401;
 		$this->response->body = '{"message":"Requires authentication"}';
 
@@ -330,12 +332,13 @@ class JGithubPackageUsersTest extends \PHPUnit\Framework\TestCase
 	/**
 	 * Tests the getUsers method
 	 *
-	 * @expectedException DomainException
 	 *
 	 * @return void
 	 */
 	public function testEditFailure()
 	{
+		$this->expectException('DomainException');
+
 		$name     = 'monalisa octocat';
 		$email    = 'octocat@github.com';
 		$blog     = 'https =>//github.com/blog';

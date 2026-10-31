@@ -31,7 +31,7 @@ class JUserHelperTest extends TestCaseDatabase
 	 *
 	 * @since   3.0.0
 	 */
-	protected function setUp()
+	protected function setUp(): void
 	{
 		parent::setUp();
 
@@ -49,7 +49,7 @@ class JUserHelperTest extends TestCaseDatabase
 	 *
 	 * @since   3.4
 	 */
-	protected function tearDown()
+	protected function tearDown(): void
 	{
 		$this->restoreFactoryState();
 		TestReflection::setValue('JPluginHelper', 'plugins', null);
@@ -223,11 +223,12 @@ class JUserHelperTest extends TestCaseDatabase
 	 * @return  void
 	 *
 	 * @since   3.1.4
-	 * @expectedException  RuntimeException
 	 * @covers  JUserHelper::addUsertoGroup
 	 */
 	public function testAddUserToGroupException()
 	{
+		$this->expectException('RuntimeException');
+
 		JUserHelper::addUserToGroup(44, 99);
 	}
 
