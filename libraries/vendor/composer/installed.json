@@ -758,17 +758,17 @@
         },
         {
             "name": "joomla/registry",
-            "version": "1.6.5",
-            "version_normalized": "1.6.5.0",
+            "version": "1.6.6",
+            "version_normalized": "1.6.6.0",
             "source": {
                 "type": "git",
                 "url": "https://github.com/NielBuys/JoomlaRegistry.git",
-                "reference": "f943d22d48f5fe45173a82715800fbdbe6b22907"
+                "reference": "1247723ff3da2816d9c662f8e9613392b3e3948b"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/NielBuys/JoomlaRegistry/zipball/f943d22d48f5fe45173a82715800fbdbe6b22907",
-                "reference": "f943d22d48f5fe45173a82715800fbdbe6b22907",
+                "url": "https://api.github.com/repos/NielBuys/JoomlaRegistry/zipball/1247723ff3da2816d9c662f8e9613392b3e3948b",
+                "reference": "1247723ff3da2816d9c662f8e9613392b3e3948b",
                 "shasum": ""
             },
             "require": {
@@ -786,7 +786,7 @@
             "suggest": {
                 "symfony/yaml": "Install symfony/yaml if you require YAML support."
             },
-            "time": "2026-10-31T12:00:49+00:00",
+            "time": "2026-10-31T14:13:57+00:00",
             "type": "joomla-package",
             "extra": {
                 "branch-alias": {
@@ -815,7 +815,7 @@
                 "registry"
             ],
             "support": {
-                "source": "https://github.com/NielBuys/JoomlaRegistry/tree/1.6.5"
+                "source": "https://github.com/NielBuys/JoomlaRegistry/tree/1.6.6"
             },
             "install-path": "../joomla/registry"
         },
@@ -1656,6 +1656,80 @@
             "install-path": "../splitbrain/lesserphp"
         },
         {
+            "name": "symfony/deprecation-contracts",
+            "version": "v3.7.1",
+            "version_normalized": "3.7.1.0",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/symfony/deprecation-contracts.git",
+                "reference": "f3202fa1b5097b0af062dc978b32ecf63404e31d"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/symfony/deprecation-contracts/zipball/f3202fa1b5097b0af062dc978b32ecf63404e31d",
+                "reference": "f3202fa1b5097b0af062dc978b32ecf63404e31d",
+                "shasum": ""
+            },
+            "require": {
+                "php": ">=8.1"
+            },
+            "time": "2026-06-05T06:23:12+00:00",
+            "type": "library",
+            "extra": {
+                "thanks": {
+                    "url": "https://github.com/symfony/contracts",
+                    "name": "symfony/contracts"
+                },
+                "branch-alias": {
+                    "dev-main": "3.7-dev"
+                }
+            },
+            "installation-source": "dist",
+            "autoload": {
+                "files": [
+                    "function.php"
+                ]
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "MIT"
+            ],
+            "authors": [
+                {
+                    "name": "Nicolas Grekas",
+                    "email": "p@tchwork.com"
+                },
+                {
+                    "name": "Symfony Community",
+                    "homepage": "https://symfony.com/contributors"
+                }
+            ],
+            "description": "A generic function and convention to trigger deprecation notices",
+            "homepage": "https://symfony.com",
+            "support": {
+                "source": "https://github.com/symfony/deprecation-contracts/tree/v3.7.1"
+            },
+            "funding": [
+                {
+                    "url": "https://symfony.com/sponsor",
+                    "type": "custom"
+                },
+                {
+                    "url": "https://github.com/fabpot",
+                    "type": "github"
+                },
+                {
+                    "url": "https://github.com/nicolas-grekas",
+                    "type": "github"
+                },
+                {
+                    "url": "https://tidelift.com/funding/github/packagist/symfony/symfony",
+                    "type": "tidelift"
+                }
+            ],
+            "install-path": "../symfony/deprecation-contracts"
+        },
+        {
             "name": "symfony/polyfill-ctype",
             "version": "v1.37.0",
             "version_normalized": "1.37.0.0",
@@ -1813,30 +1887,35 @@
         },
         {
             "name": "symfony/yaml",
-            "version": "v2.8.52",
-            "version_normalized": "2.8.52.0",
+            "version": "v7.4.22",
+            "version_normalized": "7.4.22.0",
             "source": {
                 "type": "git",
                 "url": "https://github.com/symfony/yaml.git",
-                "reference": "02c1859112aa779d9ab394ae4f3381911d84052b"
+                "reference": "1ed6afa13d48c579c51cbf32e38f50686313497b"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/symfony/yaml/zipball/02c1859112aa779d9ab394ae4f3381911d84052b",
-                "reference": "02c1859112aa779d9ab394ae4f3381911d84052b",
+                "url": "https://api.github.com/repos/symfony/yaml/zipball/1ed6afa13d48c579c51cbf32e38f50686313497b",
+                "reference": "1ed6afa13d48c579c51cbf32e38f50686313497b",
                 "shasum": ""
             },
             "require": {
-                "php": ">=5.3.9",
-                "symfony/polyfill-ctype": "~1.8"
+                "php": ">=8.2",
+                "symfony/deprecation-contracts": "^2.5|^3",
+                "symfony/polyfill-ctype": "^1.8"
             },
-            "time": "2018-11-11T11:18:13+00:00",
+            "conflict": {
+                "symfony/console": "<6.4"
+            },
+            "require-dev": {
+                "symfony/console": "^6.4|^7.0|^8.0"
+            },
+            "time": "2026-10-18T14:39:27+00:00",
+            "bin": [
+                "Resources/bin/yaml-lint"
+            ],
             "type": "library",
-            "extra": {
-                "branch-alias": {
-                    "dev-master": "2.8-dev"
-                }
-            },
             "installation-source": "dist",
             "autoload": {
                 "psr-4": {
@@ -1860,11 +1939,29 @@
                     "homepage": "https://symfony.com/contributors"
                 }
             ],
-            "description": "Symfony Yaml Component",
+            "description": "Loads and dumps YAML files",
             "homepage": "https://symfony.com",
             "support": {
-                "source": "https://github.com/symfony/yaml/tree/v2.8.52"
+                "source": "https://github.com/symfony/yaml/tree/v7.4.22"
             },
+            "funding": [
+                {
+                    "url": "https://symfony.com/sponsor",
+                    "type": "custom"
+                },
+                {
+                    "url": "https://github.com/fabpot",
+                    "type": "github"
+                },
+                {
+                    "url": "https://github.com/nicolas-grekas",
+                    "type": "github"
+                },
+                {
+                    "url": "https://tidelift.com/funding/github/packagist/symfony/symfony",
+                    "type": "tidelift"
+                }
+            ],
             "install-path": "../symfony/yaml"
         },
         {

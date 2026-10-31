@@ -199,12 +199,16 @@ Desktop.ini
 /libraries/vendor/symfony/polyfill-util/TestListenerForV5.php
 /libraries/vendor/symfony/polyfill-util/TestListenerForV6.php
 /libraries/vendor/symfony/polyfill-util/TestListenerForV7.php
+/libraries/vendor/symfony/deprecation-contracts/CHANGELOG.md
+/libraries/vendor/symfony/deprecation-contracts/composer.json
+/libraries/vendor/symfony/deprecation-contracts/README.md
 /libraries/vendor/symfony/yaml/Tests
 /libraries/vendor/symfony/yaml/.gitignore
 /libraries/vendor/symfony/yaml/CHANGELOG.md
 /libraries/vendor/symfony/yaml/composer.json
 /libraries/vendor/symfony/yaml/phpunit.xml.dist
 /libraries/vendor/symfony/yaml/README.md
+/libraries/vendor/symfony/yaml/Resources/bin
 /libraries/vendor/simplepie/simplepie/demo
 /libraries/vendor/simplepie/simplepie/tests
 /libraries/vendor/simplepie/simplepie/README.markdown
@@ -254,7 +258,6 @@ Desktop.ini
 /libraries/vendor/sebastian
 /libraries/vendor/squizlabs
 /libraries/vendor/symfony/console
-/libraries/vendor/symfony/deprecation-contracts
 /libraries/vendor/symfony/event-dispatcher
 /libraries/vendor/symfony/event-dispatcher-contracts
 /libraries/vendor/symfony/filesystem

@@ -1,7 +1,7 @@
 # Upgrade symfony/yaml 2.8.52 to 7.4 LTS
 
-**Status:** planned. Depends on [php-minimum.md](php-minimum.md), because symfony/yaml 7.4 needs
-PHP 8.2. The fork's minimum is now 8.3.
+**Status:** done on the `tasks/upgrade-symfony-yaml` branch, for release 3.12: symfony/yaml 7.4.22, with
+`joomla/registry` 1.6.6 from the NielBuys fork. See [Result](#result) below; the plan is kept for reference.
 
 **Why:** four denial-of-service advisories. The first three, all rated Low, were published in May
 2026:
@@ -49,7 +49,7 @@ extension stores and that parsed under 2.8 can throw a `ParseException` under 7.
 
 | Input | 2.8 | 7.4 |
 |---|---|---|
-| Duplicate mapping keys | The last key wins, silently | `ParseException` |
+| Duplicate mapping keys | The first key wins, silently | `ParseException` |
 | Unquoted scalars starting with `@`, `` ` ``, `\|`, `>` or `%` | Parsed as a string, with a deprecation in 3.x | `ParseException` |
 | `!php/object` tags | Off by default | Off by default; must be enabled with a flag |
 | Dumping multi-line strings | Quoted, with `\n` | Quoted the same way unless `DUMP_MULTI_LINE_LITERAL_BLOCK` is passed; the registry does not pass it |
@@ -107,3 +107,35 @@ The table is a checklist. Confirm each row against the Symfony 3.0, 4.0, 5.0, 6.
   and why.
 - The release notes say "symfony/yaml 2.8.52 → 7.4.x (CVE-2026-45304, CVE-2026-45305,
   CVE-2026-45133, CVE-2026-109413)".
+
+## Result
+
+A corpus of 42 documents ran through `Registry::loadString(..., 'YAML')` before and after the upgrade, on PHP 8.6.
+`tests/unit/suites/libraries/joomla/registry/JRegistryFormatYamlTest.php` keeps the important cases.
+
+**Handled in the `JoomlaRegistry` fork (1.6.6), so the YAML loads as it did under 2.8:**
+
+- Duplicate keys in a block mapping: the first value is kept, as 2.8 did. 7.4 alone throws.
+- Plain scalars that start with `@`, `%`, a backtick or `|`: read as strings, as 2.8 did. 7.4 alone throws.
+
+The fork repairs only the line the parser reports and parses again. Every other error is still thrown.
+
+**Fixed by the upgrade:** literal (`|`) and folded (`>`) block scalars. 2.8 failed on them with a `TypeError` on
+PHP 8.
+
+**Accepted changes:**
+
+| Input | 2.8 | 7.4 |
+|---|---|---|
+| `0755` | Octal: 493 | The string `"0755"` (YAML 1.2); `0o755` is now octal |
+| `1_000` | The string `"1_000"` | 1000 |
+| `-0` | 0 | The string `"-0"` |
+| `!!binary` and `!!str` tags | Kept as text, with the tag | Decoded |
+| `!php/object` tags | Loaded as `null` | `ParseException` |
+| A duplicate key inside an inline mapping, `{a: 1, a: 2}` | Loaded | `ParseException` |
+| Dumping a string with a `'` | `'it''s'` | `"it's"`, which reads back the same |
+
+**Limits.** The fork also caps a parsed document at one million values. 7.4 allows up to 128 aliases, and a
+short document can use them to describe a structure far larger than memory, which the registry's JSON conversion
+would expand. An alias bomb now fails with a `ParseException` in about 50 ms. Deep nesting stops at 7.4's
+128-level limit.
