@@ -191,7 +191,8 @@ class MediaHelper
 			$executable = array_diff($executable, $allowedExecutables);
 		}
 
-		$check = array_intersect($filetypes, $executable);
+		// Compare case-insensitively, page.Shtml.png is as dangerous as page.shtml.png
+		$check = array_intersect(array_map('strtolower', $filetypes), $executable);
 
 		if (!empty($check))
 		{
