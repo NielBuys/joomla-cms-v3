@@ -1,7 +1,7 @@
 # Upgrade paragonie/sodium_compat 1.17.1 to the latest 2.x
 
 **Status:** planned. Depends on [php-minimum.md](php-minimum.md), because sodium_compat 2.x needs
-PHP 8.1.
+PHP 8.1. The fork's minimum is now 8.3.
 
 **Why:** CVE-2025-69277 (Moderate, GHSA-mrfv-m5wm-5w6w). `crypto_box` and related functions did
 not check that a public key lies in the prime-order subgroup.
@@ -15,7 +15,7 @@ So take the newest 2.x release, not 2.5.0 exactly.
 longer need. 2.x is also the line that will keep receiving fixes.
 
 **Risk: low.** sodium_compat mirrors the API of PHP's own `sodium` extension, which has been part
-of PHP since 7.2. On most 8.1+ hosts the extension is loaded, and the library only fills in when a
+of PHP since 7.2. On most 8.3+ hosts the extension is loaded, and the library only fills in when a
 host has compiled PHP without it.
 
 ## Where it is used
@@ -60,7 +60,7 @@ with it disabled, which uses the library. The library path is the one this upgra
   decrypt.
 - **Bad keys:** a deliberately invalid public key (an all-zero key, a small-order point) is now
   rejected.
-- Run the unit tests that cover `JCrypt` and the ciphers, on PHP 8.1 and the newest PHP. Once the
+- Run the unit tests that cover `JCrypt` and the ciphers, on PHP 8.3 and the newest PHP. Once the
   test suite runs again (see [php-minimum.md](php-minimum.md)), add the old-data test there.
 
 ## Done when

@@ -7,6 +7,4 @@ $baseDir = dirname(dirname($vendorDir));
 
 return array(
     $vendorDir . '/pear/cache_lite',
-    $vendorDir . '/phpunit/dbunit',
-    $vendorDir . '/symfony/yaml',
 );

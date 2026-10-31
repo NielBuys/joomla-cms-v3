@@ -10,14 +10,14 @@
 defined('JPATH_PLATFORM') or die;
 
 /**
- * Wrapper class for lessc
+ * Wrapper class for the LESS compiler, splitbrain/lesserphp (a maintained fork of leafo/lessphp)
  *
  * @package     Joomla.Libraries
  * @subpackage  Less
  * @since       3.4
  * @deprecated  4.0  without replacement
  */
-class JLess extends lessc
+class JLess extends \LesserPHP\Lessc
 {
 	/**
 	 * Constructor
@@ -29,7 +29,7 @@ class JLess extends lessc
 	 */
 	public function __construct($fname = null, $formatter = null)
 	{
-		parent::__construct($fname);
+		parent::__construct();
 
 		if ($formatter === null)
 		{
@@ -44,14 +44,14 @@ class JLess extends lessc
 	 * parsing multiple files/strings using same imports.
 	 * PR: https://github.com/leafo/lessphp/pull/607
 	 *
-	 * For documentation on this please see /vendor/leafo/lessc.inc.php
+	 * For documentation on this please see /vendor/splitbrain/lesserphp/src/Lessc.php
 	 *
 	 * @param   string  $string  LESS string to parse.
 	 * @param   string  $name    The sourceName used for error messages.
 	 *
 	 * @return  string  $out     The compiled css output.
 	 */
-	public function compile($string, $name = null)
+	public function compile($string, $name = null): string
 	{
 		$this->allParsedFiles = array();
 
