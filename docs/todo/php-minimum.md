@@ -5,8 +5,8 @@ library upgrades. The minimum was first planned as 8.1 and was raised to 8.3 bef
 
 ## Progress
 
-- **Forks.** Every Joomla framework package with direct edits, or with a `php` constraint that excluded PHP 8, now
-  comes from a fork under NielBuys: `JoomlaApplication` 1.9.5, `JoomlaData` 1.2.1, `JoomlaDI` 1.5.2, `JoomlaEvent`
+- **Forks.** Every package that had direct edits, or a `php` constraint that excluded PHP 8, now comes from a fork
+  under NielBuys. The Joomla framework packages: `JoomlaApplication` 1.9.5, `JoomlaData` 1.2.1, `JoomlaDI` 1.5.2, `JoomlaEvent`
   1.3.1, `JoomlaFilesystem` 1.6.3, `j3_filter` 1.4.9, `JoomlaImage` 1.5.2, `JoomlaInput` 1.5.1, `JoomlaLdap` 1.5.1,
   `JoomlaRegistry` 1.6.5, `JoomlaSession` 1.6.1 and `JoomlaString` 1.4.7. Each fork branches from the tag
   `composer.lock` named (branch `1.x-j3` for the new forks) and carries only the vendor edits and the `php`
@@ -16,9 +16,10 @@ library upgrades. The minimum was first planned as 8.1 and was raised to 8.3 bef
 - **lessphp** moved to `splitbrain/lesserphp`, the maintained fork of `leafo/lessphp`. It compiles every core
   template's LESS to the same CSS as before. `wikimedia/less.php` was tried first, but it cannot compile the
   Bootstrap 2 LESS that isis and protostar use. The `lessc` class names remain available as aliases.
-- **Still open:** `google/recaptcha` and `simplepie/simplepie` keep their direct edits until they are forked or
-  upgraded. No official recaptcha release both supports PHP 8.3 and drops the deprecated `curl_close()` call, and
-  SimplePie 1.9.0 still calls `curl_close()` and `xml_parser_free()`.
+- **google/recaptcha and SimplePie** come from the `recaptcha` 1.2.5 and `simplepie` 1.3.4 forks, which carry the
+  former direct edits. No official recaptcha release both supports PHP 8.3 and drops the deprecated `curl_close()`
+  call, and SimplePie 1.9.0 still calls `curl_close()` and `xml_parser_free()`. Moving to their current releases
+  stays step 5 of the workflow below.
 - **Development tools.** PHPUnit 9.6, php-cs-fixer 3 and PHP_CodeSniffer 3. The tests run again; see
   `tests/unit/README.md`. `phpunit/dbunit` is replaced by `tests/unit/core/dbunit.php`, because the maintained
   fork of dbunit needs symfony/yaml 5.4 or later. The development packages are no longer committed to

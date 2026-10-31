@@ -1,9 +1,9 @@
 <?php return array(
     'root' => array(
         'name' => 'joomla/joomla-cms',
-        'pretty_version' => 'dev-3.12-dev',
-        'version' => 'dev-3.12-dev',
-        'reference' => '0d5bc969c9a14fc9e17da72a3d390cac29293fad',
+        'pretty_version' => 'dev-3.10-dev',
+        'version' => 'dev-3.10-dev',
+        'reference' => '6e2229db5c2a1ad80cfc492253eec8961ac2ef38',
         'type' => 'project',
         'install_path' => __DIR__ . '/../../../',
         'aliases' => array(),
@@ -11,9 +11,9 @@
     ),
     'versions' => array(
         'google/recaptcha' => array(
-            'pretty_version' => '1.2.4',
-            'version' => '1.2.4.0',
-            'reference' => '614f25a9038be4f3f2da7cbfd778dc5b357d2419',
+            'pretty_version' => '1.2.5',
+            'version' => '1.2.5.0',
+            'reference' => '0b125c79915f83ed8dc9fda5032fa5d743cdb2aa',
             'type' => 'library',
             'install_path' => __DIR__ . '/../google/recaptcha',
             'aliases' => array(),
@@ -110,9 +110,9 @@
             'dev_requirement' => false,
         ),
         'joomla/joomla-cms' => array(
-            'pretty_version' => 'dev-3.12-dev',
-            'version' => 'dev-3.12-dev',
-            'reference' => '0d5bc969c9a14fc9e17da72a3d390cac29293fad',
+            'pretty_version' => 'dev-3.10-dev',
+            'version' => 'dev-3.10-dev',
+            'reference' => '6e2229db5c2a1ad80cfc492253eec8961ac2ef38',
             'type' => 'project',
             'install_path' => __DIR__ . '/../../../',
             'aliases' => array(),
@@ -242,9 +242,9 @@
             'dev_requirement' => false,
         ),
         'simplepie/simplepie' => array(
-            'pretty_version' => '1.3.3',
-            'version' => '1.3.3.0',
-            'reference' => '9f6fdaa79d9888ae8f1626b4f2e6b5ff7ca29bb3',
+            'pretty_version' => '1.3.4',
+            'version' => '1.3.4.0',
+            'reference' => 'f931847798121863ece598845b7eabc26937e0e9',
             'type' => 'library',
             'install_path' => __DIR__ . '/../simplepie/simplepie',
             'aliases' => array(),
