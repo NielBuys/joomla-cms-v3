@@ -201,7 +201,12 @@
     state = state + 'Text'
     data.resetText || $el.data('resetText', $el[val]())
 
-    $el[val](data[state] || this.options[state])
+    // Modified by Joomla 3 fork: CVE-2024-6485. Text from data-* attributes is sanitized like tooltip HTML
+    if (val == 'html' && $.fn.tooltip && $.fn.tooltip.Constructor.setHtml) {
+      $.fn.tooltip.Constructor.setHtml($el, data[state] || this.options[state], $.fn.tooltip.defaults)
+    } else {
+      $el[val](data[state] || this.options[state])
+    }
 
     // push to event loop to allow forms to submit
     setTimeout(function () {
@@ -510,7 +515,8 @@
     this.options = $.extend({}, $.fn.collapse.defaults, options)
 
     if (this.options.parent) {
-      this.$parent = $(this.options.parent)
+      // Modified by Joomla 3 fork: CVE-2018-14040. The parent is only ever a selector, never HTML
+      this.$parent = $(document).find(this.options.parent)
     }
 
     this.options.toggle && this.toggle()
@@ -1147,6 +1153,115 @@
   "use strict"; // jshint ;_;
 
 
+ /* TOOLTIP SANITIZER
+  * Modified by Joomla 3 fork: CVE-2019-8331, CVE-2024-6485
+  * Ported from Bootstrap 3.4.1, with the HTML for the page built from the cleaned nodes instead of being parsed again
+  * ================= */
+
+  // Options that may not come from data-* attributes, so page content cannot turn the sanitizer off
+  var DISALLOWED_ATTRIBUTES = ['sanitize', 'whiteList', 'sanitizeFn']
+
+  var uriAttrs = ['background', 'cite', 'href', 'itemtype', 'longdesc', 'poster', 'src', 'xlink:href']
+
+  var ARIA_ATTRIBUTE_PATTERN = /^aria-[\w-]*$/i
+
+  // Bootstrap 3.4.1's list, plus the markup Joomla's own tooltips and popovers use (style, title and tables)
+  var DefaultWhitelist = {
+    '*': ['class', 'dir', 'id', 'lang', 'role', 'style', 'title', ARIA_ATTRIBUTE_PATTERN],
+    a: ['target', 'href', 'title', 'rel'],
+    abbr: [], area: [], b: [], blockquote: [], br: [], caption: [], cite: [], code: [], col: [], dd: [],
+    del: [], div: [], dl: [], dt: [], em: [], h1: [], h2: [], h3: [], h4: [], h5: [], h6: [], hr: [], i: [],
+    img: ['src', 'alt', 'title', 'width', 'height'],
+    ins: [], kbd: [], li: [], mark: [], ol: [], p: [], pre: [], q: [], s: [], small: [], span: [], strike: [],
+    strong: [], sub: [], sup: [], table: [], tbody: [], td: ['colspan', 'rowspan'], tfoot: [],
+    th: ['colspan', 'rowspan', 'scope'], thead: [], tr: [], u: [], ul: []
+  }
+
+  var SAFE_URL_PATTERN = /^(?:(?:https?|mailto|ftp|tel|file):|[^&:/?#]*(?:[/?#]|$))/i
+
+  var DATA_URL_PATTERN = /^data:(?:image\/(?:bmp|gif|jpeg|jpg|png|tiff|webp)|video\/(?:mpeg|mp4|ogg|webm)|audio\/(?:mp3|oga|ogg|opus));base64,[a-z0-9+/]+=*$/i
+
+  function allowedAttribute(attr, allowedAttributeList) {
+    var attrName = attr.nodeName.toLowerCase()
+
+    if ($.inArray(attrName, allowedAttributeList) !== -1) {
+      if ($.inArray(attrName, uriAttrs) !== -1) {
+        return SAFE_URL_PATTERN.test(attr.nodeValue) || DATA_URL_PATTERN.test(attr.nodeValue)
+      }
+
+      return true
+    }
+
+    for (var i = 0, l = allowedAttributeList.length; i < l; i++) {
+      if (allowedAttributeList[i] instanceof RegExp && allowedAttributeList[i].test(attrName)) {
+        return true
+      }
+    }
+
+    return false
+  }
+
+  // Returns the cleaned content as nodes of the current document, or false when it cannot be cleaned
+  function sanitizeNodes(unsafeHtml, whiteList) {
+    var createdDocument
+      , elements
+      , i
+
+    // Very old browsers have no inert document to parse into; show nothing rather than unchecked HTML
+    if (!document.implementation || !document.implementation.createHTMLDocument) return false
+
+    // Parsing into a document that has no window runs no scripts and loads nothing
+    createdDocument = document.implementation.createHTMLDocument('sanitization')
+    createdDocument.body.innerHTML = unsafeHtml
+    elements = $(createdDocument.body).find('*')
+
+    for (i = 0; i < elements.length; i++) {
+      var el = elements[i]
+        , elName = el.nodeName.toLowerCase()
+        , allowed
+        , attributes
+        , j
+
+      if (!whiteList.hasOwnProperty(elName)) {
+        el.parentNode && el.parentNode.removeChild(el)
+        continue
+      }
+
+      allowed = [].concat(whiteList['*'] || [], whiteList[elName] || [])
+      attributes = $.makeArray(el.attributes)
+
+      for (j = 0; j < attributes.length; j++) {
+        if (!allowedAttribute(attributes[j], allowed)) el.removeAttribute(attributes[j].nodeName)
+      }
+    }
+
+    return $(document.importNode ? document.importNode(createdDocument.body, true) : createdDocument.body).contents()
+  }
+
+  // Puts HTML into an element the way the options ask: as text, as sanitized HTML, or as given
+  function setHtml($el, html, options) {
+    var nodes
+
+    // Elements passed in by script are used as they are
+    if (html && (html.jquery || html.nodeType)) return $el.empty().append(html)
+
+    html = html == null ? '' : String(html)
+
+    if (options.sanitize === false) return $el.html(html)
+
+    if (typeof options.sanitizeFn == 'function') return $el.html(options.sanitizeFn(html))
+
+    nodes = sanitizeNodes(html, options.whiteList || DefaultWhitelist)
+
+    return nodes ? $el.empty().append(nodes) : $el.text(html)
+  }
+
+  // Builds an element from a template string, sanitized like the content
+  function fromTemplate(template, options) {
+    return setHtml($('<div/>'), template, options).children().first().detach()
+  }
+
+
  /* TOOLTIP PUBLIC CLASS DEFINITION
   * =============================== */
 
@@ -1190,7 +1305,15 @@
     }
 
   , getOptions: function (options) {
-      options = $.extend({}, $.fn[this.type].defaults, this.$element.data(), options)
+      // Modified by Joomla 3 fork: CVE-2019-8331. The sanitizer options cannot come from data-* attributes
+      var dataAttributes = $.extend({}, this.$element.data())
+        , i
+
+      for (i = 0; i < DISALLOWED_ATTRIBUTES.length; i++) {
+        delete dataAttributes[DISALLOWED_ATTRIBUTES[i]]
+      }
+
+      options = $.extend({}, $.fn[this.type].defaults, dataAttributes, options)
 
       if (options.delay && typeof options.delay == 'number') {
         options.delay = {
@@ -1261,7 +1384,8 @@
           .detach()
           .css({ top: 0, left: 0, display: 'block' })
 
-        this.options.container ? $tip.appendTo(this.options.container) : $tip.insertAfter(this.$element)
+        // Modified by Joomla 3 fork: CVE-2018-14042. A string container is only ever a selector, never HTML
+        this.options.container ? $tip.appendTo(this.getContainer()) : $tip.insertAfter(this.$element)
 
         pos = this.getPosition()
 
@@ -1339,8 +1463,19 @@
       var $tip = this.tip()
         , title = this.getTitle()
 
-      $tip.find('.tooltip-inner')[this.options.html ? 'html' : 'text'](title)
+      // Modified by Joomla 3 fork: CVE-2019-8331. HTML titles are sanitized
+      this.options.html ? this.setElementHtml($tip.find('.tooltip-inner'), title) : $tip.find('.tooltip-inner').text(title)
       $tip.removeClass('fade in top bottom left right')
+    }
+
+  , setElementHtml: function ($el, html) {
+      return setHtml($el, html, this.options)
+    }
+
+  , getContainer: function () {
+      var container = this.options.container
+
+      return typeof container == 'string' ? $(document).find(container) : container
     }
 
   , hide: function () {
@@ -1411,7 +1546,8 @@
     }
 
   , tip: function () {
-      return this.$tip = this.$tip || $(this.options.template)
+      // Modified by Joomla 3 fork: CVE-2019-8331. The template is sanitized
+      return this.$tip = this.$tip || fromTemplate(this.options.template, this.options)
     }
 
   , arrow: function(){
@@ -1482,7 +1618,15 @@
   , html: true
   // < Joomla JUI
   , container: false
+  // Modified by Joomla 3 fork: CVE-2019-8331. Extend $.fn.tooltip.defaults.whiteList to allow more markup
+  , sanitize: true
+  , sanitizeFn: null
+  , whiteList: DefaultWhitelist
   }
+
+  // For other plugins, such as the button's loading text
+  $.fn.tooltip.Constructor.setHtml = setHtml
+  $.fn.tooltip.Constructor.DefaultWhitelist = DefaultWhitelist
 
 
  /* TOOLTIP NO CONFLICT
@@ -1539,8 +1683,9 @@
         , title = this.getTitle()
         , content = this.getContent()
 
-      $tip.find('.popover-title')[this.options.html ? 'html' : 'text'](title)
-      $tip.find('.popover-content')[this.options.html ? 'html' : 'text'](content)
+      // Modified by Joomla 3 fork: CVE-2019-8331. HTML titles and content are sanitized
+      this.options.html ? this.setElementHtml($tip.find('.popover-title'), title) : $tip.find('.popover-title').text(title)
+      this.options.html ? this.setElementHtml($tip.find('.popover-content'), content) : $tip.find('.popover-content').text(content)
 
       $tip.removeClass('fade top bottom left right in')
     }
@@ -1562,7 +1707,8 @@
 
   , tip: function () {
       if (!this.$tip) {
-        this.$tip = $(this.options.template)
+        // Modified by Joomla 3 fork: CVE-2019-8331. The template is sanitized
+        this.$tip = $.fn.tooltip.Constructor.prototype.tip.call(this)
       }
       return this.$tip
     }

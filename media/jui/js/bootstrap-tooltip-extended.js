@@ -62,7 +62,8 @@
           .css({ top: 0, left: 0, display: 'block' })
           .addClass(placement)
 
-        this.options.container ? $tip.appendTo(this.options.container) : $tip.insertAfter(this.$element)
+        // Modified by Joomla 3 fork: CVE-2018-14042. A string container is only ever a selector, never HTML
+        this.options.container ? $tip.appendTo(typeof this.options.container == 'string' ? $(document).find(this.options.container) : this.options.container) : $tip.insertAfter(this.$element)
 
         pos = this.getPosition()
 
@@ -152,7 +153,15 @@
     return this.each(function () {
       var $this = $(this)
         , data = $this.data('tooltip')
-        , options = $.extend({}, TooltipExtended.defaults, $this.data(), typeof option == 'object' && option)
+        , dataAttributes = $.extend({}, $this.data())
+        , options
+
+      // Modified by Joomla 3 fork: CVE-2019-8331. The sanitizer options cannot come from data-* attributes
+      delete dataAttributes.sanitize
+      delete dataAttributes.whiteList
+      delete dataAttributes.sanitizeFn
+
+      options = $.extend({}, TooltipExtended.defaults, dataAttributes, typeof option == 'object' && option)
       if (!data) $this.data('tooltip', (data = new TooltipExtended(this, options)))
       if (typeof option == 'string') data[option]()
     })
