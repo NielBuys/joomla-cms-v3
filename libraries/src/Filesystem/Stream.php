@@ -312,6 +312,14 @@ class Stream extends CMSObject
 			return true;
 		}
 
+		// A handle that is already closed cannot be closed again; PHP 8 throws a TypeError for it
+		if (!is_resource($this->fh))
+		{
+			$this->fh = null;
+
+			return true;
+		}
+
 		$retval = false;
 
 		// Capture PHP errors
@@ -335,7 +343,8 @@ class Stream extends CMSObject
 				break;
 		}
 
-		if (!$res)
+		// PHP 8.6 bzclose() returns false even when it has closed the stream, so a closed handle counts as success
+		if (!$res && is_resource($this->fh))
 		{
 			$this->setError($php_errormsg);
 		}
