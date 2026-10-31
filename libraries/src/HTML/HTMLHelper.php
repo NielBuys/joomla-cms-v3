@@ -255,8 +255,10 @@ abstract class HTMLHelper
 	{
 		if (is_array($attribs))
 		{
-			$attribs = ArrayHelper::toString($attribs);
+			$attribs = ArrayHelper::toString(self::escapeAttributesArray($attribs));
 		}
+
+		$url = htmlspecialchars((string) $url, ENT_QUOTES, 'UTF-8', false);
 
 		return '<a href="' . $url . '" ' . $attribs . '>' . $text . '</a>';
 	}
@@ -277,10 +279,48 @@ abstract class HTMLHelper
 	{
 		if (is_array($attribs))
 		{
-			$attribs = ArrayHelper::toString($attribs);
+			$attribs = ArrayHelper::toString(self::escapeAttributesArray($attribs));
 		}
 
+		$url  = htmlspecialchars((string) $url, ENT_QUOTES, 'UTF-8', false);
+		$name = htmlspecialchars((string) $name, ENT_QUOTES, 'UTF-8', false);
+
 		return '<iframe src="' . $url . '" ' . $attribs . ' name="' . $name . '">' . $noFrames . '</iframe>';
+	}
+
+	/**
+	 * Escape the names and values of an array of HTML attributes.
+	 * Attribute names that are not valid are removed. Values are only escaped: dangerous names or values are kept.
+	 *
+	 * @param   array  $attributes  The associative array of attributes, which may be nested
+	 *
+	 * @return  array  The escaped array
+	 *
+	 * @since   3.11.19
+	 */
+	protected static function escapeAttributesArray(array $attributes)
+	{
+		foreach ($attributes as $attributeName => $attributeValue)
+		{
+			// Skip invalid attribute names
+			if (!preg_match('/^[a-zA-Z][a-zA-Z0-9_:.-]*$/', (string) $attributeName))
+			{
+				unset($attributes[$attributeName]);
+
+				continue;
+			}
+
+			if (is_array($attributeValue))
+			{
+				$attributes[$attributeName] = self::escapeAttributesArray($attributeValue);
+
+				continue;
+			}
+
+			$attributes[$attributeName] = htmlspecialchars((string) $attributeValue, ENT_QUOTES, 'UTF-8', false);
+		}
+
+		return $attributes;
 	}
 
 	/**
