@@ -365,7 +365,7 @@ JLoader::registerAlias('SMTP',                              '\\PHPMailer\\PHPMai
 JLoader::registerAlias('POP3',                              '\\PHPMailer\\PHPMailer\\POP3', '5.0');
 
 // leafo/lessphp class names, now provided by its maintained fork splitbrain/lesserphp
-JLoader::registerAlias('lessc',                             '\\LesserPHP\\Lessc', '5.0');
+JLoader::registerAlias('lessc',                             'JLessCompat', '5.0');
 JLoader::registerAlias('lessc_parser',                      '\\LesserPHP\\Parser', '5.0');
 JLoader::registerAlias('lessc_formatter_classic',           '\\LesserPHP\\FormatterClassic', '5.0');
 JLoader::registerAlias('lessc_formatter_compressed',        '\\LesserPHP\\FormatterCompressed', '5.0');

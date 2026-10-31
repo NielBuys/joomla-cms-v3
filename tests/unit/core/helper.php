@@ -47,13 +47,16 @@ class TestHelper
 			'user'      => array(),
 		);
 
-		$deprecationHandler = function ($type, $msg, $file, $line, $context = null) use (&$deprecations)
+		// PHPUnit 9 does not register its own error handler while another one is set, so pass it other errors directly
+		$phpunitErrorHandler = class_exists('PHPUnit\Util\ErrorHandler') ? new \PHPUnit\Util\ErrorHandler(false, true, true, true) : null;
+
+		$deprecationHandler = function ($type, $msg, $file, $line, $context = null) use (&$deprecations, $phpunitErrorHandler)
 		{
 			// Check if the type is E_DEPRECATED or E_USER_DEPRECATED
 			if (!in_array($type, array(E_DEPRECATED, E_USER_DEPRECATED)))
 			{
-				// Leave other errors to PHPUnit's error handler, or to PHP outside of a test
-				return false;
+				// Errors, notices and warnings fail the test, as they did under PHPUnit 4
+				return $phpunitErrorHandler ? $phpunitErrorHandler($type, $msg, $file, $line) : false;
 			}
 
 			$trace = debug_backtrace(PHP_VERSION_ID >= 50400 ? DEBUG_BACKTRACE_IGNORE_ARGS | DEBUG_BACKTRACE_PROVIDE_OBJECT : true);

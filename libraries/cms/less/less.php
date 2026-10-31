@@ -17,7 +17,7 @@ defined('JPATH_PLATFORM') or die;
  * @since       3.4
  * @deprecated  4.0  without replacement
  */
-class JLess extends \LesserPHP\Lessc
+class JLess extends JLessCompat
 {
 	/**
 	 * Constructor
@@ -29,7 +29,7 @@ class JLess extends \LesserPHP\Lessc
 	 */
 	public function __construct($fname = null, $formatter = null)
 	{
-		parent::__construct();
+		parent::__construct($fname);
 
 		if ($formatter === null)
 		{

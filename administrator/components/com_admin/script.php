@@ -2076,6 +2076,17 @@ class JoomlaInstallerScript
 			'/libraries/vendor/paragonie/sodium_compat/lib/namespaced.php',
 			'/libraries/vendor/paragonie/sodium_compat/lib/sodium_compat.php',
 			'/libraries/vendor/paragonie/sodium_compat/src/Crypto32.php',
+			// Joomla 3.12.0: package documentation and metadata that is no longer shipped
+			'/libraries/vendor/pear/cache_lite/.gitignore',
+			'/libraries/vendor/pear/cache_lite/.travis.yml',
+			'/libraries/vendor/pear/cache_lite/README.md',
+			'/libraries/vendor/pear/cache_lite/TODO',
+			'/libraries/vendor/pear/cache_lite/composer.json',
+			'/libraries/vendor/pear/cache_lite/package.xml',
+			'/libraries/vendor/pear/cache_lite/phpunit.xml.dist',
+			'/libraries/vendor/symfony/polyfill-mbstring/README.md',
+			'/libraries/vendor/symfony/polyfill-mbstring/composer.json',
+			'/libraries/vendor/typo3/phar-stream-wrapper/composer.json',
 		);
 
 		// TODO There is an issue while deleting folders using the ftp mode
@@ -2358,7 +2369,6 @@ class JoomlaInstallerScript
 			'/libraries/vendor/symfony/event-dispatcher',
 			'/libraries/vendor/symfony/filesystem',
 			'/libraries/vendor/symfony/finder',
-			'/libraries/vendor/symfony/polyfill-mbstring',
 			'/libraries/vendor/symfony/process',
 			'/libraries/vendor/symfony/stopwatch',
 			'/libraries/vendor/webmozart/assert',

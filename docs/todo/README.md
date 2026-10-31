@@ -3,7 +3,7 @@
 This folder holds the plans for bringing the third-party libraries bundled with this fork up to
 date. The goal is to do it without breaking existing sites, templates or extensions.
 
-**Status:** the PHP minimum is being raised on the `3.12-dev` branch (see [php-minimum.md](php-minimum.md)). The other
+**Status:** the PHP minimum, sodium_compat and symfony/yaml are done for release 3.12; see each plan. The other
 upgrades are planned. Last reviewed 2026-10-31.
 
 Library versions and advisories change quickly. Before starting a workflow, check every version
@@ -29,7 +29,7 @@ depend on it. The JavaScript library upgrades do not, so they can be done in par
 |---|---|---|---|---|
 | PHP minimum | 7.1 | Holds back every PHP dependency. Some fixes live only as edits in `libraries/vendor`. | [php-minimum.md](php-minimum.md) | PHP 8.3, with every vendor fix kept in a fork |
 | paragonie/sodium_compat | 1.17.1 | CVE-2025-69277 (Moderate) | [sodium-compat.md](sodium-compat.md) | Done for 3.12: 2.5.2 |
-| symfony/yaml | 2.8.52 | CVE-2026-45304, CVE-2026-45305, CVE-2026-45133 and CVE-2026-109413: parser denial of service | [symfony-yaml.md](symfony-yaml.md) | 7.4 LTS (7.4.18 or later) |
+| symfony/yaml | 2.8.52 | CVE-2026-45304, CVE-2026-45305, CVE-2026-45133 and CVE-2026-109413: parser denial of service | [symfony-yaml.md](symfony-yaml.md) | Done for 3.12: 7.4.22 |
 | PHP 8.4 deprecations | 234 implicitly nullable parameters in 102 core files | A deprecation each time those classes load, including every form validation | [implicit-nullable.md](implicit-nullable.md) | `?Type $x = null` everywhere, for `3.10-dev` and `3.12-dev` |
 | CodeMirror | 5.60.0 | Old 5.x release; CodeMirror 6 is the current major version | [codemirror.md](codemirror.md) | Latest 5.65.x, then CodeMirror 6 as an optional editor |
 | TinyMCE | 4.5.12 | 17 advisories, including three High-severity XSS issues from June 2026 | [tinymce.md](tinymce.md) | TinyMCE 8.x, replacing 4.5.12 in the existing editor plugin |

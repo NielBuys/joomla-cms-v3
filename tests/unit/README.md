@@ -17,14 +17,16 @@ Folder Structure
 Running the Tests
 ---------------------
 The suite runs on PHPUnit 9.6, which Composer installs as a development dependency. The database tests use an
-SQLite in-memory database, so enable the `pdo_sqlite` extension; without it they are skipped.
+SQLite in-memory database, so enable the `pdo_sqlite` extension. Without it most of them are skipped, but some still
+try to connect to MySQL and fail, so a run without SQLite always reports errors.
 
 ```bash
 composer install
 libraries/vendor/bin/phpunit
 ```
 
-Run a single suite from `phpunit.xml.dist` with `--testsuite`, for example `--testsuite libraries-cms`.
+Run a single suite from `phpunit.xml.dist` with `--testsuite`, for example `--testsuite libraries-cms`. Some test
+files rely on setup that other tests in their suite do first, so run a whole suite rather than a single file.
 
 `composer install` adds the development packages to `libraries/vendor` and changes the autoloader files there. Before
 committing anything under `libraries/vendor`, run `composer install --no-dev` again, so that only the packages Joomla
