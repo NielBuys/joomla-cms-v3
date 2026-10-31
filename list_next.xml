@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--
+	Joomla CMS update collection for the "Joomla Next" update channel of the NielBuys/joomla-cms-v3 fork.
+
+	Joomla Update reads this file when Options > Update Channel is "Joomla Next". It points at
+	updates_next.xml, which holds stable releases of the next minor version (for example 3.12.0)
+	before the Default channel offers them. This channel only shows stable releases; release
+	candidates are on the "Testing" channel.
+
+	Served at: https://raw.githubusercontent.com/NielBuys/joomla-cms-v3/3.10-dev/list_next.xml
+	The URL is set in administrator/components/com_joomlaupdate/models/default.php.
+
+	Set the version attribute to the newest version in updates_next.xml. Joomla skips
+	updates_next.xml unless this version is newer than the installed one.
+-->
+<extensionset name="Joomla! Core next (NielBuys fork)" description="Joomla 3 fork - the next minor version">
+	<extension name="Joomla" element="joomla" type="file" version="3.11.18" detailsurl="https://raw.githubusercontent.com/NielBuys/joomla-cms-v3/3.10-dev/updates_next.xml"/>
+</extensionset>

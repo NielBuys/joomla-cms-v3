@@ -135,7 +135,7 @@ class JoomlaupdateViewDefault extends JViewLegacy
 
 		switch ($params->get('updatesource', 'default'))
 		{
-			// "Minor & Patch Release for Current version AND Next Major Release".
+			// "Joomla Next": updates for the current release, and the fork's next minor release early.
 			case 'next':
 				$this->langKey         = 'COM_JOOMLAUPDATE_VIEW_DEFAULT_UPDATES_INFO_NEXT';
 				$this->updateSourceKey = JText::_('COM_JOOMLAUPDATE_CONFIG_UPDATESOURCE_NEXT');
