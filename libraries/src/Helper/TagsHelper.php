@@ -59,6 +59,24 @@ class TagsHelper extends CMSHelper
 	public $itemTags;
 
 	/**
+	 * The tags passed to preStoreProcess(). Declared without a default: preStoreProcess() only sets it when tags are
+	 * given, as it did when this was a dynamic property.
+	 *
+	 * @var    array|string|null
+	 * @since  3.11.19
+	 */
+	public $newTags;
+
+	/**
+	 * The tag ids stored for the item before the save, set by preStoreProcess(). Declared without a default, because
+	 * preStoreProcess() tests it with isset().
+	 *
+	 * @var    string|null
+	 * @since  3.11.19
+	 */
+	public $oldTags;
+
+	/**
 	 * Method to add tag rows to mapping table.
 	 *
 	 * @param   integer         $ucmId  ID of the #__ucm_content item being tagged
