@@ -35,6 +35,14 @@ class FieldsControllerGroup extends JControllerForm
 	private $component = '';
 
 	/**
+	 * The context for which the group applies, as checked by the component entry point.
+	 *
+	 * @var    string
+	 * @since  3.11.19
+	 */
+	private $internalContext = '';
+
+	/**
 	 * Class constructor.
 	 *
 	 * @param   array  $config  A named array of configuration variables.
@@ -45,7 +53,15 @@ class FieldsControllerGroup extends JControllerForm
 	{
 		parent::__construct($config);
 
-		$parts = FieldsHelper::extract($this->input->getCmd('context'));
+		// Group links and the group edit form do not always send the context, use the one the entry point authorised
+		$this->internalContext = JFactory::getApplication()->getUserStateFromRequest(
+			'com_fields.groups.context',
+			'context',
+			'com_content.article',
+			'CMD'
+		);
+
+		$parts = FieldsHelper::extract($this->internalContext);
 
 		if ($parts)
 		{
@@ -110,6 +126,22 @@ class FieldsControllerGroup extends JControllerForm
 			return parent::allowEdit($data, $key);
 		}
 
+		// Get existing record
+		$record = $this->getModel()->getItem($recordId);
+
+		if (empty($record))
+		{
+			return false;
+		}
+
+		list($recordOption) = explode('.', $record->context);
+
+		// Validate request context and field group context match
+		if ($recordOption !== $this->component)
+		{
+			return false;
+		}
+
 		// Check edit on the record asset (explicit or inherited)
 		if ($user->authorise('core.edit', $this->component . '.fieldgroup.' . $recordId))
 		{
@@ -119,19 +151,38 @@ class FieldsControllerGroup extends JControllerForm
 		// Check edit own on the record asset (explicit or inherited)
 		if ($user->authorise('core.edit.own', $this->component . '.fieldgroup.' . $recordId) || $user->authorise('core.edit.own', $this->component))
 		{
-			// Existing record already has an owner, get it
-			$record = $this->getModel()->getItem($recordId);
-
-			if (empty($record))
-			{
-				return false;
-			}
-
 			// Grant if current user is owner of the record
 			return $user->id == $record->created_by;
 		}
 
 		return false;
+	}
+
+	/**
+	 * Gets the URL arguments to append to an item redirect.
+	 *
+	 * @param   integer  $recordId  The primary key id for the item.
+	 * @param   string   $urlVar    The name of the URL variable for the id.
+	 *
+	 * @return  string  The arguments to append to the redirect URL.
+	 *
+	 * @since   3.11.19
+	 */
+	protected function getRedirectToItemAppend($recordId = null, $urlVar = 'id')
+	{
+		return parent::getRedirectToItemAppend($recordId, $urlVar) . '&context=' . $this->internalContext;
+	}
+
+	/**
+	 * Gets the URL arguments to append to a list redirect.
+	 *
+	 * @return  string  The arguments to append to the redirect URL.
+	 *
+	 * @since   3.11.19
+	 */
+	protected function getRedirectToListAppend()
+	{
+		return parent::getRedirectToListAppend() . '&context=' . $this->internalContext;
 	}
 
 	/**
