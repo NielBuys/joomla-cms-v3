@@ -78,7 +78,7 @@ final class Version
 	 * @since  3.5
 	 * @deprecated  4.0  Use separated version constants instead
 	 */
-	const DEV_LEVEL = '0';
+	const DEV_LEVEL = '18';
 
 	/**
 	 * Development status.
