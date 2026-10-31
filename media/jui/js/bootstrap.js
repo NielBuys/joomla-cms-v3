@@ -1825,7 +1825,8 @@
           .map(function () {
             var $el = $(this)
               , href = $el.data('target') || $el.attr('href')
-              , $href = /^#\w/.test(href) && $(href)
+              // Modified by Joomla 3 fork: only ever used as a selector
+              , $href = /^#\w/.test(href) && $(document).find(href)
             return ( $href
               && $href.length
               && [[ $href.position().top + (!$.isWindow(self.$scrollElement.get(0)) && self.$scrollElement.scrollTop()), href ]] ) || null
@@ -1865,7 +1866,9 @@
 
         this.activeTarget = target
 
-        $(this.selector)
+        // Modified by Joomla 3 fork: the selector starts with data-target, so it is only ever used as a selector.
+        // jQuery Migrate would otherwise parse a value such as '[x="<img ...>"], #nav' as HTML.
+        $(document).find(this.selector)
           .parent('.active')
           .removeClass('active')
 
@@ -2393,7 +2396,8 @@
   , menu: '<ul class="typeahead dropdown-menu"></ul>'
   , item: '<li><a href="#"></a></li>'
   , minLength: 1
-  // Modified by Joomla 3 fork: how items are sanitized; whiteList defaults to $.fn.tooltip.defaults.whiteList
+  // Modified by Joomla 3 fork: how items are sanitized; whiteList defaults to $.fn.tooltip.defaults.whiteList.
+  // A whiteList replaces that list, so include strong: [] in it to keep the default highlighter's markup.
   , sanitize: true
   , sanitizeFn: null
   , whiteList: null
