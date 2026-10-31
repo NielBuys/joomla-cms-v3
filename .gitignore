@@ -189,6 +189,8 @@ Desktop.ini
 /libraries/vendor/psr/log/README.md
 /libraries/vendor/symfony/polyfill-ctype/composer.json
 /libraries/vendor/symfony/polyfill-ctype/README.md
+/libraries/vendor/symfony/polyfill-mbstring/composer.json
+/libraries/vendor/symfony/polyfill-mbstring/README.md
 /libraries/vendor/symfony/polyfill-php55/composer.json
 /libraries/vendor/symfony/polyfill-php55/README.md
 /libraries/vendor/symfony/polyfill-util/composer.json
@@ -265,7 +267,6 @@ Desktop.ini
 /libraries/vendor/symfony/options-resolver
 /libraries/vendor/symfony/polyfill-intl-grapheme
 /libraries/vendor/symfony/polyfill-intl-normalizer
-/libraries/vendor/symfony/polyfill-mbstring
 /libraries/vendor/symfony/polyfill-php80
 /libraries/vendor/symfony/polyfill-php81
 /libraries/vendor/symfony/polyfill-php84

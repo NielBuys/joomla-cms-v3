@@ -246,6 +246,7 @@ return array(
     'Symfony\\Component\\Yaml\\Unescaper' => $vendorDir . '/symfony/yaml/Unescaper.php',
     'Symfony\\Component\\Yaml\\Yaml' => $vendorDir . '/symfony/yaml/Yaml.php',
     'Symfony\\Polyfill\\Ctype\\Ctype' => $vendorDir . '/symfony/polyfill-ctype/Ctype.php',
+    'Symfony\\Polyfill\\Mbstring\\Mbstring' => $vendorDir . '/symfony/polyfill-mbstring/Mbstring.php',
     'TYPO3\\PharStreamWrapper\\Assertable' => $vendorDir . '/typo3/phar-stream-wrapper/src/Assertable.php',
     'TYPO3\\PharStreamWrapper\\Behavior' => $vendorDir . '/typo3/phar-stream-wrapper/src/Behavior.php',
     'TYPO3\\PharStreamWrapper\\Collectable' => $vendorDir . '/typo3/phar-stream-wrapper/src/Collectable.php',

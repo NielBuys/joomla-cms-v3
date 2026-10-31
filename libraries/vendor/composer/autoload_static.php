@@ -27,6 +27,7 @@ class ComposerStaticInitc14bde14f8c86840049f5c1809c453dd
         '320cde22f66dd4f5d3fd621d3e88b98f' => __DIR__ . '/..' . '/symfony/polyfill-ctype/bootstrap.php',
         '3109cb1a231dcd04bee1f9f620d46975' => __DIR__ . '/..' . '/paragonie/sodium_compat/autoload.php',
         '9e71c1459ef1226520e4b26dac3a180d' => __DIR__ . '/..' . '/php81_bc/strftime/src/php-8.1-strftime.php',
+        '0e6d7bf4a5811bfa5cf40c5ccd6fae6a' => __DIR__ . '/..' . '/symfony/polyfill-mbstring/bootstrap.php',
     );
 
     public static $prefixLengthsPsr4 = array (
@@ -36,6 +37,7 @@ class ComposerStaticInitc14bde14f8c86840049f5c1809c453dd
         ),
         'S' =>
         array (
+            'Symfony\\Polyfill\\Mbstring\\' => 26,
             'Symfony\\Polyfill\\Ctype\\' => 23,
             'Symfony\\Component\\Yaml\\' => 23,
         ),
@@ -79,6 +81,10 @@ class ComposerStaticInitc14bde14f8c86840049f5c1809c453dd
         'TYPO3\\PharStreamWrapper\\' =>
         array (
             0 => __DIR__ . '/..' . '/typo3/phar-stream-wrapper/src',
+        ),
+        'Symfony\\Polyfill\\Mbstring\\' =>
+        array (
+            0 => __DIR__ . '/..' . '/symfony/polyfill-mbstring',
         ),
         'Symfony\\Polyfill\\Ctype\\' =>
         array (
@@ -436,6 +442,7 @@ class ComposerStaticInitc14bde14f8c86840049f5c1809c453dd
         'Symfony\\Component\\Yaml\\Unescaper' => __DIR__ . '/..' . '/symfony/yaml/Unescaper.php',
         'Symfony\\Component\\Yaml\\Yaml' => __DIR__ . '/..' . '/symfony/yaml/Yaml.php',
         'Symfony\\Polyfill\\Ctype\\Ctype' => __DIR__ . '/..' . '/symfony/polyfill-ctype/Ctype.php',
+        'Symfony\\Polyfill\\Mbstring\\Mbstring' => __DIR__ . '/..' . '/symfony/polyfill-mbstring/Mbstring.php',
         'TYPO3\\PharStreamWrapper\\Assertable' => __DIR__ . '/..' . '/typo3/phar-stream-wrapper/src/Assertable.php',
         'TYPO3\\PharStreamWrapper\\Behavior' => __DIR__ . '/..' . '/typo3/phar-stream-wrapper/src/Behavior.php',
         'TYPO3\\PharStreamWrapper\\Collectable' => __DIR__ . '/..' . '/typo3/phar-stream-wrapper/src/Collectable.php',

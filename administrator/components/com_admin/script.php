@@ -2358,7 +2358,6 @@ class JoomlaInstallerScript
 			'/libraries/vendor/symfony/event-dispatcher',
 			'/libraries/vendor/symfony/filesystem',
 			'/libraries/vendor/symfony/finder',
-			'/libraries/vendor/symfony/polyfill-mbstring',
 			'/libraries/vendor/symfony/process',
 			'/libraries/vendor/symfony/stopwatch',
 			'/libraries/vendor/webmozart/assert',
