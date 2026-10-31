@@ -20,12 +20,20 @@ library upgrades. The minimum was first planned as 8.1 and was raised to 8.3 bef
 - **lessphp** moved to `splitbrain/lesserphp`, the maintained fork of `leafo/lessphp`. It compiles every core
   template's LESS to the same CSS as before. `wikimedia/less.php` was tried first, but it cannot compile the
   Bootstrap 2 LESS that isis and protostar use. The `lessc` class names remain available as aliases.
-  - `lessc` is `JLessCompat`, which puts back the lessphp methods lesserphp dropped or changed: `checkedCompile()`,
-    `cachedCompile()`, `parse()`, `ccompile()`, `cexecute()`, `allParsedFiles()`, `addParsedFile()`,
-    `throwError()`, the `assert*()` helpers, `preg_quote()`, `setFormatter()` with a name such as `'compressed'`,
-    and the file argument to the constructor. `JLess` extends it.
-  - For the release notes: a subclass of `lessc` or `JLess` that overrides `compile()` must now declare its
-    `string` return type, and one that overrides lessphp's protected compiler methods may need changes.
+  - `lessc` is `JLessCompat`, which puts back lessphp's public API where lesserphp dropped or changed it:
+    `checkedCompile()`, `cachedCompile()`, `parse()`, `ccompile()`, `cexecute()`, `allParsedFiles()`,
+    `addParsedFile()`, `throwError()`, `toBool()`, `colorArgs()`, the `assert*()` helpers, `preg_quote()`,
+    `setFormatter()` with a name such as `'compressed'`, the file argument to the constructor, the public
+    `$importDir` and `$importDisabled` properties, and the static `$VERSION`, `$TRUE` and `$FALSE`. LESS functions
+    that a subclass adds or overrides as `lib_*()` methods are registered too. `JLess` extends it.
+  - `$vPrefix`, `$mPrefix` and `$parentSelector` can be read, but lesserphp has them as constants, so changing them
+    has no effect.
+  - For the release notes, subclasses of `lessc` or `JLess`:
+    - A subclass fails to load if it overrides a method lesserphp declares with types, such as `compile()`,
+      `addParsedFile()`, `reduce()` or `findImport()`, without the same types.
+    - Overrides of lessphp's other protected compiler methods may no longer be called.
+    - A formatter must extend `lessc_formatter_classic`, and `setFormatter()` accepts only the names `lessjs`,
+      `compressed` and `classic`.
 - **symfony/polyfill-mbstring** stays a runtime requirement. 3.10 loaded it on every request, and core calls
   `mb_*` functions without checking for the extension, so hosts without `mbstring` still need it.
 - **google/recaptcha and SimplePie** come from the `recaptcha` 1.2.5 and `simplepie` 1.3.4 forks, which carry the

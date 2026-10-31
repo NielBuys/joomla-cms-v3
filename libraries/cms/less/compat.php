@@ -15,8 +15,13 @@ use LesserPHP\Utils\Asserts;
 /**
  * The leafo/lessphp `lessc` API on top of splitbrain/lesserphp
  *
- * Extensions written for Joomla 3 call `lessc` methods that lesserphp removed or changed. This class puts them back,
- * so `new lessc` keeps working. Subclasses that override `compile()` must declare its `string` return type.
+ * Extensions written for Joomla 3 use `lessc` methods and properties that lesserphp removed or changed. This class
+ * puts back lessphp's public API, so code that calls `new lessc` and its public methods keeps working.
+ *
+ * Subclasses are less certain, because lesserphp declares types that lessphp did not. A subclass of `lessc` or `JLess`
+ * fails to load if it overrides compile(), addParsedFile(), reduce(), findImport() or another typed method without
+ * the same types, and overrides of lessphp's protected compiler methods may no longer be called. Formatters must
+ * extend `lessc_formatter_classic`, and setFormatter() accepts only the names lessjs, compressed and classic.
  *
  * @package     Joomla.Libraries
  * @subpackage  Less
@@ -25,6 +30,66 @@ use LesserPHP\Utils\Asserts;
  */
 class JLessCompat extends \LesserPHP\Lessc
 {
+	/**
+	 * The lessphp version this class stands in for
+	 *
+	 * @var    string
+	 * @since  3.12.0
+	 */
+	public static $VERSION = 'v0.5.0';
+
+	/**
+	 * The value functions added with registerFunction() return for true
+	 *
+	 * @var    array
+	 * @since  3.12.0
+	 */
+	public static $TRUE = array('keyword', 'true');
+
+	/**
+	 * The value functions added with registerFunction() return for false
+	 *
+	 * @var    array
+	 * @since  3.12.0
+	 */
+	public static $FALSE = array('keyword', 'false');
+
+	/**
+	 * Directories searched for imported files
+	 *
+	 * @var    string|array
+	 * @since  3.12.0
+	 */
+	public $importDir = array();
+
+	/**
+	 * Whether @import is ignored
+	 *
+	 * @var    boolean
+	 * @since  3.12.0
+	 */
+	public bool $importDisabled = false;
+
+	/**
+	 * lessphp's syntax prefixes. lesserphp has them as constants, so these can be read but changing them has no effect.
+	 *
+	 * @var    string
+	 * @since  3.12.0
+	 */
+	public $vPrefix = '@';
+
+	/**
+	 * @var    string
+	 * @since  3.12.0
+	 */
+	public $mPrefix = '$';
+
+	/**
+	 * @var    string
+	 * @since  3.12.0
+	 */
+	public $parentSelector = '&';
+
 	/**
 	 * The file the deprecated parse() method compiles when it is given no string
 	 *
@@ -48,6 +113,55 @@ class JLessCompat extends \LesserPHP\Lessc
 		{
 			$this->_parseFile = $fname;
 		}
+
+		// lessphp called a LESS function such as my-fn() as the method lib_my_fn() of the compiler, so subclasses could
+		// add or override functions that way. lesserphp only looks in the registered functions.
+		foreach ((new ReflectionClass($this))->getMethods() as $method)
+		{
+			if (strpos($method->name, 'lib_') === 0 && !$method->isStatic())
+			{
+				$callback = Closure::fromCallable(array($this, $method->name));
+				$name     = substr($method->name, 4);
+
+				$this->registerFunction($name, $callback);
+				$this->registerFunction(str_replace('_', '-', $name), $callback);
+			}
+		}
+	}
+
+	/**
+	 * Convert a PHP value to a LESS boolean
+	 *
+	 * @param   mixed  $a  The value
+	 *
+	 * @return  array  self::$TRUE or self::$FALSE
+	 *
+	 * @since   3.12.0
+	 */
+	public function toBool($a)
+	{
+		return $a ? self::$TRUE : self::$FALSE;
+	}
+
+	/**
+	 * Get the colour and the percentage from the arguments of a colour function, such as darken(@c, 10%)
+	 *
+	 * @param   array  $args  The arguments
+	 *
+	 * @return  array  The colour and the percentage
+	 *
+	 * @since   3.12.0
+	 */
+	public function colorArgs($args)
+	{
+		if ($args[0] != 'list' || count($args[2]) < 2)
+		{
+			return array(array('color', 0, 0, 0), 0);
+		}
+
+		list($color, $delta) = $args[2];
+
+		return array($this->assertColor($color), floatval($delta[1]));
 	}
 
 	/**
@@ -261,12 +375,8 @@ class JLessCompat extends \LesserPHP\Lessc
 	 */
 	public function throwError($msg = null)
 	{
-		if ($this->sourceLoc >= 0 && $this->sourceParser !== null)
-		{
-			$this->sourceParser->throwError((string) $msg, $this->sourceLoc);
-		}
-
-		throw new Exception($msg);
+		// compile() adds the line the error is on
+		throw new Exception((string) $msg);
 	}
 
 	/**
