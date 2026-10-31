@@ -47,7 +47,14 @@ class TagsHelper extends CMSHelper
 	 */
 	public $typeAlias = null;
 
-	private $tags;
+	/**
+	 * The tag ids of the item, as an array or a comma-separated string. Public, because AdminModel's batch methods
+	 * and the Tags table observer read and write it.
+	 *
+	 * @var    array|string
+	 * @since  3.1
+	 */
+	public $tags;
 
 	public $itemTags;
 
