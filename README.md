@@ -92,8 +92,9 @@ The build packages the **newest git tag**, not your working tree (`build/build.p
 still succeeds but quietly rebuilds the previous version. So the tag must exist in your local
 repository before you build.
 
-1. **Version up.** Bump `PATCH_VERSION` and `RELDATE` in `libraries/src/Version.php` and
-   `<version>` in `administrator/manifests/files/joomla.xml`. Commit as "Version Up 3.11.x".
+1. **Version up.** Bump `PATCH_VERSION`, `DEV_LEVEL` (the same number, as a string) and `RELDATE`
+   in `libraries/src/Version.php`, and `<version>` in `administrator/manifests/files/joomla.xml`.
+   Commit as "Version Up 3.11.x". `DEV_LEVEL` goes into the user agent string.
 2. **Tag and push.** `git tag -a 3.11.x -m "Joomla 3.11.x (fork release)"`, then
    `git push origin 3.10-dev 3.11.x`. If you create the tag on GitHub instead, run
    `git fetch --tags` locally before building.
@@ -116,6 +117,22 @@ repository before you build.
    offered. Doing this last means sites are never offered a download link that does not
    exist yet. The copies of these two files inside the packages lag one release behind,
    which does not matter because Joomla reads them from GitHub.
+
+**Update channels.** Joomla Update's Options > Update Channel picks the list it reads, all
+served from `3.10-dev`:
+
+| Channel | List | Holds |
+|---|---|---|
+| Default | `list.xml` → `updates.xml` | stable releases |
+| Joomla Next | `list_next.xml` → `updates_next.xml` | stable releases of the next minor version, before Default offers them |
+| Testing | `list_test.xml` → `updates_test.xml` | release candidates and betas |
+
+To publish a release candidate, publish it as a GitHub pre-release, then add its `<update>`
+block to `updates_test.xml` with `<tags><tag>rc</tag></tags>` and set the version attribute in
+`list_test.xml`. Sites see it with Update Channel "Testing" and Minimum Stability "Release
+Candidate". The comments in each file describe the details. Sites need a release with these
+channel URLs (the first release after 3.11.18) before they can follow "Joomla Next" or "Testing"; until then,
+use Update Channel "Custom URL" with the `list_test.xml` URL instead.
 
 Sites on 3.11.14 or later are offered the release in Joomla Update once `updates.xml` is
 pushed to `3.10-dev` and the Update Package is attached to the release. Sites on 3.11.13 or

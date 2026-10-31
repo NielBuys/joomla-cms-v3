@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="utf-8"?>
+<updates>
+	<!--
+		Stable releases of the next minor version for the "Joomla Next" update channel of the
+		NielBuys/joomla-cms-v3 fork. Referenced by list_next.xml (detailsurl). Served at:
+		https://raw.githubusercontent.com/NielBuys/joomla-cms-v3/3.10-dev/updates_next.xml
+
+		Per release, only once its GitHub release and archives are published: add an <update>
+		block like the ones in updates.xml, with <tags><tag>stable</tag></tags> and the release's
+		<php_minimum>, then set list_next.xml's version attribute to the same version and push.
+		Keep adding the current line's patch releases here too while the next minor version is
+		only on this channel, so sites on Joomla Next still receive them.
+	-->
+</updates>
