@@ -826,7 +826,8 @@ class Pagination
 
             if ($this->hideEmptyLimitstart)
             {
-                $data->start->link = Route::_(rtrim($base, '?&'));
+                // An empty limitstart, not none, so views that keep limitstart in the user state go back to page 1
+                $data->start->link = Route::_($base . $this->prefix . 'limitstart=');
             }
             else
             {
