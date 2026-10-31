@@ -1024,6 +1024,14 @@ class CategoriesModelCategory extends JModelAdmin
 				}
 			}
 
+			// Check that the user is allowed to edit the category that is copied
+			if (!$this->user->authorise('core.edit', $contexts[$pk]))
+			{
+				$this->setError(JText::_('JLIB_APPLICATION_ERROR_BATCH_CANNOT_EDIT'));
+
+				return false;
+			}
+
 			// Copy is a bit tricky, because we also need to copy the children
 			$query->clear()
 				->select('id')

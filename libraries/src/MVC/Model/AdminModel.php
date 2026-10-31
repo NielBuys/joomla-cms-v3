@@ -439,6 +439,22 @@ abstract class AdminModel extends FormModel
 				}
 			}
 
+			$assetName = $contexts[$pk];
+
+			// Records might not have own asset ids but their categories
+			if (!$this->table->hasField('asset_id') && $this->table->hasField('catid'))
+			{
+				$assetName = $this->option . '.category.' . (int) $this->table->catid;
+			}
+
+			// Check that the user is allowed to edit the item that is copied
+			if (!$this->user->authorise('core.edit', $assetName))
+			{
+				$this->setError(\JText::_('JLIB_APPLICATION_ERROR_BATCH_CANNOT_EDIT'));
+
+				return false;
+			}
+
 			// Check for asset_id
 			if ($this->table->hasField($this->table->getColumnAlias('asset_id')))
 			{

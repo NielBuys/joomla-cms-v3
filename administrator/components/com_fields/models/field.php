@@ -1056,16 +1056,36 @@ class FieldsModelField extends JModelAdmin
 		$user      = JFactory::getUser();
 		$table     = $this->getTable();
 		$newIds    = array();
-		$component = $this->state->get('filter.component');
 		$value     = (int) $value;
 
 		foreach ($pks as $pk)
 		{
-			if ($user->authorise('core.create', $component . '.fieldgroup.' . $value))
-			{
-				$table->reset();
-				$table->load($pk);
+			$table->reset();
 
+			// Check that the row actually exists
+			if (!$table->load($pk))
+			{
+				if ($error = $table->getError())
+				{
+					// Fatal error
+					$this->setError($error);
+
+					return false;
+				}
+				else
+				{
+					// Not fatal error
+					$this->setError(JText::sprintf('JLIB_APPLICATION_ERROR_BATCH_MOVE_ROW_NOT_FOUND', $pk));
+					continue;
+				}
+			}
+
+			// Use the component of the field that is copied, the model state has none
+			list($recordComponent) = explode('.', (string) $table->context);
+
+			if ($user->authorise('core.create', $recordComponent . '.fieldgroup.' . $value)
+				&& $user->authorise('core.edit', $recordComponent . '.field.' . $pk))
+			{
 				$table->group_id = $value;
 
 				// Reset the ID because we are making a copy
