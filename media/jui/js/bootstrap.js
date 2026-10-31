@@ -899,11 +899,24 @@
  /* MODAL CLASS DEFINITION
   * ====================== */
 
+  // Modified by Joomla 3 fork: remote content is only loaded from this site, so a link in page content cannot load
+  // another site's HTML and scripts into the page
+  function isSameOrigin(url) {
+    var a = document.createElement('a')
+      , port = function (l) { return l.port || (l.protocol == 'https:' ? '443' : l.protocol == 'http:' ? '80' : '') }
+
+    a.href = url
+    // Old Internet Explorer fills in the host of a relative URL only when it is set again
+    a.href = a.href
+
+    return a.protocol == location.protocol && a.hostname == location.hostname && port(a) == port(location)
+  }
+
   var Modal = function (element, options) {
     this.options = options
     this.$element = $(element)
       .delegate('[data-dismiss="modal"]', 'click.dismiss.modal', $.proxy(this.hide, this))
-    this.options.remote && this.$element.find('.modal-body').load(this.options.remote)
+    this.options.remote && isSameOrigin(this.options.remote) && this.$element.find('.modal-body').load(this.options.remote)
   }
 
   Modal.prototype = {
@@ -2196,10 +2209,21 @@
 
   , render: function (items) {
       var that = this
+        , setHtml = $.fn.tooltip && $.fn.tooltip.Constructor.setHtml
+        // Modified by Joomla 3 fork: items can come from page content (data-source), so they are sanitized like tooltips
+        , sanitizeOptions = {
+            sanitize: this.options.sanitize
+          , sanitizeFn: this.options.sanitizeFn
+          , whiteList: this.options.whiteList || (setHtml && $.fn.tooltip.defaults.whiteList)
+          }
 
       items = $(items).map(function (i, item) {
         i = $(that.options.item).attr('data-value', item)
-        i.find('a').html(that.highlighter(item))
+        if (setHtml) {
+          setHtml(i.find('a'), that.highlighter(item), sanitizeOptions)
+        } else {
+          i.find('a').text(item)
+        }
         return i[0]
       })
 
@@ -2369,6 +2393,10 @@
   , menu: '<ul class="typeahead dropdown-menu"></ul>'
   , item: '<li><a href="#"></a></li>'
   , minLength: 1
+  // Modified by Joomla 3 fork: how items are sanitized; whiteList defaults to $.fn.tooltip.defaults.whiteList
+  , sanitize: true
+  , sanitizeFn: null
+  , whiteList: null
   }
 
   $.fn.typeahead.Constructor = Typeahead
@@ -2388,8 +2416,14 @@
 
   $(document).on('focus.typeahead.data-api', '[data-provide="typeahead"]', function (e) {
     var $this = $(this)
+      , options
     if ($this.data('typeahead')) return
-    $this.typeahead($this.data())
+    // Modified by Joomla 3 fork: the menu and item HTML, and the sanitizer options, cannot come from data-* attributes
+    options = $.extend({}, $this.data())
+    $.each(['menu', 'item', 'sanitize', 'sanitizeFn', 'whiteList'], function (i, name) {
+      delete options[name]
+    })
+    $this.typeahead(options)
   })
 
 }(window.jQuery);
