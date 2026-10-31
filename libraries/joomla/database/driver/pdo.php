@@ -721,8 +721,9 @@ abstract class JDatabaseDriverPdo extends JDatabaseDriver
 		// Create a stringified version of the query (with prefixes replaced):
 		$sql = $this->replacePrefix((string) $query);
 
-		// Use the stringified version in the prepare call:
-		$this->prepared = $this->connection->prepare($sql, $driverOptions);
+		// Use the stringified version in the prepare call. PHP 8 throws a ValueError for an empty query, where PHP 7
+		// returned false; leave it unprepared so execute() reports the failed query as before.
+		$this->prepared = $sql === '' ? false : $this->connection->prepare($sql, $driverOptions);
 
 		// Store reference to the original JDatabaseQuery instance within the class.
 		// This is important since binding variables depends on it within execute():

@@ -805,14 +805,15 @@ class Pagination
             }
         }
 
-        $params = http_build_query($params);
+        // The start of every link; no '&' when there are no other parameters, so non-SEF links have no '?&'
+        $base = 'index.php?' . ($params ? http_build_query($params) . '&' : '');
 
         $data->all = new PaginationObject(\JText::_('JLIB_HTML_VIEW_ALL'), $this->prefix);
 
         if (!$this->viewall)
         {
             $data->all->base = '0';
-            $data->all->link = Route::_('index.php?' . $params . '&' . $this->prefix . 'limitstart=');
+            $data->all->link = Route::_($base . $this->prefix . 'limitstart=');
         }
 
         // Set the start and previous data objects.
@@ -825,11 +826,12 @@ class Pagination
 
             if ($this->hideEmptyLimitstart)
             {
-                $data->start->link = Route::_('index.php?' . $params . '&' . $this->prefix . 'limitstart=');
+                // An empty limitstart, not none, so views that keep limitstart in the user state go back to page 1
+                $data->start->link = Route::_($base . $this->prefix . 'limitstart=');
             }
             else
             {
-                $data->start->link = Route::_('index.php?' . $params . '&' . $this->prefix . 'limitstart=0');
+                $data->start->link = Route::_($base . $this->prefix . 'limitstart=0');
             }
 
             $data->start->base    = '0';
@@ -841,7 +843,7 @@ class Pagination
             }
             else
             {
-                $data->previous->link = Route::_('index.php?' . $params . '&' . $this->prefix . 'limitstart=' . $page);
+                $data->previous->link = Route::_($base . $this->prefix . 'limitstart=' . $page);
             }
         }
 
@@ -855,9 +857,9 @@ class Pagination
             $end  = ($this->pagesTotal - 1) * $this->limit;
 
             $data->next->base = $next;
-            $data->next->link = Route::_('index.php?' . $params . '&' . $this->prefix . 'limitstart=' . $next);
+            $data->next->link = Route::_($base . $this->prefix . 'limitstart=' . $next);
             $data->end->base  = $end;
-            $data->end->link  = Route::_('index.php?' . $params . '&' . $this->prefix . 'limitstart=' . $end);
+            $data->end->link  = Route::_($base . $this->prefix . 'limitstart=' . $end);
         }
 
         $data->pages = array();
@@ -880,7 +882,7 @@ class Pagination
                 else
                 {
                     $data->pages[$i]->link = Route::_(
-                        'index.php?' . $params . '&' . $this->prefix . 'limitstart=' . $offset
+                        $base . $this->prefix . 'limitstart=' . $offset
                     );
                 }
             }

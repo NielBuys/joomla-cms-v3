@@ -322,7 +322,7 @@ class JPaginationTest extends TestCase
 					array(
 						'text' => 'JLIB_HTML_VIEW_ALL',
 						'base' => '0',
-						'link' => 'index.php',
+						'link' => 'index.php?limitstart=',
 						'prefix' => '',
 						'active' => false,
 					),
@@ -361,19 +361,19 @@ class JPaginationTest extends TestCase
 						'prefix' => '',
 						'active' => true,
 					),
-					// Version without '?limitstart='
+					// View all always resets limitstart
 					array(
 						'text' => 'JLIB_HTML_VIEW_ALL',
 						'base' => '0',
-						'link' => 'index.php',
+						'link' => 'index.php?limitstart=',
 						'prefix' => '',
 						'active' => false,
 					),
-					// Version without '?limitstart=0'
+					// Version with an empty limitstart instead of '?limitstart=0'
 					array(
 						'text' => 'JLIB_HTML_START',
 						'base' => '0',
-						'link' => 'index.php',
+						'link' => 'index.php?limitstart=',
 						'prefix' => '',
 						'active' => false,
 					),
