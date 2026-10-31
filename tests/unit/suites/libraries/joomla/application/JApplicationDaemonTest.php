@@ -33,7 +33,7 @@ class JApplicationDaemonTest extends TestCase
 	 *
 	 * @since   1.7.3
 	 */
-	public function setUp()
+	public function setUp(): void
 	{
 		parent::setUp();
 
@@ -61,7 +61,7 @@ class JApplicationDaemonTest extends TestCase
 	 * @see     \PHPUnit\Framework\TestCase::tearDown()
 	 * @since   1.7.3
 	 */
-	protected function tearDown()
+	protected function tearDown(): void
 	{
 		// Reset some daemon inspector static settings.
 		JApplicationDaemonInspector::$pcntlChildExitStatus = 0;
@@ -88,7 +88,7 @@ class JApplicationDaemonTest extends TestCase
 	 * @see     \PHPUnit\Framework\TestCase::tearDownAfterClass()
 	 * @since   1.7.3
 	 */
-	public static function tearDownAfterClass()
+	public static function tearDownAfterClass(): void
 	{
 		$pidPath = JPATH_BASE . '/japplicationdaemontest.pid';
 
@@ -187,7 +187,7 @@ class JApplicationDaemonTest extends TestCase
 		// Check the permissions on the file.
 		$this->assertEquals(
 			'0644',
-			substr(decoct(fileperms($this->inspector->getClassProperty('config')->get('application_pid_file'))), 1),
+			substr(sprintf('%o', fileperms($this->inspector->getClassProperty('config')->get('application_pid_file'))), -4),
 			'Line: ' . __LINE__
 		);
 	}

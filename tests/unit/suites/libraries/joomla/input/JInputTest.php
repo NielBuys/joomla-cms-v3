@@ -14,7 +14,7 @@
  * @subpackage  Input
  * @since       1.7.0
  */
-class JInputTest extends \PHPUnit\Framework\TestCase
+class JInputTest extends TestCasePhpunit
 {
 	/**
 	 * The test class.
@@ -323,9 +323,10 @@ class JInputTest extends \PHPUnit\Framework\TestCase
 		TestReflection::setValue($this->class, 'options', 'options');
 		TestReflection::setValue($this->class, 'data', 'data');
 
+		// serialize() returns the array that __serialize() builds, without the server and environment inputs
 		$this->assertThat(
 			$this->class->serialize(),
-			$this->equalTo('a:3:{i:0;s:7:"options";i:1;s:4:"data";i:2;a:1:{s:7:"request";s:4:"keep";}}')
+			$this->equalTo(array('options' => 'options', 'data' => 'data', 'inputs' => array('request' => 'keep')))
 		);
 	}
 
@@ -356,7 +357,7 @@ class JInputTest extends \PHPUnit\Framework\TestCase
 	 *
 	 * @since   1.7.0
 	 */
-	protected function setUp()
+	protected function setUp(): void
 	{
 		parent::setUp();
 
@@ -377,7 +378,7 @@ class JInputTest extends \PHPUnit\Framework\TestCase
 	 * @see     \PHPUnit\Framework\TestCase::tearDown()
 	 * @since   3.6
 	 */
-	protected function tearDown()
+	protected function tearDown(): void
 	{
 		unset($this->class);
 		parent::tearDown();

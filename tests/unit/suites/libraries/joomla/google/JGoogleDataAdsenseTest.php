@@ -59,7 +59,7 @@ class JGoogleDataAdsenseTest extends TestCase
 	 * @access protected
 	 * @return void
 	 */
-	protected function setUp()
+	protected function setUp(): void
 	{
 		parent::setUp();
 		$this->backupServer = $_SERVER;
@@ -97,7 +97,7 @@ class JGoogleDataAdsenseTest extends TestCase
 	 * @see     \PHPUnit\Framework\TestCase::tearDown()
 	 * @since   3.6
 	 */
-	protected function tearDown()
+	protected function tearDown(): void
 	{
 		$_SERVER = $this->backupServer;
 		unset($this->backupServer, $this->options, $this->http, $this->input, $this->auth, $this->oauth, $this->object);
@@ -274,11 +274,12 @@ class JGoogleDataAdsenseTest extends TestCase
 	 * Tests the generateReport method with a bad start date
 	 *
 	 * @group	JGoogle
-	 * @expectedException InvalidArgumentException
 	 * @return void
 	 */
 	public function testGenerateReportStartException()
 	{
+		$this->expectException('InvalidArgumentException');
+
 		$this->object->generateReport('accountID', array(true));
 	}
 
@@ -286,11 +287,12 @@ class JGoogleDataAdsenseTest extends TestCase
 	 * Tests the generateReport method with a bad end date
 	 *
 	 * @group	JGoogle
-	 * @expectedException InvalidArgumentException
 	 * @return void
 	 */
 	public function testGenerateReportEndException()
 	{
+		$this->expectException('InvalidArgumentException');
+
 		$this->object->generateReport('accountID', time(), array(true));
 	}
 

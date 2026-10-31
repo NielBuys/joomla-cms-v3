@@ -64,11 +64,12 @@ class JPathTest extends TestCase
 	 *
 	 * @return  void
 	 *
-	 * @expectedException  UnexpectedValueException
 	 * @since   1.7.3
 	 */
 	public function testCleanArrayPath()
 	{
+		$this->expectException('UnexpectedValueException');
+
 		JPath::clean(array('/path/to/folder') );
 	}
 
@@ -93,8 +94,6 @@ class JPathTest extends TestCase
 	 * Test resolve method
 	 * @param   string  $path            test path
 	 *
-	 * @expectedException         Exception
-	 * @expectedExceptionMessage  Path is outside of the defined root
 	 *
 	 * @return void
 	 *
@@ -104,6 +103,9 @@ class JPathTest extends TestCase
 	 */
 	public function testResolveThrowsExceptionIfRootIsLeft($path)
 	{
+		$this->expectException('Exception');
+		$this->expectExceptionMessage('Path is outside of the defined root');
+
 		JPath::resolve($path);
 	}
 

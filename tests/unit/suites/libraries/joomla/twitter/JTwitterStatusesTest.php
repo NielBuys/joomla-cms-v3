@@ -89,7 +89,7 @@ class JTwitterStatusesTest extends TestCase
 	 *
 	 * @return void
 	 */
-	protected function setUp()
+	protected function setUp(): void
 	{
 		$this->backupServer = $_SERVER;
 		$_SERVER['HTTP_HOST'] = 'example.com';
@@ -126,7 +126,7 @@ class JTwitterStatusesTest extends TestCase
 	 * @see     \PHPUnit\Framework\TestCase::tearDown()
 	 * @since   3.6
 	 */
-	protected function tearDown()
+	protected function tearDown(): void
 	{
 		$_SERVER = $this->backupServer;
 		unset($this->backupServer, $this->options, $this->input, $this->client, $this->oauth, $this->object);
@@ -187,10 +187,11 @@ class JTwitterStatusesTest extends TestCase
 	 *
 	 * @since   3.1.4
 	 *
-	 * @expectedException  DomainException
 	 */
 	public function testGetTweetByIdFailure()
 	{
+		$this->expectException('DomainException');
+
 		$id = 12324354;
 
 		$returnData = new stdClass;
@@ -316,10 +317,11 @@ class JTwitterStatusesTest extends TestCase
 	 *
 	 * @since   3.1.4
 	 * @dataProvider  seedUser
-	 * @expectedException  DomainException
 	 */
 	public function testGetUserTimelineFailure($user)
 	{
+		$this->expectException('DomainException');
+
 		$count = 10;
 
 		$returnData = new stdClass;
@@ -413,10 +415,11 @@ class JTwitterStatusesTest extends TestCase
 	 *
 	 * @since   3.1.4
 	 *
-	 * @expectedException  DomainException
 	 */
 	public function testTweetFailure()
 	{
+		$this->expectException('DomainException');
+
 		$status = 'This is a status';
 
 		$returnData = new stdClass;
@@ -497,10 +500,11 @@ class JTwitterStatusesTest extends TestCase
 	 *
 	 * @since   3.1.4
 	 *
-	 * @expectedException  DomainException
 	 */
 	public function testGetMentionsFailure()
 	{
+		$this->expectException('DomainException');
+
 		$count = 10;
 
 		$returnData = new stdClass;
@@ -591,10 +595,11 @@ class JTwitterStatusesTest extends TestCase
 	 *
 	 * @since   3.1.4
 	 *
-	 * @expectedException  DomainException
 	 */
 	public function testGetRetweetsOfMeFailure()
 	{
+		$this->expectException('DomainException');
+
 		$count = 10;
 
 		$returnData = new stdClass;
@@ -680,10 +685,11 @@ class JTwitterStatusesTest extends TestCase
 	 *
 	 * @since   3.1.4
 	 *
-	 * @expectedException  DomainException
 	 */
 	public function testGetRetweetersFailure()
 	{
+		$this->expectException('DomainException');
+
 		$id = 217781292748652545;
 		$count = 5;
 
@@ -768,10 +774,11 @@ class JTwitterStatusesTest extends TestCase
 	 *
 	 * @since   3.1.4
 	 *
-	 * @expectedException  DomainException
 	 */
 	public function testGetRetweetsByIdFailure()
 	{
+		$this->expectException('DomainException');
+
 		$id = 217781292748652545;
 		$count = 5;
 
@@ -841,10 +848,11 @@ class JTwitterStatusesTest extends TestCase
 	 *
 	 * @since   3.1.4
 	 *
-	 * @expectedException  DomainException
 	 */
 	public function testDeleteTweetFailure()
 	{
+		$this->expectException('DomainException');
+
 		$id = 1234329764389394;
 		$trim_user = true;
 
@@ -903,10 +911,11 @@ class JTwitterStatusesTest extends TestCase
 	 *
 	 * @since   3.1.4
 	 *
-	 * @expectedException  DomainException
 	 */
 	public function testRetweetFailure()
 	{
+		$this->expectException('DomainException');
+
 		$id = 217781292748652545;
 		$trim_user = true;
 
@@ -1005,10 +1014,11 @@ class JTwitterStatusesTest extends TestCase
 	 *
 	 * @since   3.1.4
 	 *
-	 * @expectedException  DomainException
 	 */
 	public function testTweetWithMediaFailure()
 	{
+		$this->expectException('DomainException');
+
 		$status = 'This is a status';
 		$media = 'path/to/source';
 

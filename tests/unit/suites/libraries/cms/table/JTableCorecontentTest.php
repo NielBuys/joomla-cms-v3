@@ -30,7 +30,7 @@ class JTableCorecontentTest extends TestCaseDatabase
 	 *
 	 * @since   3.1
 	 */
-	protected function setUp()
+	protected function setUp(): void
 	{
 		parent::setUp();
 
@@ -50,7 +50,7 @@ class JTableCorecontentTest extends TestCaseDatabase
 	 *
 	 * @since   3.1
 	 */
-	protected function tearDown()
+	protected function tearDown(): void
 	{
 		$this->restoreFactoryState();
 		unset($this->object);

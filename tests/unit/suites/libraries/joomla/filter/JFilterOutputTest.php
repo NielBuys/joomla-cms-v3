@@ -41,7 +41,7 @@ class FilterTestObject
  * @subpackage  Filter
  * @since       1.7.0
  */
-class JFilterOutputTest extends \PHPUnit\Framework\TestCase
+class JFilterOutputTest extends TestCasePhpunit
 {
 	/**
 	 * @var  JFilterOutput
@@ -64,7 +64,7 @@ class JFilterOutputTest extends \PHPUnit\Framework\TestCase
 	 *
 	 * @return void
 	 */
-	protected function setUp()
+	protected function setUp(): void
 	{
 		parent::setUp();
 
@@ -81,7 +81,7 @@ class JFilterOutputTest extends \PHPUnit\Framework\TestCase
 	 * @see     \PHPUnit\Framework\TestCase::tearDown()
 	 * @since   3.6
 	 */
-	protected function tearDown()
+	protected function tearDown(): void
 	{
 		unset($this->object, $this->safeObject, $this->safeObjectArrayTest);
 		parent::tearDown();

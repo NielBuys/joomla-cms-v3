@@ -37,7 +37,7 @@ class JGoogleEmbedAnalyticsTest extends TestCase
 	 * @access protected
 	 * @return void
 	 */
-	protected function setUp()
+	protected function setUp(): void
 	{
 		parent::setUp();
 
@@ -56,7 +56,7 @@ class JGoogleEmbedAnalyticsTest extends TestCase
 	 * @see     \PHPUnit\Framework\TestCase::tearDown()
 	 * @since   3.6
 	 */
-	protected function tearDown()
+	protected function tearDown(): void
 	{
 		unset($this->options, $this->uri, $this->object);
 		parent::tearDown();
@@ -274,21 +274,22 @@ class JGoogleEmbedAnalyticsTest extends TestCase
 
 		$header = $this->object->getHeader();
 
-		$this->assertContains("_gaq.push(['_setAccount', '123456']);", $header);
-		$this->assertContains('_gaq.push([\'method1\',"hello",true,5,null]);', $header);
-		$this->assertContains('_gaq.push([\'_trackEvent\',"shopping","click","double",4,true]);', $header);
-		$this->assertContains('_gaq.push([\'_setCustomVar\',3,"hello",4,2]);', $header);
+		$this->assertStringContainsString("_gaq.push(['_setAccount', '123456']);", $header);
+		$this->assertStringContainsString('_gaq.push([\'method1\',"hello",true,5,null]);', $header);
+		$this->assertStringContainsString('_gaq.push([\'_trackEvent\',"shopping","click","double",4,true]);', $header);
+		$this->assertStringContainsString('_gaq.push([\'_setCustomVar\',3,"hello",4,2]);', $header);
 	}
 
 	/**
 	 * Tests the getHeader method without a code
 	 *
 	 * @group	JGoogle
-	 * @expectedException UnexpectedValueException
 	 * @return void
 	 */
 	public function testGetHeaderException()
 	{
+		$this->expectException('UnexpectedValueException');
+
 		$this->object->getHeader();
 	}
 
@@ -305,7 +306,7 @@ class JGoogleEmbedAnalyticsTest extends TestCase
 		// Async
 		$this->object->useAsync();
 		$body = $this->object->getBody();
-		$this->assertContains("ga.src = 'http://www.google-analytics.com/ga.js';", $body);
+		$this->assertStringContainsString("ga.src = 'http://www.google-analytics.com/ga.js';", $body);
 
 		// Sync
 		$this->object->useSync();
@@ -316,25 +317,26 @@ class JGoogleEmbedAnalyticsTest extends TestCase
 
 		$body = $this->object->getBody();
 
-		$this->assertContains("document.write(unescape(\"%3Cscript src='http://www.google-analytics.com/ga.js' " .
+		$this->assertStringContainsString("document.write(unescape(\"%3Cscript src='http://www.google-analytics.com/ga.js' " .
 			"type='text/javascript'%3E%3C/script%3E\"));", $body
 		);
-		$this->assertContains("var pageTracker = _gat._getTracker('123456');", $body);
+		$this->assertStringContainsString("var pageTracker = _gat._getTracker('123456');", $body);
 
-		$this->assertContains('pageTracker.method1("hello",true,5,null);', $body);
-		$this->assertContains('pageTracker._trackEvent("shopping","click","double",4,true);', $body);
-		$this->assertContains('pageTracker._setCustomVar(3,"hello",4,2);', $body);
+		$this->assertStringContainsString('pageTracker.method1("hello",true,5,null);', $body);
+		$this->assertStringContainsString('pageTracker._trackEvent("shopping","click","double",4,true);', $body);
+		$this->assertStringContainsString('pageTracker._setCustomVar(3,"hello",4,2);', $body);
 	}
 
 	/**
 	 * Tests the getBody method without a code
 	 *
 	 * @group	JGoogle
-	 * @expectedException UnexpectedValueException
 	 * @return void
 	 */
 	public function testGetBodyException()
 	{
+		$this->expectException('UnexpectedValueException');
+
 		$this->object->getBody();
 	}
 

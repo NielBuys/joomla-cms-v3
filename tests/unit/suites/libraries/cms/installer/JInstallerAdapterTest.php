@@ -40,7 +40,7 @@ class JInstallerAdapterTest extends TestCaseDatabase
 	 *
 	 * @return  void
 	 */
-	public function setUp()
+	public function setUp(): void
 	{
 		parent::setUp();
 	}
@@ -52,7 +52,7 @@ class JInstallerAdapterTest extends TestCaseDatabase
 	 *
 	 * @see     \PHPUnit\Framework\TestCase::tearDown()
 	 */
-	protected function tearDown()
+	protected function tearDown(): void
 	{
 		parent::tearDown();
 	}
@@ -194,11 +194,12 @@ class JInstallerAdapterTest extends TestCaseDatabase
 	/**
 	 * @testdox Test checking if an existing extension exists
 	 *
-	 * @expectedException RuntimeException
 	 * @covers  JInstallerAdapter::checkExistingExtension
 	 */
 	public function testCheckExistingExtensionReturnsErrorWhenTableGivesException()
 	{
+		$this->expectException('RuntimeException');
+
 		$mockInstaller = $this->getMockBuilder('JInstaller')->getMock();
 		$mockDatabase = $this->getMockDatabase();
 		$object = $this->getMockForAbstractClass('JInstallerAdapter', array($mockInstaller, $mockDatabase));
@@ -329,11 +330,12 @@ class JInstallerAdapterTest extends TestCaseDatabase
 	/**
 	 * @testdox JInstallerAdapter::checkExtensionInFilesystem throws an exception when a file exists and overwrite is set to false
 	 *
-	 * @expectedException  RuntimeException
 	 * @covers  JInstallerAdapter::checkExtensionInFilesystem
 	 */
 	public function testsCheckExtensionInFilesystemWithOverwriteSetFalse()
 	{
+		$this->expectException('RuntimeException');
+
 		$mockInstaller = $this->getMockBuilder('JInstaller')
 			->setMethods(array('getPath', 'isOverwrite', 'isUpgrade'))
 			->getMock();
@@ -1297,11 +1299,12 @@ class JInstallerAdapterTest extends TestCaseDatabase
 	/**
 	 * @testdox Test parse queries throws an exception with install route and JInstallerAdapter::doDatabaseTransactions() returning false
 	 *
-	 * @expectedException  RuntimeException
 	 * @covers  JInstallerAdapter::parseQueries
 	 */
 	public function testParseQueriesWithInstallRoute()
 	{
+		$this->expectException('RuntimeException');
+
 		$mockInstaller = $this->getMockBuilder('JInstaller')->getMock();
 		$mockDatabase = $this->getMockDatabase();
 		$object = $this->getMockForAbstractClass(
@@ -1324,11 +1327,12 @@ class JInstallerAdapterTest extends TestCaseDatabase
 	/**
 	 * @testdox Test parse queries throws an exception with install route and JInstallerAdapter::doDatabaseTransactions() returning false
 	 *
-	 * @expectedException  RuntimeException
 	 * @covers  JInstallerAdapter::parseQueries
 	 */
 	public function testParseQueriesWithUpdateRouteAndParsingReturningFalseReturnsException()
 	{
+		$this->expectException('RuntimeException');
+
 		// The sample Schema
 		$schema = simplexml_load_string('<extension><update><schemas><schemapath type="mysql">sql/updates/mysql</schemapath></schemas></update></extension>');
 
@@ -1570,11 +1574,12 @@ class JInstallerAdapterTest extends TestCaseDatabase
 	/**
 	 * @testdox Test an exception is thrown when the preflight method returns false
 	 *
-	 * @expectedException  RuntimeException
 	 * @covers  JInstallerAdapter::triggerManifestScript
 	 */
 	public function testTriggerManifestScriptPreflightReturningFalseThrowsException()
 	{
+		$this->expectException('RuntimeException');
+
 		$mockInstaller = $this->getMockBuilder('JInstaller')
 			->setMethods(array('set'))
 			->getMock();
@@ -1618,11 +1623,12 @@ class JInstallerAdapterTest extends TestCaseDatabase
 	 * @param   string  $method  The method to run
 	 *
 	 * @dataProvider       casesTestTriggerManifestException
-	 * @expectedException  RuntimeException
 	 * @covers  JInstallerAdapter::triggerManifestScript
 	 */
 	public function testTriggerManifestScriptInstallOrUpdateReturningFalseThrowsException($method)
 	{
+		$this->expectException('RuntimeException');
+
 		$mockInstaller = $this->getMockBuilder('JInstaller')
 			->setMethods(array('set'))
 			->getMock();

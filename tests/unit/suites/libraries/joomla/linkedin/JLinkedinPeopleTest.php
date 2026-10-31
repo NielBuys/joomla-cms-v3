@@ -79,7 +79,7 @@ class JLinkedinPeopleTest extends TestCase
 	 *
 	 * @return void
 	 */
-	protected function setUp()
+	protected function setUp(): void
 	{
 		parent::setUp();
 		$this->backupServer = $_SERVER;
@@ -114,7 +114,7 @@ class JLinkedinPeopleTest extends TestCase
 	 * @see     \PHPUnit\Framework\TestCase::tearDown()
 	 * @since   3.6
 	 */
-	protected function tearDown()
+	protected function tearDown(): void
 	{
 		$_SERVER = $this->backupServer;
 		unset($this->backupServer, $this->options, $this->input, $this->client, $this->oauth, $this->object);
@@ -208,10 +208,11 @@ class JLinkedinPeopleTest extends TestCase
 	 *
 	 * @dataProvider seedIdUrl
 	 * @since   3.2.0
-	 * @expectedException DomainException
 	 */
 	public function testGetProfileFailure($id, $url)
 	{
+		$this->expectException('DomainException');
+
 		$fields = '(id,first-name,last-name)';
 		$language = 'en-US';
 
@@ -305,10 +306,11 @@ class JLinkedinPeopleTest extends TestCase
 	 * @return  void
 	 *
 	 * @since   3.2.0
-	 * @expectedException DomainException
 	 */
 	public function testGetConnectionsFailure()
 	{
+		$this->expectException('DomainException');
+
 		$fields = '(id,first-name,last-name)';
 		$start = 1;
 		$count = 50;
@@ -475,10 +477,11 @@ class JLinkedinPeopleTest extends TestCase
 	 * @return  void
 	 *
 	 * @since   3.2.0
-	 * @expectedException DomainException
 	 */
 	public function testSearchFailure()
 	{
+		$this->expectException('DomainException');
+
 		$fields = '(id,first-name,last-name)';
 		$keywords = 'Princess';
 		$first_name = 'Clair';

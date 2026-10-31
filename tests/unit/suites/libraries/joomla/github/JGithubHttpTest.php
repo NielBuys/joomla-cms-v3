@@ -15,7 +15,7 @@
  *
  * @since       1.7.0
  */
-class JGithubHttpTest extends \PHPUnit\Framework\TestCase
+class JGithubHttpTest extends TestCasePhpunit
 {
 	/**
 	 * @var    JRegistry  Options for the GitHub object.
@@ -43,7 +43,7 @@ class JGithubHttpTest extends \PHPUnit\Framework\TestCase
 	 *
 	 * @since   2.5.0
 	 */
-	protected function setUp()
+	protected function setUp(): void
 	{
 		parent::setUp();
 
@@ -66,7 +66,7 @@ class JGithubHttpTest extends \PHPUnit\Framework\TestCase
 	 *
 	 * @since   2.5.0
 	 */
-	protected function tearDown()
+	protected function tearDown(): void
 	{
 		unset($this->options, $this->transport, $this->object);
 		parent::tearDown();

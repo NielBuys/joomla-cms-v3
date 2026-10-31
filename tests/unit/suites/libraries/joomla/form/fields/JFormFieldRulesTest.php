@@ -23,7 +23,7 @@ class JFormFieldRulesTest extends TestCaseDatabase
 	 *
 	 * @return void
 	 */
-	protected function setUp()
+	protected function setUp(): void
 	{
 		parent::setUp();
 
@@ -57,7 +57,7 @@ class JFormFieldRulesTest extends TestCaseDatabase
 	 *
 	 * @return void
 	 */
-	protected function tearDown()
+	protected function tearDown(): void
 	{
 		TestReflection::setValue('JRoute', '_router', array());
 

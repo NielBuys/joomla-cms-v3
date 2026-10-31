@@ -40,7 +40,7 @@ class JDateTest extends TestCase
 	 *
 	 * @since   1.7.3
 	 */
-	protected function setUp()
+	protected function setUp(): void
 	{
 		parent::setUp();
 
@@ -57,7 +57,7 @@ class JDateTest extends TestCase
 	 * @see     \PHPUnit\Framework\TestCase::tearDown()
 	 * @since   3.6
 	 */
-	protected function tearDown()
+	protected function tearDown(): void
 	{
 		unset($this->object);
 
@@ -83,12 +83,12 @@ class JDateTest extends TestCase
 			),
 			'tzCT' => array(
 				'12/23/2008 13:45',
-				'US/Central',
+				'America/Chicago',
 				'Tue 12/23/2008 13:45',
 			),
 			'DateTime tzCT' => array(
 				'12/23/2008 13:45',
-				new DateTimeZone('US/Central'),
+				new DateTimeZone('America/Chicago'),
 				'Tue 12/23/2008 13:45',
 			),
 		);
@@ -551,8 +551,8 @@ class JDateTest extends TestCase
 	 */
 	public function test__constructForNowWhenNotUsingUTC()
 	{
-		$jdate   = new JDate('now', new DateTimeZone('US/Central'));
-		$phpdate = new DateTime('now', new DateTimeZone('US/Central'));
+		$jdate   = new JDate('now', new DateTimeZone('America/Chicago'));
+		$phpdate = new DateTime('now', new DateTimeZone('America/Chicago'));
 
 		$this->assertSame(
 			$jdate->format('D m/d/Y H:i', true),

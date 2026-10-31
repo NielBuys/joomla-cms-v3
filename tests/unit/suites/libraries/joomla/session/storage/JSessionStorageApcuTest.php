@@ -12,7 +12,7 @@
  *
  * @since  1.7.0
  */
-class JSessionStorageApcuTest extends \PHPUnit\Framework\TestCase
+class JSessionStorageApcuTest extends TestCasePhpunit
 {
 	/**
 	 * @var JSessionStorageApcu
@@ -25,7 +25,7 @@ class JSessionStorageApcuTest extends \PHPUnit\Framework\TestCase
 	 *
 	 * @return void
 	 */
-	protected function setUp()
+	protected function setUp(): void
 	{
 		parent::setUp();
 
@@ -44,7 +44,7 @@ class JSessionStorageApcuTest extends \PHPUnit\Framework\TestCase
 	 *
 	 * @return void
 	 */
-	protected function tearDown()
+	protected function tearDown(): void
 	{
 
 	}

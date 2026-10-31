@@ -14,7 +14,7 @@
  * @subpackage  Html
  * @since       3.1
  */
-class JHtmlEmailTest extends \PHPUnit\Framework\TestCase
+class JHtmlEmailTest extends TestCasePhpunit
 {
 	/**
 	 * Tests the JHtmlEmail::cloak method.

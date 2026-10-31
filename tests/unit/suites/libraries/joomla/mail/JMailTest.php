@@ -28,7 +28,7 @@ class JMailTest extends TestCase
 	 *
 	 * @return void
 	 */
-	protected function setUp()
+	protected function setUp(): void
 	{
 		parent::setUp();
 
@@ -41,7 +41,7 @@ class JMailTest extends TestCase
 	 *
 	 * @return void
 	 */
-	protected function tearDown()
+	protected function tearDown(): void
 	{
 		unset($this->object);
 		parent::tearDown();
@@ -71,20 +71,13 @@ class JMailTest extends TestCase
 				array(array('test_1@example.com', 'test_name'), array('test_2@example.com', 'test_name'))),
 			array(array('test_1@example.com', 'test_2@example.com'), array('test_name1', 'test_name2'), 'AddBCC',
 				array(array('test_1@example.com', 'test_name1'), array('test_2@example.com', 'test_name2'))),
+			// PHPMailer 6.11 and later store Reply-To addresses as a list, like the other address arrays
 			array('test@example.com', 'test_name', 'AddReplyTo',
-				array('test@example.com' => array('test@example.com', 'test_name'))),
+				array(array('test@example.com', 'test_name'))),
 			array(array('test_1@example.com', 'test_2@example.com'), 'test_name', 'AddReplyTo',
-				array(
-					'test_1@example.com' => array('test_1@example.com', 'test_name'),
-					'test_2@example.com' => array('test_2@example.com', 'test_name')
-				)
-			),
+				array(array('test_1@example.com', 'test_name'), array('test_2@example.com', 'test_name'))),
 			array(array('test_1@example.com', 'test_2@example.com'), array('test_name1', 'test_name2'), 'AddReplyTo',
-				array(
-					'test_1@example.com' => array('test_1@example.com', 'test_name1'),
-					'test_2@example.com' => array('test_2@example.com', 'test_name2')
-				)
-			)
+				array(array('test_1@example.com', 'test_name1'), array('test_2@example.com', 'test_name2')))
 		);
 	}
 
@@ -213,7 +206,7 @@ class JMailTest extends TestCase
 	{
 		$recipient = 'test@example.com';
 		$name = 'test_name';
-		$expected = array('test@example.com' => array('test@example.com', 'test_name'));
+		$expected = array(array('test@example.com', 'test_name'));
 
 		$this->object->addReplyTo($recipient, $name);
 		$this->assertThat($expected, $this->equalTo(TestReflection::getValue($this->object, 'ReplyTo')));
@@ -279,7 +272,7 @@ class JMailTest extends TestCase
 	{
 		// Build the mock object.
 		$mail  = $this->getMockBuilder('JMail')
-					->setMethods(array('SetLanguage', 'IsSMTP', 'IsMail'))
+					->setMethods(array('IsSMTP', 'IsMail'))
 					->getMock();
 		$mail->expects(
 			$this->once()

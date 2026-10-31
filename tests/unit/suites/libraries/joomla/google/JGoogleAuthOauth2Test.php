@@ -66,7 +66,7 @@ class JGoogleAuthOauth2Test extends TestCase
 	 * @access protected
 	 * @return void
 	 */
-	protected function setUp()
+	protected function setUp(): void
 	{
 		parent::setUp();
 		$this->backupServer = $_SERVER;
@@ -100,7 +100,7 @@ class JGoogleAuthOauth2Test extends TestCase
 	 * @see     \PHPUnit\Framework\TestCase::tearDown()
 	 * @since   3.6
 	 */
-	protected function tearDown()
+	protected function tearDown(): void
 	{
 		$_SERVER = $this->backupServer;
 		unset($this->backupServer, $this->options, $this->http, $this->input, $this->application, $this->oauth, $this->object);
@@ -130,7 +130,7 @@ class JGoogleAuthOauth2Test extends TestCase
 		$this->assertEquals('accessvalue', $result['access_token']);
 		$this->assertEquals('refreshvalue', $result['refresh_token']);
 		$this->assertEquals(3600, $result['expires_in']);
-		$this->assertEquals(time(), $result['created'], null, 10);
+		$this->assertEqualsWithDelta(time(), $result['created'], 10);
 	}
 
 	/**

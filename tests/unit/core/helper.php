@@ -47,19 +47,20 @@ class TestHelper
 			'user'      => array(),
 		);
 
-		$deprecationHandler = function ($type, $msg, $file, $line, $context) use (&$deprecations)
+		$deprecationHandler = function ($type, $msg, $file, $line, $context = null) use (&$deprecations)
 		{
 			// Check if the type is E_DEPRECATED or E_USER_DEPRECATED
 			if (!in_array($type, array(E_DEPRECATED, E_USER_DEPRECATED)))
 			{
-				return PHPUnit_Util_ErrorHandler::handleError($type, $msg, $file, $line, $context);
+				// Leave other errors to PHPUnit's error handler, or to PHP outside of a test
+				return false;
 			}
 
 			$trace = debug_backtrace(PHP_VERSION_ID >= 50400 ? DEBUG_BACKTRACE_IGNORE_ARGS | DEBUG_BACKTRACE_PROVIDE_OBJECT : true);
 
 			$i = count($trace);
 
-			while (isset($trace[--$i]['class']) && ('ReflectionMethod' === $trace[$i]['class'] || 0 === strpos($trace[$i]['class'], 'PHPUnit_')))
+			while (isset($trace[--$i]['class']) && ('ReflectionMethod' === $trace[$i]['class'] || 0 === strpos($trace[$i]['class'], 'PHPUnit')))
 			{
 				// Nothing to do
 			}

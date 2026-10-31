@@ -46,7 +46,7 @@ class JToolbarButtonTest extends TestCaseDatabase
 	 *
 	 * @since   3.0
 	 */
-	protected function setUp()
+	protected function setUp(): void
 	{
 		parent::setUp();
 
@@ -71,7 +71,7 @@ class JToolbarButtonTest extends TestCaseDatabase
 	 *
 	 * @since   3.1
 	 */
-	protected function tearDown()
+	protected function tearDown(): void
 	{
 		$_SERVER = $this->backupServer;
 		unset($this->backupServer, $this->toolbar, $this->object);

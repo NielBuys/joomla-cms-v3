@@ -110,11 +110,12 @@ class JFeedEntryTest extends TestCase
 	 *
 	 * @return  void
 	 *
-	 * @expectedException  InvalidArgumentException
 	 * @since              3.1.4
 	 */
 	public function testMagicSetAuthorWithInvalidAuthor()
 	{
+		$this->expectException('InvalidArgumentException');
+
 		$this->_instance->author = 'Jack Sprat';
 	}
 
@@ -123,11 +124,12 @@ class JFeedEntryTest extends TestCase
 	 *
 	 * @return  void
 	 *
-	 * @expectedException  InvalidArgumentException
 	 * @since              3.1.4
 	 */
 	public function testMagicSetSourceWithInvalidSource()
 	{
+		$this->expectException('InvalidArgumentException');
+
 		$this->_instance->source = 'Outer Space';
 	}
 
@@ -136,11 +138,12 @@ class JFeedEntryTest extends TestCase
 	 *
 	 * @return  void
 	 *
-	 * @expectedException  InvalidArgumentException
 	 * @since              3.1.4
 	 */
 	public function testMagicSetCategoriesWithInvalidProperty()
 	{
+		$this->expectException('InvalidArgumentException');
+
 		$this->_instance->categories = 'Can\'t touch this';
 	}
 
@@ -333,7 +336,7 @@ class JFeedEntryTest extends TestCase
 	 * @see     \PHPUnit\Framework\TestCase::setUp()
 	 * @since   3.1.4
 	 */
-	protected function setUp()
+	protected function setUp(): void
 	{
 		parent::setUp();
 
@@ -348,7 +351,7 @@ class JFeedEntryTest extends TestCase
 	 * @see     \PHPUnit\Framework\TestCase::tearDown()
 	 * @since   3.1.4
 	 */
-	protected function tearDown()
+	protected function tearDown(): void
 	{
 		unset($this->_instance);
 

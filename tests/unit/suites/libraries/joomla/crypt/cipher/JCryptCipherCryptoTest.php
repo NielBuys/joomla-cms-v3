@@ -17,7 +17,7 @@ class JCryptCipherCryptoTest extends TestCase
 	 *
 	 * @return  void
 	 */
-	public static function setUpBeforeClass()
+	public static function setUpBeforeClass(): void
 	{
 		// Only run the test if the environment supports it.
 		try

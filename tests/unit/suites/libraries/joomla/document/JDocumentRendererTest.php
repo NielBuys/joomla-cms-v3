@@ -10,7 +10,7 @@
 /**
  * Test class for JDocumentRenderer.
  */
-class JDocumentRendererTest extends \PHPUnit\Framework\TestCase
+class JDocumentRendererTest extends TestCasePhpunit
 {
 	/**
 	 * @var  JDocumentRenderer
@@ -30,7 +30,7 @@ class JDocumentRendererTest extends \PHPUnit\Framework\TestCase
 	 *
 	 * @return  void
 	 */
-	protected function setUp()
+	protected function setUp(): void
 	{
 		parent::setUp();
 
@@ -49,7 +49,7 @@ class JDocumentRendererTest extends \PHPUnit\Framework\TestCase
 	 *
 	 * @return  void
 	 */
-	protected function tearDown()
+	protected function tearDown(): void
 	{
 		$_SERVER = $this->backupServer;
 		unset($this->backupServer, $this->object);

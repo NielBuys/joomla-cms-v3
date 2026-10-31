@@ -59,7 +59,7 @@ class JGoogleDataPicasaTest extends TestCase
 	 * @access protected
 	 * @return void
 	 */
-	protected function setUp()
+	protected function setUp(): void
 	{
 		parent::setUp();
 		$this->backupServer = $_SERVER;
@@ -98,7 +98,7 @@ class JGoogleDataPicasaTest extends TestCase
 	 * @see     \PHPUnit\Framework\TestCase::tearDown()
 	 * @since   3.6
 	 */
-	protected function tearDown()
+	protected function tearDown(): void
 	{
 		$_SERVER = $this->backupServer;
 		unset($this->backupServer, $this->options, $this->http, $this->input, $this->auth, $this->oauth, $this->object);
@@ -153,11 +153,12 @@ class JGoogleDataPicasaTest extends TestCase
 	 * Tests the listAlbums method with wrong XML
 	 *
 	 * @group	JGoogle
-	 * @expectedException UnexpectedValueException
 	 * @return void
 	 */
 	public function testListAlbumsException()
 	{
+		$this->expectException('UnexpectedValueException');
+
 		$this->http->expects($this->once())->method('get')->will($this->returnCallback('picasaBadXmlCallback'));
 		$this->object->listAlbums();
 	}
@@ -311,7 +312,7 @@ function picasaAlbumCallback($url, array $headers = null, $timeout = null)
  */
 function dataPicasaAlbumCallback($url, $data, array $headers = null, $timeout = null)
 {
-	\PHPUnit\Framework\TestCase::assertContains('<title>New Title</title>', $data);
+	\PHPUnit\Framework\TestCase::assertStringContainsString('<title>New Title</title>', $data);
 
 	$response = new stdClass;
 

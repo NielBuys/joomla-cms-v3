@@ -41,7 +41,7 @@ class JRouterAdministratorTest extends TestCase
 	 *
 	 * @since   3.0
 	 */
-	protected function setUp()
+	protected function setUp(): void
 	{
 		parent::setUp();
 
@@ -63,7 +63,7 @@ class JRouterAdministratorTest extends TestCase
 	 *
 	 * @since   3.1
 	 */
-	protected function tearDown()
+	protected function tearDown(): void
 	{
 		$_SERVER = $this->server;
 		unset($this->server, $this->object);

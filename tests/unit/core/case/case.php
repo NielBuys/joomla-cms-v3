@@ -12,7 +12,7 @@
  * @package  Joomla.Test
  * @since    3.0.0
  */
-abstract class TestCase extends \PHPUnit\Framework\TestCase
+abstract class TestCase extends TestCasePhpunit
 {
 	/**
 	 * @var         array  The list of errors expected to be encountered during the test.
@@ -496,7 +496,7 @@ abstract class TestCase extends \PHPUnit\Framework\TestCase
 	 * @see     \PHPUnit\Framework\TestCase::setUp()
 	 * @since   1.7.0
 	 */
-	protected function setUp()
+	protected function setUp(): void
 	{
 		$this->setExpectedError();
 
@@ -511,7 +511,7 @@ abstract class TestCase extends \PHPUnit\Framework\TestCase
 	 * @see     \PHPUnit\Framework\TestCase::tearDown()
 	 * @since   1.7.0
 	 */
-	protected function tearDown()
+	protected function tearDown(): void
 	{
 		if (is_array($this->expectedErrors) && !empty($this->expectedErrors))
 		{

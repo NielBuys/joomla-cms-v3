@@ -16,7 +16,7 @@ jimport('joomla.filesystem.folder');
  * @subpackage  Keychain
  * @since       3.1.4
  */
-class JKeychainTest extends \PHPUnit\Framework\TestCase
+class JKeychainTest extends TestCasePhpunit
 {
 	protected static $workDirectory;
 
@@ -27,7 +27,7 @@ class JKeychainTest extends \PHPUnit\Framework\TestCase
 	 *
 	 * @since   3.1.4
 	 */
-	public static function setUpBeforeClass()
+	public static function setUpBeforeClass(): void
 	{
 		self::$workDirectory = JPATH_TESTS . "/tmp/keychain/" . uniqid();
 		JFolder::copy(__DIR__ . '/data', self::$workDirectory . '/data');
@@ -42,7 +42,7 @@ class JKeychainTest extends \PHPUnit\Framework\TestCase
 	 *
 	 * @since   3.1.4
 	 */
-	public static function tearDownAfterClass()
+	public static function tearDownAfterClass(): void
 	{
 		// Clean up files
 		JFolder::delete(self::$workDirectory);
@@ -91,8 +91,6 @@ class JKeychainTest extends \PHPUnit\Framework\TestCase
 	/**
 	 * Try to load a keychain that doesn't exist (this shouldn't cause an error)
 	 *
-	 * @expectedException         RuntimeException
-	 * @expectedExceptionMessage  Attempting to load non-existent keychain file
 	 *
 	 * @return  void
 	 *
@@ -100,6 +98,9 @@ class JKeychainTest extends \PHPUnit\Framework\TestCase
 	 */
 	public function testLoadKeychainNonexistant()
 	{
+		$this->expectException('RuntimeException');
+		$this->expectExceptionMessage('Attempting to load non-existent keychain file');
+
 		$keychainFile = self::$workDirectory . '/data/fake-web-keychain.dat';
 		$publicKeyFile = self::$workDirectory . '/data/publickey.pem';
 		$passphraseFile = self::$workDirectory . '/data/web-passphrase.dat';
@@ -113,8 +114,6 @@ class JKeychainTest extends \PHPUnit\Framework\TestCase
 	 * Try to load a keychain that isn't a keychain
 	 *
 	 * @depends                   testCreatePassphraseFile
-	 * @expectedException         RuntimeException
-	 * @expectedExceptionMessage  Failed to decrypt keychain file
 	 *
 	 * @return  void
 	 *
@@ -122,6 +121,9 @@ class JKeychainTest extends \PHPUnit\Framework\TestCase
 	 */
 	public function testLoadKeychainInvalid()
 	{
+		$this->expectException('RuntimeException');
+		$this->expectExceptionMessage('Failed to decrypt keychain file');
+
 		$publicKeyFile = self::$workDirectory . '/data/publickey.pem';
 		$passphraseFile = self::$workDirectory . '/data/web-passphrase.dat';
 

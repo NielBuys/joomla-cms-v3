@@ -25,7 +25,7 @@ class JDatabaseExporterMysqliTest extends TestCase
 	 *
 	 * @return  void
 	 */
-	public function setup()
+	public function setup(): void
 	{
 		$this->dbo = $this->getMockDatabase('Mysqli');
 
@@ -96,7 +96,7 @@ class JDatabaseExporterMysqliTest extends TestCase
 	 * @see     \PHPUnit\Framework\TestCase::tearDown()
 	 * @since   3.6
 	 */
-	protected function tearDown()
+	protected function tearDown(): void
 	{
 		unset($this->dbo);
 	}
@@ -220,10 +220,11 @@ class JDatabaseExporterMysqliTest extends TestCase
 	/**
 	 * Tests the check method.
 	 *
-	 * @expectedException Exception
 	 */
 	public function testCheckWithNoDbo()
 	{
+		$this->expectException('Exception');
+
 		$instance = new JDatabaseExporterMysqli;
 
 		$instance->check();
@@ -232,10 +233,11 @@ class JDatabaseExporterMysqliTest extends TestCase
 	/**
 	 * Tests the check method.
 	 *
-	 * @expectedException Exception
 	 */
 	public function testCheckWithNoTables()
 	{
+		$this->expectException('Exception');
+
 		$instance = new JDatabaseExporterMysqli;
 		$instance->setDbo($this->dbo);
 
@@ -263,10 +265,11 @@ class JDatabaseExporterMysqliTest extends TestCase
 	/**
 	 * Tests the from method with bad input.
 	 *
-	 * @expectedException Exception
 	 */
 	public function testFromWithBadInput()
 	{
+		$this->expectException('Exception');
+
 		$instance = new JDatabaseExporterMysqli;
 
 		$instance->from(new stdClass);

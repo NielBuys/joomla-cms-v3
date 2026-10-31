@@ -33,7 +33,7 @@ class JDatabaseFactoryTest extends TestCaseDatabase
 	 *
 	 * @since   3.2
 	 */
-	protected function setUp()
+	protected function setUp(): void
 	{
 		parent::setUp();
 

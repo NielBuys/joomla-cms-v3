@@ -30,7 +30,7 @@ class JToolbarTest extends TestCase
 	 *
 	 * @since   3.0
 	 */
-	protected function setUp()
+	protected function setUp(): void
 	{
 		$this->object = new JToolbar('toolbar');
 
@@ -49,7 +49,7 @@ class JToolbarTest extends TestCase
 	 *
 	 * @since   3.1
 	 */
-	protected function tearDown()
+	protected function tearDown(): void
 	{
 		$this->restoreFactoryState();
 		unset($this->object);

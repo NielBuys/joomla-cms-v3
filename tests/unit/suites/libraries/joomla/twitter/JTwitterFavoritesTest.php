@@ -83,7 +83,7 @@ class JTwitterFavoritesTest extends TestCase
 	 *
 	 * @return void
 	 */
-	protected function setUp()
+	protected function setUp(): void
 	{
 		$this->backupServer = $_SERVER;
 		$_SERVER['HTTP_HOST'] = 'example.com';
@@ -120,7 +120,7 @@ class JTwitterFavoritesTest extends TestCase
 	 * @see     \PHPUnit\Framework\TestCase::tearDown()
 	 * @since   3.6
 	 */
-	protected function tearDown()
+	protected function tearDown(): void
 	{
 		$_SERVER = $this->backupServer;
 		unset($this->backupServer, $this->options, $this->input, $this->client, $this->oauth, $this->object);
@@ -211,11 +211,12 @@ class JTwitterFavoritesTest extends TestCase
 	 * @return  void
 	 *
 	 * @dataProvider  seedUser
-	 * @expectedException DomainException
 	 * @since   3.1.4
 	 */
 	public function testGetFavoritesFailure($user)
 	{
+		$this->expectException('DomainException');
+
 		$count = 10;
 
 		$returnData = new stdClass;
@@ -292,11 +293,12 @@ class JTwitterFavoritesTest extends TestCase
 	 *
 	 * @return  void
 	 *
-	 * @expectedException DomainException
 	 * @since   3.1.4
 	 */
 	public function testCreateFavoritesFailure()
 	{
+		$this->expectException('DomainException');
+
 		$id = 12345;
 		$entities = true;
 
@@ -356,11 +358,12 @@ class JTwitterFavoritesTest extends TestCase
 	 *
 	 * @return  void
 	 *
-	 * @expectedException DomainException
 	 * @since   3.1.4
 	 */
 	public function testDeleteFavoritesFailure()
 	{
+		$this->expectException('DomainException');
+
 		$id = 12345;
 		$entities = true;
 

@@ -12,7 +12,7 @@
  * @package     Joomla.UnitTest
  * @subpackage  Language
  */
-class JLanguageStemmerPorterenTest extends \PHPUnit\Framework\TestCase
+class JLanguageStemmerPorterenTest extends TestCasePhpunit
 {
 	/**
 	 * @var JLanguageStemmerPorteren
@@ -25,7 +25,7 @@ class JLanguageStemmerPorterenTest extends \PHPUnit\Framework\TestCase
 	 *
 	 * @return void
 	 */
-	protected function setUp()
+	protected function setUp(): void
 	{
 		$this->object = new JLanguageStemmerPorteren;
 	}

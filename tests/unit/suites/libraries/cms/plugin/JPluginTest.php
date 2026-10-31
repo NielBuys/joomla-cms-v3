@@ -28,7 +28,7 @@ class JPluginTest extends TestCase
 	 *
 	 * @since   3.2
 	 */
-	protected function setUp()
+	protected function setUp(): void
 	{
 		$this->saveFactoryState();
 
@@ -44,7 +44,7 @@ class JPluginTest extends TestCase
 	 *
 	 * @since   3.2
 	 */
-	protected function tearDown()
+	protected function tearDown(): void
 	{
 		$this->restoreFactoryState();
 

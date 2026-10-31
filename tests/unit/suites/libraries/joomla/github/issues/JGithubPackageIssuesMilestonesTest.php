@@ -15,7 +15,7 @@
  *
  * @since       3.1.4
  */
-class JGithubPackageIssuesMilestonesTest extends \PHPUnit\Framework\TestCase
+class JGithubPackageIssuesMilestonesTest extends TestCasePhpunit
 {
 	/**
 	 * @var    JRegistry  Options for the GitHub object.
@@ -55,7 +55,7 @@ class JGithubPackageIssuesMilestonesTest extends \PHPUnit\Framework\TestCase
 	 *
 	 * @return void
 	 */
-	protected function setUp()
+	protected function setUp(): void
 	{
 		parent::setUp();
 
@@ -114,7 +114,6 @@ class JGithubPackageIssuesMilestonesTest extends \PHPUnit\Framework\TestCase
 	/**
 	 * Tests the create method - failure
 	 *
-	 * @expectedException  DomainException
 	 *
 	 * @return void
 	 *
@@ -122,6 +121,8 @@ class JGithubPackageIssuesMilestonesTest extends \PHPUnit\Framework\TestCase
 	 */
 	public function testCreateFailure()
 	{
+		$this->expectException('DomainException');
+
 		$returnData = new stdClass;
 		$returnData->code = 501;
 		$returnData->body = $this->errorString;
@@ -202,7 +203,6 @@ class JGithubPackageIssuesMilestonesTest extends \PHPUnit\Framework\TestCase
 	/**
 	 * Tests the edit method - failure
 	 *
-	 * @expectedException  DomainException
 	 *
 	 * @return void
 	 *
@@ -210,6 +210,8 @@ class JGithubPackageIssuesMilestonesTest extends \PHPUnit\Framework\TestCase
 	 */
 	public function testEditFailure()
 	{
+		$this->expectException('DomainException');
+
 		$returnData = new stdClass;
 		$returnData->code = 500;
 		$returnData->body = $this->errorString;
@@ -252,7 +254,6 @@ class JGithubPackageIssuesMilestonesTest extends \PHPUnit\Framework\TestCase
 	/**
 	 * Tests the get method - failure
 	 *
-	 * @expectedException  DomainException
 	 *
 	 * @return void
 	 *
@@ -260,6 +261,8 @@ class JGithubPackageIssuesMilestonesTest extends \PHPUnit\Framework\TestCase
 	 */
 	public function testGetFailure()
 	{
+		$this->expectException('DomainException');
+
 		$returnData = new stdClass;
 		$returnData->code = 500;
 		$returnData->body = $this->errorString;
@@ -299,7 +302,6 @@ class JGithubPackageIssuesMilestonesTest extends \PHPUnit\Framework\TestCase
 	/**
 	 * Tests the getList method - failure
 	 *
-	 * @expectedException  DomainException
 	 *
 	 * @return void
 	 *
@@ -307,6 +309,8 @@ class JGithubPackageIssuesMilestonesTest extends \PHPUnit\Framework\TestCase
 	 */
 	public function testGetListFailure()
 	{
+		$this->expectException('DomainException');
+
 		$returnData = new stdClass;
 		$returnData->code = 500;
 		$returnData->body = $this->errorString;
@@ -343,7 +347,6 @@ class JGithubPackageIssuesMilestonesTest extends \PHPUnit\Framework\TestCase
 	/**
 	 * Tests the delete method - failure
 	 *
-	 * @expectedException  DomainException
 	 *
 	 * @return void
 	 *
@@ -351,6 +354,8 @@ class JGithubPackageIssuesMilestonesTest extends \PHPUnit\Framework\TestCase
 	 */
 	public function testDeleteFailure()
 	{
+		$this->expectException('DomainException');
+
 		$returnData = new stdClass;
 		$returnData->code = 504;
 		$returnData->body = $this->errorString;

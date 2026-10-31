@@ -15,7 +15,7 @@
  *
  * @since       1.7.0
  */
-class JGithubPullsTest extends \PHPUnit\Framework\TestCase
+class JGithubPullsTest extends TestCasePhpunit
 {
 	/**
 	 * @var    JRegistry  Options for the GitHub object.
@@ -61,7 +61,7 @@ class JGithubPullsTest extends \PHPUnit\Framework\TestCase
 	 *
 	 * @return void
 	 */
-	protected function setUp()
+	protected function setUp(): void
 	{
 		parent::setUp();
 
@@ -80,7 +80,7 @@ class JGithubPullsTest extends \PHPUnit\Framework\TestCase
 	 * @see     \PHPUnit\Framework\TestCase::tearDown()
 	 * @since   3.6
 	 */
-	protected function tearDown()
+	protected function tearDown(): void
 	{
 		unset($this->options, $this->client, $this->response, $this->object);
 		parent::tearDown();
@@ -133,12 +133,13 @@ class JGithubPullsTest extends \PHPUnit\Framework\TestCase
 	/**
 	 * Tests the create method - failure
 	 *
-	 * @expectedException  DomainException
 	 *
 	 * @return void
 	 */
 	public function testCreateFailure()
 	{
+		$this->expectException('DomainException');
+
 		$this->response->code = 501;
 		$this->response->body = $this->errorString;
 
@@ -187,12 +188,13 @@ class JGithubPullsTest extends \PHPUnit\Framework\TestCase
 	/**
 	 * Tests the createComment method - failure
 	 *
-	 * @expectedException  DomainException
 	 *
 	 * @return void
 	 */
 	public function testCreateCommentFailure()
 	{
+		$this->expectException('DomainException');
+
 		$this->response->code = 501;
 		$this->response->body = $this->errorString;
 
@@ -238,12 +240,13 @@ class JGithubPullsTest extends \PHPUnit\Framework\TestCase
 	/**
 	 * Tests the createCommentReply method - failure
 	 *
-	 * @expectedException  DomainException
 	 *
 	 * @return void
 	 */
 	public function testCreateCommentReplyFailure()
 	{
+		$this->expectException('DomainException');
+
 		$this->response->code = 501;
 		$this->response->body = $this->errorString;
 
@@ -288,12 +291,13 @@ class JGithubPullsTest extends \PHPUnit\Framework\TestCase
 	/**
 	 * Tests the createFromIssue method - failure
 	 *
-	 * @expectedException  DomainException
 	 *
 	 * @return void
 	 */
 	public function testCreateFromIssueFailure()
 	{
+		$this->expectException('DomainException');
+
 		$this->response->code = 501;
 		$this->response->body = $this->errorString;
 
@@ -331,12 +335,13 @@ class JGithubPullsTest extends \PHPUnit\Framework\TestCase
 	/**
 	 * Tests the deleteComment method - failure
 	 *
-	 * @expectedException  DomainException
 	 *
 	 * @return void
 	 */
 	public function testDeleteCommentFailure()
 	{
+		$this->expectException('DomainException');
+
 		$this->response->code = 504;
 		$this->response->body = $this->errorString;
 
@@ -377,12 +382,13 @@ class JGithubPullsTest extends \PHPUnit\Framework\TestCase
 	/**
 	 * Tests the edit method - failure
 	 *
-	 * @expectedException  DomainException
 	 *
 	 * @return void
 	 */
 	public function testEditFailure()
 	{
+		$this->expectException('DomainException');
+
 		$this->response->code = 500;
 		$this->response->body = $this->errorString;
 
@@ -425,12 +431,13 @@ class JGithubPullsTest extends \PHPUnit\Framework\TestCase
 	/**
 	 * Tests the editComment method - failure
 	 *
-	 * @expectedException  DomainException
 	 *
 	 * @return void
 	 */
 	public function testEditCommentFailure()
 	{
+		$this->expectException('DomainException');
+
 		$this->response->code = 500;
 		$this->response->body = $this->errorString;
 
@@ -469,12 +476,13 @@ class JGithubPullsTest extends \PHPUnit\Framework\TestCase
 	/**
 	 * Tests the get method - failure
 	 *
-	 * @expectedException  DomainException
 	 *
 	 * @return void
 	 */
 	public function testGetFailure()
 	{
+		$this->expectException('DomainException');
+
 		$this->response->code = 500;
 		$this->response->body = $this->errorString;
 
@@ -510,12 +518,13 @@ class JGithubPullsTest extends \PHPUnit\Framework\TestCase
 	/**
 	 * Tests the getComment method - failure
 	 *
-	 * @expectedException  DomainException
 	 *
 	 * @return void
 	 */
 	public function testGetCommentFailure()
 	{
+		$this->expectException('DomainException');
+
 		$this->response->code = 500;
 		$this->response->body = $this->errorString;
 
@@ -551,12 +560,13 @@ class JGithubPullsTest extends \PHPUnit\Framework\TestCase
 	/**
 	 * Tests the getComments method - failure
 	 *
-	 * @expectedException  DomainException
 	 *
 	 * @return void
 	 */
 	public function testGetCommentsFailure()
 	{
+		$this->expectException('DomainException');
+
 		$this->response->code = 500;
 		$this->response->body = $this->errorString;
 
@@ -592,12 +602,13 @@ class JGithubPullsTest extends \PHPUnit\Framework\TestCase
 	/**
 	 * Tests the getCommits method - failure
 	 *
-	 * @expectedException  DomainException
 	 *
 	 * @return void
 	 */
 	public function testGetCommitsFailure()
 	{
+		$this->expectException('DomainException');
+
 		$this->response->code = 500;
 		$this->response->body = $this->errorString;
 
@@ -633,12 +644,13 @@ class JGithubPullsTest extends \PHPUnit\Framework\TestCase
 	/**
 	 * Tests the getFiles method - failure
 	 *
-	 * @expectedException  DomainException
 	 *
 	 * @return void
 	 */
 	public function testGetFilesFailure()
 	{
+		$this->expectException('DomainException');
+
 		$this->response->code = 500;
 		$this->response->body = $this->errorString;
 
@@ -674,12 +686,13 @@ class JGithubPullsTest extends \PHPUnit\Framework\TestCase
 	/**
 	 * Tests the getList method - failure
 	 *
-	 * @expectedException  DomainException
 	 *
 	 * @return void
 	 */
 	public function testGetListFailure()
 	{
+		$this->expectException('DomainException');
+
 		$this->response->code = 500;
 		$this->response->body = $this->errorString;
 
@@ -736,12 +749,13 @@ class JGithubPullsTest extends \PHPUnit\Framework\TestCase
 	/**
 	 * Tests the isMerged method when the request fails
 	 *
-	 * @expectedException  DomainException
 	 *
 	 * @return void
 	 */
 	public function testIsMergedFailure()
 	{
+		$this->expectException('DomainException');
+
 		$this->response->code = 504;
 		$this->response->body = $this->errorString;
 
@@ -777,12 +791,13 @@ class JGithubPullsTest extends \PHPUnit\Framework\TestCase
 	/**
 	 * Tests the merge method - failure
 	 *
-	 * @expectedException  DomainException
 	 *
 	 * @return void
 	 */
 	public function testMergeFailure()
 	{
+		$this->expectException('DomainException');
+
 		$this->response->code = 500;
 		$this->response->body = $this->errorString;
 

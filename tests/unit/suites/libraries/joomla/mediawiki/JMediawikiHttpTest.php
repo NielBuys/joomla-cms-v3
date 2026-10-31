@@ -15,7 +15,7 @@
  *
  * @since       3.1.4
  */
-class JMediawikiHttpTest extends \PHPUnit\Framework\TestCase
+class JMediawikiHttpTest extends TestCasePhpunit
 {
 	/**
 	 * @var    JRegistry  Options for the Mediawiki object.
@@ -55,7 +55,7 @@ class JMediawikiHttpTest extends \PHPUnit\Framework\TestCase
 	 *
 	 * @return void
 	 */
-	protected function setUp()
+	protected function setUp(): void
 	{
 		$this->options = new JRegistry;
 				$this->transport = $this->getMockBuilder('JHttpTransportStream')
@@ -77,7 +77,7 @@ class JMediawikiHttpTest extends \PHPUnit\Framework\TestCase
 	 * @see     \PHPUnit\Framework\TestCase::tearDown()
 	 * @since   3.6
 	 */
-	protected function tearDown()
+	protected function tearDown(): void
 	{
 		unset($this->options, $this->transport, $this->object);
 	}

@@ -75,7 +75,7 @@ class JFacebookGroupTest extends TestCase
 	 *
 	 * @since   3.2.0
 	 */
-	protected function setUp()
+	protected function setUp(): void
 	{
 		$this->backupServer = $_SERVER;
 		$_SERVER['HTTP_HOST'] = 'example.com';
@@ -115,7 +115,7 @@ class JFacebookGroupTest extends TestCase
 	 * @see     \PHPUnit\Framework\TestCase::tearDown()
 	 * @since   3.6
 	 */
-	protected function tearDown()
+	protected function tearDown(): void
 	{
 		$_SERVER = $this->backupServer;
 		unset($this->backupServer, $this->options, $this->client, $this->input, $this->oauth, $this->object);
@@ -155,10 +155,11 @@ class JFacebookGroupTest extends TestCase
 	 * @return  void
 	 *
 	 * @since   3.2.0
-	 * @expectedException  RuntimeException
 	 */
 	public function testGetGroupFailure()
 	{
+		$this->expectException('RuntimeException');
+
 		$token = $this->oauth->getToken();
 		$group = '124346363456';
 
@@ -207,10 +208,11 @@ class JFacebookGroupTest extends TestCase
 	 * @return  void
 	 *
 	 * @since   3.2.0
-	 * @expectedException  RuntimeException
 	 */
 	public function testGetFeedFailure()
 	{
+		$this->expectException('RuntimeException');
+
 		$token = $this->oauth->getToken();
 		$group = '156174391080008';
 
@@ -259,10 +261,11 @@ class JFacebookGroupTest extends TestCase
 	 * @return  void
 	 *
 	 * @since   3.2.0
-	 * @expectedException  RuntimeException
 	 */
 	public function testGetMembersFailure()
 	{
+		$this->expectException('RuntimeException');
+
 		$token = $this->oauth->getToken();
 		$group = '156174391080008';
 
@@ -311,10 +314,11 @@ class JFacebookGroupTest extends TestCase
 	 * @return  void
 	 *
 	 * @since   3.2.0
-	 * @expectedException  RuntimeException
 	 */
 	public function testGetDocsFailure()
 	{
+		$this->expectException('RuntimeException');
+
 		$token = $this->oauth->getToken();
 		$group = '156174391080008';
 
@@ -364,10 +368,11 @@ class JFacebookGroupTest extends TestCase
 	 * @return  void
 	 *
 	 * @since   3.2.0
-	 * @expectedException  RuntimeException
 	 */
 	public function testGetPictureFailure()
 	{
+		$this->expectException('RuntimeException');
+
 		$token = $this->oauth->getToken();
 		$group = '156174391080008';
 		$type = 'large';
@@ -424,10 +429,11 @@ class JFacebookGroupTest extends TestCase
 	 * @return  void
 	 *
 	 * @since   3.2.0
-	 * @expectedException  RuntimeException
 	 */
 	public function testCreateLinkFailure()
 	{
+		$this->expectException('RuntimeException');
+
 		$token = $this->oauth->getToken();
 		$group = '156174391080008';
 		$link = 'www.example.com';
@@ -483,10 +489,11 @@ class JFacebookGroupTest extends TestCase
 	 * @return  void
 	 *
 	 * @since   3.2.0
-	 * @expectedException  RuntimeException
 	 */
 	public function testDeleteLinkFailure()
 	{
+		$this->expectException('RuntimeException');
+
 		$token = $this->oauth->getToken();
 		$link = '156174391080008_235345346';
 
@@ -555,10 +562,11 @@ class JFacebookGroupTest extends TestCase
 	 * @return  void
 	 *
 	 * @since   3.2.0
-	 * @expectedException  RuntimeException
 	 */
 	public function testCreatePostFailure()
 	{
+		$this->expectException('RuntimeException');
+
 		$token = $this->oauth->getToken();
 		$group = '134534252';
 		$message = 'message';
@@ -627,10 +635,11 @@ class JFacebookGroupTest extends TestCase
 	 * @return  void
 	 *
 	 * @since   3.2.0
-	 * @expectedException  RuntimeException
 	 */
 	public function testDeletePostFailure()
 	{
+		$this->expectException('RuntimeException');
+
 		$token = $this->oauth->getToken();
 		$post = '5148941614_234324';
 
@@ -684,10 +693,11 @@ class JFacebookGroupTest extends TestCase
 	 * @return  void
 	 *
 	 * @since   3.2.0
-	 * @expectedException  RuntimeException
 	 */
 	public function testCreateStatusFailure()
 	{
+		$this->expectException('RuntimeException');
+
 		$token = $this->oauth->getToken();
 		$group = '134534252457';
 		$message = 'This is a message';
@@ -741,10 +751,11 @@ class JFacebookGroupTest extends TestCase
 	 * @return  void
 	 *
 	 * @since   3.2.0
-	 * @expectedException  RuntimeException
 	 */
 	public function testDeleteStatusFailure()
 	{
+		$this->expectException('RuntimeException');
+
 		$token = $this->oauth->getToken();
 		$status = '2457344632_5148941614';
 

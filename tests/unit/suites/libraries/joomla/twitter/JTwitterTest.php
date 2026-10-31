@@ -54,7 +54,7 @@ class JTwitterTest extends TestCase
 	 *
 	 * @return void
 	 */
-	protected function setUp()
+	protected function setUp(): void
 	{
 		$this->backupServer = $_SERVER;
 		$_SERVER['HTTP_HOST'] = 'example.com';
@@ -74,7 +74,7 @@ class JTwitterTest extends TestCase
 	 *
 	 * @return void
 	 */
-	protected function tearDown()
+	protected function tearDown(): void
 	{
 		$_SERVER = $this->backupServer;
 		unset($this->backupServer, $this->options, $this->client, $this->object);
@@ -116,10 +116,11 @@ class JTwitterTest extends TestCase
 	 * @return  void
 	 *
 	 * @since   3.1.4
-	 * @expectedException  InvalidArgumentException
 	 */
 	public function test__GetOther()
 	{
+		$this->expectException('InvalidArgumentException');
+
 		$this->object->other;
 	}
 

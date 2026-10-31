@@ -42,11 +42,12 @@ class JFormRuleNotequalsTest extends TestCase
 	 * @return void
 	 *
 	 * @covers  JFormRuleNotequals::test
-	 * @expectedException  UnexpectedValueException
 	 * @since   3.4
 	 */
 	public function testNotequalsUnexpectedValueException()
 	{
+		$this->expectException('UnexpectedValueException');
+
 		$rule = new JFormRuleNotequals;
 		$xml = simplexml_load_string('<form><field name="foo" field="notequalsfield" /></form>');
 		$input = new Joomla\Registry\Registry;
@@ -61,11 +62,12 @@ class JFormRuleNotequalsTest extends TestCase
 	 * @return void
 	 *
 	 * @covers  JFormRuleNotequals::test
-	 * @expectedException  InvalidArgumentException
 	 * @since   3.4
 	 */
 	public function testNotequalsInvalidArgumentException()
 	{
+		$this->expectException('InvalidArgumentException');
+
 		$rule = new JFormRuleNotequals;
 		$xml = simplexml_load_string('<form><field name="foo" field="notequalsfield" /></form>');
 		$input = new Joomla\Registry\Registry;

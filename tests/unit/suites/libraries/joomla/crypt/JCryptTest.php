@@ -15,7 +15,7 @@
  * @subpackage  Crypt
  * @since       1.7.0
  */
-class JCryptTest extends \PHPUnit\Framework\TestCase
+class JCryptTest extends TestCasePhpunit
 {
 	/**
 	 * @var JCrypt
@@ -28,7 +28,7 @@ class JCryptTest extends \PHPUnit\Framework\TestCase
 	 *
 	 * @return void
 	 */
-	protected function setUp()
+	protected function setUp(): void
 	{
 		parent::setUp();
 
@@ -43,7 +43,7 @@ class JCryptTest extends \PHPUnit\Framework\TestCase
 	 * @see     \PHPUnit\Framework\TestCase::tearDown()
 	 * @since   3.6
 	 */
-	protected function tearDown()
+	protected function tearDown(): void
 	{
 		unset($this->object);
 		parent::tearDown();

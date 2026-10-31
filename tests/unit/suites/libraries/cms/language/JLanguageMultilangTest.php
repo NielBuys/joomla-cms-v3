@@ -57,7 +57,7 @@ class JLanguageMultiLangTest extends TestCaseDatabase
 	 *
 	 * @since   3.6
 	 */
-	public function setUp()
+	public function setUp(): void
 	{
 		parent::setUp();
 
@@ -83,7 +83,7 @@ class JLanguageMultiLangTest extends TestCaseDatabase
 	 * @see     \PHPUnit\Framework\TestCase::tearDown()
 	 * @since   3.6
 	 */
-	protected function tearDown()
+	protected function tearDown(): void
 	{
 		// Reset the dispatcher instance.
 		TestReflection::setValue('JEventDispatcher', 'instance', null);

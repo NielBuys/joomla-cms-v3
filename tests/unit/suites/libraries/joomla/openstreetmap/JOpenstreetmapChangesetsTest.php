@@ -81,7 +81,7 @@ XML;
 	*
 	* @return void
 	*/
-	protected function setUp()
+	protected function setUp(): void
 	{
 		$this->backupServer = $_SERVER;
 		$_SERVER['HTTP_HOST'] = 'example.com';
@@ -117,7 +117,7 @@ XML;
 	 * @see     \PHPUnit\Framework\TestCase::tearDown()
 	 * @since   3.6
 	 */
-	protected function tearDown()
+	protected function tearDown(): void
 	{
 		$_SERVER = $this->backupServer;
 		unset($this->backupServer, $this->options, $this->input, $this->client, $this->oauth, $this->object);
@@ -170,10 +170,11 @@ XML;
 	 * @return  void
 	 *
 	 * @since   3.2.0
-	 * @expectedException DomainException
 	 */
 	public function testCreateChangesetFailure()
 	{
+		$this->expectException('DomainException');
+
 		$changeset = array
 		(
 				array
@@ -237,10 +238,11 @@ XML;
 	 * @return  void
 	 *
 	 * @since   3.2.0
-	 * @expectedException DomainException
 	 */
 	public function testReadChangesetFailure()
 	{
+		$this->expectException('DomainException');
+
 		$id = '14153708';
 
 		$returnData = new stdClass;
@@ -297,10 +299,11 @@ XML;
 	 * @return  array
 	 *
 	 * @since   3.2.0
-	 * @expectedException DomainException
 	 */
 	public function testUpdateChangesetFailure()
 	{
+		$this->expectException('DomainException');
+
 		$id = '14153708';
 		$tags = array
 		(
@@ -353,10 +356,11 @@ XML;
 	 * @return  array
 	 *
 	 * @since   3.2.0
-	 * @expectedException DomainException
 	 */
 	public function testCloseChangesetFailure()
 	{
+		$this->expectException('DomainException');
+
 		$id = '14153708';
 
 		$returnData = new stdClass;
@@ -408,10 +412,11 @@ XML;
 	 * @return  void
 	 *
 	 * @since   3.2.0
-	 * @expectedException DomainException
 	 */
 	public function testDownloadChangesetFailure()
 	{
+		$this->expectException('DomainException');
+
 		$id = '123';
 
 		$returnData = new stdClass;
@@ -464,10 +469,11 @@ XML;
 	 * @return  array
 	 *
 	 * @since   3.2.0
-	 * @expectedException DomainException
 	 */
 	public function testExpandBBoxChangesetFailure()
 	{
+		$this->expectException('DomainException');
+
 		$id = '14153708';
 		$node_list = array(array(4,5),array(6,7));
 
@@ -520,10 +526,11 @@ XML;
 	 * @return  void
 	 *
 	 * @since   3.2.0
-	 * @expectedException DomainException
 	 */
 	public function testQueryChangesetFailure()
 	{
+		$this->expectException('DomainException');
+
 		$param = 'open';
 
 		$returnData = new stdClass;
@@ -582,10 +589,11 @@ XML;
 	 * @return  array
 	 *
 	 * @since   3.2.0
-	 * @expectedException DomainException
 	 */
 	public function testDiffUploadChangesetFailure()
 	{
+		$this->expectException('DomainException');
+
 		$id = '123';
 		$xml = '<osmChange>
 				<modify>

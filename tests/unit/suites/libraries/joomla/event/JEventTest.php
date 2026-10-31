@@ -17,7 +17,7 @@ require_once __DIR__ . '/JEventStub.php';
  * @subpackage  Event
  * @since       1.7.3
  */
-class JEventTest extends \PHPUnit\Framework\TestCase
+class JEventTest extends TestCasePhpunit
 {
 	/**
 	 * Test JEvent::__construct().

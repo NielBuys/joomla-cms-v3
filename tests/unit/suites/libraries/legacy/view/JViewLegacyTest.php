@@ -444,7 +444,7 @@ class JViewLegacyTest extends TestCase
 	 *
 	 * @return  void
 	 */
-	protected function setUp()
+	protected function setUp(): void
 	{
 		parent::setUp();
 
@@ -468,7 +468,7 @@ class JViewLegacyTest extends TestCase
 	 *
 	 * @return  void
 	 */
-	protected function tearDown()
+	protected function tearDown(): void
 	{
 		$this->restoreFactoryState();
 		$_SERVER = $this->server;

@@ -14,7 +14,7 @@
  * @subpackage  Log
  * @since       1.7.0
  */
-class JLogEntryTest extends \PHPUnit\Framework\TestCase
+class JLogEntryTest extends TestCasePhpunit
 {
 	/**
 	 * Verify the default values for the log entry object.

@@ -81,7 +81,7 @@ XML;
 	*
 	* @return void
 	*/
-	protected function setUp()
+	protected function setUp(): void
 	{
 		$this->backupServer = $_SERVER;
 		$_SERVER['HTTP_HOST'] = 'example.com';
@@ -116,7 +116,7 @@ XML;
 	 * @see     \PHPUnit\Framework\TestCase::tearDown()
 	 * @since   3.6
 	 */
-	protected function tearDown()
+	protected function tearDown(): void
 	{
 		$_SERVER = $this->backupServer;
 		unset($this->backupServer, $this->options, $this->input, $this->client, $this->oauth, $this->object);
@@ -160,10 +160,11 @@ XML;
 	 * @return  void
 	 *
 	 * @since   3.2.0
-	 * @expectedException DomainException
 	 */
 	public function testRetrieveGpsFailure()
 	{
+		$this->expectException('DomainException');
+
 		$left = '1';
 		$bottom = '1';
 		$right = '2';
@@ -225,10 +226,10 @@ XML;
 	 * @return  void
 	 *
 	 * @since   3.2.0
-	 * @expectedException DomainException
 	 */
 	public function testUploadTraceFailure()
 	{
+		$this->expectException('DomainException');
 
 		$file = '/htdocs/new_trace.gpx';
 		$description = 'Test Trace';
@@ -289,10 +290,10 @@ XML;
 	 * @return  void
 	 *
 	 * @since   3.2.0
-	 * @expectedException DomainException
 	 */
 	public function testDownloadTraceMetadetailsFailure()
 	{
+		$this->expectException('DomainException');
 
 		$id = '123';
 		$username = 'username';
@@ -349,10 +350,10 @@ XML;
 	 * @return  void
 	 *
 	 * @since   3.2.0
-	 * @expectedException DomainException
 	 */
 	public function testDownloadTraceMetadataFailure()
 	{
+		$this->expectException('DomainException');
 
 		$id = '123';
 		$username = 'username';

@@ -1,0 +1,59 @@
+name: Unit tests
+
+on:
+  push:
+  pull_request:
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+# Cancel a run that is still going when a newer commit arrives on the same branch or pull request
+concurrency:
+  group: ${{ github.workflow }}-${{ github.event.pull_request.number || github.ref }}
+  cancel-in-progress: true
+
+jobs:
+  phpunit:
+    name: PHP ${{ matrix.php }}
+    runs-on: ubuntu-latest
+    # A PHP version that is not released yet may fail without failing the run
+    continue-on-error: ${{ matrix.experimental }}
+
+    strategy:
+      fail-fast: false
+      matrix:
+        # The fork's minimum PHP version, the newest releases, and the next release
+        php: ['8.3', '8.4', '8.5']
+        experimental: [false]
+        include:
+          - php: '8.6'
+            experimental: true
+
+    steps:
+      - name: Check out the code
+        uses: actions/checkout@v4
+
+      - name: Set up PHP
+        uses: shivammathur/setup-php@v2
+        with:
+          php-version: ${{ matrix.php }}
+          # pdo_sqlite runs the database tests in an in-memory database
+          extensions: curl, gd, intl, ldap, mbstring, pcntl, pdo_sqlite, sqlite3, xml, zip
+          ini-values: memory_limit=2G
+          coverage: none
+          tools: composer:v2
+
+      - name: Cache Composer downloads
+        uses: actions/cache@v4
+        with:
+          path: ~/.cache/composer/files
+          key: composer-${{ hashFiles('composer.lock') }}
+
+      # libraries/vendor holds the runtime packages; this adds PHPUnit and the other development packages.
+      # setup-php gives Composer the workflow's token, so the NielBuys fork repositories can be read.
+      - name: Install the development packages
+        run: composer install --no-interaction --no-progress
+
+      - name: Run the unit tests
+        run: libraries/vendor/bin/phpunit --no-coverage

@@ -18,7 +18,7 @@ class JCacheStorageWincacheTest extends TestCaseCache
 	 *
 	 * @return  void
 	 */
-	protected function setUp()
+	protected function setUp(): void
 	{
 		if (!JCacheStorageWincache::isSupported())
 		{

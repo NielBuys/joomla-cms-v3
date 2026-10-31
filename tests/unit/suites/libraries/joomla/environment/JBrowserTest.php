@@ -10,7 +10,7 @@
 /**
  * Test class for JBrowser.
  */
-class JBrowserTest extends \PHPUnit\Framework\TestCase
+class JBrowserTest extends TestCasePhpunit
 {
 	/**
 	 * Backup of the SERVER superglobal
@@ -32,7 +32,7 @@ class JBrowserTest extends \PHPUnit\Framework\TestCase
 	 *
 	 * @return  void
 	 */
-	protected function setUp()
+	protected function setUp(): void
 	{
 		parent::setUp();
 
@@ -48,7 +48,7 @@ class JBrowserTest extends \PHPUnit\Framework\TestCase
 	 *
 	 * @see     \PHPUnit\Framework\TestCase::tearDown()
 	 */
-	protected function tearDown()
+	protected function tearDown(): void
 	{
 		$_SERVER = $this->backupServer;
 

@@ -36,7 +36,7 @@ class JDatabaseExporterMysqlTest extends TestCase
 	 *
 	 * @return  void
 	 */
-	public static function setUpBeforeClass()
+	public static function setUpBeforeClass(): void
 	{
 		if (PHP_MAJOR_VERSION >= 7)
 		{
@@ -50,7 +50,7 @@ class JDatabaseExporterMysqlTest extends TestCase
 	 *
 	 * @return  void
 	 */
-	protected function setUp()
+	protected function setUp(): void
 	{
 		$this->dbo = $this->getMockDatabase('Mysql');
 
@@ -128,7 +128,7 @@ class JDatabaseExporterMysqlTest extends TestCase
 	 * @see     \PHPUnit\Framework\TestCase::tearDown()
 	 * @since   3.6
 	 */
-	protected function tearDown()
+	protected function tearDown(): void
 	{
 		unset($this->dbo);
 		parent::tearDown();
@@ -233,10 +233,11 @@ class JDatabaseExporterMysqlTest extends TestCase
 	/**
 	 * Tests the check method.
 	 *
-	 * @expectedException Exception
 	 */
 	public function testCheckWithNoDbo()
 	{
+		$this->expectException('Exception');
+
 		$instance = new JDatabaseExporterMysql;
 
 		$instance->check();
@@ -245,10 +246,11 @@ class JDatabaseExporterMysqlTest extends TestCase
 	/**
 	 * Tests the check method.
 	 *
-	 * @expectedException Exception
 	 */
 	public function testCheckWithNoTables()
 	{
+		$this->expectException('Exception');
+
 		$instance = new JDatabaseExporterMysql;
 
 		$instance->setDbo($this->dbo);
@@ -275,10 +277,11 @@ class JDatabaseExporterMysqlTest extends TestCase
 	/**
 	 * Tests the from method with bad input.
 	 *
-	 * @expectedException Exception
 	 */
 	public function testFromWithBadInput()
 	{
+		$this->expectException('Exception');
+
 		$instance = new JDatabaseExporterMysql;
 
 		$instance->from(new stdClass);

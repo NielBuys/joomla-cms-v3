@@ -35,7 +35,7 @@ class JDocumentRendererHtmlModulesTest extends TestCaseDatabase
 	 *
 	 * @since   3.6
 	 */
-	protected function setUp()
+	protected function setUp(): void
 	{
 		parent::setUp();
 
@@ -73,7 +73,7 @@ class JDocumentRendererHtmlModulesTest extends TestCaseDatabase
 	 *
 	 * @since   3.6
 	 */
-	protected function tearDown()
+	protected function tearDown(): void
 	{
 		TestReflection::setValue('JRoute', '_router', array());
 
@@ -139,7 +139,7 @@ class JDocumentRendererHtmlModulesTest extends TestCaseDatabase
 	 */
 	public function eventCallback(&$buffer, &$params)
 	{
-		$this->assertContains('mod_search63', $buffer, 'buffer empty when processing onAfterRenderModules event');
+		$this->assertStringContainsString('mod_search63', $buffer, 'buffer empty when processing onAfterRenderModules event');
 		$this->assertArrayHasKey('name', $params, "params['name'] empty when processing onAfterRenderModules event");
 		$this->callbackExecuted = true;
 	}

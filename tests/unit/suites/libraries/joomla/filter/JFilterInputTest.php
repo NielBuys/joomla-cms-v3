@@ -14,7 +14,7 @@
  * @subpackage  Filter
  * @since       1.7.0
  */
-class JFilterInputTest extends \PHPUnit\Framework\TestCase
+class JFilterInputTest extends TestCasePhpunit
 {
 	/**
 	 * Produces the array of test cases common to all test runs.
