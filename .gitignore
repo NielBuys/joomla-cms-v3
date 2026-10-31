@@ -256,6 +256,7 @@ Desktop.ini
 /libraries/vendor/nikic
 /libraries/vendor/phar-io
 /libraries/vendor/phpunit
+/libraries/vendor/psr/event-dispatcher
 /libraries/vendor/react
 /libraries/vendor/sebastian
 /libraries/vendor/squizlabs
