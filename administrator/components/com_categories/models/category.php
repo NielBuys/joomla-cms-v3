@@ -786,6 +786,32 @@ class CategoriesModelCategory extends JModelAdmin
 		// Get an instance of the table object.
 		$table = $this->getTable();
 
+		// Prune the categories the user may not change, each checked on its own asset
+		if (is_array($idArray) && is_array($lftArray) && count($idArray) == count($lftArray))
+		{
+			$idArray  = array_values($idArray);
+			$lftArray = array_values($lftArray);
+
+			foreach ($idArray as $i => $id)
+			{
+				$table->reset();
+
+				if (!$table->load((int) $id) || !$this->canEditState($table))
+				{
+					unset($idArray[$i], $lftArray[$i]);
+					JLog::add(JText::_('JLIB_APPLICATION_ERROR_EDITSTATE_NOT_PERMITTED'), JLog::WARNING, 'jerror');
+				}
+			}
+
+			$idArray  = array_values($idArray);
+			$lftArray = array_values($lftArray);
+
+			if (empty($idArray))
+			{
+				return true;
+			}
+		}
+
 		if (!$table->saveorder($idArray, $lftArray))
 		{
 			$this->setError($table->getError());
@@ -797,6 +823,58 @@ class CategoriesModelCategory extends JModelAdmin
 		$this->cleanCache();
 
 		return true;
+	}
+
+	/**
+	 * Method to perform batch operations on categories.
+	 *
+	 * The controller names the categories after the extension of the request, so for a
+	 * category of another extension the permission checks of the batch commands would use
+	 * the wrong asset. Name each category after its own extension instead. Children are
+	 * included, because a batch copy also copies them and the commands that follow run on
+	 * the copies.
+	 *
+	 * @param   array  $commands  An array of commands to perform.
+	 * @param   array  $pks       An array of category ids.
+	 * @param   array  $contexts  An array of item contexts.
+	 *
+	 * @return  boolean  Returns true on success, false on failure.
+	 *
+	 * @since   3.11.19
+	 */
+	public function batch($commands, $pks, $contexts)
+	{
+		$db                 = $this->getDbo();
+		$table              = $this->getTable();
+		$categoryIds        = array();
+		$categoryContexts   = array();
+
+		foreach ((array) $pks as $pk)
+		{
+			$table->reset();
+
+			// Categories that do not exist are left out
+			if (!$table->load((int) $pk))
+			{
+				continue;
+			}
+
+			$categoryIds[] = (int) $pk;
+
+			// The category itself and all its children
+			$query = $db->getQuery(true)
+				->select($db->quoteName(array('id', 'extension')))
+				->from($db->quoteName('#__categories'))
+				->where($db->quoteName('lft') . ' >= ' . (int) $table->lft)
+				->where($db->quoteName('rgt') . ' <= ' . (int) $table->rgt);
+
+			foreach ($db->setQuery($query)->loadObjectList() as $category)
+			{
+				$categoryContexts[(int) $category->id] = $category->extension . '.category.' . (int) $category->id;
+			}
+		}
+
+		return parent::batch($commands, $categoryIds, $categoryContexts);
 	}
 
 	/**
@@ -948,7 +1026,9 @@ class CategoriesModelCategory extends JModelAdmin
 			}
 			else
 			{
-				$canCreate = $this->user->authorise('core.create', $extension . '.category.' . $parentId);
+				// The parent must belong to the extension of the request, check its own asset
+				$canCreate = $this->table->extension === JFactory::getApplication()->input->get('extension', '', 'cmd')
+					&& $this->user->authorise('core.create', $this->table->extension . '.category.' . (int) $parentId);
 			}
 
 			if (!$canCreate)
@@ -998,6 +1078,14 @@ class CategoriesModelCategory extends JModelAdmin
 			return false;
 		}
 
+		// Check every category that will be copied, children included, before copying anything
+		if (!$this->canCopyCategories($pks))
+		{
+			$this->setError(JText::_('JLIB_APPLICATION_ERROR_BATCH_CANNOT_EDIT'));
+
+			return false;
+		}
+
 		// Parent exists so let's proceed
 		while (!empty($pks) && $count > 0)
 		{
@@ -1024,8 +1112,8 @@ class CategoriesModelCategory extends JModelAdmin
 				}
 			}
 
-			// Check that the user is allowed to edit the category that is copied
-			if (!$this->user->authorise('core.edit', $contexts[$pk]))
+			// Check that the user is allowed to edit the category that is copied, on its own asset
+			if (!$this->user->authorise('core.edit', $this->table->extension . '.category.' . (int) $this->table->id))
 			{
 				$this->setError(JText::_('JLIB_APPLICATION_ERROR_BATCH_CANNOT_EDIT'));
 
@@ -1131,6 +1219,50 @@ class CategoriesModelCategory extends JModelAdmin
 	}
 
 	/**
+	 * Checks that the user may edit every category a batch copy would copy: the selected
+	 * categories and all their children, each on its own asset.
+	 *
+	 * @param   array  $pks  The ids of the selected categories.
+	 *
+	 * @return  boolean  True if every category may be copied.
+	 *
+	 * @since   3.11.19
+	 */
+	protected function canCopyCategories($pks)
+	{
+		$db    = $this->getDbo();
+		$table = $this->getTable();
+
+		foreach ($pks as $pk)
+		{
+			$table->reset();
+
+			// Rows that do not exist are reported by the copy itself
+			if (!$table->load($pk))
+			{
+				continue;
+			}
+
+			// The category itself and all its children
+			$query = $db->getQuery(true)
+				->select($db->quoteName(array('id', 'extension')))
+				->from($db->quoteName('#__categories'))
+				->where($db->quoteName('lft') . ' >= ' . (int) $table->lft)
+				->where($db->quoteName('rgt') . ' <= ' . (int) $table->rgt);
+
+			foreach ($db->setQuery($query)->loadObjectList() as $category)
+			{
+				if (!$this->user->authorise('core.edit', $category->extension . '.category.' . (int) $category->id))
+				{
+					return false;
+				}
+			}
+		}
+
+		return true;
+	}
+
+	/**
 	 * Batch move categories to a new category.
 	 *
 	 * @param   integer  $value     The new category ID.
@@ -1178,7 +1310,9 @@ class CategoriesModelCategory extends JModelAdmin
 			}
 			else
 			{
-				$canCreate = $this->user->authorise('core.create', $extension . '.category.' . $parentId);
+				// The parent must belong to the extension of the request, check its own asset
+				$canCreate = $this->table->extension === JFactory::getApplication()->input->get('extension', '', 'cmd')
+					&& $this->user->authorise('core.create', $this->table->extension . '.category.' . (int) $parentId);
 			}
 
 			if (!$canCreate)
@@ -1189,11 +1323,17 @@ class CategoriesModelCategory extends JModelAdmin
 				return false;
 			}
 
-			// Check that user has edit permission for every category being moved
+			// Check that user has edit permission for every category being moved, on its own asset
 			// Note that the entire batch operation fails if any category lacks edit permission
 			foreach ($pks as $pk)
 			{
-				if (!$this->user->authorise('core.edit', $extension . '.category.' . $pk))
+				// Rows that do not exist are reported by the move itself
+				if (!$this->table->load($pk))
+				{
+					continue;
+				}
+
+				if (!$this->user->authorise('core.edit', $this->table->extension . '.category.' . (int) $pk))
 				{
 					// Error since user cannot edit this category
 					$this->setError(JText::_('COM_CATEGORIES_BATCH_CANNOT_EDIT'));
