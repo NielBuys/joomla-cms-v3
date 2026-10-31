@@ -15,9 +15,6 @@
         "audit": {
             "ignore": {
                 "PKSA-5x9t-bkbj-vmgp": "joomla/filter CVE-2025-54476: fixed in the NielBuys/j3_filter fork",
-                "PKSA-32g2-byr9-drtw": "sodium_compat: upgrade planned in docs/todo/sodium-compat.md",
-                "PKSA-bjyb-w14t-61js": "sodium_compat CVE-2025-69277: upgrade planned in docs/todo/sodium-compat.md",
-                "PKSA-8x19-j2j3-bn67": "sodium_compat: upgrade planned in docs/todo/sodium-compat.md",
                 "PKSA-v5yj-8nmz-sk2q": "symfony/yaml CVE-2026-45304: upgrade planned in docs/todo/symfony-yaml.md",
                 "PKSA-ft77-7h5f-p3r6": "symfony/yaml CVE-2026-45305: upgrade planned in docs/todo/symfony-yaml.md",
                 "PKSA-b14r-zh1d-vdrc": "symfony/yaml CVE-2026-45133: upgrade planned in docs/todo/symfony-yaml.md",
@@ -103,7 +100,7 @@
         "joomla/uri": "~1.2",
         "joomla/utilities": "^1.6",
         "paragonie/random_compat": "^2.0.21",
-        "paragonie/sodium_compat": "1.17.1",
+        "paragonie/sodium_compat": "2.5.2",
         "phpmailer/phpmailer": "^7.1",
         "symfony/yaml": "2.*",
         "simplepie/simplepie": "1.3.4",

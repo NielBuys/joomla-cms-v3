@@ -12,6 +12,7 @@ return array(
     'ReCaptcha\\' => array($vendorDir . '/google/recaptcha/src/ReCaptcha'),
     'Psr\\Log\\' => array($vendorDir . '/psr/log/Psr/Log'),
     'Psr\\Container\\' => array($vendorDir . '/psr/container/src'),
+    'ParagonIE\\Sodium\\' => array($vendorDir . '/paragonie/sodium_compat/namespaced'),
     'PHPMailer\\PHPMailer\\' => array($vendorDir . '/phpmailer/phpmailer/src'),
     'LesserPHP\\tests\\' => array($vendorDir . '/splitbrain/lesserphp/tests'),
     'LesserPHP\\' => array($vendorDir . '/splitbrain/lesserphp/src'),
