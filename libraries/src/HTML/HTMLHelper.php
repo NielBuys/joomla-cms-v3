@@ -628,7 +628,15 @@ abstract class HTMLHelper
 			return $file;
 		}
 
-		return '<img src="' . $file . '" alt="' . $alt . '" ' . trim((is_array($attribs) ? ArrayHelper::toString($attribs) : $attribs) . ' /') . '>';
+		if (is_array($attribs))
+		{
+			$attribs = ArrayHelper::toString(self::escapeAttributesArray($attribs));
+		}
+
+		$file = htmlspecialchars((string) $file, ENT_QUOTES, 'UTF-8', false);
+		$alt  = htmlspecialchars((string) $alt, ENT_QUOTES, 'UTF-8', false);
+
+		return '<img src="' . $file . '" alt="' . $alt . '" ' . trim($attribs . ' /') . '>';
 	}
 
 	/**
@@ -920,7 +928,7 @@ abstract class HTMLHelper
 
 		if ($href)
 		{
-			$tip = '<a href="' . $href . '">' . $text . '</a>';
+			$tip = '<a href="' . htmlspecialchars((string) $href, ENT_QUOTES, 'UTF-8', false) . '">' . $text . '</a>';
 		}
 		else
 		{
@@ -942,6 +950,8 @@ abstract class HTMLHelper
 		{
 			$tooltip = self::tooltipText($title, $tooltip, 0);
 		}
+
+		$class = htmlspecialchars((string) $class, ENT_QUOTES, 'UTF-8', false);
 
 		return '<span class="' . $class . '" title="' . $tooltip . '">' . $tip . '</span>';
 	}
