@@ -118,7 +118,8 @@ class JLessCompat extends \LesserPHP\Lessc
 		// add or override functions that way. lesserphp only looks in the registered functions.
 		foreach ((new ReflectionClass($this))->getMethods() as $method)
 		{
-			if (strpos($method->name, 'lib_') === 0 && !$method->isStatic())
+			// A private method of a subclass cannot be called from here; lessphp could not call it either
+			if (strpos($method->name, 'lib_') === 0 && !$method->isStatic() && !$method->isPrivate())
 			{
 				$callback = Closure::fromCallable(array($this, $method->name));
 				$name     = substr($method->name, 4);
