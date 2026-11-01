@@ -182,6 +182,7 @@ class MediaHelper
 		$executable = array(
 			'php', 'js', 'exe', 'phtml', 'java', 'perl', 'py', 'asp', 'dll', 'go', 'ade', 'adp', 'bat', 'chm', 'cmd', 'com', 'cpl', 'hta', 'ins', 'isp',
 			'jse', 'lib', 'mde', 'msc', 'msp', 'mst', 'pif', 'scr', 'sct', 'shb', 'sys', 'vb', 'vbe', 'vbs', 'vxd', 'wsc', 'wsf', 'wsh', 'html', 'htm',
+			'shtml', 'shtm', 'sht', 'stm',
 		);
 
 		// Remove allowed executables from array
@@ -190,7 +191,8 @@ class MediaHelper
 			$executable = array_diff($executable, $allowedExecutables);
 		}
 
-		$check = array_intersect($filetypes, $executable);
+		// Compare case-insensitively, page.Shtml.png is as dangerous as page.shtml.png
+		$check = array_intersect(array_map('strtolower', $filetypes), $executable);
 
 		if (!empty($check))
 		{
