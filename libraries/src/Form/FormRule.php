@@ -45,7 +45,7 @@ class FormRule
 	 * @var    string
 	 * @since  1.6
 	 */
-	protected $modifiers;
+	protected $modifiers = '';
 
 	/**
 	 * Method to test the value.
@@ -77,8 +77,8 @@ class FormRule
 			$this->modifiers = (strpos($this->modifiers, 'u') !== false) ? $this->modifiers : $this->modifiers . 'u';
 		}
 
-		// Test the value against the regular expression.
-		if (preg_match(chr(1) . $this->regex . chr(1) . $this->modifiers, $value))
+		// Test the value against the regular expression, a missing value as an empty string
+		if (preg_match(chr(1) . $this->regex . chr(1) . $this->modifiers, $value ?? ''))
 		{
 			return true;
 		}
