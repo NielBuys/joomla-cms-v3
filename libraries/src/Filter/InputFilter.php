@@ -495,6 +495,7 @@ class InputFilter extends BaseInputFilter
 			'forbidden_extensions'       => array(
 				'php', 'phps', 'pht', 'phtml', 'php3', 'php4', 'php5', 'php6', 'php7',
 				'php8', 'phar', 'inc', 'pl', 'cgi', 'fcgi', 'java', 'jar', 'py',
+				'shtml', 'shtm', 'sht', 'stm',
 			),
 
 			// <?php tag in file contents
