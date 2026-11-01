@@ -166,20 +166,20 @@ abstract class FieldsPlugin extends JPlugin
 		// Create the node
 		$node = $parent->appendChild(new DOMElement('field'));
 
-		// Set the attributes
+		// Set the attributes, as strings: the parameters are null when they were never saved
 		$node->setAttribute('name', $field->name);
 		$node->setAttribute('type', $field->type);
-		$node->setAttribute('label', $field->label);
-		$node->setAttribute('labelclass', $field->params->get('label_class'));
-		$node->setAttribute('description', $field->description);
-		$node->setAttribute('class', $field->params->get('class'));
-		$node->setAttribute('hint', $field->params->get('hint'));
+		$node->setAttribute('label', (string) $field->label);
+		$node->setAttribute('labelclass', (string) $field->params->get('label_class'));
+		$node->setAttribute('description', (string) $field->description);
+		$node->setAttribute('class', (string) $field->params->get('class'));
+		$node->setAttribute('hint', (string) $field->params->get('hint'));
 		$node->setAttribute('required', $field->required ? 'true' : 'false');
 
-		if ($field->default_value !== '')
+		if ((string) $field->default_value !== '')
 		{
 			$defaultNode = $node->appendChild(new DOMElement('default'));
-			$defaultNode->appendChild(new DOMCdataSection($field->default_value));
+			$defaultNode->appendChild(new DOMCdataSection((string) $field->default_value));
 		}
 
 		// Combine the two params
