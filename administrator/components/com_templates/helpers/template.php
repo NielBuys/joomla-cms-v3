@@ -58,9 +58,10 @@ abstract class TemplateHelper
 			'exe', 'phtml','java', 'perl', 'py', 'asp','dll', 'go', 'jar',
 			'ade', 'adp', 'bat', 'chm', 'cmd', 'com', 'cpl', 'hta', 'ins', 'isp',
 			'jse', 'lib', 'mde', 'msc', 'msp', 'mst', 'pif', 'scr', 'sct', 'shb',
-			'sys', 'vb', 'vbe', 'vbs', 'vxd', 'wsc', 'wsf', 'wsh'
+			'sys', 'vb', 'vbe', 'vbs', 'vxd', 'wsc', 'wsf', 'wsh', 'shtml', 'shtm', 'sht', 'stm'
 		);
-		$explodedFileName = explode('.', $file['name']);
+		// Compare case-insensitively, page.Shtml.png is as dangerous as page.shtml.png
+		$explodedFileName = array_map('strtolower', explode('.', $file['name']));
 
 		if (count($explodedFileName) > 2)
 		{

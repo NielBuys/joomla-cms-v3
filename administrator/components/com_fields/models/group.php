@@ -35,6 +35,43 @@ class FieldsModelGroup extends JModelAdmin
 	);
 
 	/**
+	 * Method to perform batch operations on field groups.
+	 *
+	 * The controller names the groups com_fields.group.<id>, an asset that does not exist,
+	 * so the permission checks of the batch commands would fall back to com_fields. Check
+	 * them against the asset of the component each group belongs to instead.
+	 *
+	 * @param   array  $commands  An array of commands to perform.
+	 * @param   array  $pks       An array of field group ids.
+	 * @param   array  $contexts  An array of item contexts.
+	 *
+	 * @return  boolean  Returns true on success, false on failure.
+	 *
+	 * @since   3.11.19
+	 */
+	public function batch($commands, $pks, $contexts)
+	{
+		$table         = $this->getTable();
+		$groupContexts = array();
+
+		foreach ((array) $pks as $pk)
+		{
+			$table->reset();
+
+			// Groups that do not exist are left out
+			if (!$table->load((int) $pk))
+			{
+				continue;
+			}
+
+			list($component) = explode('.', (string) $table->context);
+			$groupContexts[(int) $pk] = $component . '.fieldgroup.' . (int) $pk;
+		}
+
+		return parent::batch($commands, array_keys($groupContexts), $groupContexts);
+	}
+
+	/**
 	 * Method to save the form data.
 	 *
 	 * @param   array  $data  The form data.

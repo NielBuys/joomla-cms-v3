@@ -92,6 +92,26 @@ class FieldsModelField extends JModelAdmin
 			$field = $this->getItem($data['id']);
 		}
 
+		// A field can only be saved into a group of its own component
+		if (!empty($data['group_id']))
+		{
+			$context = $field ? $field->context : '';
+
+			if (isset($data['context']) && is_string($data['context']) && $data['context'] !== '')
+			{
+				$context = $data['context'];
+			}
+
+			list($component) = explode('.', (string) $context);
+
+			if ($this->getGroupComponent($data['group_id']) !== $component)
+			{
+				$this->setError(JText::_('JLIB_APPLICATION_ERROR_SAVE_NOT_PERMITTED'));
+
+				return false;
+			}
+		}
+
 		if (!isset($data['label']) && isset($data['params']['label']))
 		{
 			$data['label'] = $data['params']['label'];
@@ -1040,6 +1060,72 @@ class FieldsModelField extends JModelAdmin
 	}
 
 	/**
+	 * Method to perform batch operations on fields.
+	 *
+	 * The controller names the fields com_fields.field.<id>, an asset that does not exist,
+	 * so the permission checks of the batch commands would fall back to com_fields. Check
+	 * them against the asset of the component each field belongs to instead.
+	 *
+	 * @param   array  $commands  An array of commands to perform.
+	 * @param   array  $pks       An array of field ids.
+	 * @param   array  $contexts  An array of item contexts.
+	 *
+	 * @return  boolean  Returns true on success, false on failure.
+	 *
+	 * @since   3.11.19
+	 */
+	public function batch($commands, $pks, $contexts)
+	{
+		$table         = $this->getTable();
+		$fieldContexts = array();
+
+		foreach ((array) $pks as $pk)
+		{
+			$table->reset();
+
+			// Fields that do not exist are left out
+			if (!$table->load((int) $pk))
+			{
+				continue;
+			}
+
+			list($component) = explode('.', (string) $table->context);
+			$fieldContexts[(int) $pk] = $component . '.field.' . (int) $pk;
+		}
+
+		return parent::batch($commands, array_keys($fieldContexts), $fieldContexts);
+	}
+
+	/**
+	 * Returns the component of a field group.
+	 *
+	 * @param   integer  $groupId  The id of the field group.
+	 *
+	 * @return  string|null  The component, or null when the group does not exist.
+	 *
+	 * @since   3.11.19
+	 */
+	protected function getGroupComponent($groupId)
+	{
+		$db    = $this->getDbo();
+		$query = $db->getQuery(true)
+			->select($db->quoteName('context'))
+			->from($db->quoteName('#__fields_groups'))
+			->where($db->quoteName('id') . ' = ' . (int) $groupId);
+
+		$context = $db->setQuery($query)->loadResult();
+
+		if ($context === null)
+		{
+			return null;
+		}
+
+		list($component) = explode('.', $context);
+
+		return $component;
+	}
+
+	/**
 	 * Batch copy fields to a new group.
 	 *
 	 * @param   integer  $value     The new value matching a fields group.
@@ -1056,16 +1142,47 @@ class FieldsModelField extends JModelAdmin
 		$user      = JFactory::getUser();
 		$table     = $this->getTable();
 		$newIds    = array();
-		$component = $this->state->get('filter.component');
 		$value     = (int) $value;
+
+		// The component of the target group (0 is no group), fields can only be copied into a group of their own component
+		$groupComponent = $value ? $this->getGroupComponent($value) : false;
+
+		if ($groupComponent === null)
+		{
+			$this->setError(JText::_('JGLOBAL_BATCH_MOVE_PARENT_NOT_FOUND'));
+
+			return false;
+		}
 
 		foreach ($pks as $pk)
 		{
-			if ($user->authorise('core.create', $component . '.fieldgroup.' . $value))
-			{
-				$table->reset();
-				$table->load($pk);
+			$table->reset();
 
+			// Check that the row actually exists
+			if (!$table->load($pk))
+			{
+				if ($error = $table->getError())
+				{
+					// Fatal error
+					$this->setError($error);
+
+					return false;
+				}
+				else
+				{
+					// Not fatal error
+					$this->setError(JText::sprintf('JLIB_APPLICATION_ERROR_BATCH_MOVE_ROW_NOT_FOUND', $pk));
+					continue;
+				}
+			}
+
+			// Use the component of the field that is copied, the model state has none
+			list($recordComponent) = explode('.', (string) $table->context);
+
+			if (($groupComponent === false || $recordComponent === $groupComponent)
+				&& $user->authorise('core.create', $recordComponent . '.fieldgroup.' . $value)
+				&& $user->authorise('core.edit', $recordComponent . '.field.' . $pk))
+			{
 				$table->group_id = $value;
 
 				// Reset the ID because we are making a copy
@@ -1117,16 +1234,47 @@ class FieldsModelField extends JModelAdmin
 		// Set the variables
 		$user      = JFactory::getUser();
 		$table     = $this->getTable();
-		$context   = explode('.', JFactory::getApplication()->getUserState('com_fields.fields.context'));
 		$value     = (int) $value;
+
+		// The component of the target group (0 is no group), fields can only be moved into a group of their own component
+		$groupComponent = $value ? $this->getGroupComponent($value) : false;
+
+		if ($groupComponent === null)
+		{
+			$this->setError(JText::_('JGLOBAL_BATCH_MOVE_PARENT_NOT_FOUND'));
+
+			return false;
+		}
 
 		foreach ($pks as $pk)
 		{
-			if ($user->authorise('core.edit', $context[0] . '.fieldgroup.' . $value))
-			{
-				$table->reset();
-				$table->load($pk);
+			$table->reset();
 
+			// Check that the row actually exists
+			if (!$table->load($pk))
+			{
+				if ($error = $table->getError())
+				{
+					// Fatal error
+					$this->setError($error);
+
+					return false;
+				}
+				else
+				{
+					// Not fatal error
+					$this->setError(JText::sprintf('JLIB_APPLICATION_ERROR_BATCH_MOVE_ROW_NOT_FOUND', $pk));
+					continue;
+				}
+			}
+
+			// Use the component of the field that is moved, not the one of the request
+			list($recordComponent) = explode('.', (string) $table->context);
+
+			if (($groupComponent === false || $recordComponent === $groupComponent)
+				&& $user->authorise('core.edit', $recordComponent . '.fieldgroup.' . $value)
+				&& $user->authorise('core.edit', $recordComponent . '.field.' . $pk))
+			{
 				$table->group_id = $value;
 
 				if (!$table->store())

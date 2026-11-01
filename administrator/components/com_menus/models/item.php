@@ -237,6 +237,16 @@ class MenusModelItem extends JModelAdmin
 				}
 			}
 
+			// Check that the user is allowed to edit the menu item that is copied
+			$itemMenuTypeId = (int) $this->getMenuTypeId($table->menutype);
+
+			if ($table->menutype === 'main' || !$user->authorise('core.edit', 'com_menus.menu.' . $itemMenuTypeId))
+			{
+				$this->setError(JText::_('JLIB_APPLICATION_ERROR_BATCH_CANNOT_EDIT'));
+
+				return false;
+			}
+
 			// Copy is a bit tricky, because we also need to copy the children
 			$query->clear()
 				->select('id')
