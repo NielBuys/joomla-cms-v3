@@ -85,6 +85,15 @@ On the 3.11.x line (`3.10-dev`), from 3.11.19:
 | `updates.xml`, `<php_minimum>` in each release entry | `8.0.0` from 3.11.19 |
 | `README.md` and `README.txt`, "Check the minimum requirements" | "PHP minimum v8.0, recommended v8.2" |
 
+On the 3.12 line (`3.12-dev`):
+
+| Place | Value |
+|---|---|
+| `composer.json`, `require.php` and `config.platform.php` | `>=8.3.0` and `8.3.0` |
+| `index.php`, `administrator/index.php` and `installation/index.php`, `JOOMLA_MINIMUM_PHP` | `8.3.0` |
+| Update entries for 3.12 releases, `<php_minimum>` | `8.3.0` |
+| `README.md` and `README.txt`, "Check the minimum requirements" | "PHP minimum v8.3, recommended v8.5" |
+
 `JOOMLA_MINIMUM_PHP` controls three things:
 
 - the version check at the top of each `index.php`
