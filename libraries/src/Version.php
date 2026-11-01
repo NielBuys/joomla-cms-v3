@@ -41,7 +41,7 @@ final class Version
 	 * @var    integer
 	 * @since  3.8.0
 	 */
-	const MINOR_VERSION = 11;
+	const MINOR_VERSION = 12;
 
 	/**
 	 * Patch release version.
@@ -49,7 +49,7 @@ final class Version
 	 * @var    integer
 	 * @since  3.8.0
 	 */
-	const PATCH_VERSION = 19;
+	const PATCH_VERSION = 0;
 
 	/**
 	 * Extra release version info.
@@ -60,7 +60,7 @@ final class Version
 	 * @var    string
 	 * @since  3.8.0
 	 */
-	const EXTRA_VERSION = '';
+	const EXTRA_VERSION = 'beta1';
 
 	/**
 	 * Release version.
@@ -69,7 +69,7 @@ final class Version
 	 * @since  3.5
 	 * @deprecated  4.0  Use separated version constants instead
 	 */
-	const RELEASE = '3.11';
+	const RELEASE = '3.12';
 
 	/**
 	 * Maintenance version.
@@ -78,7 +78,7 @@ final class Version
 	 * @since  3.5
 	 * @deprecated  4.0  Use separated version constants instead
 	 */
-	const DEV_LEVEL = '19';
+	const DEV_LEVEL = '0-beta1';
 
 	/**
 	 * Development status.
@@ -86,7 +86,7 @@ final class Version
 	 * @var    string
 	 * @since  3.5
 	 */
-	const DEV_STATUS = 'Stable';
+	const DEV_STATUS = 'Beta';
 
 	/**
 	 * Build number.
