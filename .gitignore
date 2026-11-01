@@ -139,6 +139,7 @@ Desktop.ini
 /libraries/vendor/paragonie/sodium_compat/appveyor.yml
 /libraries/vendor/paragonie/sodium_compat/build-phar.sh
 /libraries/vendor/paragonie/sodium_compat/composer.json
+/libraries/vendor/paragonie/sodium_compat/CONTRIBUTING.md
 /libraries/vendor/paragonie/sodium_compat/composer-php52.json
 /libraries/vendor/paragonie/sodium_compat/composer.lock
 /libraries/vendor/paragonie/sodium_compat/dist

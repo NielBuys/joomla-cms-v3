@@ -2067,6 +2067,15 @@ class JoomlaInstallerScript
 			'/libraries/vendor/phpmailer/phpmailer/class.phpmaileroauthgoogle.php',
 			'/libraries/vendor/phpmailer/phpmailer/class.pop3.php',
 			'/libraries/vendor/phpmailer/phpmailer/class.smtp.php',
+			// Joomla 3.12.0: sodium_compat 1.17.1 replaced by 2.5.2
+			'/libraries/vendor/paragonie/sodium_compat/autoload-fast.php',
+			'/libraries/vendor/paragonie/sodium_compat/autoload-pedantic.php',
+			'/libraries/vendor/paragonie/sodium_compat/autoload-php7.php',
+			'/libraries/vendor/paragonie/sodium_compat/autoload-phpunit.php',
+			'/libraries/vendor/paragonie/sodium_compat/lib/constants.php',
+			'/libraries/vendor/paragonie/sodium_compat/lib/namespaced.php',
+			'/libraries/vendor/paragonie/sodium_compat/lib/sodium_compat.php',
+			'/libraries/vendor/paragonie/sodium_compat/src/Crypto32.php',
 		);
 
 		// TODO There is an issue while deleting folders using the ftp mode
@@ -2324,6 +2333,9 @@ class JoomlaInstallerScript
 			'/libraries/vendor/symfony/polyfill-php71',
 			'/libraries/vendor/symfony/polyfill-php73',
 			'/libraries/vendor/symfony/polyfill-util',
+			// Joomla 3.12.0: sodium_compat 1.17.1 replaced by 2.5.2
+			'/libraries/vendor/paragonie/sodium_compat/src/Core32',
+			'/libraries/vendor/paragonie/sodium_compat/src/PHP52',
 			// Joomla 3.12.0: development tools that earlier releases of this fork shipped by mistake
 			'/libraries/vendor/doctrine/instantiator',
 			'/libraries/vendor/doctrine',

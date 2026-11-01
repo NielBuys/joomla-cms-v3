@@ -1,7 +1,17 @@
 # Upgrade paragonie/sodium_compat 1.17.1 to the latest 2.x
 
-**Status:** planned. Depends on [php-minimum.md](php-minimum.md), because sodium_compat 2.x needs
-PHP 8.1. The fork's minimum is now 8.3.
+**Status:** done on the `tasks/upgrade-sodium-compat` branch, for release 3.12: sodium_compat 2.5.2.
+
+- `SodiumCipher` needed no change: 2.x still provides `ParagonIE\Sodium\Compat` (now through Composer's PSR-4
+  autoloader instead of `lib/namespaced.php`) and every method it calls.
+- A key pair and ciphertext made with 1.17.1 decrypt with 2.5.2, with and without the `sodium` extension, and an
+  all-zero public key is rejected with a `SodiumException`.
+- 2.x requires a 64-bit build of PHP. Composer's platform check stops the site with an error on 32-bit PHP; the
+  fork accepts that.
+- `paragonie/random_compat` stays, because `joomla/session` 1.x still requires it. On PHP 8 it does nothing.
+- `com_admin/script.php` removes the files 1.17.1 had and 2.5.2 does not.
+
+The plan below is kept for reference.
 
 **Why:** CVE-2025-69277 (Moderate, GHSA-mrfv-m5wm-5w6w). `crypto_box` and related functions did
 not check that a public key lies in the prime-order subgroup.
