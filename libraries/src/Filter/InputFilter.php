@@ -495,6 +495,7 @@ class InputFilter extends BaseInputFilter
 			'forbidden_extensions'       => array(
 				'php', 'phps', 'pht', 'phtml', 'php3', 'php4', 'php5', 'php6', 'php7',
 				'php8', 'phar', 'inc', 'pl', 'cgi', 'fcgi', 'java', 'jar', 'py',
+				'shtml', 'shtm', 'sht', 'stm',
 			),
 
 			// <?php tag in file contents
@@ -1082,6 +1083,32 @@ class InputFilter extends BaseInputFilter
 	protected function _cleanAttributes($attrSet)
 	{
 		return $this->cleanAttributes($attrSet);
+	}
+
+	/**
+	 * Method to strip a tag of certain attributes
+	 *
+	 * Also removes the data-mce-* attributes that TinyMCE uses internally. The editor removes them itself when it
+	 * saves, so stored content never needs them.
+	 *
+	 * @param   array  $attrSet  Array of attribute pairs to filter
+	 *
+	 * @return  array  Filtered array of attribute pairs
+	 *
+	 * @since   3.11.19
+	 */
+	protected function cleanAttributes($attrSet)
+	{
+		// Check the names the parent has normalised, so encoded or spaced-out names are caught too
+		return array_values(
+			array_filter(
+				parent::cleanAttributes($attrSet),
+				function ($attribute)
+				{
+					return stripos($attribute, 'data-mce-') !== 0;
+				}
+			)
+		);
 	}
 
 	/**

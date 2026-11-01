@@ -47,9 +47,34 @@ class TagsHelper extends CMSHelper
 	 */
 	public $typeAlias = null;
 
-	private $tags;
+	/**
+	 * The tag ids of the item, as an array or a comma-separated string. Public, because AdminModel's batch methods
+	 * and the Tags table observer read and write it.
+	 *
+	 * @var    array|string
+	 * @since  3.1
+	 */
+	public $tags;
 
 	public $itemTags;
+
+	/**
+	 * The tags passed to preStoreProcess(). Declared without a default: preStoreProcess() only sets it when tags are
+	 * given, as it did when this was a dynamic property.
+	 *
+	 * @var    array|string|null
+	 * @since  3.11.19
+	 */
+	public $newTags;
+
+	/**
+	 * The tag ids stored for the item before the save, set by preStoreProcess(). Declared without a default, because
+	 * preStoreProcess() tests it with isset().
+	 *
+	 * @var    string|null
+	 * @since  3.11.19
+	 */
+	public $oldTags;
 
 	/**
 	 * Method to add tag rows to mapping table.

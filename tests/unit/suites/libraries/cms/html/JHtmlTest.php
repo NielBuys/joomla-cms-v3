@@ -279,6 +279,30 @@ class JHtmlTest extends TestCase
 				'Link Text',
 				array('title' => 'My Link Title'),
 				'<a href="http://www.example.com" title="My Link Title">Link Text</a>'
+			),
+
+			// Double quote in the URL not escaped
+			array(
+				'http://www.example.com/" onmouseover="alert(1)',
+				'Link Text',
+				null,
+				'<a href="http://www.example.com/&quot; onmouseover=&quot;alert(1)" >Link Text</a>'
+			),
+
+			// Double quote in an attribute value not escaped, or invalid attribute name kept
+			array(
+				'http://www.example.com',
+				'Link Text',
+				array('title' => 'My "Link" Title', 'x onmouseover=alert(1) y' => 'z'),
+				'<a href="http://www.example.com" title="My &quot;Link&quot; Title">Link Text</a>'
+			),
+
+			// Escaped URL or attribute value escaped twice
+			array(
+				'http://www.example.com/?a=1&amp;b=2',
+				'Link Text',
+				array('title' => 'Tom &amp; Jerry'),
+				'<a href="http://www.example.com/?a=1&amp;b=2" title="Tom &amp; Jerry">Link Text</a>'
 			)
 		);
 	}
@@ -522,6 +546,159 @@ class JHtmlTest extends TestCase
 	}
 
 	/**
+	 * Gets the data for testing the escaping in the JHtml::image method.
+	 *
+	 * @return  array
+	 *
+	 * @since   3.11.19
+	 */
+	public function dataTestImageEscaping()
+	{
+		// The array includes $file, $alt, $attribs, $expected
+		return array(
+			// Double quote in the URL not escaped
+			array(
+				'http://www.example.com/test/image.jpg" onerror="alert(1)',
+				'My Alt Text',
+				null,
+				'<img src="http://www.example.com/test/image.jpg&quot; onerror=&quot;alert(1)" alt="My Alt Text" />'
+			),
+
+			// Double quote in the alt text or an attribute value not escaped, or invalid attribute name kept
+			array(
+				'http://www.example.com/test/image.jpg',
+				'My "Alt" Text',
+				array('title' => 'My "Title"', 'x onerror=alert(1) y' => 'z', 'width' => 150),
+				'<img src="http://www.example.com/test/image.jpg" alt="My &quot;Alt&quot; Text" title="My &quot;Title&quot;" width="150" />'
+			),
+
+			// Escaped URL or alt text escaped twice
+			array(
+				'http://www.example.com/test/image.jpg?a=1&amp;b=2',
+				'Tom &amp; Jerry',
+				'class="x"',
+				'<img src="http://www.example.com/test/image.jpg?a=1&amp;b=2" alt="Tom &amp; Jerry" class="x" />'
+			)
+		);
+	}
+
+	/**
+	 * Tests the escaping in the image method.
+	 *
+	 * @param   string        $file      The URL for the src attribute.
+	 * @param   string        $alt       The alt text.
+	 * @param   array|string  $attribs   Attributes for the img element.
+	 * @param   string        $expected  The expected result.
+	 *
+	 * @return  void
+	 *
+	 * @since         3.11.19
+	 * @dataProvider  dataTestImageEscaping
+	 */
+	public function testImageEscaping($file, $alt, $attribs, $expected)
+	{
+		$this->assertEquals(
+			$expected,
+			JHtml::image($file, $alt, $attribs)
+		);
+	}
+
+	/**
+	 * Tests the escaping in the image method for a relative image whose path contains an ampersand.
+	 *
+	 * @return  void
+	 *
+	 * @since   3.11.19
+	 */
+	public function testImageEscapingRelativePath()
+	{
+		$urlfilename = 'image' . uniqid() . '&test.png';
+		$path        = JPATH_ROOT . '/media/system/images/' . $urlfilename;
+
+		JFactory::$application->expects($this->any())
+			->method('getTemplate')
+			->will($this->returnValue('mytemplate' . uniqid()));
+
+		file_put_contents($path, 'test');
+
+		try
+		{
+			$this->assertEquals(
+				'<img src="' . JUri::base(true) . '/media/system/images/' . str_replace('&', '&amp;', $urlfilename) . '" alt="My Alt Text" />',
+				JHtml::image($urlfilename, 'My Alt Text', null, true),
+				'JHtml::image did not escape the ampersand in the path it found'
+			);
+
+			// The bare path is not HTML (it is used in CSS url() and JavaScript), so it stays unescaped
+			$this->assertEquals(
+				JUri::base(true) . '/media/system/images/' . $urlfilename,
+				JHtml::image($urlfilename, 'My Alt Text', null, true, 1),
+				'JHtml::image escaped the path in path only mode'
+			);
+		}
+		finally
+		{
+			unlink($path);
+		}
+	}
+
+	/**
+	 * Gets the data for testing the escaping in the JHtml::tooltip method.
+	 *
+	 * @return  array
+	 *
+	 * @since   3.11.19
+	 */
+	public function dataTestTooltipEscaping()
+	{
+		$title = '&lt;strong&gt;Title&lt;/strong&gt;&lt;br /&gt;Content';
+
+		// The array includes $href, $class, $expected
+		return array(
+			// Double quote in the href not escaped
+			array(
+				'http://www.example.com/" onmouseover="alert(1)',
+				'hasTooltip',
+				'<span class="hasTooltip" title="' . $title . '"><a href="http://www.example.com/&quot; onmouseover=&quot;alert(1)">Text</a></span>'
+			),
+
+			// Double quote in the class not escaped
+			array(
+				'',
+				'hasTooltip" onmouseover="alert(1)',
+				'<span class="hasTooltip&quot; onmouseover=&quot;alert(1)" title="' . $title . '">Text</span>'
+			),
+
+			// Escaped href escaped twice
+			array(
+				'index.php?option=com_content&amp;view=article&amp;id=1',
+				'hasTooltip',
+				'<span class="hasTooltip" title="' . $title . '"><a href="index.php?option=com_content&amp;view=article&amp;id=1">Text</a></span>'
+			)
+		);
+	}
+
+	/**
+	 * Tests the escaping in the tooltip method.
+	 *
+	 * @param   string  $href      The URL for the link.
+	 * @param   string  $class     The CSS class for the tooltip.
+	 * @param   string  $expected  The expected result.
+	 *
+	 * @return  void
+	 *
+	 * @since         3.11.19
+	 * @dataProvider  dataTestTooltipEscaping
+	 */
+	public function testTooltipEscaping($href, $class, $expected)
+	{
+		$this->assertEquals(
+			$expected,
+			JHtml::tooltip('Content', 'Title', '', 'Text', $href, 'Tooltip', $class)
+		);
+	}
+
+	/**
 	 * Gets the data for testing the JHtml::iframe method.
 	 *
 	 * @return  array
@@ -547,6 +724,15 @@ class JHtmlTest extends TestCase
 				array('title' => 'My Link Title'),
 				'',
 				'<iframe src="http://www.example.com" title="My Link Title" name="Link Text"></iframe>'
+			),
+
+			// Double quote in the URL, name or an attribute value not escaped, or invalid attribute name kept
+			array(
+				'http://www.example.com/" onload="alert(1)',
+				'Link "Text"',
+				array('title' => 'My "Link" Title', 'x onload=alert(1) y' => 'z'),
+				'',
+				'<iframe src="http://www.example.com/&quot; onload=&quot;alert(1)" title="My &quot;Link&quot; Title" name="Link &quot;Text&quot;"></iframe>'
 			)
 		);
 	}
