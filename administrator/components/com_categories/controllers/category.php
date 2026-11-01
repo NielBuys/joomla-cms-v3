@@ -89,22 +89,25 @@ class CategoriesControllerCategory extends JControllerForm
 
 	/**
 	 * Checks that the input data does not name a parent category of another extension than
-	 * the one the permissions are checked for. The root category is allowed.
+	 * the one the permissions are checked for. The root category is allowed, and so is the
+	 * current parent of an existing category.
 	 *
-	 * @param   array  $data  An array of input data.
+	 * @param   array    $data             An array of input data.
+	 * @param   integer  $currentParentId  The current parent of an existing category, or null.
 	 *
 	 * @return  boolean
 	 *
 	 * @since   3.11.19
 	 */
-	private function isPostedParentAllowed($data)
+	private function isPostedParentAllowed($data, $currentParentId = null)
 	{
 		if (!isset($data['parent_id']) || $data['parent_id'] === '')
 		{
 			return true;
 		}
 
-		if (!is_scalar($data['parent_id']))
+		// Only plain ids, the form filter would decode other values to a different id
+		if (!is_int($data['parent_id']) && !(is_string($data['parent_id']) && ctype_digit($data['parent_id'])))
 		{
 			return false;
 		}
@@ -112,7 +115,8 @@ class CategoriesControllerCategory extends JControllerForm
 		$parentId = (int) $data['parent_id'];
 		$table    = JTable::getInstance('Category');
 
-		if ($parentId === 0 || $parentId === (int) $table->getRootId())
+		if ($parentId === 0 || $parentId === (int) $table->getRootId()
+			|| ($currentParentId !== null && $parentId === (int) $currentParentId))
 		{
 			return true;
 		}
@@ -136,8 +140,8 @@ class CategoriesControllerCategory extends JControllerForm
 		$user = JFactory::getUser();
 		$record = null;
 
-		// A category cannot be saved into another extension, or under a category of another extension
-		if (!$this->isPostedExtensionAllowed($data) || !$this->isPostedParentAllowed($data))
+		// A category cannot be saved into another extension
+		if (!$this->isPostedExtensionAllowed($data))
 		{
 			return false;
 		}
@@ -152,6 +156,12 @@ class CategoriesControllerCategory extends JControllerForm
 			{
 				return false;
 			}
+		}
+
+		// Nor under a category of another extension, unless it already is there
+		if (!$this->isPostedParentAllowed($data, $record ? $record->parent_id : null))
+		{
+			return false;
 		}
 
 		// Check "edit" permission on record asset (explicit or inherited)

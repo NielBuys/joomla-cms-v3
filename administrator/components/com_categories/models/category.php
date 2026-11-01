@@ -518,9 +518,30 @@ class CategoriesModelCategory extends JModelAdmin
 			$isNew = false;
 		}
 
+		// A posted parent of 0 or empty means the root category; 0 would otherwise make the category a second root
+		if (isset($data['parent_id']) && is_scalar($data['parent_id']) && (int) $data['parent_id'] === 0)
+		{
+			$data['parent_id'] = (int) $table->getRootId();
+		}
+
 		// Set the new parent id if parent id not matched OR while New/Save as Copy .
 		if ($table->parent_id != $data['parent_id'] || $data['id'] == 0)
 		{
+			// The new parent must belong to the extension of the category, checked on the filtered data
+			$extension = !empty($data['extension']) ? $data['extension'] : $table->extension;
+
+			if (empty($extension))
+			{
+				$extension = $this->getState('category.extension');
+			}
+
+			if (!$this->isParentOfExtension(isset($data['parent_id']) ? $data['parent_id'] : null, $extension))
+			{
+				$this->setError(JText::_('JLIB_APPLICATION_ERROR_SAVE_NOT_PERMITTED'));
+
+				return false;
+			}
+
 			$table->setLocation($data['parent_id'], 'last-child');
 		}
 
@@ -823,6 +844,35 @@ class CategoriesModelCategory extends JModelAdmin
 		$this->cleanCache();
 
 		return true;
+	}
+
+	/**
+	 * Checks that a parent category belongs to an extension. The root category belongs to every
+	 * extension.
+	 *
+	 * @param   mixed   $parentId   The id of the parent category.
+	 * @param   string  $extension  The extension of the category that is saved.
+	 *
+	 * @return  boolean  True if the category may be saved under the parent.
+	 *
+	 * @since   3.11.19
+	 */
+	protected function isParentOfExtension($parentId, $extension)
+	{
+		if ($parentId !== null && !is_scalar($parentId))
+		{
+			return false;
+		}
+
+		$parentId = (int) $parentId;
+		$table    = $this->getTable();
+
+		if ($parentId === 0 || $parentId === (int) $table->getRootId())
+		{
+			return true;
+		}
+
+		return is_string($extension) && $extension !== '' && $table->load($parentId) && $table->extension === $extension;
 	}
 
 	/**
@@ -1230,8 +1280,9 @@ class CategoriesModelCategory extends JModelAdmin
 	 */
 	protected function canCopyCategories($pks)
 	{
-		$db    = $this->getDbo();
-		$table = $this->getTable();
+		$db        = $this->getDbo();
+		$table     = $this->getTable();
+		$extension = JFactory::getApplication()->input->get('extension', '', 'cmd');
 
 		foreach ($pks as $pk)
 		{
@@ -1252,7 +1303,9 @@ class CategoriesModelCategory extends JModelAdmin
 
 			foreach ($db->setQuery($query)->loadObjectList() as $category)
 			{
-				if (!$this->user->authorise('core.edit', $category->extension . '.category.' . (int) $category->id))
+				// Only categories of the extension of the request may be copied
+				if ($category->extension !== $extension
+					|| !$this->user->authorise('core.edit', $category->extension . '.category.' . (int) $category->id))
 				{
 					return false;
 				}
@@ -1333,7 +1386,9 @@ class CategoriesModelCategory extends JModelAdmin
 					continue;
 				}
 
-				if (!$this->user->authorise('core.edit', $this->table->extension . '.category.' . (int) $pk))
+				// The category must belong to the extension of the request
+				if ($this->table->extension !== JFactory::getApplication()->input->get('extension', '', 'cmd')
+					|| !$this->user->authorise('core.edit', $this->table->extension . '.category.' . (int) $pk))
 				{
 					// Error since user cannot edit this category
 					$this->setError(JText::_('COM_CATEGORIES_BATCH_CANNOT_EDIT'));
