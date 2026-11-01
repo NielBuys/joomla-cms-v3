@@ -1085,6 +1085,32 @@ class InputFilter extends BaseInputFilter
 	}
 
 	/**
+	 * Method to strip a tag of certain attributes
+	 *
+	 * Also removes the data-mce-* attributes that TinyMCE uses internally. The editor removes them itself when it
+	 * saves, so stored content never needs them.
+	 *
+	 * @param   array  $attrSet  Array of attribute pairs to filter
+	 *
+	 * @return  array  Filtered array of attribute pairs
+	 *
+	 * @since   3.11.19
+	 */
+	protected function cleanAttributes($attrSet)
+	{
+		// Check the names the parent has normalised, so encoded or spaced-out names are caught too
+		return array_values(
+			array_filter(
+				parent::cleanAttributes($attrSet),
+				function ($attribute)
+				{
+					return stripos($attribute, 'data-mce-') !== 0;
+				}
+			)
+		);
+	}
+
+	/**
 	 * Escape < > and " inside attribute values
 	 *
 	 * @param   string  $source  The source string.
