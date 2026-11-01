@@ -369,11 +369,11 @@ class JPaginationTest extends TestCase
 						'prefix' => '',
 						'active' => false,
 					),
-					// Version without '?limitstart=0'
+					// Version with an empty limitstart instead of '?limitstart=0'
 					array(
 						'text' => 'JLIB_HTML_START',
 						'base' => '0',
-						'link' => 'index.php',
+						'link' => 'index.php?limitstart=',
 						'prefix' => '',
 						'active' => false,
 					),

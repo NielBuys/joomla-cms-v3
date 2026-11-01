@@ -57,7 +57,34 @@ class FieldsControllerField extends JControllerForm
 	 */
 	protected function allowAdd($data = array())
 	{
-		return JFactory::getUser()->authorise('core.create', $this->component);
+		return $this->isPostedContextAllowed($data) && JFactory::getUser()->authorise('core.create', $this->component);
+	}
+
+	/**
+	 * Checks that the input data does not name a context of another component than the one
+	 * the permissions are checked for.
+	 *
+	 * @param   array  $data  An array of input data.
+	 *
+	 * @return  boolean
+	 *
+	 * @since   3.11.19
+	 */
+	private function isPostedContextAllowed($data)
+	{
+		if (!isset($data['context']) || $data['context'] === '')
+		{
+			return true;
+		}
+
+		if (!is_string($data['context']))
+		{
+			return false;
+		}
+
+		list($postedOption) = explode('.', $data['context']);
+
+		return $postedOption === $this->component;
 	}
 
 	/**
@@ -75,10 +102,32 @@ class FieldsControllerField extends JControllerForm
 		$recordId = (int) isset($data[$key]) ? $data[$key] : 0;
 		$user = JFactory::getUser();
 
+		// A field cannot be saved into the context of another component
+		if (!$this->isPostedContextAllowed($data))
+		{
+			return false;
+		}
+
 		// Zero record (id:0), return component edit permission by calling parent controller method
 		if (!$recordId)
 		{
 			return parent::allowEdit($data, $key);
+		}
+
+		// Get existing record
+		$record = $this->getModel()->getItem($recordId);
+
+		if (empty($record))
+		{
+			return false;
+		}
+
+		list($recordOption) = explode('.', $record->context);
+
+		// Validate request context and field context match
+		if ($recordOption !== $this->component)
+		{
+			return false;
 		}
 
 		// Check edit on the record asset (explicit or inherited)
@@ -90,14 +139,6 @@ class FieldsControllerField extends JControllerForm
 		// Check edit own on the record asset (explicit or inherited)
 		if ($user->authorise('core.edit.own', $this->component . '.field.' . $recordId))
 		{
-			// Existing record already has an owner, get it
-			$record = $this->getModel()->getItem($recordId);
-
-			if (empty($record))
-			{
-				return false;
-			}
-
 			// Grant if current user is owner of the record
 			return $user->id == $record->created_user_id;
 		}
