@@ -6,8 +6,14 @@
   autoloader instead of `lib/namespaced.php`) and every method it calls.
 - A key pair and ciphertext made with 1.17.1 decrypt with 2.5.2, with and without the `sodium` extension, and an
   all-zero public key is rejected with a `SodiumException`.
-- 2.x requires a 64-bit build of PHP. Composer's platform check stops the site with an error on 32-bit PHP; the
-  fork accepts that.
+- 2.x requires a 64-bit build of PHP. Composer's platform check stops every request with an error on 32-bit PHP,
+  and the update server cannot keep 3.12 from 32-bit hosts, because `php_minimum` only compares versions. A 32-bit
+  site that updates is therefore broken until PHP is changed. The release notes must say so prominently.
+  Composer's `platform-check: "php-only"` does not help, because it still checks for 64-bit; only turning the
+  platform check off would, and that also drops its PHP version check (`index.php` has its own).
+- 1.17.1 also defined the old PECL libsodium 1.x functions in the `\Sodium` namespace, such as
+  `\Sodium\randombytes_buf()`, on every request. 2.x does not, so an extension that still calls them fails. Note it in
+  the release notes; the `sodium_*` functions and `ParagonIE_Sodium_Compat` remain.
 - `paragonie/random_compat` stays, because `joomla/session` 1.x still requires it. On PHP 8 it does nothing.
 - `com_admin/script.php` removes the files 1.17.1 had and 2.5.2 does not.
 
