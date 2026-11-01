@@ -81,7 +81,7 @@ class JApplicationAdministratorTest extends TestCaseDatabase
 	 *
 	 * @since   3.2
 	 */
-	public function setUp()
+	public function setUp(): void
 	{
 		parent::setUp();
 
@@ -115,7 +115,7 @@ class JApplicationAdministratorTest extends TestCaseDatabase
 	 * @see     \PHPUnit\Framework\TestCase::tearDown()
 	 * @since   3.2
 	 */
-	protected function tearDown()
+	protected function tearDown(): void
 	{
 		// Reset the dispatcher and application instances.
 		TestReflection::setValue('JEventDispatcher', 'instance', null);

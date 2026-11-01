@@ -72,7 +72,7 @@ class JLinkedinJobsTest extends TestCase
 	 *
 	 * @return void
 	 */
-	protected function setUp()
+	protected function setUp(): void
 	{
 		parent::setUp();
 		$this->backupServer = $_SERVER;
@@ -107,7 +107,7 @@ class JLinkedinJobsTest extends TestCase
 	 * @see     \PHPUnit\Framework\TestCase::tearDown()
 	 * @since   3.6
 	 */
-	protected function tearDown()
+	protected function tearDown(): void
 	{
 		$_SERVER = $this->backupServer;
 		unset($this->backupServer, $this->options, $this->input, $this->client, $this->oauth, $this->object);
@@ -153,11 +153,12 @@ class JLinkedinJobsTest extends TestCase
 	 *
 	 * @return  void
 	 *
-	 * @expectedException DomainException
 	 * @since   3.2.0
 	 */
 	public function testGetJobFailure()
 	{
+		$this->expectException('DomainException');
+
 		$id = 12345;
 		$fields = '(id,company,posting-date)';
 
@@ -218,11 +219,12 @@ class JLinkedinJobsTest extends TestCase
 	 *
 	 * @return  void
 	 *
-	 * @expectedException DomainException
 	 * @since   3.2.0
 	 */
 	public function testGetBookmarkedFailure()
 	{
+		$this->expectException('DomainException');
+
 		$fields = '(id,position)';
 
 		// Set request parameters.
@@ -281,11 +283,12 @@ class JLinkedinJobsTest extends TestCase
 	 *
 	 * @return  void
 	 *
-	 * @expectedException DomainException
 	 * @since   3.2.0
 	 */
 	public function testBookmarkFailure()
 	{
+		$this->expectException('DomainException');
+
 		$id = '12345';
 
 		$path = '/v1/people/~/job-bookmarks';
@@ -339,11 +342,12 @@ class JLinkedinJobsTest extends TestCase
 	 *
 	 * @return  void
 	 *
-	 * @expectedException DomainException
 	 * @since   3.2.0
 	 */
 	public function testDeleteBookmarkFailure()
 	{
+		$this->expectException('DomainException');
+
 		$id = '12345';
 
 		$path = '/v1/people/~/job-bookmarks/' . $id;
@@ -402,11 +406,12 @@ class JLinkedinJobsTest extends TestCase
 	 *
 	 * @return  void
 	 *
-	 * @expectedException DomainException
 	 * @since   3.2.0
 	 */
 	public function testGetSuggestedFailure()
 	{
+		$this->expectException('DomainException');
+
 		$fields = '(jobs)';
 		$start = 1;
 		$count = 10;
@@ -504,11 +509,12 @@ class JLinkedinJobsTest extends TestCase
 	 *
 	 * @return  void
 	 *
-	 * @expectedException DomainException
 	 * @since   3.2.0
 	 */
 	public function testSearchFailure()
 	{
+		$this->expectException('DomainException');
+
 		$fields = '(facets)';
 		$keywords = 'quality, internet';
 		$company_name = 'Google';

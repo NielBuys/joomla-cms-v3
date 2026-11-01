@@ -65,7 +65,7 @@ class JFacebookObjectTest extends TestCase
 	 *
 	 * @since    3.2.0
 	 */
-	protected function setUp()
+	protected function setUp(): void
 	{
 		$this->backupServer = $_SERVER;
 		$_SERVER['HTTP_HOST'] = 'example.com';
@@ -89,7 +89,7 @@ class JFacebookObjectTest extends TestCase
 	 * @see     \PHPUnit\Framework\TestCase::tearDown()
 	 * @since   3.6
 	 */
-	protected function tearDown()
+	protected function tearDown(): void
 	{
 		$_SERVER = $this->backupServer;
 		unset($this->backupServer, $this->options, $this->client, $this->object);

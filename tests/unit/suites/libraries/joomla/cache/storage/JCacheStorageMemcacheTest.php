@@ -18,7 +18,7 @@ class JCacheStorageMemcacheTest extends TestCaseCache
 	 *
 	 * @return  void
 	 */
-	protected function setUp()
+	protected function setUp(): void
 	{
 		if (!JCacheStorageMemcache::isSupported())
 		{

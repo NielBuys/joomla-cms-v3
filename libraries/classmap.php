@@ -358,6 +358,19 @@ JLoader::registerAlias('JMail',                             '\\Joomla\\CMS\\Mail
 JLoader::registerAlias('JMailHelper',                       '\\Joomla\\CMS\\Mail\\MailHelper', '5.0');
 JLoader::registerAlias('JMailWrapperHelper',                '\\Joomla\\CMS\\Mail\\MailWrapper', '4.0');
 
+// PHPMailer 5.2 class names, for extensions written before PHPMailer moved to its own namespace
+JLoader::registerAlias('PHPMailer',                         '\\PHPMailer\\PHPMailer\\PHPMailer', '5.0');
+JLoader::registerAlias('phpmailerException',                '\\PHPMailer\\PHPMailer\\Exception', '5.0');
+JLoader::registerAlias('SMTP',                              '\\PHPMailer\\PHPMailer\\SMTP', '5.0');
+JLoader::registerAlias('POP3',                              '\\PHPMailer\\PHPMailer\\POP3', '5.0');
+
+// leafo/lessphp class names, now provided by its maintained fork splitbrain/lesserphp
+JLoader::registerAlias('lessc',                             '\\LesserPHP\\Lessc', '5.0');
+JLoader::registerAlias('lessc_parser',                      '\\LesserPHP\\Parser', '5.0');
+JLoader::registerAlias('lessc_formatter_classic',           '\\LesserPHP\\FormatterClassic', '5.0');
+JLoader::registerAlias('lessc_formatter_compressed',        '\\LesserPHP\\FormatterCompressed', '5.0');
+JLoader::registerAlias('lessc_formatter_lessjs',            '\\LesserPHP\\FormatterLessJs', '5.0');
+
 JLoader::registerAlias('JClientHelper',                     '\\Joomla\\CMS\\Client\\ClientHelper', '5.0');
 JLoader::registerAlias('JClientWrapperHelper',              '\\Joomla\\CMS\\Client\\ClientWrapper', '5.0');
 JLoader::registerAlias('JClientFtp',                        '\\Joomla\\CMS\\Client\\FtpClient', '5.0');

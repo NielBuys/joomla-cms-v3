@@ -23,7 +23,7 @@ class JImageFilterTest extends TestCase
 	 *
 	 * @since   2.5.0
 	 */
-	protected function setUp()
+	protected function setUp(): void
 	{
 		// Verify that GD support for PHP is available.
 		if (!extension_loaded('gd'))
@@ -41,10 +41,11 @@ class JImageFilterTest extends TestCase
 	 *
 	 * @since   2.5.0
 	 *
-	 * @expectedException  InvalidArgumentException
 	 */
 	public function testConstructorInvalidArgument()
 	{
+		$this->expectException('InvalidArgumentException');
+
 		new JImageFilterBrightness('test');
 	}
 

@@ -32,7 +32,7 @@ class JHtmlBootstrapTest extends TestCase
 	 *
 	 * @since   3.1
 	 */
-	protected function setUp()
+	protected function setUp(): void
 	{
 		// Ensure the loaded states are reset
 		JHtmlBootstrapInspector::resetLoaded();
@@ -60,7 +60,7 @@ class JHtmlBootstrapTest extends TestCase
 	 *
 	 * @since   3.1
 	 */
-	protected function tearDown()
+	protected function tearDown(): void
 	{
 		$_SERVER = $this->backupServer;
 		unset($this->backupServer);
@@ -382,7 +382,7 @@ class JHtmlBootstrapTest extends TestCase
 			'Verify that the alert method initialises Bootstrap as well'
 		);
 
-		$this->assertContains(
+		$this->assertStringContainsString(
 			'jQuery(function($){ initTooltips();',
 			$document->_script['text/javascript'],
 			'Verify that the tooltip script is initialised'

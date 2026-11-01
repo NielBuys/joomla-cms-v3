@@ -18,7 +18,7 @@ class JCacheStorageApcTest extends TestCaseCache
 	 *
 	 * @return  void
 	 */
-	protected function setUp()
+	protected function setUp(): void
 	{
 		if (!JCacheStorageApc::isSupported())
 		{

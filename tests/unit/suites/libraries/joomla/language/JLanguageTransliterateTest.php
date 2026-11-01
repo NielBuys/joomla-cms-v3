@@ -12,7 +12,7 @@
  * @package     Joomla.UnitTest
  * @subpackage  Language
  */
-class JLanguageTransliterateTest extends \PHPUnit\Framework\TestCase
+class JLanguageTransliterateTest extends TestCasePhpunit
 {
 	public function dataNames()
 	{

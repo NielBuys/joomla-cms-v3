@@ -35,7 +35,7 @@
 
 8- Ready to install Joomla?
 	* Check the minimum requirements (PHP 8.5 ready)
-		PHP minimum v8.0, recommended v8.2 
+		PHP minimum v8.3, recommended v8.5
 			(Magic Quotes GPC, MB String Overload = off)
 			(Zlib Compression Support, XML Support, INI Parser Support, JSON Support, MB Language = Default, Intl support), 
 		MySQL minimum v5.1, recommended v5.5.3 + (InnoDB support required)

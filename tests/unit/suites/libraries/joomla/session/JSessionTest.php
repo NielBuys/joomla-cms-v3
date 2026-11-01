@@ -30,7 +30,7 @@ class JSessionTest extends TestCase
 	 *
 	 * @return void
 	 */
-	protected function setUp()
+	protected function setUp(): void
 	{
 		parent::setUp();
 
@@ -65,7 +65,7 @@ class JSessionTest extends TestCase
 	 *
 	 * @return void
 	 */
-	protected function tearDown()
+	protected function tearDown(): void
 	{
 		$this->restoreFactoryState();
 		unset($this->input, $this->object);

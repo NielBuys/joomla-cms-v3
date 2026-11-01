@@ -32,7 +32,7 @@ class JTableContentTest extends TestCaseDatabase
 	 *
 	 * @since   2.5.0
 	 */
-	protected function setUp()
+	protected function setUp(): void
 	{
 		parent::setUp();
 
@@ -52,7 +52,7 @@ class JTableContentTest extends TestCaseDatabase
 	 *
 	 * @since   2.5.0
 	 */
-	protected function tearDown()
+	protected function tearDown(): void
 	{
 		$this->restoreFactoryState();
 		unset($this->object);

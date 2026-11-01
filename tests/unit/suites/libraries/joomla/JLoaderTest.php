@@ -12,7 +12,7 @@
  * @package  Joomla.UnitTest
  * @since    1.7.0
  */
-class JLoaderTest extends \PHPUnit\Framework\TestCase
+class JLoaderTest extends TestCasePhpunit
 {
 	/**
 	 * Container for JLoader static values during tests.
@@ -53,7 +53,7 @@ class JLoaderTest extends \PHPUnit\Framework\TestCase
 	 *
 	 * @since   3.1.4
 	 */
-	public static function setUpBeforeClass()
+	public static function setUpBeforeClass(): void
 	{
 		self::$cache['classes']    = TestReflection::getValue('JLoader', 'classes');
 		self::$cache['imported']   = TestReflection::getValue('JLoader', 'imported');
@@ -70,7 +70,7 @@ class JLoaderTest extends \PHPUnit\Framework\TestCase
 	 *
 	 * @since   3.1.4
 	 */
-	public static function tearDownAfterClass()
+	public static function tearDownAfterClass(): void
 	{
 		JLoader::setup();
 		TestReflection::setValue('JLoader', 'classes', self::$cache['classes']);
@@ -552,10 +552,11 @@ class JLoaderTest extends \PHPUnit\Framework\TestCase
 	 * @return  void
 	 *
 	 * @since   3.1.4
-	 * @expectedException  RuntimeException
 	 */
 	public function testRegisterNamespaceException()
 	{
+		$this->expectException('RuntimeException');
+
 		// Clear the namespaces array for this test
 		TestReflection::setValue('JLoader', 'namespaces', array('psr0' => array(), 'psr4' => array()));
 
@@ -689,10 +690,11 @@ class JLoaderTest extends \PHPUnit\Framework\TestCase
 	 * @return  void
 	 *
 	 * @since   3.0.0
-	 * @expectedException RuntimeException
 	 */
 	public function testRegisterPrefixException()
 	{
+		$this->expectException('RuntimeException');
+
 		JLoader::registerPrefix('P', __DIR__ . '/doesnotexist');
 	}
 
@@ -946,7 +948,7 @@ class JLoaderTest extends \PHPUnit\Framework\TestCase
 	 *
 	 * @since   1.7.0
 	 */
-	protected function setUp()
+	protected function setUp(): void
 	{
 		$this->bogusPath = JPATH_TEST_STUBS . '';
 		$this->bogusFullPath = JPATH_TEST_STUBS . '/bogusload.php';
@@ -961,7 +963,7 @@ class JLoaderTest extends \PHPUnit\Framework\TestCase
 	 * @see     \PHPUnit\Framework\TestCase::tearDown()
 	 * @since   3.6
 	 */
-	protected function tearDown()
+	protected function tearDown(): void
 	{
 		unset($this->bogusPath, $this->bogusFullPath);
 	}

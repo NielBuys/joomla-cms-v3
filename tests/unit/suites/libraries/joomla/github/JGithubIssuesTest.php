@@ -15,7 +15,7 @@
  *
  * @since       1.7.0
  */
-class JGithubIssuesTest extends \PHPUnit\Framework\TestCase
+class JGithubIssuesTest extends TestCasePhpunit
 {
 	/**
 	 * @var    JRegistry  Options for the GitHub object.
@@ -61,7 +61,7 @@ class JGithubIssuesTest extends \PHPUnit\Framework\TestCase
 	 *
 	 * @return void
 	 */
-	protected function setUp()
+	protected function setUp(): void
 	{
 		parent::setUp();
 
@@ -80,7 +80,7 @@ class JGithubIssuesTest extends \PHPUnit\Framework\TestCase
 	 * @see     \PHPUnit\Framework\TestCase::tearDown()
 	 * @since   3.6
 	 */
-	protected function tearDown()
+	protected function tearDown(): void
 	{
 		unset($this->options, $this->client, $this->response, $this->object);
 		parent::tearDown();
@@ -117,12 +117,13 @@ class JGithubIssuesTest extends \PHPUnit\Framework\TestCase
 	/**
 	 * Tests the create method - failure
 	 *
-	 * @expectedException  DomainException
 	 *
 	 * @return void
 	 */
 	public function testCreateFailure()
 	{
+		$this->expectException('DomainException');
+
 		$this->response->code = 501;
 		$this->response->body = $this->errorString;
 
@@ -168,12 +169,13 @@ class JGithubIssuesTest extends \PHPUnit\Framework\TestCase
 	/**
 	 * Tests the createComment method - failure
 	 *
-	 * @expectedException  DomainException
 	 *
 	 * @return void
 	 */
 	public function testCreateCommentFailure()
 	{
+		$this->expectException('DomainException');
+
 		$this->response->code = 501;
 		$this->response->body = $this->errorString;
 
@@ -216,12 +218,13 @@ class JGithubIssuesTest extends \PHPUnit\Framework\TestCase
 	/**
 	 * Tests the createLabel method - failure
 	 *
-	 * @expectedException  DomainException
 	 *
 	 * @return void
 	 */
 	public function testCreateLabelFailure()
 	{
+		$this->expectException('DomainException');
+
 		$this->response->code = 501;
 		$this->response->body = $this->errorString;
 
@@ -258,12 +261,13 @@ class JGithubIssuesTest extends \PHPUnit\Framework\TestCase
 	/**
 	 * Tests the deleteComment method - failure
 	 *
-	 * @expectedException  DomainException
 	 *
 	 * @return void
 	 */
 	public function testDeleteCommentFailure()
 	{
+		$this->expectException('DomainException');
+
 		$this->response->code = 504;
 		$this->response->body = $this->errorString;
 
@@ -296,12 +300,13 @@ class JGithubIssuesTest extends \PHPUnit\Framework\TestCase
 	/**
 	 * Tests the deleteLabel method - failure
 	 *
-	 * @expectedException  DomainException
 	 *
 	 * @return void
 	 */
 	public function testDeleteLabelFailure()
 	{
+		$this->expectException('DomainException');
+
 		$this->response->code = 504;
 		$this->response->body = $this->errorString;
 
@@ -347,12 +352,13 @@ class JGithubIssuesTest extends \PHPUnit\Framework\TestCase
 	/**
 	 * Tests the edit method - failure
 	 *
-	 * @expectedException  DomainException
 	 *
 	 * @return void
 	 */
 	public function testEditFailure()
 	{
+		$this->expectException('DomainException');
+
 		$this->response->code = 500;
 		$this->response->body = $this->errorString;
 
@@ -396,12 +402,13 @@ class JGithubIssuesTest extends \PHPUnit\Framework\TestCase
 	/**
 	 * Tests the editComment method - failure
 	 *
-	 * @expectedException  DomainException
 	 *
 	 * @return void
 	 */
 	public function testEditCommentFailure()
 	{
+		$this->expectException('DomainException');
+
 		$this->response->code = 500;
 		$this->response->body = $this->errorString;
 
@@ -444,12 +451,13 @@ class JGithubIssuesTest extends \PHPUnit\Framework\TestCase
 	/**
 	 * Tests the editLabel method - failure
 	 *
-	 * @expectedException  DomainException
 	 *
 	 * @return void
 	 */
 	public function testEditLabelFailure()
 	{
+		$this->expectException('DomainException');
+
 		$this->response->code = 500;
 		$this->response->body = $this->errorString;
 
@@ -489,12 +497,13 @@ class JGithubIssuesTest extends \PHPUnit\Framework\TestCase
 	/**
 	 * Tests the get method - failure
 	 *
-	 * @expectedException  DomainException
 	 *
 	 * @return void
 	 */
 	public function testGetFailure()
 	{
+		$this->expectException('DomainException');
+
 		$this->response->code = 500;
 		$this->response->body = $this->errorString;
 
@@ -530,12 +539,13 @@ class JGithubIssuesTest extends \PHPUnit\Framework\TestCase
 	/**
 	 * Tests the getComment method - failure
 	 *
-	 * @expectedException  DomainException
 	 *
 	 * @return void
 	 */
 	public function testGetCommentFailure()
 	{
+		$this->expectException('DomainException');
+
 		$this->response->code = 500;
 		$this->response->body = $this->errorString;
 
@@ -571,12 +581,13 @@ class JGithubIssuesTest extends \PHPUnit\Framework\TestCase
 	/**
 	 * Tests the getComments method - failure
 	 *
-	 * @expectedException  DomainException
 	 *
 	 * @return void
 	 */
 	public function testGetCommentsFailure()
 	{
+		$this->expectException('DomainException');
+
 		$this->response->code = 500;
 		$this->response->body = $this->errorString;
 
@@ -612,12 +623,13 @@ class JGithubIssuesTest extends \PHPUnit\Framework\TestCase
 	/**
 	 * Tests the getLabel method - failure
 	 *
-	 * @expectedException  DomainException
 	 *
 	 * @return void
 	 */
 	public function testGetLabelFailure()
 	{
+		$this->expectException('DomainException');
+
 		$this->response->code = 500;
 		$this->response->body = $this->errorString;
 
@@ -653,12 +665,13 @@ class JGithubIssuesTest extends \PHPUnit\Framework\TestCase
 	/**
 	 * Tests the getLabels method - failure
 	 *
-	 * @expectedException  DomainException
 	 *
 	 * @return void
 	 */
 	public function testGetLabelsFailure()
 	{
+		$this->expectException('DomainException');
+
 		$this->response->code = 500;
 		$this->response->body = $this->errorString;
 
@@ -694,12 +707,13 @@ class JGithubIssuesTest extends \PHPUnit\Framework\TestCase
 	/**
 	 * Tests the getList method - failure
 	 *
-	 * @expectedException  DomainException
 	 *
 	 * @return void
 	 */
 	public function testGetListFailure()
 	{
+		$this->expectException('DomainException');
+
 		$this->response->code = 500;
 		$this->response->body = $this->errorString;
 
@@ -772,12 +786,13 @@ class JGithubIssuesTest extends \PHPUnit\Framework\TestCase
 	/**
 	 * Tests the getListByRepository method - failure
 	 *
-	 * @expectedException  DomainException
 	 *
 	 * @return void
 	 */
 	public function testGetListByRepositoryFailure()
 	{
+		$this->expectException('DomainException');
+
 		$this->response->code = 500;
 		$this->response->body = $this->errorString;
 

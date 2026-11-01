@@ -19,7 +19,7 @@ class JCacheStorageCacheliteTest extends TestCaseCache
 	 *
 	 * @return  void
 	 */
-	protected function setUp()
+	protected function setUp(): void
 	{
 		if (!JCacheStorageCachelite::isSupported())
 		{
@@ -40,7 +40,7 @@ class JCacheStorageCacheliteTest extends TestCaseCache
 	 *
 	 * @return  void
 	 */
-	protected function tearDown()
+	protected function tearDown(): void
 	{
 		parent::tearDown();
 

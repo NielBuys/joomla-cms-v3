@@ -14,7 +14,7 @@
  * @subpackage  Version
  * @since       3.0
  */
-class JVersionTest extends \PHPUnit\Framework\TestCase
+class JVersionTest extends TestCasePhpunit
 {
 	/**
 	 * Object under test
@@ -32,7 +32,7 @@ class JVersionTest extends \PHPUnit\Framework\TestCase
 	 *
 	 * @since   3.0
 	 */
-	protected function setUp()
+	protected function setUp(): void
 	{
 		$this->object = new JVersion;
 	}
@@ -45,7 +45,7 @@ class JVersionTest extends \PHPUnit\Framework\TestCase
 	 * @see     \PHPUnit\Framework\TestCase::tearDown()
 	 * @since   3.6
 	 */
-	protected function tearDown()
+	protected function tearDown(): void
 	{
 		unset($this->object);
 		parent::tearDown();
@@ -108,7 +108,7 @@ class JVersionTest extends \PHPUnit\Framework\TestCase
 	 */
 	public function testGetUserAgent_maskFalse()
 	{
-		$this->assertNotContains('Mozilla/5.0 ', $this->object->getUserAgent(null, false, true));
+		$this->assertStringNotContainsString('Mozilla/5.0 ', $this->object->getUserAgent(null, false, true));
 	}
 
 	/**
@@ -120,7 +120,7 @@ class JVersionTest extends \PHPUnit\Framework\TestCase
 	 */
 	public function testGetUserAgent_maskTrue()
 	{
-		$this->assertContains('Mozilla/5.0 ', $this->object->getUserAgent(null, true, true));
+		$this->assertStringContainsString('Mozilla/5.0 ', $this->object->getUserAgent(null, true, true));
 	}
 
 	/**
@@ -132,7 +132,7 @@ class JVersionTest extends \PHPUnit\Framework\TestCase
 	 */
 	public function testGetUserAgent_ComponentNull()
 	{
-		$this->assertContains('Framework', $this->object->getUserAgent(null, false, true));
+		$this->assertStringContainsString('Framework', $this->object->getUserAgent(null, false, true));
 	}
 
 	/**
@@ -144,6 +144,6 @@ class JVersionTest extends \PHPUnit\Framework\TestCase
 	 */
 	public function testGetUserAgent_ComponentNotNull()
 	{
-		$this->assertContains('Component_test', $this->object->getUserAgent('Component_test', false, true));
+		$this->assertStringContainsString('Component_test', $this->object->getUserAgent('Component_test', false, true));
 	}
 }

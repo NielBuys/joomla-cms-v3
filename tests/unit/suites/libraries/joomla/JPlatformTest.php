@@ -16,7 +16,7 @@
  * @subpackage  Utilities
  * @since       1.7.0
  */
-class JPlatformTest extends \PHPUnit\Framework\TestCase
+class JPlatformTest extends TestCasePhpunit
 {
 	/**
 	 * @var    JPlatform

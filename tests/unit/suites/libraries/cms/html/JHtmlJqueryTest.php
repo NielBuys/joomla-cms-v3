@@ -34,7 +34,7 @@ class JHtmlJqueryTest extends TestCase
 	 *
 	 * @since   3.1
 	 */
-	protected function setUp()
+	protected function setUp(): void
 	{
 		// Ensure the loaded states are reset
 		JHtmlJqueryInspector::resetLoaded();
@@ -61,7 +61,7 @@ class JHtmlJqueryTest extends TestCase
 	 *
 	 * @since   3.1
 	 */
-	protected function tearDown()
+	protected function tearDown(): void
 	{
 		$_SERVER = $this->backupServer;
 		unset($this->backupServer);

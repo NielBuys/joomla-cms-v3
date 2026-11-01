@@ -64,7 +64,7 @@ class JGoogleDataPicasaPhotoTest extends TestCase
 	 * @access protected
 	 * @return void
 	 */
-	protected function setUp()
+	protected function setUp(): void
 	{
 		parent::setUp();
 		$this->backupServer = $_SERVER;
@@ -104,7 +104,7 @@ class JGoogleDataPicasaPhotoTest extends TestCase
 	 * @see     \PHPUnit\Framework\TestCase::tearDown()
 	 * @since   3.6
 	 */
-	protected function tearDown()
+	protected function tearDown(): void
 	{
 		$_SERVER = $this->backupServer;
 		unset($this->backupServer, $this->options, $this->http, $this->input, $this->auth, $this->oauth, $this->xml, $this->object);
@@ -471,7 +471,7 @@ function picasaPhotoCallback($url, array $headers = null, $timeout = null)
  */
 function dataPicasaPhotoCallback($url, $data, array $headers = null, $timeout = null)
 {
-	\PHPUnit\Framework\TestCase::assertContains('<title>New Title</title>', $data);
+	\PHPUnit\Framework\TestCase::assertStringContainsString('<title>New Title</title>', $data);
 
 	$response = new stdClass;
 

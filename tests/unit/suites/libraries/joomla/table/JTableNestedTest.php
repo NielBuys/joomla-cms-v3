@@ -586,10 +586,11 @@ class JTableNestedTest extends TestCaseDatabase
 	 * @return  void
 	 *
 	 * @since   3.0.0
-	 * @expectedException  InvalidArgumentException
 	 */
 	public function testSetLocation_exception()
 	{
+		$this->expectException('InvalidArgumentException');
+
 		$this->class->setLocation(20, 'foo');
 	}
 
@@ -797,7 +798,7 @@ class JTableNestedTest extends TestCaseDatabase
 	 *
 	 * @return void
 	 */
-	protected function setUp()
+	protected function setUp(): void
 	{
 		parent::setUp();
 
@@ -817,7 +818,7 @@ class JTableNestedTest extends TestCaseDatabase
 	 *
 	 * @since   1.7.3
 	 */
-	protected function tearDown()
+	protected function tearDown(): void
 	{
 // 		$this->restoreFactoryState();
 		unset($this->class);

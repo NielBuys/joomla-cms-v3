@@ -60,7 +60,7 @@ class JGithubMetaTest extends TestCase
 	 *
 	 * @since   3.2.0
 	 */
-	protected function setUp()
+	protected function setUp(): void
 	{
 		parent::setUp();
 
@@ -79,7 +79,7 @@ class JGithubMetaTest extends TestCase
 	 * @see     \PHPUnit\Framework\TestCase::tearDown()
 	 * @since   3.6
 	 */
-	protected function tearDown()
+	protected function tearDown(): void
 	{
 		unset($this->options, $this->client, $this->response, $this->object);
 		parent::tearDown();
@@ -120,10 +120,11 @@ class JGithubMetaTest extends TestCase
 	 *
 	 * @since   3.2.0
 	 *
-	 * @expectedException  DomainException
 	 */
 	public function testGetMetaFailure()
 	{
+		$this->expectException('DomainException');
+
 		$this->response->code = 500;
 		$this->response->body = $this->errorString;
 

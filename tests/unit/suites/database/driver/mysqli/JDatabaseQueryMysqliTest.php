@@ -39,7 +39,7 @@ class JDatabaseQueryMysqliTest extends TestCase
 	 *
 	 * @since   3.2.0
 	 */
-	protected function setUp()
+	protected function setUp(): void
 	{
 		parent::setUp();
 
@@ -57,7 +57,7 @@ class JDatabaseQueryMysqliTest extends TestCase
 	 * @see     \PHPUnit\Framework\TestCase::tearDown()
 	 * @since   3.6
 	 */
-	protected function tearDown()
+	protected function tearDown(): void
 	{
 		unset($this->dbo);
 		unset($this->_instance);

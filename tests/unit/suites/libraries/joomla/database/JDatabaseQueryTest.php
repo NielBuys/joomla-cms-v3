@@ -668,11 +668,12 @@ class JDatabaseQueryTest extends TestCase
 	 * @return  void
 	 *
 	 * @covers             JDatabaseQuery::dateFormat
-	 * @expectedException  RuntimeException
 	 * @since              1.7.3
 	 */
 	public function testDateFormatException()
 	{
+		$this->expectException('RuntimeException');
+
 		// Override the internal database for testing.
 		TestReflection::setValue($this->_instance, 'db', new stdClass);
 
@@ -773,11 +774,12 @@ class JDatabaseQueryTest extends TestCase
 	 *
 	 * @return  void
 	 *
-	 * @expectedException  RuntimeException
 	 * @since              1.7.3
 	 */
 	public function testEscapeException()
 	{
+		$this->expectException('RuntimeException');
+
 		// Override the internal database for testing.
 		TestReflection::setValue($this->_instance, 'db', new stdClass);
 
@@ -1072,11 +1074,12 @@ class JDatabaseQueryTest extends TestCase
 	 *
 	 * @return  void
 	 *
-	 * @expectedException  RuntimeException
 	 * @since              1.7.3
 	 */
 	public function testNullDateException()
 	{
+		$this->expectException('RuntimeException');
+
 		// Override the internal database for testing.
 		TestReflection::setValue($this->_instance, 'db', new stdClass);
 
@@ -1172,11 +1175,12 @@ class JDatabaseQueryTest extends TestCase
 	 *
 	 * @return  void
 	 *
-	 * @expectedException  RuntimeException
 	 * @since              1.7.3
 	 */
 	public function testQuoteException()
 	{
+		$this->expectException('RuntimeException');
+
 		// Override the internal database for testing.
 		TestReflection::setValue($this->_instance, 'db', new stdClass);
 
@@ -1205,11 +1209,12 @@ class JDatabaseQueryTest extends TestCase
 	 * @return  void
 	 *
 	 * @covers             JDatabaseQuery::quoteName
-	 * @expectedException  RuntimeException
 	 * @since              1.7.3
 	 */
 	public function testQuoteNameException()
 	{
+		$this->expectException('RuntimeException');
+
 		// Override the internal database for testing.
 		TestReflection::setValue($this->_instance, 'db', new stdClass);
 
@@ -1981,7 +1986,7 @@ class JDatabaseQueryTest extends TestCase
 	 *
 	 * @since   1.7.0
 	 */
-	protected function setUp()
+	protected function setUp(): void
 	{
 		parent::setUp();
 
@@ -1998,7 +2003,7 @@ class JDatabaseQueryTest extends TestCase
 	 * @see     \PHPUnit\Framework\TestCase::tearDown()
 	 * @since   3.6
 	 */
-	protected function tearDown()
+	protected function tearDown(): void
 	{
 		unset($this->dbo, $this->_instance);
 		parent::tearDown();

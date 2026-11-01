@@ -23,7 +23,7 @@ class JImageFilterEdgedetectTest extends TestCase
 	 *
 	 * @since   2.5.0
 	 */
-	protected function setUp()
+	protected function setUp(): void
 	{
 		// Verify that GD support for PHP is available.
 		if (!extension_loaded('gd'))

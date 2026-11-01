@@ -19,7 +19,7 @@ require_once JPATH_PLATFORM . '/joomla/github/gists.php';
  *
  * @since       1.7.0
  */
-class JGithubPackageGistsTest extends \PHPUnit\Framework\TestCase
+class JGithubPackageGistsTest extends TestCasePhpunit
 {
 	/**
 	 * @var    JRegistry  Options for the GitHub object.
@@ -59,7 +59,7 @@ class JGithubPackageGistsTest extends \PHPUnit\Framework\TestCase
 	 *
 	 * @return void
 	 */
-	protected function setUp()
+	protected function setUp(): void
 	{
 		parent::setUp();
 
@@ -77,7 +77,7 @@ class JGithubPackageGistsTest extends \PHPUnit\Framework\TestCase
 	 * @see     \PHPUnit\Framework\TestCase::tearDown()
 	 * @since   3.6
 	 */
-	protected function tearDown()
+	protected function tearDown(): void
 	{
 		unset($this->options, $this->client, $this->object);
 		parent::tearDown();
@@ -164,12 +164,13 @@ class JGithubPackageGistsTest extends \PHPUnit\Framework\TestCase
 	/**
 	 * Tests the create method loading file content from a file - file does not exist
 	 *
-	 * @expectedException InvalidArgumentException
 	 *
 	 * @return void
 	 */
 	public function testCreateGistFromFileNotFound()
 	{
+		$this->expectException('InvalidArgumentException');
+
 		$returnData = new stdClass;
 		$returnData->code = 501;
 		$returnData->body = $this->sampleString;

@@ -475,7 +475,7 @@ class JAccessTest extends TestCaseDatabase
 	 *
 	 * @since   3.0.0
 	 */
-	protected function setUp()
+	protected function setUp(): void
 	{
 		parent::setUp();
 
@@ -496,7 +496,7 @@ class JAccessTest extends TestCaseDatabase
 	 *
 	 * @since   3.0.0
 	 */
-	protected function tearDown()
+	protected function tearDown(): void
 	{
 		$this->_cleanupTestFiles();
 		unset($this->object);

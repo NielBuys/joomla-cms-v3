@@ -91,7 +91,7 @@ class JTwitterDirectmessagesTest extends TestCase
 	 *
 	 * @return void
 	 */
-	protected function setUp()
+	protected function setUp(): void
 	{
 		$this->backupServer = $_SERVER;
 		$_SERVER['HTTP_HOST'] = 'example.com';
@@ -128,7 +128,7 @@ class JTwitterDirectmessagesTest extends TestCase
 	 * @see     \PHPUnit\Framework\TestCase::tearDown()
 	 * @since   3.6
 	 */
-	protected function tearDown()
+	protected function tearDown(): void
 	{
 		$_SERVER = $this->backupServer;
 		unset($this->backupServer, $this->options, $this->input, $this->client, $this->oauth, $this->object);
@@ -189,11 +189,12 @@ class JTwitterDirectmessagesTest extends TestCase
 	 *
 	 * @return  void
 	 *
-	 * @expectedException DomainException
 	 * @since   3.1.4
 	 */
 	public function testGetDirectMessagesFailure()
 	{
+		$this->expectException('DomainException');
+
 		$since_id = 12345;
 		$max_id = 54321;
 		$count = 10;
@@ -285,11 +286,12 @@ class JTwitterDirectmessagesTest extends TestCase
 	 *
 	 * @return  void
 	 *
-	 * @expectedException DomainException
 	 * @since   3.1.4
 	 */
 	public function testGetSentDirectMessagesFailure()
 	{
+		$this->expectException('DomainException');
+
 		$since_id = 12345;
 		$max_id = 54321;
 		$count = 10;
@@ -400,11 +402,12 @@ class JTwitterDirectmessagesTest extends TestCase
 	 * @return  void
 	 *
 	 * @dataProvider  seedUser
-	 * @expectedException DomainException
 	 * @since   3.1.4
 	 */
 	public function testSendDirectMessagesFailure($user)
 	{
+		$this->expectException('DomainException');
+
 		$text = 'This is a test.';
 
 		$returnData = new stdClass;
@@ -483,11 +486,12 @@ class JTwitterDirectmessagesTest extends TestCase
 	 *
 	 * @return  void
 	 *
-	 * @expectedException DomainException
 	 * @since   3.1.4
 	 */
 	public function testGetDirectMessagesByIdFailure()
 	{
+		$this->expectException('DomainException');
+
 		$id = 12345;
 
 		$returnData = new stdClass;
@@ -555,11 +559,12 @@ class JTwitterDirectmessagesTest extends TestCase
 	 *
 	 * @return  void
 	 *
-	 * @expectedException DomainException
 	 * @since   3.1.4
 	 */
 	public function testDeleteDirectMessagesFailure()
 	{
+		$this->expectException('DomainException');
+
 		$id = 12345;
 		$entities = true;
 

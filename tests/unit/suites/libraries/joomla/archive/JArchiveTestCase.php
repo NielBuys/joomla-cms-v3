@@ -14,7 +14,7 @@
  * @subpackage  Archive
  * @since       3.1
  */
-abstract class JArchiveTestCase extends \PHPUnit\Framework\TestCase
+abstract class JArchiveTestCase extends TestCasePhpunit
 {
 	/**
 	 * Output path
@@ -32,7 +32,7 @@ abstract class JArchiveTestCase extends \PHPUnit\Framework\TestCase
 	 *
 	 * @since   3.1
 	 */
-	protected function setUp()
+	protected function setUp(): void
 	{
 		parent::setUp();
 
@@ -57,7 +57,7 @@ abstract class JArchiveTestCase extends \PHPUnit\Framework\TestCase
 	 *
 	 * @since   3.1
 	 */
-	protected function tearDown()
+	protected function tearDown(): void
 	{
 		if (is_dir($this->outputPath))
 		{

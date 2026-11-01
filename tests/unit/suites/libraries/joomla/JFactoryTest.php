@@ -24,7 +24,7 @@ class JFactoryTest extends TestCaseDatabase
 	 *
 	 * @since   1.7.3
 	 */
-	public function setUp()
+	public function setUp(): void
 	{
 		parent::setUp();
 
@@ -40,7 +40,7 @@ class JFactoryTest extends TestCaseDatabase
 	 *
 	 * @since   1.7.3
 	 */
-	public function tearDown()
+	public function tearDown(): void
 	{
 		$this->restoreFactoryState();
 

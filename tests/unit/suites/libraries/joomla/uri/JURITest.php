@@ -14,7 +14,7 @@
  * @subpackage  Uri
  * @since       1.7.0
  */
-class JUriTest extends \PHPUnit\Framework\TestCase
+class JUriTest extends TestCasePhpunit
 {
 	/**
 	 * @var    JUri
@@ -37,7 +37,7 @@ class JUriTest extends \PHPUnit\Framework\TestCase
 	 *
 	 * @since   1.7.0
 	 */
-	protected function setUp()
+	protected function setUp(): void
 	{
 		parent::setUp();
 		$this->backupServer = $_SERVER;
@@ -60,7 +60,7 @@ class JUriTest extends \PHPUnit\Framework\TestCase
 	 * @see     \PHPUnit\Framework\TestCase::tearDown()
 	 * @since   3.6
 	 */
-	protected function tearDown()
+	protected function tearDown(): void
 	{
 		$_SERVER = $this->backupServer;
 		unset($this->backupServer);

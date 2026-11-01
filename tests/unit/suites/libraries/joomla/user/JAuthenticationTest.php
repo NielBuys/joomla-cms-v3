@@ -41,7 +41,7 @@ class JAuthenticationTest extends TestCase
 	 *
 	 * @since   1.7.0
 	 */
-	protected function setUp()
+	protected function setUp(): void
 	{
 		parent::setUp();
 
@@ -96,7 +96,7 @@ class JAuthenticationTest extends TestCase
 	 * @see     \PHPUnit\Framework\TestCase::tearDown()
 	 * @since   1.7.0
 	 */
-	protected function tearDown()
+	protected function tearDown(): void
 	{
 		// Reset the dispatcher instance.
 		TestReflection::setValue('JEventDispatcher', 'instance', null);

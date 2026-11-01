@@ -124,7 +124,7 @@ class JDatabaseQueryPostgresqlTest extends TestCase
 	 *
 	 * @return  void
 	 */
-	protected function setUp()
+	protected function setUp(): void
 	{
 		parent::setUp();
 
@@ -142,7 +142,7 @@ class JDatabaseQueryPostgresqlTest extends TestCase
 	 * @see     \PHPUnit\Framework\TestCase::tearDown()
 	 * @since   3.6
 	 */
-	protected function tearDown()
+	protected function tearDown(): void
 	{
 		unset($this->dbo, $this->_instance);
 		parent::tearDown();

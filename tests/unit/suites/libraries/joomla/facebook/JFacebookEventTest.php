@@ -75,7 +75,7 @@ class JFacebookEventTest extends TestCase
 	 *
 	 * @since   3.2.0
 	 */
-	protected function setUp()
+	protected function setUp(): void
 	{
 		$this->backupServer = $_SERVER;
 		$_SERVER['HTTP_HOST'] = 'example.com';
@@ -117,7 +117,7 @@ class JFacebookEventTest extends TestCase
 	 * @see     \PHPUnit\Framework\TestCase::tearDown()
 	 * @since   3.6
 	 */
-	protected function tearDown()
+	protected function tearDown(): void
 	{
 		$_SERVER = $this->backupServer;
 		unset($this->backupServer, $this->options, $this->client, $this->input, $this->oauth, $this->object);
@@ -157,10 +157,11 @@ class JFacebookEventTest extends TestCase
 	 * @return  void
 	 *
 	 * @since   3.2.0
-	 * @expectedException  RuntimeException
 	 */
 	public function testGetEventFailure()
 	{
+		$this->expectException('RuntimeException');
+
 		$token = $this->oauth->getToken();
 		$event = '1346437213025';
 
@@ -209,10 +210,11 @@ class JFacebookEventTest extends TestCase
 	 * @return  void
 	 *
 	 * @since   3.2.0
-	 * @expectedException  RuntimeException
 	 */
 	public function testGetFeedFailure()
 	{
+		$this->expectException('RuntimeException');
+
 		$token = $this->oauth->getToken();
 		$event = '156174391080008';
 
@@ -268,10 +270,11 @@ class JFacebookEventTest extends TestCase
 	 * @return  void
 	 *
 	 * @since   3.2.0
-	 * @expectedException  RuntimeException
 	 */
 	public function testCreateLinkFailure()
 	{
+		$this->expectException('RuntimeException');
+
 		$token = $this->oauth->getToken();
 		$event = '156174391080008';
 		$link = 'www.example.com';
@@ -327,10 +330,11 @@ class JFacebookEventTest extends TestCase
 	 * @return  void
 	 *
 	 * @since   3.2.0
-	 * @expectedException  RuntimeException
 	 */
 	public function testDeleteLinkFailure()
 	{
+		$this->expectException('RuntimeException');
+
 		$token = $this->oauth->getToken();
 		$link = '156174391080008_235345346';
 
@@ -399,10 +403,11 @@ class JFacebookEventTest extends TestCase
 	 * @return  void
 	 *
 	 * @since   3.2.0
-	 * @expectedException  RuntimeException
 	 */
 	public function testCreatePostFailure()
 	{
+		$this->expectException('RuntimeException');
+
 		$token = $this->oauth->getToken();
 		$event = '134534252';
 		$message = 'message';
@@ -471,10 +476,11 @@ class JFacebookEventTest extends TestCase
 	 * @return  void
 	 *
 	 * @since   3.2.0
-	 * @expectedException  RuntimeException
 	 */
 	public function testDeletePostFailure()
 	{
+		$this->expectException('RuntimeException');
+
 		$token = $this->oauth->getToken();
 		$post = '5148941614_234324';
 
@@ -528,10 +534,11 @@ class JFacebookEventTest extends TestCase
 	 * @return  void
 	 *
 	 * @since   3.2.0
-	 * @expectedException  RuntimeException
 	 */
 	public function testCreateStatusFailure()
 	{
+		$this->expectException('RuntimeException');
+
 		$token = $this->oauth->getToken();
 		$event = '134534252457';
 		$message = 'This is a message';
@@ -585,10 +592,11 @@ class JFacebookEventTest extends TestCase
 	 * @return  void
 	 *
 	 * @since   3.2.0
-	 * @expectedException  RuntimeException
 	 */
 	public function testDeleteStatusFailure()
 	{
+		$this->expectException('RuntimeException');
+
 		$token = $this->oauth->getToken();
 		$status = '2457344632_5148941614';
 
@@ -637,10 +645,11 @@ class JFacebookEventTest extends TestCase
 	 * @return  void
 	 *
 	 * @since   3.2.0
-	 * @expectedException  RuntimeException
 	 */
 	public function testGetInvitedFailure()
 	{
+		$this->expectException('RuntimeException');
+
 		$token = $this->oauth->getToken();
 		$event = '156174391080008';
 
@@ -690,10 +699,11 @@ class JFacebookEventTest extends TestCase
 	 * @return  void
 	 *
 	 * @since   3.2.0
-	 * @expectedException  RuntimeException
 	 */
 	public function testIsInvitedFailure()
 	{
+		$this->expectException('RuntimeException');
+
 		$token = $this->oauth->getToken();
 		$event = '156174391080008';
 		$user = '2356736745787';
@@ -748,10 +758,11 @@ class JFacebookEventTest extends TestCase
 	 * @return  void
 	 *
 	 * @since   3.2.0
-	 * @expectedException  RuntimeException
 	 */
 	public function testCreateInviteFailure()
 	{
+		$this->expectException('RuntimeException');
+
 		$token = $this->oauth->getToken();
 		$event = '134534252457';
 		$users = '23434325456,12343425456';
@@ -806,10 +817,11 @@ class JFacebookEventTest extends TestCase
 	 * @return  void
 	 *
 	 * @since   3.2.0
-	 * @expectedException  RuntimeException
 	 */
 	public function testDeleteInviteFailure()
 	{
+		$this->expectException('RuntimeException');
+
 		$token = $this->oauth->getToken();
 		$event = '2457344632';
 		$user = '12467583456';
@@ -859,10 +871,11 @@ class JFacebookEventTest extends TestCase
 	 * @return  void
 	 *
 	 * @since   3.2.0
-	 * @expectedException  RuntimeException
 	 */
 	public function testGetAttendingFailure()
 	{
+		$this->expectException('RuntimeException');
+
 		$token = $this->oauth->getToken();
 		$event = '156174391080008';
 
@@ -911,10 +924,11 @@ class JFacebookEventTest extends TestCase
 	 * @return  void
 	 *
 	 * @since   3.2.0
-	 * @expectedException  RuntimeException
 	 */
 	public function testCreateAttendingFailure()
 	{
+		$this->expectException('RuntimeException');
+
 		$token = $this->oauth->getToken();
 		$event = '134534252457';
 
@@ -964,10 +978,11 @@ class JFacebookEventTest extends TestCase
 	 * @return  void
 	 *
 	 * @since   3.2.0
-	 * @expectedException  RuntimeException
 	 */
 	public function testIsAttendingFailure()
 	{
+		$this->expectException('RuntimeException');
+
 		$token = $this->oauth->getToken();
 		$event = '156174391080008';
 		$user = '2356736745787';
@@ -1017,10 +1032,11 @@ class JFacebookEventTest extends TestCase
 	 * @return  void
 	 *
 	 * @since   3.2.0
-	 * @expectedException  RuntimeException
 	 */
 	public function testGetMaybeFailure()
 	{
+		$this->expectException('RuntimeException');
+
 		$token = $this->oauth->getToken();
 		$event = '156174391080008';
 
@@ -1070,10 +1086,11 @@ class JFacebookEventTest extends TestCase
 	 * @return  void
 	 *
 	 * @since   3.2.0
-	 * @expectedException  RuntimeException
 	 */
 	public function testIsMaybeFailure()
 	{
+		$this->expectException('RuntimeException');
+
 		$token = $this->oauth->getToken();
 		$event = '156174391080008';
 		$user = '2356736745787';
@@ -1123,10 +1140,11 @@ class JFacebookEventTest extends TestCase
 	 * @return  void
 	 *
 	 * @since   3.2.0
-	 * @expectedException  RuntimeException
 	 */
 	public function testCreateMaybeFailure()
 	{
+		$this->expectException('RuntimeException');
+
 		$token = $this->oauth->getToken();
 		$event = '134534252457';
 
@@ -1175,10 +1193,11 @@ class JFacebookEventTest extends TestCase
 	 * @return  void
 	 *
 	 * @since   3.2.0
-	 * @expectedException  RuntimeException
 	 */
 	public function testGetDeclinedFailure()
 	{
+		$this->expectException('RuntimeException');
+
 		$token = $this->oauth->getToken();
 		$event = '156174391080008';
 
@@ -1228,10 +1247,11 @@ class JFacebookEventTest extends TestCase
 	 * @return  void
 	 *
 	 * @since   3.2.0
-	 * @expectedException  RuntimeException
 	 */
 	public function testIsDeclinedFailure()
 	{
+		$this->expectException('RuntimeException');
+
 		$token = $this->oauth->getToken();
 		$event = '156174391080008';
 		$user = '2356736745787';
@@ -1281,10 +1301,11 @@ class JFacebookEventTest extends TestCase
 	 * @return  void
 	 *
 	 * @since   3.2.0
-	 * @expectedException  RuntimeException
 	 */
 	public function testCreateDeclinedFailure()
 	{
+		$this->expectException('RuntimeException');
+
 		$token = $this->oauth->getToken();
 		$event = '134534252457';
 
@@ -1333,10 +1354,11 @@ class JFacebookEventTest extends TestCase
 	 * @return  void
 	 *
 	 * @since   3.2.0
-	 * @expectedException  RuntimeException
 	 */
 	public function testGetNoreplyFailure()
 	{
+		$this->expectException('RuntimeException');
+
 		$token = $this->oauth->getToken();
 		$event = '156174391080008';
 
@@ -1386,10 +1408,11 @@ class JFacebookEventTest extends TestCase
 	 * @return  void
 	 *
 	 * @since   3.2.0
-	 * @expectedException  RuntimeException
 	 */
 	public function testIsNoreplyFailure()
 	{
+		$this->expectException('RuntimeException');
+
 		$token = $this->oauth->getToken();
 		$event = '156174391080008';
 		$user = '2356736745787';
@@ -1440,10 +1463,11 @@ class JFacebookEventTest extends TestCase
 	 * @return  void
 	 *
 	 * @since   3.2.0
-	 * @expectedException  RuntimeException
 	 */
 	public function testGetPictureFailure()
 	{
+		$this->expectException('RuntimeException');
+
 		$token = $this->oauth->getToken();
 		$event = '156174391080008';
 		$type = 'large';
@@ -1493,10 +1517,11 @@ class JFacebookEventTest extends TestCase
 	 * @return  void
 	 *
 	 * @since   3.2.0
-	 * @expectedException  RuntimeException
 	 */
 	public function testGetPhotosFailure()
 	{
+		$this->expectException('RuntimeException');
+
 		$token = $this->oauth->getToken();
 		$event = '156174391080008';
 
@@ -1555,10 +1580,11 @@ class JFacebookEventTest extends TestCase
 	 * @return  void
 	 *
 	 * @since   3.2.0
-	 * @expectedException  RuntimeException
 	 */
 	public function testCreatePhotoFailure()
 	{
+		$this->expectException('RuntimeException');
+
 		$token = $this->oauth->getToken();
 		$event = '156174391080008';
 		$source = '/path/to/source';
@@ -1617,10 +1643,11 @@ class JFacebookEventTest extends TestCase
 	 * @return  void
 	 *
 	 * @since   3.2.0
-	 * @expectedException  RuntimeException
 	 */
 	public function testGetVideosFailure()
 	{
+		$this->expectException('RuntimeException');
+
 		$token = $this->oauth->getToken();
 		$event = '156174391080008';
 
@@ -1681,10 +1708,11 @@ class JFacebookEventTest extends TestCase
 	 * @return  void
 	 *
 	 * @since   3.2.0
-	 * @expectedException  RuntimeException
 	 */
 	public function testCreateVideoFailure()
 	{
+		$this->expectException('RuntimeException');
+
 		$token = $this->oauth->getToken();
 		$event = '156174391080008';
 		$source = '/path/to/source';

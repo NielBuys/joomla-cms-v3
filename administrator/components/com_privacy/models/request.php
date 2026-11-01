@@ -371,7 +371,7 @@ class PrivacyModelRequest extends JModelAdmin
 
 			return true;
 		}
-		catch (phpmailerException $exception)
+		catch (\PHPMailer\PHPMailer\Exception $exception)
 		{
 			$this->setError($exception->getMessage());
 

@@ -10,7 +10,7 @@
 /**
  * Test class for JDocument.
  */
-class JDocumentTest extends \PHPUnit\Framework\TestCase
+class JDocumentTest extends TestCasePhpunit
 {
 	/**
 	 * @var  JDocument
@@ -21,7 +21,7 @@ class JDocumentTest extends \PHPUnit\Framework\TestCase
 	 * Sets up the fixture, for example, open a network connection.
 	 * This method is called before a test is executed.
 	 */
-	protected function setUp()
+	protected function setUp(): void
 	{
 		parent::setUp();
 
@@ -32,7 +32,7 @@ class JDocumentTest extends \PHPUnit\Framework\TestCase
 	 * Tears down the fixture, for example, closes a network connection.
 	 * This method is called after a test is executed.
 	 */
-	protected function tearDown()
+	protected function tearDown(): void
 	{
 		JDocument::$_buffer = null;
 		unset($this->object);
@@ -564,13 +564,14 @@ class JDocumentTest extends \PHPUnit\Framework\TestCase
 
 	/**
 	 * @testdox  Test that loadRenderer throws an exception for an unknown renderer type
-	 * @expectedException  RuntimeException
 	 *
 	 * @covers   JDocument::loadRenderer
 	 * @uses     JDocument::setType
 	 */
 	public function testEnsureLoadRendererThrowsException()
 	{
+		$this->expectException('RuntimeException');
+
 		$this->object->setType('html');
 		$this->object->loadRenderer('unknown');
 	}

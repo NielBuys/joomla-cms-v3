@@ -30,7 +30,7 @@ class JModelAdminTest extends TestCase
 	 *
 	 * @return  void
 	 */
-	public function setUp()
+	public function setUp(): void
 	{
 		// Create mock of abstract class JModelAdmin to test concrete methods in there
 		$this->object = $this->getMockForAbstractClass('JModelAdmin');
@@ -45,7 +45,7 @@ class JModelAdminTest extends TestCase
 	 * @see     \PHPUnit\Framework\TestCase::tearDown()
 	 * @since   3.6
 	 */
-	protected function tearDown()
+	protected function tearDown(): void
 	{
 		unset($this->object);
 	}

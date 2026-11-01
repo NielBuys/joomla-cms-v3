@@ -14,7 +14,7 @@
  * @subpackage  Access
  * @since       1.7.0
  */
-class JAccessRulesTest extends \PHPUnit\Framework\TestCase
+class JAccessRulesTest extends TestCasePhpunit
 {
 	/**
 	 * This method tests both the constructor and the __toString magic method.

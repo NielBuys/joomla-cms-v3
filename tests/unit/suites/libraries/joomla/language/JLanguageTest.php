@@ -22,7 +22,7 @@ if (!class_exists('En_GBLocalise'))
  * @subpackage  Language
  * @since       1.7.0
  */
-class JLanguageTest extends \PHPUnit\Framework\TestCase
+class JLanguageTest extends TestCasePhpunit
 {
 	/**
 	 * @var JLanguage
@@ -35,7 +35,7 @@ class JLanguageTest extends \PHPUnit\Framework\TestCase
 	 *
 	 * @return void
 	 */
-	protected function setUp()
+	protected function setUp(): void
 	{
 		parent::setUp();
 
@@ -49,7 +49,7 @@ class JLanguageTest extends \PHPUnit\Framework\TestCase
 	 *
 	 * @return void
 	 */
-	protected function tearDown()
+	protected function tearDown(): void
 	{
 		unset($this->object, $this->inspector);
 		parent::tearDown();
@@ -805,12 +805,13 @@ class JLanguageTest extends \PHPUnit\Framework\TestCase
 	/**
 	 * Test debugFile throws an Exception when the file does not exist
 	 *
-	 * @expectedException  InvalidArgumentException
 	 *
 	 * @return void
 	 */
 	public function testVerifyDebugFileThrowsAnExceptionWhenTheFileDoesNotExist()
 	{
+		$this->expectException('InvalidArgumentException');
+
 		$this->object->debugFile(__DIR__ . '/data/not-existing.ini');
 	}
 
@@ -1204,12 +1205,13 @@ class JLanguageTest extends \PHPUnit\Framework\TestCase
 	/**
 	 * Test...
 	 *
-	 * @expectedException  RuntimeException
 	 *
 	 * @return void
 	 */
 	public function testParseXMLLanguageFileException()
 	{
+		$this->expectException('RuntimeException');
+
 		$path = __DIR__ . '/data/language/es-ES/es-ES.xml';
 
 		JLanguageHelper::parseXMLLanguageFile($path);

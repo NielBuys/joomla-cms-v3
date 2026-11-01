@@ -72,7 +72,7 @@ class JTwitterOauthTest extends TestCase
 	 *
 	 * @return void
 	 */
-	protected function setUp()
+	protected function setUp(): void
 	{
 		$this->backupServer = $_SERVER;
 		$_SERVER['HTTP_HOST'] = 'example.com';
@@ -104,7 +104,7 @@ class JTwitterOauthTest extends TestCase
 	 *
 	 * @see     \PHPUnit\Framework\TestCase::tearDown()
 	 */
-	protected function tearDown()
+	protected function tearDown(): void
 	{
 		$_SERVER = $this->backupServer;
 		unset($this->backupServer, $this->options, $this->input, $this->application, $this->client, $this->oauth);

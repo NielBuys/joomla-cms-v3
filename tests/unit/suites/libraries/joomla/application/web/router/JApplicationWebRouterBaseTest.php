@@ -207,7 +207,7 @@ class JApplicationWebRouterBaseTest extends TestCase
 	 *
 	 * @since   3.1.4
 	 */
-	protected function setUp()
+	protected function setUp(): void
 	{
 		parent::setUp();
 
@@ -225,7 +225,7 @@ class JApplicationWebRouterBaseTest extends TestCase
 	 *
 	 * @since   3.1.4
 	 */
-	protected function tearDown()
+	protected function tearDown(): void
 	{
 		unset($this->_instance, $this->_input);
 		parent::tearDown();

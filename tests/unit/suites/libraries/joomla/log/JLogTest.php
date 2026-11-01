@@ -14,7 +14,7 @@
  * @subpackage  Log
  * @since       1.7.0
  */
-class JLogTest extends \PHPUnit\Framework\TestCase
+class JLogTest extends TestCasePhpunit
 {
 	/**
 	 * Overrides the parent setUp method.
@@ -24,7 +24,7 @@ class JLogTest extends \PHPUnit\Framework\TestCase
 	 * @see     \PHPUnit\Framework\TestCase::setUp()
 	 * @since   3.8.0
 	 */
-	protected function setUp()
+	protected function setUp(): void
 	{
 		require_once __DIR__ . '/stubs/log/inspector.php';
 	}
@@ -37,7 +37,7 @@ class JLogTest extends \PHPUnit\Framework\TestCase
 	 * @see     \PHPUnit\Framework\TestCase::tearDown()
 	 * @since   1.7.0
 	 */
-	protected function tearDown()
+	protected function tearDown(): void
 	{
 		// Clear out the log instance.
 		$log = new JLogInspector;

@@ -14,7 +14,7 @@
  * @subpackage  Html
  * @since       3.1
  */
-class JHtmlSelectTest extends \PHPUnit\Framework\TestCase
+class JHtmlSelectTest extends TestCasePhpunit
 {
 	/**
 	 * Generic list dataset

@@ -32,7 +32,7 @@ class JDatabaseDriverTest extends TestCaseDatabase
 	 *
 	 * @since   3.1
 	 */
-	protected function setUp()
+	protected function setUp(): void
 	{
 		$this->db = JDatabaseDriver::getInstance(
 			array(
@@ -51,7 +51,7 @@ class JDatabaseDriverTest extends TestCaseDatabase
 	 * @see     \PHPUnit\Framework\TestCase::tearDown()
 	 * @since   3.6
 	 */
-	protected function tearDown()
+	protected function tearDown(): void
 	{
 		unset($this->db);
 		parent::tearDown();

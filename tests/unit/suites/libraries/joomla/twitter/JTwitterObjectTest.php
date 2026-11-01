@@ -77,7 +77,7 @@ class JTwitterObjectTest extends TestCase
 	 *
 	 * @return void
 	 */
-	protected function setUp()
+	protected function setUp(): void
 	{
 		$this->backupServer = $_SERVER;
 		$_SERVER['HTTP_HOST'] = 'example.com';
@@ -113,7 +113,7 @@ class JTwitterObjectTest extends TestCase
 	 *
 	 * @return void
 	 */
-	protected function tearDown()
+	protected function tearDown(): void
 	{
 		$_SERVER = $this->backupServer;
 		unset($this->backupServer, $this->options, $this->input, $this->client, $this->oauth, $this->object);
@@ -125,10 +125,11 @@ class JTwitterObjectTest extends TestCase
 	 * @return void
 	 *
 	 * @since 3.1.4
-	 * @expectedException RuntimeException
 	 */
 	public function testCheckRateLimit()
 	{
+		$this->expectException('RuntimeException');
+
 		$resource = 'statuses';
 		$action = 'show';
 
@@ -194,10 +195,11 @@ class JTwitterObjectTest extends TestCase
 	 *
 	 * @since   3.1.4
 	 *
-	 * @expectedException  DomainException
 	 */
 	public function testGetRateLimitFailure()
 	{
+		$this->expectException('DomainException');
+
 		$resource = 'statuses';
 
 		$returnData = new stdClass;

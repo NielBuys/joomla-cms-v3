@@ -31,7 +31,7 @@ class JPathwayTest extends TestCase
 	 *
 	 * @since   3.1
 	 */
-	protected function setUp()
+	protected function setUp(): void
 	{
 		$this->fixture = new JPathway;
 
@@ -45,7 +45,7 @@ class JPathwayTest extends TestCase
 	 *
 	 * @since   3.1
 	 */
-	protected function tearDown()
+	protected function tearDown(): void
 	{
 		unset($this->fixture);
 

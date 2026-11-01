@@ -15,7 +15,7 @@
  *
  * @since       1.7.0
  */
-class JGitHubCommitsTest extends \PHPUnit\Framework\TestCase
+class JGitHubCommitsTest extends TestCasePhpunit
 {
 	/**
 	 * @var    JRegistry  Options for the GitHub object.
@@ -55,7 +55,7 @@ class JGitHubCommitsTest extends \PHPUnit\Framework\TestCase
 	 *
 	 * @since   3.0.0
 	 */
-	protected function setUp()
+	protected function setUp(): void
 	{
 		parent::setUp();
 
@@ -75,7 +75,7 @@ class JGitHubCommitsTest extends \PHPUnit\Framework\TestCase
 	 * @see     \PHPUnit\Framework\TestCase::tearDown()
 	 * @since   3.6
 	 */
-	protected function tearDown()
+	protected function tearDown(): void
 	{
 		unset($this->options, $this->client, $this->object);
 		parent::tearDown();
@@ -386,10 +386,11 @@ class JGitHubCommitsTest extends \PHPUnit\Framework\TestCase
 	 *
 	 * @since   3.0.0
 	 *
-	 * @expectedException  DomainException
 	 */
 	public function testGetCommitFailure()
 	{
+		$this->expectException('DomainException');
+
 		$returnData = new stdClass;
 		$returnData->code = 500;
 		$returnData->body = $this->errorString;
@@ -433,10 +434,11 @@ class JGitHubCommitsTest extends \PHPUnit\Framework\TestCase
 	 *
 	 * @since   3.0.0
 	 *
-	 * @expectedException  DomainException
 	 */
 	public function testGetCommitCommentFailure()
 	{
+		$this->expectException('DomainException');
+
 		$returnData = new stdClass;
 		$returnData->code = 500;
 		$returnData->body = $this->errorString;
@@ -480,10 +482,11 @@ class JGitHubCommitsTest extends \PHPUnit\Framework\TestCase
 	 *
 	 * @since   3.0.0
 	 *
-	 * @expectedException  DomainException
 	 */
 	public function testGetCommitCommentsFailure()
 	{
+		$this->expectException('DomainException');
+
 		$returnData = new stdClass;
 		$returnData->code = 500;
 		$returnData->body = $this->errorString;
@@ -527,10 +530,11 @@ class JGitHubCommitsTest extends \PHPUnit\Framework\TestCase
 	 *
 	 * @since   3.0.0
 	 *
-	 * @expectedException  DomainException
 	 */
 	public function testGetDiffFailure()
 	{
+		$this->expectException('DomainException');
+
 		$returnData = new stdClass;
 		$returnData->code = 500;
 		$returnData->body = $this->errorString;
@@ -574,10 +578,11 @@ class JGitHubCommitsTest extends \PHPUnit\Framework\TestCase
 	 *
 	 * @since   3.0.0
 	 *
-	 * @expectedException  DomainException
 	 */
 	public function testGetListFailure()
 	{
+		$this->expectException('DomainException');
+
 		$returnData = new stdClass;
 		$returnData->code = 500;
 		$returnData->body = $this->errorString;
@@ -621,10 +626,11 @@ class JGitHubCommitsTest extends \PHPUnit\Framework\TestCase
 	 *
 	 * @since   3.0.0
 	 *
-	 * @expectedException  DomainException
 	 */
 	public function testGetListCommentsFailure()
 	{
+		$this->expectException('DomainException');
+
 		$returnData = new stdClass;
 		$returnData->code = 500;
 		$returnData->body = $this->errorString;

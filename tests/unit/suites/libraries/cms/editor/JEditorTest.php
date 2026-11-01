@@ -16,7 +16,7 @@ require_once __DIR__ . '/stubs/EditorObserver.php';
  * @subpackage  Editor
  * @since       3.0
  */
-class JEditorTest extends \PHPUnit\Framework\TestCase
+class JEditorTest extends TestCasePhpunit
 {
 	/**
 	 * Object under test
@@ -34,7 +34,7 @@ class JEditorTest extends \PHPUnit\Framework\TestCase
 	 *
 	 * @since   3.0
 	 */
-	protected function setUp()
+	protected function setUp(): void
 	{
 		$this->object = new JEditor;
 	}
@@ -47,7 +47,7 @@ class JEditorTest extends \PHPUnit\Framework\TestCase
 	 * @see     \PHPUnit\Framework\TestCase::tearDown()
 	 * @since   3.6
 	 */
-	protected function tearDown()
+	protected function tearDown(): void
 	{
 		unset($this->object);
 		parent::tearDown();

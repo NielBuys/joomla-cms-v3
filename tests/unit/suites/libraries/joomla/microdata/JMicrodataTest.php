@@ -14,7 +14,7 @@
 * @subpackage  Microdata
 * @since       3.2
 */
-class JMicrodataTest extends \PHPUnit\Framework\TestCase
+class JMicrodataTest extends TestCasePhpunit
 {
 	/**
 	 * The default fallback Type
@@ -39,7 +39,7 @@ class JMicrodataTest extends \PHPUnit\Framework\TestCase
 	 *
 	 * @since   3.2
 	 */
-	public function setUp()
+	public function setUp(): void
 	{
 		$this->handler = new JMicrodata;
 	}
@@ -53,7 +53,7 @@ class JMicrodataTest extends \PHPUnit\Framework\TestCase
 	 * @see     \PHPUnit\Framework\TestCase::tearDown()
 	 * @since   3.6
 	 */
-	protected function tearDown()
+	protected function tearDown(): void
 	{
 		unset($this->handler);
 	}

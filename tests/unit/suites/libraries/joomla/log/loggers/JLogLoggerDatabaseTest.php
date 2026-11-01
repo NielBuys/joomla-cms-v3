@@ -133,10 +133,11 @@ class JLogLoggerDatabaseTest extends TestCaseDatabase
 	 *
 	 * @since   1.7.3
 	 *
-	 * @expectedException RuntimeException
 	 */
 	public function testConnect02()
 	{
+		$this->expectException('RuntimeException');
+
 		// Setup the basic configuration.
 		$config = array(
 			'db_driver' => 'failure',

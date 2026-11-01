@@ -12,7 +12,7 @@
  *
  * @since  1.7.0
  */
-class JSessionStorageXcacheTest extends \PHPUnit\Framework\TestCase
+class JSessionStorageXcacheTest extends TestCasePhpunit
 {
 	/**
 	 * @var JSessionStorageXcache
@@ -25,7 +25,7 @@ class JSessionStorageXcacheTest extends \PHPUnit\Framework\TestCase
 	 *
 	 * @return void
 	 */
-	protected function setUp()
+	protected function setUp(): void
 	{
 		parent::setUp();
 
@@ -44,7 +44,7 @@ class JSessionStorageXcacheTest extends \PHPUnit\Framework\TestCase
 	 *
 	 * @return void
 	 */
-	protected function tearDown()
+	protected function tearDown(): void
 	{
 
 	}

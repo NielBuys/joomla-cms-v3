@@ -114,6 +114,15 @@ require_once JPATH_LIBRARIES . '/cms.php';
 // Register the core Joomla test classes.
 JLoader::registerPrefix('Test', __DIR__ . '/core');
 
+// PHPUnit 4.8 class names the tests still use
+class_alias('PHPUnit\Framework\TestCase', 'PHPUnit_Framework_TestCase');
+class_alias('PHPUnit\Framework\MockObject\MockObject', 'PHPUnit_Framework_MockObject_MockObject');
+class_alias('PHPUnit\Framework\Error\Error', 'PHPUnit_Framework_Error');
+class_alias('PHPUnit\Framework\Error\Warning', 'PHPUnit_Framework_Error_Warning');
+
+// The parts of the abandoned phpunit/dbunit package the database tests use
+require_once __DIR__ . '/core/dbunit.php';
+
 // Register the deprecation handler
 TestHelper::registerDeprecationHandler();
 

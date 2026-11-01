@@ -14,7 +14,7 @@
  * @subpackage  Github
  * @since       3.1.4
  */
-class JGithubPackageRepositoriesHooksTest extends \PHPUnit\Framework\TestCase
+class JGithubPackageRepositoriesHooksTest extends TestCasePhpunit
 {
 	/**
 	 * @var    JRegistry  Options for the GitHub object.
@@ -60,7 +60,7 @@ class JGithubPackageRepositoriesHooksTest extends \PHPUnit\Framework\TestCase
 	 *
 	 * @since   3.1.4
 	 */
-	protected function setUp()
+	protected function setUp(): void
 	{
 		parent::setUp();
 
@@ -148,10 +148,11 @@ class JGithubPackageRepositoriesHooksTest extends \PHPUnit\Framework\TestCase
 	 *
 	 * @since   3.1.4
 	 *
-	 * @expectedException  RuntimeException
 	 */
 	public function testCreateUnauthorisedEvent()
 	{
+		$this->expectException('RuntimeException');
+
 		$this->object->create('joomla', 'joomla-platform', 'acunote', array('token' => '123456789'), array('push', 'faker'));
 	}
 
@@ -298,10 +299,11 @@ class JGithubPackageRepositoriesHooksTest extends \PHPUnit\Framework\TestCase
 	 *
 	 * @since   3.1.4
 	 *
-	 * @expectedException  RuntimeException
 	 */
 	public function testEditUnauthorisedEvent()
 	{
+		$this->expectException('RuntimeException');
+
 		$this->object->edit('joomla', 'joomla-platform', 42, 'acunote', array('token' => '123456789'), array('invalid'));
 	}
 
@@ -312,10 +314,11 @@ class JGithubPackageRepositoriesHooksTest extends \PHPUnit\Framework\TestCase
 	 *
 	 * @since   3.1.4
 	 *
-	 * @expectedException  RuntimeException
 	 */
 	public function testEditUnauthorisedAddEvent()
 	{
+		$this->expectException('RuntimeException');
+
 		$this->object->edit('joomla', 'joomla-platform', 42, 'acunote', array('token' => '123456789'), array('push'), array('invalid'));
 	}
 
@@ -326,10 +329,11 @@ class JGithubPackageRepositoriesHooksTest extends \PHPUnit\Framework\TestCase
 	 *
 	 * @since   3.1.4
 	 *
-	 * @expectedException  RuntimeException
 	 */
 	public function testEditUnauthorisedRemoveEvent()
 	{
+		$this->expectException('RuntimeException');
+
 		$this->object->edit('joomla', 'joomla-platform', 42, 'acunote', array('token' => '123456789'), array('push'), array('push'), array('invalid'));
 	}
 
@@ -363,10 +367,11 @@ class JGithubPackageRepositoriesHooksTest extends \PHPUnit\Framework\TestCase
 	 *
 	 * @since   3.1.4
 	 *
-	 * @expectedException  DomainException
 	 */
 	public function testGetFailure()
 	{
+		$this->expectException('DomainException');
+
 		$this->response->code = 500;
 		$this->response->body = $this->errorString;
 
@@ -408,10 +413,11 @@ class JGithubPackageRepositoriesHooksTest extends \PHPUnit\Framework\TestCase
 	 *
 	 * @since   3.1.4
 	 *
-	 * @expectedException  DomainException
 	 */
 	public function testGetListFailure()
 	{
+		$this->expectException('DomainException');
+
 		$this->response->code = 500;
 		$this->response->body = $this->errorString;
 
@@ -453,10 +459,11 @@ class JGithubPackageRepositoriesHooksTest extends \PHPUnit\Framework\TestCase
 	 *
 	 * @since   3.1.4
 	 *
-	 * @expectedException  DomainException
 	 */
 	public function testTestFailure()
 	{
+		$this->expectException('DomainException');
+
 		$this->response->code = 500;
 		$this->response->body = $this->errorString;
 

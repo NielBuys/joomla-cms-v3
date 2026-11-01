@@ -27,7 +27,7 @@ class JInstallerTest extends TestCaseDatabase
 	 *
 	 * @return void
 	 */
-	protected function setUp()
+	protected function setUp(): void
 	{
 		parent::setUp();
 
@@ -42,7 +42,7 @@ class JInstallerTest extends TestCaseDatabase
 	 * @see     \PHPUnit\Framework\TestCase::tearDown()
 	 * @since   3.6
 	 */
-	protected function tearDown()
+	protected function tearDown(): void
 	{
 		unset($this->object);
 

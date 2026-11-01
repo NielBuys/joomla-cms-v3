@@ -14,7 +14,7 @@
  * @subpackage  Database
  * @since       1.7.0
  */
-class JDatabaseQueryElementTest extends \PHPUnit\Framework\TestCase
+class JDatabaseQueryElementTest extends TestCasePhpunit
 {
 	/**
 	 * Test cases for append and __toString

@@ -41,7 +41,7 @@ abstract class TestCaseDatabaseSqlsrv extends TestCaseDatabase
 	 *
 	 * @since   3.0.0
 	 */
-	public static function setUpBeforeClass()
+	public static function setUpBeforeClass(): void
 	{
 		// First let's look to see if we have a DSN defined or in the environment variables.
 		if (!defined('JTEST_DATABASE_SQLSRV_DSN') && !getenv('JTEST_DATABASE_SQLSRV_DSN'))
@@ -110,7 +110,7 @@ abstract class TestCaseDatabaseSqlsrv extends TestCaseDatabase
 	 *
 	 * @since   3.0.0
 	 */
-	public static function tearDownAfterClass()
+	public static function tearDownAfterClass(): void
 	{
 		JFactory::$database = self::$stash;
 

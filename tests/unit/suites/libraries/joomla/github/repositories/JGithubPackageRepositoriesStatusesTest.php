@@ -55,7 +55,7 @@ class JGithubPackageRepositoriesStatusesTest extends TestCase
 	 *
 	 * @return void
 	 */
-	protected function setUp()
+	protected function setUp(): void
 	{
 		parent::setUp();
 
@@ -106,12 +106,13 @@ class JGithubPackageRepositoriesStatusesTest extends TestCase
 	/**
 	 * Tests the create method - failure
 	 *
-	 * @expectedException  DomainException
 	 *
 	 * @return void
 	 */
 	public function testCreateFailure()
 	{
+		$this->expectException('DomainException');
+
 		$returnData = new stdClass;
 		$returnData->code = 501;
 		$returnData->body = $this->errorString;
@@ -134,12 +135,13 @@ class JGithubPackageRepositoriesStatusesTest extends TestCase
 	/**
 	 * Tests the create method - failure
 	 *
-	 * @expectedException  InvalidArgumentException
 	 *
 	 * @return void
 	 */
 	public function testCreateInvalidState()
 	{
+		$this->expectException('InvalidArgumentException');
+
 		$returnData = new stdClass;
 		$returnData->code = 501;
 		$returnData->body = $this->errorString;
@@ -172,12 +174,13 @@ class JGithubPackageRepositoriesStatusesTest extends TestCase
 	/**
 	 * Tests the getList method - failure
 	 *
-	 * @expectedException  DomainException
 	 *
 	 * @return void
 	 */
 	public function testGetListFailure()
 	{
+		$this->expectException('DomainException');
+
 		$returnData = new stdClass;
 		$returnData->code = 500;
 		$returnData->body = $this->errorString;

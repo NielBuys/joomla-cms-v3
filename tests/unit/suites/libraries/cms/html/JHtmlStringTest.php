@@ -14,7 +14,7 @@
  * @subpackage  HTML
  * @since       3.1
  */
-class JHtmlStringTest extends \PHPUnit\Framework\TestCase
+class JHtmlStringTest extends TestCasePhpunit
 {
 	/**
 	 * Test cases for truncate.

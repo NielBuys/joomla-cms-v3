@@ -16,7 +16,7 @@ require_once __DIR__ . '/JEventInspector.php';
  * @subpackage  Event
  * @since       1.7.3
  */
-class JEventDispatcherTest extends \PHPUnit\Framework\TestCase
+class JEventDispatcherTest extends TestCasePhpunit
 {
 	/**
 	 * @var JEventDispatcher
@@ -29,7 +29,7 @@ class JEventDispatcherTest extends \PHPUnit\Framework\TestCase
 	 *
 	 * @return void
 	 */
-	protected function setUp()
+	protected function setUp(): void
 	{
 		$this->object = new JEventDispatcher;
 		TestReflection::setValue($this->object, 'instance', $this->object);
@@ -41,7 +41,7 @@ class JEventDispatcherTest extends \PHPUnit\Framework\TestCase
 	 *
 	 * @return void
 	 */
-	protected function tearDown()
+	protected function tearDown(): void
 	{
 		TestReflection::setValue($this->object, 'instance', null);
 		unset($this->object);
@@ -201,12 +201,13 @@ class JEventDispatcherTest extends \PHPUnit\Framework\TestCase
 	 * Test JEventDispatcher::register() with an error.
 	 *
 	 * @since              3.0.0
-	 * @expectedException  InvalidArgumentException
 	 *
 	 * @return void
 	 */
 	public function testRegisterException()
 	{
+		$this->expectException('InvalidArgumentException');
+
 		$this->object->register('fakeevent', 'nonExistingClass');
 	}
 

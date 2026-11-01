@@ -87,7 +87,7 @@ class JTwitterPlacesTest extends TestCase
 	 *
 	 * @return void
 	 */
-	protected function setUp()
+	protected function setUp(): void
 	{
 		$this->backupServer = $_SERVER;
 		$_SERVER['HTTP_HOST'] = 'example.com';
@@ -124,7 +124,7 @@ class JTwitterPlacesTest extends TestCase
 	 * @see     \PHPUnit\Framework\TestCase::tearDown()
 	 * @since   3.6
 	 */
-	protected function tearDown()
+	protected function tearDown(): void
 	{
 		$_SERVER = $this->backupServer;
 		unset($this->backupServer, $this->options, $this->input, $this->client, $this->oauth, $this->object);
@@ -175,10 +175,11 @@ class JTwitterPlacesTest extends TestCase
 	 * @return  void
 	 *
 	 * @since   3.1.4
-	 * @expectedException DomainException
 	 */
 	public function testGetPlaceFailure()
 	{
+		$this->expectException('DomainException');
+
 		$id = '1a2b3c4d';
 
 		$returnData = new stdClass;
@@ -264,10 +265,11 @@ class JTwitterPlacesTest extends TestCase
 	 * @return  void
 	 *
 	 * @since   3.1.4
-	 * @expectedException DomainException
 	 */
 	public function testGetGeocodeFailure()
 	{
+		$this->expectException('DomainException');
+
 		$lat = 45;
 		$long = 45;
 		$accuracy = '5ft';
@@ -404,10 +406,11 @@ class JTwitterPlacesTest extends TestCase
 	 *
 	 * @since 3.1.4
 	 * @dataProvider seedSearch
-	 * @expectedException DomainException
 	 */
 	public function testSearchFailure($lat, $long, $query, $ip)
 	{
+		$this->expectException('DomainException');
+
 		$granularity = 'city';
 		$accuracy = '5ft';
 		$max_results = 10;
@@ -515,10 +518,11 @@ class JTwitterPlacesTest extends TestCase
 	 * @return  void
 	 *
 	 * @since 3.1.4
-	 * @expectedException DomainException
 	 */
 	public function testSimilarPlacesFailure()
 	{
+		$this->expectException('DomainException');
+
 		$lat = 45;
 		$long = 45;
 		$name = 'Twitter HQ';
@@ -617,10 +621,11 @@ class JTwitterPlacesTest extends TestCase
 	 * @return  void
 	 *
 	 * @since 3.1.4
-	 * @expectedException DomainException
 	 */
 	public function testCreatePlaceFailure()
 	{
+		$this->expectException('DomainException');
+
 		$lat = 45;
 		$long = 45;
 		$name = 'Twitter HQ';

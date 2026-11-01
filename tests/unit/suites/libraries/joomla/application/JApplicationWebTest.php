@@ -101,7 +101,7 @@ class JApplicationWebTest extends TestCase
 	 *
 	 * @since   1.7.3
 	 */
-	public function setUp()
+	public function setUp(): void
 	{
 		parent::setUp();
 
@@ -129,7 +129,7 @@ class JApplicationWebTest extends TestCase
 	 * @see     \PHPUnit\Framework\TestCase::tearDown()
 	 * @since   1.7.0
 	 */
-	protected function tearDown()
+	protected function tearDown(): void
 	{
 		// Reset the dispatcher and session instances.
 		TestReflection::setValue('JEventDispatcher', 'instance', null);
@@ -1101,9 +1101,9 @@ class JApplicationWebTest extends TestCase
 			$this->class->headers[2]
 		);
 
-		$this->assertRegexp('/Expires/', $this->class->headers[3][0]);
+		$this->assertMatchesRegularExpression('/Expires/', $this->class->headers[3][0]);
 
-		$this->assertRegexp('/Last-Modified/', $this->class->headers[4][0]);
+		$this->assertMatchesRegularExpression('/Last-Modified/', $this->class->headers[4][0]);
 
 		$this->assertEquals(
 			array('Cache-Control: no-store, no-cache, must-revalidate, post-check=0, pre-check=0', true, null),
@@ -1169,9 +1169,9 @@ class JApplicationWebTest extends TestCase
 			$this->class->headers[3]
 		);
 
-		$this->assertRegexp('/Expires/', $this->class->headers[4][0]);
+		$this->assertMatchesRegularExpression('/Expires/', $this->class->headers[4][0]);
 
-		$this->assertRegexp('/Last-Modified/', $this->class->headers[5][0]);
+		$this->assertMatchesRegularExpression('/Last-Modified/', $this->class->headers[5][0]);
 
 		$this->assertEquals(
 			array('Cache-Control: no-store, no-cache, must-revalidate, post-check=0, pre-check=0', true, null),
@@ -1231,9 +1231,9 @@ class JApplicationWebTest extends TestCase
 			$this->class->headers[2]
 		);
 
-		$this->assertRegexp('/Expires/', $this->class->headers[3][0]);
+		$this->assertMatchesRegularExpression('/Expires/', $this->class->headers[3][0]);
 
-		$this->assertRegexp('/Last-Modified/', $this->class->headers[4][0]);
+		$this->assertMatchesRegularExpression('/Last-Modified/', $this->class->headers[4][0]);
 
 		$this->assertEquals(
 			array('Cache-Control: no-store, no-cache, must-revalidate, post-check=0, pre-check=0', true, null),
@@ -1343,9 +1343,9 @@ class JApplicationWebTest extends TestCase
 			$this->class->headers[2]
 		);
 
-		$this->assertRegexp('/Expires/', $this->class->headers[3][0]);
+		$this->assertMatchesRegularExpression('/Expires/', $this->class->headers[3][0]);
 
-		$this->assertRegexp('/Last-Modified/', $this->class->headers[4][0]);
+		$this->assertMatchesRegularExpression('/Last-Modified/', $this->class->headers[4][0]);
 
 		$this->assertEquals(
 			array('Cache-Control: no-store, no-cache, must-revalidate, post-check=0, pre-check=0', true, null),

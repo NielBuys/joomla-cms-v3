@@ -48,7 +48,7 @@ class JToolbarButtonConfirmTest extends TestCaseDatabase
 	 *
 	 * @since   3.0
 	 */
-	protected function setUp()
+	protected function setUp(): void
 	{
 		$this->toolbar = JToolbar::getInstance();
 		$this->object  = $this->toolbar->loadButtonType('confirm');
@@ -71,7 +71,7 @@ class JToolbarButtonConfirmTest extends TestCaseDatabase
 	 *
 	 * @since   3.2
 	 */
-	protected function tearDown()
+	protected function tearDown(): void
 	{
 		$_SERVER = $this->backupServer;
 		unset($this->backupServer, $this->toolbar, $this->object);

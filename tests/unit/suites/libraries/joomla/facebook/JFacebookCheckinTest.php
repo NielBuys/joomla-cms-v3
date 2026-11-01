@@ -69,7 +69,7 @@ class JFacebookCheckinTest extends TestCase
 	 *
 	 * @since   3.2.0
 	 */
-	protected function setUp()
+	protected function setUp(): void
 	{
 		$this->backupServer = $_SERVER;
 		$_SERVER['HTTP_HOST'] = 'example.com';
@@ -111,7 +111,7 @@ class JFacebookCheckinTest extends TestCase
 	 * @see     \PHPUnit\Framework\TestCase::tearDown()
 	 * @since   3.6
 	 */
-	protected function tearDown()
+	protected function tearDown(): void
 	{
 		$_SERVER = $this->backupServer;
 		unset($this->backupServer, $this->options, $this->client, $this->input, $this->oauth, $this->object);
@@ -152,10 +152,11 @@ class JFacebookCheckinTest extends TestCase
 	 * @return  void
 	 *
 	 * @since   3.2.0
-	 * @expectedException  RuntimeException
 	 */
 	public function testGetCheckinFailure()
 	{
+		$this->expectException('RuntimeException');
+
 		$checkin = '124346363456';
 
 		$returnData = new stdClass;
@@ -206,10 +207,11 @@ class JFacebookCheckinTest extends TestCase
 	 * @return  void
 	 *
 	 * @since   3.2.0
-	 * @expectedException  RuntimeException
 	 */
 	public function testGetCommentsFailure()
 	{
+		$this->expectException('RuntimeException');
+
 		$checkin = '124346363456';
 
 		$returnData = new stdClass;
@@ -265,10 +267,11 @@ class JFacebookCheckinTest extends TestCase
 	 * @return  void
 	 *
 	 * @since   3.2.0
-	 * @expectedException  RuntimeException
 	 */
 	public function testCreateCommentFailure()
 	{
+		$this->expectException('RuntimeException');
+
 		$checkin = '124346363456';
 		$message = 'test message';
 
@@ -324,10 +327,11 @@ class JFacebookCheckinTest extends TestCase
 	 * @return  void
 	 *
 	 * @since   3.2.0
-	 * @expectedException  RuntimeException
 	 */
 	public function testDeleteCommentFailure()
 	{
+		$this->expectException('RuntimeException');
+
 		$comment = '5148941614_12343468';
 
 		$returnData = new stdClass;
@@ -378,10 +382,11 @@ class JFacebookCheckinTest extends TestCase
 	 * @return  void
 	 *
 	 * @since   3.2.0
-	 * @expectedException  RuntimeException
 	 */
 	public function testGetLikesFailure()
 	{
+		$this->expectException('RuntimeException');
+
 		$checkin = '124346363456';
 
 		$returnData = new stdClass;
@@ -432,10 +437,11 @@ class JFacebookCheckinTest extends TestCase
 	 * @return  void
 	 *
 	 * @since   3.2.0
-	 * @expectedException  RuntimeException
 	 */
 	public function testCreateLikeFailure()
 	{
+		$this->expectException('RuntimeException');
+
 		$checkin = '124346363456';
 
 		$returnData = new stdClass;
@@ -486,10 +492,11 @@ class JFacebookCheckinTest extends TestCase
 	 * @return  void
 	 *
 	 * @since   3.2.0
-	 * @expectedException  RuntimeException
 	 */
 	public function testDeleteLikeFailure()
 	{
+		$this->expectException('RuntimeException');
+
 		$checkin = '124346363456';
 
 		$returnData = new stdClass;

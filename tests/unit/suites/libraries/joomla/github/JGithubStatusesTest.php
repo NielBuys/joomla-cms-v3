@@ -55,7 +55,7 @@ class JGithubStatusesTest extends TestCase
 	 *
 	 * @return void
 	 */
-	protected function setUp()
+	protected function setUp(): void
 	{
 		parent::setUp();
 
@@ -73,7 +73,7 @@ class JGithubStatusesTest extends TestCase
 	 * @see     \PHPUnit\Framework\TestCase::tearDown()
 	 * @since   3.6
 	 */
-	protected function tearDown()
+	protected function tearDown(): void
 	{
 		unset($this->options, $this->client, $this->object);
 		parent::tearDown();
@@ -120,12 +120,13 @@ class JGithubStatusesTest extends TestCase
 	/**
 	 * Tests the create method - failure
 	 *
-	 * @expectedException  DomainException
 	 *
 	 * @return void
 	 */
 	public function testCreateFailure()
 	{
+		$this->expectException('DomainException');
+
 		$returnData = new stdClass;
 		$returnData->code = 501;
 		$returnData->body = $this->errorString;
@@ -170,12 +171,13 @@ class JGithubStatusesTest extends TestCase
 	/**
 	 * Tests the getList method - failure
 	 *
-	 * @expectedException  DomainException
 	 *
 	 * @return void
 	 */
 	public function testGetListFailure()
 	{
+		$this->expectException('DomainException');
+
 		$returnData = new stdClass;
 		$returnData->code = 500;
 		$returnData->body = $this->errorString;

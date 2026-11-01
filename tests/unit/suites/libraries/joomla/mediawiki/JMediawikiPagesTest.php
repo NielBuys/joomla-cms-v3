@@ -13,7 +13,7 @@
  * @package     Joomla.UnitTest
  * @subpackage  Mediawiki
  */
-class JMediawikiPagesTest extends \PHPUnit\Framework\TestCase
+class JMediawikiPagesTest extends TestCasePhpunit
 {
 	/**
 	 * @var    JRegistry  Options for the Mediawiki object.
@@ -46,7 +46,7 @@ class JMediawikiPagesTest extends \PHPUnit\Framework\TestCase
 	 *
 	 * @return void
 	 */
-	protected function setUp()
+	protected function setUp(): void
 	{
 		$this->options = new JRegistry;
 		$this->client = $this->getMockBuilder('JMediawikiHttp')->setMethods(array('get', 'post', 'delete', 'patch', 'put'))->getMock();
@@ -66,7 +66,7 @@ class JMediawikiPagesTest extends \PHPUnit\Framework\TestCase
 	 * @see     \PHPUnit\Framework\TestCase::tearDown()
 	 * @since   3.6
 	 */
-	protected function tearDown()
+	protected function tearDown(): void
 	{
 		unset($this->options, $this->client, $this->object);
 	}

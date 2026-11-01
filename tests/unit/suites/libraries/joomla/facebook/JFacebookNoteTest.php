@@ -69,7 +69,7 @@ class JFacebookNoteTest extends TestCase
 	 *
 	 * @since   3.2.0
 	 */
-	protected function setUp()
+	protected function setUp(): void
 	{
 		$this->backupServer = $_SERVER;
 		$_SERVER['HTTP_HOST'] = 'example.com';
@@ -109,7 +109,7 @@ class JFacebookNoteTest extends TestCase
 	 * @see     \PHPUnit\Framework\TestCase::tearDown()
 	 * @since   3.6
 	 */
-	protected function tearDown()
+	protected function tearDown(): void
 	{
 		$_SERVER = $this->backupServer;
 		unset($this->backupServer, $this->options, $this->client, $this->input, $this->oauth, $this->object);
@@ -149,10 +149,11 @@ class JFacebookNoteTest extends TestCase
 	 * @return  void
 	 *
 	 * @since   3.2.0
-	 * @expectedException  RuntimeException
 	 */
 	public function testGetNoteFailure()
 	{
+		$this->expectException('RuntimeException');
+
 		$token = $this->oauth->getToken();
 		$note = '124346363456';
 
@@ -201,10 +202,11 @@ class JFacebookNoteTest extends TestCase
 	 * @return  void
 	 *
 	 * @since   3.2.0
-	 * @expectedException  RuntimeException
 	 */
 	public function testGetCommentsFailure()
 	{
+		$this->expectException('RuntimeException');
+
 		$token = $this->oauth->getToken();
 		$note = '124346363456';
 
@@ -258,10 +260,11 @@ class JFacebookNoteTest extends TestCase
 	 * @return  void
 	 *
 	 * @since   3.2.0
-	 * @expectedException  RuntimeException
 	 */
 	public function testCreateCommentFailure()
 	{
+		$this->expectException('RuntimeException');
+
 		$token = $this->oauth->getToken();
 		$note = '124346363456';
 		$message = 'test message';
@@ -315,10 +318,11 @@ class JFacebookNoteTest extends TestCase
 	 * @return  void
 	 *
 	 * @since   3.2.0
-	 * @expectedException  RuntimeException
 	 */
 	public function testDeleteCommentFailure()
 	{
+		$this->expectException('RuntimeException');
+
 		$token = $this->oauth->getToken();
 		$comment = '5148941614_12343468';
 
@@ -367,10 +371,11 @@ class JFacebookNoteTest extends TestCase
 	 * @return  void
 	 *
 	 * @since   3.2.0
-	 * @expectedException  RuntimeException
 	 */
 	public function testGetLikesFailure()
 	{
+		$this->expectException('RuntimeException');
+
 		$token = $this->oauth->getToken();
 		$note = '124346363456';
 
@@ -419,10 +424,11 @@ class JFacebookNoteTest extends TestCase
 	 * @return  void
 	 *
 	 * @since   3.2.0
-	 * @expectedException  RuntimeException
 	 */
 	public function testCreateLikeFailure()
 	{
+		$this->expectException('RuntimeException');
+
 		$token = $this->oauth->getToken();
 		$note = '124346363456';
 
@@ -471,10 +477,11 @@ class JFacebookNoteTest extends TestCase
 	 * @return  void
 	 *
 	 * @since   3.2.0
-	 * @expectedException  RuntimeException
 	 */
 	public function testDeleteLikeFailure()
 	{
+		$this->expectException('RuntimeException');
+
 		$token = $this->oauth->getToken();
 		$note = '124346363456';
 

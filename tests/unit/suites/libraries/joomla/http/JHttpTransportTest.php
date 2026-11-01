@@ -14,7 +14,7 @@
  * @subpackage  Http
  * @since       3.4
  */
-class JHttpTransportTest extends \PHPUnit\Framework\TestCase
+class JHttpTransportTest extends TestCasePhpunit
 {
 	/**
 	 * @var    \Joomla\Registry\Registry  Options for the JHttpTransport object.
@@ -36,7 +36,7 @@ class JHttpTransportTest extends \PHPUnit\Framework\TestCase
 	 *
 	 * @since   3.4
 	 */
-	protected function setUp()
+	protected function setUp(): void
 	{
 		if (!defined('JTEST_HTTP_STUB') && getenv('JTEST_HTTP_STUB') == '')
 		{
@@ -59,7 +59,7 @@ class JHttpTransportTest extends \PHPUnit\Framework\TestCase
 	 * @see     \PHPUnit\Framework\TestCase::tearDown()
 	 * @since   3.6
 	 */
-	protected function tearDown()
+	protected function tearDown(): void
 	{
 		unset($this->options, $this->stubUrl);
 		parent::tearDown();
@@ -118,11 +118,12 @@ class JHttpTransportTest extends \PHPUnit\Framework\TestCase
 	 * @return  void
 	 *
 	 * @dataProvider       transportProvider
-	 * @expectedException  RuntimeException
 	 * @since              3.4
 	 */
 	public function testBadDomainRequestGet($transportClass)
 	{
+		$this->expectException('RuntimeException');
+
 		$transport = new $transportClass($this->options);
 		$transport->request('get', new JUri('http://xommunity.joomla.org'));
 	}

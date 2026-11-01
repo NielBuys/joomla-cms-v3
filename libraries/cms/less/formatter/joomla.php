@@ -17,7 +17,7 @@ defined('JPATH_PLATFORM') or die;
  * @since       3.4
  * @deprecated  4.0  without replacement
  */
-class JLessFormatterJoomla extends lessc_formatter_classic
+class JLessFormatterJoomla extends \LesserPHP\FormatterClassic
 {
 	public $disableSingle = true;
 

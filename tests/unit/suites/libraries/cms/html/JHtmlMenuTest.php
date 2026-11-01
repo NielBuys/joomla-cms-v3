@@ -24,7 +24,7 @@ class JHtmlMenuTest extends TestCaseDatabase
 	 *
 	 * @since   3.7.0
 	 */
-	protected function setUp()
+	protected function setUp(): void
 	{
 		// Skipped because dataset that allows these test not to fail let other tests fail.
 		$this->markTestSkipped('skipped RD 3.Feb 2017');
@@ -44,7 +44,7 @@ class JHtmlMenuTest extends TestCaseDatabase
 	 *
 	 * @since   3.7.0
 	 */
-	protected function tearDown()
+	protected function tearDown(): void
 	{
 		$this->restoreFactoryState();
 
@@ -77,7 +77,7 @@ class JHtmlMenuTest extends TestCaseDatabase
 	 */
 	public function testMenus()
 	{
-		$this->assertContains('<option value="mainmenu">Main Menu</option>', JHtmlSelect::options(JHtmlMenu::menus(), 'value', 'text'));
+		$this->assertStringContainsString('<option value="mainmenu">Main Menu</option>', JHtmlSelect::options(JHtmlMenu::menus(), 'value', 'text'));
 	}
 
 	/**
@@ -89,7 +89,7 @@ class JHtmlMenuTest extends TestCaseDatabase
 	 */
 	public function testMenuitems()
 	{
-		$this->assertContains(
+		$this->assertStringContainsString(
 			'<option value="mainmenu.435">- Home</option>',
 			JHtmlSelect::options(JHtmlMenu::menuitems(), array('published' => '1'))
 		);

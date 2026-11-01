@@ -14,7 +14,7 @@
  * @subpackage  Html
  * @since       3.1
  */
-class JHtmlDateTest extends \PHPUnit\Framework\TestCase
+class JHtmlDateTest extends TestCasePhpunit
 {
 	/**
 	 * Test data for the testRelative method

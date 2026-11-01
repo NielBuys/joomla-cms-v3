@@ -13,7 +13,7 @@
  * @subpackage  Session
  * @since       1.7.0
  */
-class JSessionStorageTest extends \PHPUnit\Framework\TestCase
+class JSessionStorageTest extends TestCasePhpunit
 {
 	/**
 	 * @var JSessionStorage

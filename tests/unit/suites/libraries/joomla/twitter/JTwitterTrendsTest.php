@@ -85,7 +85,7 @@ class JTwitterTrendsTest extends TestCase
 	 *
 	 * @return void
 	 */
-	protected function setUp()
+	protected function setUp(): void
 	{
 		$this->backupServer = $_SERVER;
 		$_SERVER['HTTP_HOST'] = 'example.com';
@@ -122,7 +122,7 @@ class JTwitterTrendsTest extends TestCase
 	 * @see     \PHPUnit\Framework\TestCase::tearDown()
 	 * @since   3.6
 	 */
-	protected function tearDown()
+	protected function tearDown(): void
 	{
 		$_SERVER = $this->backupServer;
 		unset($this->backupServer, $this->options, $this->input, $this->client, $this->oauth, $this->object);
@@ -177,10 +177,11 @@ class JTwitterTrendsTest extends TestCase
 	 * @return  void
 	 *
 	 * @since   3.1.4
-	 * @expectedException DomainException
 	 */
 	public function testGetTrendsFailure()
 	{
+		$this->expectException('DomainException');
+
 		$id = '1a2b3c4d';
 		$exclude = 'hashtags';
 
@@ -255,10 +256,11 @@ class JTwitterTrendsTest extends TestCase
 	 * @return  void
 	 *
 	 * @since   3.1.4
-	 * @expectedException DomainException
 	 */
 	public function testGetLocationsFailure()
 	{
+		$this->expectException('DomainException');
+
 		$returnData = new stdClass;
 		$returnData->code = 200;
 		$returnData->body = $this->rateLimit;
@@ -333,10 +335,11 @@ class JTwitterTrendsTest extends TestCase
 	 * @return  void
 	 *
 	 * @since   3.1.4
-	 * @expectedException DomainException
 	 */
 	public function testGetClosestFailure()
 	{
+		$this->expectException('DomainException');
+
 		$lat = 45;
 		$long = 45;
 

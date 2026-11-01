@@ -32,7 +32,7 @@ class JTableTest extends TestCaseDatabase
 	 *
 	 * @since   3.1.4
 	 */
-	protected function setUp()
+	protected function setUp(): void
 	{
 		parent::setUp();
 
@@ -47,7 +47,7 @@ class JTableTest extends TestCaseDatabase
 	 *
 	 * @since   3.1.4
 	 */
-	protected function tearDown()
+	protected function tearDown(): void
 	{
 		unset($this->object);
 		parent::tearDown();

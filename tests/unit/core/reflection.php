@@ -33,18 +33,16 @@ class TestReflection
 		if ($refl->hasProperty($propertyName))
 		{
 			$property = $refl->getProperty($propertyName);
-			$property->setAccessible(true);
 
-			return $property->getValue($object);
+			return $property->getValue(is_object($object) ? $object : null);
 		}
 
 		// Hrm, maybe dealing with a private property in the parent class.
 		if (get_parent_class($object))
 		{
 			$property = new \ReflectionProperty(get_parent_class($object), $propertyName);
-			$property->setAccessible(true);
 
-			return $property->getValue($object);
+			return $property->getValue(is_object($object) ? $object : null);
 		}
 
 		throw new InvalidArgumentException(sprintf('Invalid property [%s] for class [%s]', $propertyName, get_class($object)));
@@ -74,7 +72,6 @@ class TestReflection
 		array_shift($args);
 
 		$method = new ReflectionMethod($object, $methodName);
-		$method->setAccessible(true);
 
 		$result = $method->invokeArgs(is_object($object) ? $object : null, $args);
 
@@ -100,17 +97,15 @@ class TestReflection
 		if ($refl->hasProperty($propertyName))
 		{
 			$property = $refl->getProperty($propertyName);
-			$property->setAccessible(true);
 
-			$property->setValue($object, $value);
+			$property->isStatic() ? $property->setValue(null, $value) : $property->setValue($object, $value);
 		}
 		// Hrm, maybe dealing with a private property in the parent class.
 		elseif (get_parent_class($object))
 		{
 			$property = new \ReflectionProperty(get_parent_class($object), $propertyName);
-			$property->setAccessible(true);
 
-			$property->setValue($object, $value);
+			$property->isStatic() ? $property->setValue(null, $value) : $property->setValue($object, $value);
 		}
 	}
 }

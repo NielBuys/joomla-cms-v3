@@ -28,7 +28,7 @@ class JAdapterTest extends TestCase
 	 *
 	 * @since   1.7.0
 	 */
-	protected function setUp()
+	protected function setUp(): void
 	{
 		parent::setUp();
 
@@ -46,7 +46,7 @@ class JAdapterTest extends TestCase
 	 *
 	 * @since   1.7.0
 	 */
-	protected function tearDown()
+	protected function tearDown(): void
 	{
 		$this->restoreFactoryState();
 

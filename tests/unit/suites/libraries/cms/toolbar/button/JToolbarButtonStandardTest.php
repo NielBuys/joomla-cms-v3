@@ -14,7 +14,7 @@
  * @subpackage  Toolbar
  * @since       3.0
  */
-class JToolbarButtonStandardTest extends \PHPUnit\Framework\TestCase
+class JToolbarButtonStandardTest extends TestCasePhpunit
 {
 	/**
 	 * Toolbar object
@@ -40,7 +40,7 @@ class JToolbarButtonStandardTest extends \PHPUnit\Framework\TestCase
 	 *
 	 * @since   3.0
 	 */
-	protected function setUp()
+	protected function setUp(): void
 	{
 		parent::setUp();
 
@@ -56,7 +56,7 @@ class JToolbarButtonStandardTest extends \PHPUnit\Framework\TestCase
 	 * @see     \PHPUnit\Framework\TestCase::tearDown()
 	 * @since   3.6
 	 */
-	protected function tearDown()
+	protected function tearDown(): void
 	{
 		unset($this->toolbar, $this->object);
 		parent::tearDown();

@@ -81,7 +81,7 @@ XML;
 	*
 	* @return void
 	*/
-	protected function setUp()
+	protected function setUp(): void
 	{
 		$this->backupServer = $_SERVER;
 		$_SERVER['HTTP_HOST'] = 'example.com';
@@ -116,7 +116,7 @@ XML;
 	 * @see     \PHPUnit\Framework\TestCase::tearDown()
 	 * @since   3.6
 	 */
-	protected function tearDown()
+	protected function tearDown(): void
 	{
 		$_SERVER = $this->backupServer;
 		unset($this->backupServer, $this->options, $this->input, $this->client, $this->oauth, $this->object);
@@ -154,10 +154,11 @@ XML;
 	 * @return  void
 	 *
 	 * @since   3.2.0
-	 * @expectedException DomainException
 	 */
 	public function testGetCapabilitiesFailure()
 	{
+		$this->expectException('DomainException');
+
 		$returnData = new stdClass;
 		$returnData->code = 500;
 		$returnData->body = $this->errorString;
@@ -209,10 +210,11 @@ XML;
 	 * @return  void
 	 *
 	 * @since   3.2.0
-	 * @expectedException DomainException
 	 */
 	public function testRetrieveMapDataFailure()
 	{
+		$this->expectException('DomainException');
+
 		$left = '1';
 		$bottom = '1';
 		$right = '2';
@@ -265,10 +267,10 @@ XML;
 	 * @return  void
 	 *
 	 * @since   3.2.0
-	 * @expectedException DomainException
 	 */
 	public function testRetrievePermissionsFailure()
 	{
+		$this->expectException('DomainException');
 
 		$returnData = new stdClass;
 		$returnData->code = 500;

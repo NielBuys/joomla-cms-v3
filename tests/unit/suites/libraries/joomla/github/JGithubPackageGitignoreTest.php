@@ -15,7 +15,7 @@
  *
  * @since       ¿
  */
-class JGithubPackageGitignoreTest extends \PHPUnit\Framework\TestCase
+class JGithubPackageGitignoreTest extends TestCasePhpunit
 {
 	/**
 	 * @var    JRegistry  Options for the GitHub object.
@@ -48,7 +48,7 @@ class JGithubPackageGitignoreTest extends \PHPUnit\Framework\TestCase
 	 *
 	 * @return  void
 	 */
-	protected function setUp()
+	protected function setUp(): void
 	{
 		parent::setUp();
 
@@ -67,7 +67,7 @@ class JGithubPackageGitignoreTest extends \PHPUnit\Framework\TestCase
 	 * @see     \PHPUnit\Framework\TestCase::tearDown()
 	 * @since   3.6
 	 */
-	protected function tearDown()
+	protected function tearDown(): void
 	{
 		unset($this->options, $this->client, $this->response, $this->object);
 		parent::tearDown();
@@ -174,13 +174,14 @@ class JGithubPackageGitignoreTest extends \PHPUnit\Framework\TestCase
 	/**
 	 * Tests the get method with failure.
 	 *
-	 * @expectedException DomainException
 	 *
 	 * @since   ¿
 	 * @return  void
 	 */
 	public function testGetFailure()
 	{
+		$this->expectException('DomainException');
+
 		$this->response->code = 404;
 		$this->response->body = '{"message":"Not found"}';
 

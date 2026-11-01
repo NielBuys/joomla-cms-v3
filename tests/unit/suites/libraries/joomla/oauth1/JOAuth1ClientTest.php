@@ -79,7 +79,7 @@ class JOAuth1ClientTest extends TestCase
 	 *
 	 * @return void
 	 */
-	protected function setUp()
+	protected function setUp(): void
 	{
 		$this->saveFactoryState();
 		$this->backupServer = $_SERVER;
@@ -109,7 +109,7 @@ class JOAuth1ClientTest extends TestCase
 	 *
 	 * @return void
 	 */
-	protected function tearDown()
+	protected function tearDown(): void
 	{
 		$_SERVER = $this->backupServer;
 		unset($this->backupServer);
@@ -260,10 +260,11 @@ class JOAuth1ClientTest extends TestCase
 	 * @return  void
 	 *
 	 * @since   3.2.0
-	 * @expectedException DomainException
 	 */
 	public function testGenerateRequestTokenFailure()
 	{
+		$this->expectException('DomainException');
+
 		$this->object->setOption('requestTokenURL', 'https://example.com/request_token');
 
 		$returnData = new stdClass;

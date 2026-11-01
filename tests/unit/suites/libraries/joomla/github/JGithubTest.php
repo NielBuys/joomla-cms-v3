@@ -15,7 +15,7 @@
  *
  * @since       1.7.0
  */
-class JGithubTest extends \PHPUnit\Framework\TestCase
+class JGithubTest extends TestCasePhpunit
 {
 	/**
 	 * @var    JRegistry  Options for the GitHub object.
@@ -43,7 +43,7 @@ class JGithubTest extends \PHPUnit\Framework\TestCase
 	 *
 	 * @return void
 	 */
-	protected function setUp()
+	protected function setUp(): void
 	{
 		parent::setUp();
 
@@ -61,7 +61,7 @@ class JGithubTest extends \PHPUnit\Framework\TestCase
 	 *
 	 * @return void
 	 */
-	protected function tearDown()
+	protected function tearDown(): void
 	{
 		unset($this->options, $this->client, $this->object);
 		parent::tearDown();
@@ -221,12 +221,13 @@ class JGithubTest extends \PHPUnit\Framework\TestCase
 	 * Tests the magic __get method - failure
 	 *
 	 * @since  1.7.3
-	 * @expectedException RuntimeException
 	 *
 	 * @return void
 	 */
 	public function test__GetFailure()
 	{
+		$this->expectException('RuntimeException');
+
 		$this->assertThat(
 			$this->object->other,
 			$this->isNull()
@@ -237,12 +238,13 @@ class JGithubTest extends \PHPUnit\Framework\TestCase
 	 * Tests the magic __get method - failure
 	 *
 	 * @since  1.7.3
-	 * @expectedException RuntimeException
 	 *
 	 * @return void
 	 */
 	public function test__GetPackageFailure()
 	{
+		$this->expectException('RuntimeException');
+
 		$this->assertThat(
 			$this->object->repositories->other,
 			$this->isNull()

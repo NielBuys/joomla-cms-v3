@@ -51,7 +51,7 @@ class JCacheStorageTest extends TestCase
 	 *
 	 * @return void
 	 */
-	protected function setUp()
+	protected function setUp(): void
 	{
 		parent::setUp();
 
@@ -99,7 +99,7 @@ class JCacheStorageTest extends TestCase
 	 *
 	 * @return void
 	 */
-	protected function tearDown()
+	protected function tearDown(): void
 	{
 		$this->restoreErrorHandlers();
 		$this->restoreFactoryState();

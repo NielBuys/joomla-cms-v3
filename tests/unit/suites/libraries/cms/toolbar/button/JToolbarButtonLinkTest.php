@@ -40,7 +40,7 @@ class JToolbarButtonLinkTest extends TestCase
 	 *
 	 * @since   3.1
 	 */
-	protected function setUp()
+	protected function setUp(): void
 	{
 		parent::setUp();
 
@@ -60,7 +60,7 @@ class JToolbarButtonLinkTest extends TestCase
 	 *
 	 * @since   3.1
 	 */
-	protected function tearDown()
+	protected function tearDown(): void
 	{
 		$this->restoreFactoryState();
 		unset($this->toolbar, $this->object);
@@ -81,7 +81,7 @@ class JToolbarButtonLinkTest extends TestCase
 		$text = 'Joomla.org';
 		$url = 'https://www.joomla.org';
 
-		$this->assertRegExp(
+		$this->assertMatchesRegularExpression(
 			'#<button onclick="location.href=\'' . preg_quote($url, '#') . '\';" class="btn btn-small">\s*'
 			. '<span class="icon-' . preg_quote($name, '#') . '" aria-hidden=\"true\"></span>\s+' . preg_quote($text, '#') . '\s*'
 			. '</button>\s*#',

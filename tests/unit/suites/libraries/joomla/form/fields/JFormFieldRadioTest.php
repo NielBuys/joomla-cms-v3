@@ -26,7 +26,7 @@ class JFormFieldRadioTest extends TestCase
 	 *
 	 * @return void
 	 */
-	protected function setUp()
+	protected function setUp(): void
 	{
 		parent::setUp();
 
@@ -48,7 +48,7 @@ class JFormFieldRadioTest extends TestCase
 	 *
 	 * @since   3.1
 	 */
-	protected function tearDown()
+	protected function tearDown(): void
 	{
 		$_SERVER = $this->backupServer;
 
@@ -133,7 +133,7 @@ class JFormFieldRadioTest extends TestCase
 		);
 
 		$this->assertThat(
-			strlen($field->input),
+			$field->input,
 			$this->logicalNot(
 				$this->StringContains('Yes')
 			),

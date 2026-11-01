@@ -14,7 +14,7 @@
  * @subpackage  Database
  * @since       3.4
  */
-class JDatabaseExporterPdomysqlTest extends \PHPUnit\Framework\TestCase
+class JDatabaseExporterPdomysqlTest extends TestCasePhpunit
 {
 	/**
 	 * @var    object  The mocked database object for use by test methods.
@@ -29,7 +29,7 @@ class JDatabaseExporterPdomysqlTest extends \PHPUnit\Framework\TestCase
 	 *
 	 * @since   3.4
 	 */
-	public function setup()
+	public function setup(): void
 	{
 		parent::setUp();
 
@@ -158,7 +158,7 @@ class JDatabaseExporterPdomysqlTest extends \PHPUnit\Framework\TestCase
 	 * @see     \PHPUnit\Framework\TestCase::tearDown()
 	 * @since   3.6
 	 */
-	protected function tearDown()
+	protected function tearDown(): void
 	{
 		unset($this->dbo);
 		parent::tearDown();

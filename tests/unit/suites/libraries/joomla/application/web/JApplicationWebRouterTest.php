@@ -29,7 +29,7 @@ class JApplicationWebRouterTest extends TestCase
 	 *
 	 * @return  void
 	 */
-	protected function setUp()
+	protected function setUp(): void
 	{
 		parent::setUp();
 
@@ -41,7 +41,7 @@ class JApplicationWebRouterTest extends TestCase
 	 *
 	 * @return  void
 	 */
-	protected function tearDown()
+	protected function tearDown(): void
 	{
 		$this->_instance = null;
 
@@ -104,10 +104,11 @@ class JApplicationWebRouterTest extends TestCase
 	 *
 	 * @return  void
 	 *
-	 * @expectedException RuntimeException
 	 */
 	public function testFetchControllerWithMissingClass()
 	{
+		$this->expectException('RuntimeException');
+
 		TestReflection::invoke($this->_instance, 'fetchController', 'goober');
 	}
 
@@ -116,10 +117,11 @@ class JApplicationWebRouterTest extends TestCase
 	 *
 	 * @return  void
 	 *
-	 * @expectedException RuntimeException
 	 */
 	public function testFetchControllerWithNonController()
 	{
+		$this->expectException('RuntimeException');
+
 		TestReflection::invoke($this->_instance, 'fetchController', 'MyTestControllerBaz');
 	}
 
@@ -142,10 +144,11 @@ class JApplicationWebRouterTest extends TestCase
 	 *
 	 * @return  void
 	 *
-	 * @expectedException RuntimeException
 	 */
 	public function testFetchControllerWithoutPrefixSetThoughNecessary()
 	{
+		$this->expectException('RuntimeException');
+
 		TestReflection::invoke($this->_instance, 'fetchController', 'foo');
 	}
 

@@ -709,7 +709,7 @@ abstract class Factory
 					Log::add(__METHOD__ . '() could not set the sender data.', Log::WARNING, 'mail');
 				}
 			}
-			catch (\phpmailerException $e)
+			catch (\PHPMailer\PHPMailer\Exception $e)
 			{
 				Log::add(__METHOD__ . '() could not set the sender data.', Log::WARNING, 'mail');
 			}

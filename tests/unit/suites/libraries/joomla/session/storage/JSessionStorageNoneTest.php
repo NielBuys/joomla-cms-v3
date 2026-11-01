@@ -12,7 +12,7 @@
  *
  * @since  1.7.0
  */
-class JSessionStorageNoneTest extends \PHPUnit\Framework\TestCase
+class JSessionStorageNoneTest extends TestCasePhpunit
 {
 	/**
 	 * @var JSessionStorageNone
@@ -25,7 +25,7 @@ class JSessionStorageNoneTest extends \PHPUnit\Framework\TestCase
 	 *
 	 * @return void
 	 */
-	protected function setUp()
+	protected function setUp(): void
 	{
 		parent::setUp();
 

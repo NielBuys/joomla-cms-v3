@@ -15,7 +15,7 @@
  *
  * @since       1.7.0
  */
-class JGithubAccountTest extends \PHPUnit\Framework\TestCase
+class JGithubAccountTest extends TestCasePhpunit
 {
 	/**
 	 * @var    JRegistry  Options for the GitHub object.
@@ -55,7 +55,7 @@ class JGithubAccountTest extends \PHPUnit\Framework\TestCase
 	 *
 	 * @since   3.1.4
 	 */
-	protected function setUp()
+	protected function setUp(): void
 	{
 		parent::setUp();
 
@@ -75,7 +75,7 @@ class JGithubAccountTest extends \PHPUnit\Framework\TestCase
 	 * @see     \PHPUnit\Framework\TestCase::tearDown()
 	 * @since   3.6
 	 */
-	protected function tearDown()
+	protected function tearDown(): void
 	{
 		unset($this->options, $this->client, $this->object);
 		parent::tearDown();
@@ -346,10 +346,11 @@ class JGithubAccountTest extends \PHPUnit\Framework\TestCase
 	 *
 	 * @since   3.1.4
 	 *
-	 * @expectedException  RuntimeException
 	 */
 	public function testEditAuthorisationTooManyScopes()
 	{
+		$this->expectException('RuntimeException');
+
 		$this->object->editAuthorisation(42, array(), array('public_repo', 'gist'), array('public_repo', 'gist'), 'My test app', 'https://www.joomla.org');
 	}
 
@@ -384,10 +385,11 @@ class JGithubAccountTest extends \PHPUnit\Framework\TestCase
 	 *
 	 * @since   3.0.0
 	 *
-	 * @expectedException  DomainException
 	 */
 	public function testGetAuthorisationFailure()
 	{
+		$this->expectException('DomainException');
+
 		$returnData = new stdClass;
 		$returnData->code = 500;
 		$returnData->body = $this->errorString;
@@ -431,10 +433,11 @@ class JGithubAccountTest extends \PHPUnit\Framework\TestCase
 	 *
 	 * @since   3.1.4
 	 *
-	 * @expectedException  DomainException
 	 */
 	public function testGetAuthorisationsFailure()
 	{
+		$this->expectException('DomainException');
+
 		$returnData = new stdClass;
 		$returnData->code = 500;
 		$returnData->body = $this->errorString;
@@ -478,10 +481,11 @@ class JGithubAccountTest extends \PHPUnit\Framework\TestCase
 	 *
 	 * @since   3.1.4
 	 *
-	 * @expectedException  DomainException
 	 */
 	public function testGetRateLimitFailure()
 	{
+		$this->expectException('DomainException');
+
 		$returnData = new stdClass;
 		$returnData->code = 500;
 		$returnData->body = $this->errorString;

@@ -44,7 +44,7 @@ class JDatabaseImporterMysqlTest extends TestCase
 	 *
 	 * @return  void
 	 */
-	public static function setUpBeforeClass()
+	public static function setUpBeforeClass(): void
 	{
 		if (PHP_MAJOR_VERSION >= 7)
 		{
@@ -58,7 +58,7 @@ class JDatabaseImporterMysqlTest extends TestCase
 	 *
 	 * @return  void
 	 */
-	protected function setUp()
+	protected function setUp(): void
 	{
 		$this->dbo = $this->getMockBuilder('JDatabaseDriverMysql')
 			->setMethods(array(
@@ -186,7 +186,7 @@ class JDatabaseImporterMysqlTest extends TestCase
 	 * @see     \PHPUnit\Framework\TestCase::tearDown()
 	 * @since   3.6
 	 */
-	protected function tearDown()
+	protected function tearDown(): void
 	{
 		unset($this->dbo);
 	}
@@ -370,10 +370,11 @@ class JDatabaseImporterMysqlTest extends TestCase
 	/**
 	 * Tests the check method.
 	 *
-	 * @expectedException Exception
 	 */
 	public function testCheckWithNoDbo()
 	{
+		$this->expectException('Exception');
+
 		$instance = new JDatabaseImporterMysql;
 
 		$instance->check();
@@ -382,10 +383,11 @@ class JDatabaseImporterMysqlTest extends TestCase
 	/**
 	 * Tests the check method.
 	 *
-	 * @expectedException Exception
 	 */
 	public function testCheckWithNoFrom()
 	{
+		$this->expectException('Exception');
+
 		$instance = new JDatabaseImporterMysql;
 		$instance->setDbo($this->dbo);
 

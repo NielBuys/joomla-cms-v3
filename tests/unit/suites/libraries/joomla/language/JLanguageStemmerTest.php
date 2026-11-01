@@ -13,7 +13,7 @@
  * @subpackage  Language
  * @since       1.7.0
  */
-class JLanguageStemmerTest extends \PHPUnit\Framework\TestCase
+class JLanguageStemmerTest extends TestCasePhpunit
 {
 	/**
 	 * Test...
@@ -45,12 +45,13 @@ class JLanguageStemmerTest extends \PHPUnit\Framework\TestCase
 	/**
 	 * Test...
 	 *
-	 * @expectedException  RuntimeException
 	 *
 	 * @return void
 	 */
 	public function testGetInstanceException()
 	{
+		$this->expectException('RuntimeException');
+
 		JLanguageStemmer::getInstance('unexisting');
 	}
 }

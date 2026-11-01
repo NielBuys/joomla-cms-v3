@@ -13,7 +13,7 @@
  * @subpackage  Event
  * @since       1.7.0
  */
-class JFileTest extends \PHPUnit\Framework\TestCase
+class JFileTest extends TestCasePhpunit
 {
 	/**
 	 * Test...

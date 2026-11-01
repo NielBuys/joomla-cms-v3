@@ -35,7 +35,7 @@ class JFormTest extends TestCaseDatabase
 	 *
 	 * @since   3.1
 	 */
-	protected function setUp()
+	protected function setUp(): void
 	{
 		parent::setUp();
 
@@ -57,7 +57,7 @@ class JFormTest extends TestCaseDatabase
 	 *
 	 * @since   3.1
 	 */
-	protected function tearDown()
+	protected function tearDown(): void
 	{
 		$_SERVER = $this->backupServer;
 		unset($this->backupServer);
@@ -2386,10 +2386,11 @@ class JFormTest extends TestCaseDatabase
 	 *
 	 * @since   3.0.0
 	 *
-	 * @expectedException  UnexpectedValueException
 	 */
 	public function testValidateField_missingRule()
 	{
+		$this->expectException('UnexpectedValueException');
+
 		$form = new JFormInspector('form1');
 		$form->load(JFormDataHelper::$validateFieldDocument);
 		$xml = $form->getXml();

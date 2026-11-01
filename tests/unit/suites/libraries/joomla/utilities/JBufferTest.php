@@ -15,7 +15,7 @@
  * @subpackage  Utilities
  * @since       1.7.0
  */
-class JBufferTest extends \PHPUnit\Framework\TestCase
+class JBufferTest extends TestCasePhpunit
 {
 	/**
 	 * @var JBuffer
@@ -28,7 +28,7 @@ class JBufferTest extends \PHPUnit\Framework\TestCase
 	 *
 	 * @return void
 	 */
-	protected function setUp()
+	protected function setUp(): void
 	{
 		parent::setUp();
 
@@ -41,7 +41,7 @@ class JBufferTest extends \PHPUnit\Framework\TestCase
 	 *
 	 * @return void
 	 */
-	protected function tearDown()
+	protected function tearDown(): void
 	{
 		unset($this->object);
 		parent::tearDown();

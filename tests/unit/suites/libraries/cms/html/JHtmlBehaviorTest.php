@@ -34,7 +34,7 @@ class JHtmlBehaviorTest extends TestCase
 	 *
 	 * @since   3.1
 	 */
-	protected function setUp()
+	protected function setUp(): void
 	{
 		// Ensure the loaded states are reset
 		JHtmlBehaviorInspector::resetLoaded();
@@ -83,7 +83,7 @@ class JHtmlBehaviorTest extends TestCase
 	 *
 	 * @since   3.1
 	 */
-	protected function tearDown()
+	protected function tearDown(): void
 	{
 		TestReflection::setValue('JRoute', '_router', array());
 

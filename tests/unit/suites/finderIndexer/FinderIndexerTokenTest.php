@@ -25,7 +25,7 @@ class FinderIndexerTokenTest extends TestCase
 	 *
 	 * @since   3.1
 	 */
-	protected function setUp()
+	protected function setUp(): void
 	{
 		parent::setUp();
 
@@ -46,7 +46,7 @@ class FinderIndexerTokenTest extends TestCase
 	 *
 	 * @since   3.1
 	 */
-	protected function tearDown()
+	protected function tearDown(): void
 	{
 		// Restore the factory state
 		$this->restoreFactoryState();

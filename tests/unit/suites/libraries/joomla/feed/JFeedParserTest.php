@@ -375,7 +375,7 @@ class JFeedParserTest extends TestCase
 	 * @see     \PHPUnit\Framework\TestCase::setUp()
 	 * @since   3.1.4
 	 */
-	protected function setUp()
+	protected function setUp(): void
 	{
 		parent::setUp();
 
@@ -394,7 +394,7 @@ class JFeedParserTest extends TestCase
 	 * @see     \PHPUnit\Framework\TestCase::tearDown()
 	 * @since   3.1.4
 	 */
-	protected function tearDown()
+	protected function tearDown(): void
 	{
 		unset($this->_instance, $this->_reader);
 

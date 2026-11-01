@@ -105,10 +105,11 @@ class JControllerBaseTest extends TestCase
 	 * @return  void
 	 *
 	 * @since   3.0.0
-	 * @expectedException  UnexpectedValueException
 	 */
 	public function testUnserialise_exception()
 	{
+		$this->expectException('UnexpectedValueException');
+
 		$this->_instance->unserialize('s:7:"default";');
 	}
 
@@ -147,7 +148,7 @@ class JControllerBaseTest extends TestCase
 	 *
 	 * @since   3.0.0
 	 */
-	protected function setUp()
+	protected function setUp(): void
 	{
 		parent::setUp();
 
@@ -168,7 +169,7 @@ class JControllerBaseTest extends TestCase
 	 *
 	 * @since   3.0.0
 	 */
-	protected function tearDown()
+	protected function tearDown(): void
 	{
 		$this->restoreFactoryState();
 		unset($this->_instance);

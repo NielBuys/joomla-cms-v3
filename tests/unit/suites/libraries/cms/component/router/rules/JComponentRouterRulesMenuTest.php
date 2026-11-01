@@ -36,7 +36,7 @@ class JComponentRouterRulesMenuTest extends TestCaseDatabase
 	 *
 	 * @since   3.5
 	 */
-	protected function setUp()
+	protected function setUp(): void
 	{
 		parent::setUp();
 
@@ -76,7 +76,7 @@ class JComponentRouterRulesMenuTest extends TestCaseDatabase
 	 * @see     \PHPUnit\Framework\TestCase::tearDown()
 	 * @since   3.7.0
 	 */
-	protected function tearDown()
+	protected function tearDown(): void
 	{
 		$this->restoreFactoryState();
 

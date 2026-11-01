@@ -12,7 +12,7 @@ require_once JPATH_ADMINISTRATOR . '/components/com_finder/helpers/indexer/stemm
 /**
  * Test class for FinderIndexerStemmerFr.
  */
-class FinderIndexerStemmerFrTest extends \PHPUnit\Framework\TestCase
+class FinderIndexerStemmerFrTest extends TestCasePhpunit
 {
 	/**
 	 * @var FinderIndexerStemmerFr
@@ -23,7 +23,7 @@ class FinderIndexerStemmerFrTest extends \PHPUnit\Framework\TestCase
 	 * Sets up the fixture, for example, opens a network connection.
 	 * This method is called before a test is executed.
 	 */
-	protected function setUp()
+	protected function setUp(): void
 	{
 		$this->object = new FinderIndexerStemmerFr;
 	}
@@ -37,7 +37,7 @@ class FinderIndexerStemmerFrTest extends \PHPUnit\Framework\TestCase
 	 * @see     \PHPUnit\Framework\TestCase::tearDown()
 	 * @since   3.6
 	 */
-	protected function tearDown()
+	protected function tearDown(): void
 	{
 		unset($this->object);
 	}

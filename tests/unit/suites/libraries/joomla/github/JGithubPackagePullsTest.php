@@ -15,7 +15,7 @@
  *
  * @since       1.7.0
  */
-class JGithubPackagePullsTest extends \PHPUnit\Framework\TestCase
+class JGithubPackagePullsTest extends TestCasePhpunit
 {
 	/**
 	 * @var    JRegistry  Options for the GitHub object.
@@ -55,7 +55,7 @@ class JGithubPackagePullsTest extends \PHPUnit\Framework\TestCase
 	 *
 	 * @return void
 	 */
-	protected function setUp()
+	protected function setUp(): void
 	{
 		parent::setUp();
 
@@ -73,7 +73,7 @@ class JGithubPackagePullsTest extends \PHPUnit\Framework\TestCase
 	 * @see     \PHPUnit\Framework\TestCase::tearDown()
 	 * @since   3.6
 	 */
-	protected function tearDown()
+	protected function tearDown(): void
 	{
 		unset($this->options, $this->client, $this->object);
 		parent::tearDown();
@@ -127,12 +127,13 @@ class JGithubPackagePullsTest extends \PHPUnit\Framework\TestCase
 	/**
 	 * Tests the create method - failure
 	 *
-	 * @expectedException  DomainException
 	 *
 	 * @return void
 	 */
 	public function testCreateFailure()
 	{
+		$this->expectException('DomainException');
+
 		$returnData = new stdClass;
 		$returnData->code = 501;
 		$returnData->body = $this->errorString;
@@ -292,12 +293,13 @@ class JGithubPackagePullsTest extends \PHPUnit\Framework\TestCase
 	/**
 	 * Tests the createFromIssue method - failure
 	 *
-	 * @expectedException  DomainException
 	 *
 	 * @return void
 	 */
 	public function testCreateFromIssueFailure()
 	{
+		$this->expectException('DomainException');
+
 		$returnData = new stdClass;
 		$returnData->code = 501;
 		$returnData->body = $this->errorString;
@@ -387,12 +389,13 @@ class JGithubPackagePullsTest extends \PHPUnit\Framework\TestCase
 	/**
 	 * Tests the edit method - failure
 	 *
-	 * @expectedException  DomainException
 	 *
 	 * @return void
 	 */
 	public function testEditFailure()
 	{
+		$this->expectException('DomainException');
+
 		$returnData = new stdClass;
 		$returnData->code = 500;
 		$returnData->body = $this->errorString;
@@ -485,12 +488,13 @@ class JGithubPackagePullsTest extends \PHPUnit\Framework\TestCase
 	/**
 	 * Tests the get method - failure
 	 *
-	 * @expectedException  DomainException
 	 *
 	 * @return void
 	 */
 	public function testGetFailure()
 	{
+		$this->expectException('DomainException');
+
 		$returnData = new stdClass;
 		$returnData->code = 500;
 		$returnData->body = $this->errorString;
@@ -618,12 +622,13 @@ class JGithubPackagePullsTest extends \PHPUnit\Framework\TestCase
 	/**
 	 * Tests the getCommits method - failure
 	 *
-	 * @expectedException  DomainException
 	 *
 	 * @return void
 	 */
 	public function testGetCommitsFailure()
 	{
+		$this->expectException('DomainException');
+
 		$returnData = new stdClass;
 		$returnData->code = 500;
 		$returnData->body = $this->errorString;
@@ -661,12 +666,13 @@ class JGithubPackagePullsTest extends \PHPUnit\Framework\TestCase
 	/**
 	 * Tests the getFiles method - failure
 	 *
-	 * @expectedException  DomainException
 	 *
 	 * @return void
 	 */
 	public function testGetFilesFailure()
 	{
+		$this->expectException('DomainException');
+
 		$returnData = new stdClass;
 		$returnData->code = 500;
 		$returnData->body = $this->errorString;
@@ -704,12 +710,13 @@ class JGithubPackagePullsTest extends \PHPUnit\Framework\TestCase
 	/**
 	 * Tests the getList method - failure
 	 *
-	 * @expectedException  DomainException
 	 *
 	 * @return void
 	 */
 	public function testGetListFailure()
 	{
+		$this->expectException('DomainException');
+
 		$returnData = new stdClass;
 		$returnData->code = 500;
 		$returnData->body = $this->errorString;
@@ -769,12 +776,13 @@ class JGithubPackagePullsTest extends \PHPUnit\Framework\TestCase
 	/**
 	 * Tests the isMerged method when the request fails
 	 *
-	 * @expectedException  DomainException
 	 *
 	 * @return void
 	 */
 	public function testIsMergedFailure()
 	{
+		$this->expectException('DomainException');
+
 		$returnData = new stdClass;
 		$returnData->code = 504;
 		$returnData->body = $this->errorString;
@@ -812,12 +820,13 @@ class JGithubPackagePullsTest extends \PHPUnit\Framework\TestCase
 	/**
 	 * Tests the merge method - failure
 	 *
-	 * @expectedException  DomainException
 	 *
 	 * @return void
 	 */
 	public function testMergeFailure()
 	{
+		$this->expectException('DomainException');
+
 		$returnData = new stdClass;
 		$returnData->code = 500;
 		$returnData->body = $this->errorString;
