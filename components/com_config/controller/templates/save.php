@@ -17,6 +17,22 @@ defined('_JEXEC') or die;
 class ConfigControllerTemplatesSave extends JControllerBase
 {
 	/**
+	 * The parts of the task, set by ConfigControllerHelper::parseController()
+	 *
+	 * @var    array
+	 * @since  3.12.0
+	 */
+	public $options = array();
+
+	/**
+	 * Prefix for the view and model classes, set by the component entry point
+	 *
+	 * @var    string
+	 * @since  3.12.0
+	 */
+	public $prefix = 'Config';
+
+	/**
 	 * Method to save global configuration.
 	 *
 	 * @return  boolean  True on success.
