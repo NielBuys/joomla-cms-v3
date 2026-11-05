@@ -95,6 +95,9 @@ repository before you build.
 1. **Version up.** Bump `PATCH_VERSION`, `DEV_LEVEL` (the same number, as a string) and `RELDATE`
    in `libraries/src/Version.php`, and `<version>` in `administrator/manifests/files/joomla.xml`.
    Commit as "Version Up 3.11.x". `DEV_LEVEL` goes into the user agent string.
+   - **Codename.** `CODENAME` in `Version.php` is the fork's own: a fish name per minor
+     version. Only a new minor version (3.13.0, 3.14.0, ...) gets a new fish; patch releases
+     keep the name of their minor version. 3.12.x is "Galjoen". 3.11.x keeps upstream's "Daraja".
 2. **Tag and push.** `git tag -a 3.11.x -m "Joomla 3.11.x (fork release)"`, then
    `git push origin 3.10-dev 3.11.x`. If you create the tag on GitHub instead, run
    `git fetch --tags` locally before building.
