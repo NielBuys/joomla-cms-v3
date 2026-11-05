@@ -16,6 +16,22 @@ defined('_JEXEC') or die;
 class ConfigControllerApplicationRemoveroot extends JControllerBase
 {
 	/**
+	 * The parts of the task, set by ConfigControllerHelper::parseController()
+	 *
+	 * @var    array
+	 * @since  3.12.0
+	 */
+	public $options = array();
+
+	/**
+	 * Prefix for the view and model classes, set by the component entry point
+	 *
+	 * @var    string
+	 * @since  3.12.0
+	 */
+	public $prefix = 'Config';
+
+	/**
 	 * Application object - Redeclared for proper typehinting
 	 *
 	 * @var    JApplicationCms

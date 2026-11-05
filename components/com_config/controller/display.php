@@ -17,6 +17,14 @@ defined('_JEXEC') or die;
 class ConfigControllerDisplay extends JControllerBase
 {
 	/**
+	 * The parts of the task, set by ConfigControllerHelper::parseController()
+	 *
+	 * @var    array
+	 * @since  3.12.0
+	 */
+	public $options = array();
+
+	/**
 	 * Application object - Redeclared for proper typehinting
 	 *
 	 * @var    JApplicationCms

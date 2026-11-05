@@ -17,6 +17,22 @@ defined('_JEXEC') or die;
 class ConfigControllerComponentSave extends JControllerBase
 {
 	/**
+	 * The parts of the task, set by ConfigControllerHelper::parseController()
+	 *
+	 * @var    array
+	 * @since  3.12.0
+	 */
+	public $options = array();
+
+	/**
+	 * Prefix for the view and model classes, set by the component entry point
+	 *
+	 * @var    string
+	 * @since  3.12.0
+	 */
+	public $prefix = 'Config';
+
+	/**
 	 * Application object - Redeclared for proper typehinting
 	 *
 	 * @var    JApplicationCms
@@ -119,8 +135,8 @@ class ConfigControllerComponentSave extends JControllerBase
 			$this->app->redirect(JRoute::_('index.php?option=com_config&view=component&component=' . $option . $redirect, false));
 		}
 
-		// Set the redirect based on the task.
-		switch ($this->options[3])
+		// Set the redirect based on the task: "apply" is the fourth part of the task, a plain save has none
+		switch (isset($this->options[3]) ? $this->options[3] : 'save')
 		{
 			case 'apply':
 				$this->app->enqueueMessage(JText::_('COM_CONFIG_SAVE_SUCCESS'), 'message');
