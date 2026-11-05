@@ -51,7 +51,7 @@ class TestMockInput
 	 *
 	 * @since   3.4
 	 */
-	public function createInput(array $options = null)
+	public function createInput(?array $options = null)
 	{
 		// Collect all the relevant methods in JInput.
 		$methods = array(

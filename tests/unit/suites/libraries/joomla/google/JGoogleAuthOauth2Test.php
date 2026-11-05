@@ -251,7 +251,7 @@ class JGoogleAuthOauth2Test extends TestCase
 	 *
 	 * @since   3.1.4
 	 */
-	public static function jsonGrantOauthCallback($url, $data, array $headers = null, $timeout = null)
+	public static function jsonGrantOauthCallback($url, $data, ?array $headers = null, $timeout = null)
 	{
 		$response = new stdClass;
 
@@ -274,7 +274,7 @@ class JGoogleAuthOauth2Test extends TestCase
 	 *
 	 * @since   3.1.4
 	 */
-	public static function queryOauthCallback($url, $data, array $headers = null, $timeout = null)
+	public static function queryOauthCallback($url, $data, ?array $headers = null, $timeout = null)
 	{
 		$response = new stdClass;
 
@@ -296,7 +296,7 @@ class JGoogleAuthOauth2Test extends TestCase
 	 *
 	 * @since   3.1.4
 	 */
-	public static function getOauthCallback($url, array $headers = null, $timeout = null)
+	public static function getOauthCallback($url, ?array $headers = null, $timeout = null)
 	{
 		$response = new stdClass;
 
