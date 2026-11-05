@@ -446,7 +446,7 @@ class JGoogleDataPicasaPhotoTest extends TestCase
  *
  * @since   3.1.4
  */
-function picasaPhotoCallback($url, array $headers = null, $timeout = null)
+function picasaPhotoCallback($url, ?array $headers = null, $timeout = null)
 {
 	$response = new stdClass;
 
@@ -469,7 +469,7 @@ function picasaPhotoCallback($url, array $headers = null, $timeout = null)
  *
  * @since   3.1.4
  */
-function dataPicasaPhotoCallback($url, $data, array $headers = null, $timeout = null)
+function dataPicasaPhotoCallback($url, $data, ?array $headers = null, $timeout = null)
 {
 	\PHPUnit\Framework\TestCase::assertStringContainsString('<title>New Title</title>', $data);
 
