@@ -173,7 +173,7 @@ class DataObject implements DumpableInterface, \IteratorAggregate, \JsonSerializ
 	 *
 	 * @since   1.0
 	 */
-	public function dump($depth = 3, \SplObjectStorage $dumped = null)
+	public function dump($depth = 3, ?\SplObjectStorage $dumped = null)
 	{
 		// Check if we should initialise the recursion tracker.
 		if ($dumped === null)
@@ -182,7 +182,7 @@ class DataObject implements DumpableInterface, \IteratorAggregate, \JsonSerializ
 		}
 
 		// Add this object to the dumped stack.
-		$dumped->attach($this);
+		$dumped->offsetSet($this);
 
 		// Setup a container.
 		$dump = new \stdClass;
@@ -207,6 +207,7 @@ class DataObject implements DumpableInterface, \IteratorAggregate, \JsonSerializ
 	 * @see     IteratorAggregate::getIterator()
 	 * @since   1.0
 	 */
+	#[\ReturnTypeWillChange]
 	public function getIterator()
 	{
 		return new \ArrayIterator($this->dump(0));
@@ -219,6 +220,7 @@ class DataObject implements DumpableInterface, \IteratorAggregate, \JsonSerializ
 	 *
 	 * @since   1.0
 	 */
+	#[\ReturnTypeWillChange]
 	public function jsonSerialize()
 	{
 		return $this->dump();
@@ -248,7 +250,7 @@ class DataObject implements DumpableInterface, \IteratorAggregate, \JsonSerializ
 			if ($value instanceof DumpableInterface)
 			{
 				// Do not dump the property if it has already been dumped.
-				if (!$dumped->contains($value))
+				if (!$dumped->offsetExists($value))
 				{
 					$value = $value->dump($depth - 1, $dumped);
 				}
@@ -324,6 +326,7 @@ class DataObject implements DumpableInterface, \IteratorAggregate, \JsonSerializ
 	 *
 	 * @since   1.0
 	 */
+	#[\ReturnTypeWillChange]
 	public function count()
 	{
 		return count($this->properties);
