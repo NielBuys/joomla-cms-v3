@@ -118,8 +118,8 @@ repository before you build.
    push both to `3.10-dev`. Joomla only reads `updates.xml` when the `list.xml` version is
    higher than the installed one, so if `list.xml` is not bumped the release is never
    offered. Doing this last means sites are never offered a download link that does not
-   exist yet. The copies of these two files inside the packages lag one release behind,
-   which does not matter because Joomla reads them from GitHub.
+   exist yet. These files are not in the packages (`build.php` leaves them out, with
+   `CLAUDE.md` and `docs/`); Joomla reads them from GitHub.
 
 **Update channels.** Joomla Update's Options > Update Channel picks the list it reads, all
 served from `3.10-dev`:

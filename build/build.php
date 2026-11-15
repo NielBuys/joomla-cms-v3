@@ -214,6 +214,17 @@ $doNotPackage = array(
 	'RoboFile.dist.ini',
 	'CODE_OF_CONDUCT.md',
 	'selenium.log',
+	// This repository's own files, not part of a site: the agent instructions, the notes,
+	// and the update server's lists (sites read those from the update server).
+	// They must never go on the deleted files list either: a site may have its own.
+	'CLAUDE.md',
+	'docs',
+	'list.xml',
+	'list_next.xml',
+	'list_test.xml',
+	'updates.xml',
+	'updates_next.xml',
+	'updates_test.xml',
 	// Remove the testing sample data from all packages
 	'installation/sql/mysql/sample_testing.sql',
 	'installation/sql/postgresql/sample_testing.sql',
