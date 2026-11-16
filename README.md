@@ -95,24 +95,32 @@ repository before you build.
 1. **Version up.** Bump `PATCH_VERSION`, `DEV_LEVEL` (the same number, as a string) and `RELDATE`
    in `libraries/src/Version.php`, and `<version>` in `administrator/manifests/files/joomla.xml`.
    Commit as "Version Up 3.11.x". `DEV_LEVEL` goes into the user agent string.
-2. **Tag and push.** `git tag -a 3.11.x -m "Joomla 3.11.x (fork release)"`, then
-   `git push origin 3.10-dev 3.11.x`. If you create the tag on GitHub instead, run
+2. **Tag and push.** `git tag -a 3.11.x -m "Joomla 3.11.x (fork release)"`, then push the
+   release's branch and the tag: `git push origin 3.10-dev 3.11.x` for 3.11.x,
+   `git push origin 3.12-dev 3.12.x` for 3.12.x. If you create the tag on GitHub instead, run
    `git fetch --tags` locally before building.
 3. **Build.** From the repository root run `php build/build.php` with **no `--remote`**.
+   Run it from a checkout of the release's branch: the build packages the tag, but runs the
+   `build/build.php` of your working tree, and an older one may package files the release
+   leaves out.
    With no `--remote` it builds the newest tag in release mode, which also writes
    `checksums.txt` and `github_release.txt`. Passing `--remote` skips both files.
    - Inside a Docker container the repository is owned by a different user, so git refuses
      it and the build cannot read the tag. Run
      `git config --global --add safe.directory /var/www/html/joomla-cms` first.
 4. **Check.** The last line should read "Build of version 3.11.x complete!" with the
-   version you tagged. The 12 archives are in `build/tmp/packages/`; `checksums.txt` and
+   version you tagged. The archives are in `build/tmp/packages/` (12 for a 3.11.x release, 9
+   for a 3.12.x patch release, which has one patch set); `checksums.txt` and
    `github_release.txt` are one level up in `build/tmp/`.
-5. **Publish.** Create the GitHub release on the tag, attach all 12 archives, and paste
+5. **Publish.** Create the GitHub release on the tag, attach all the archives, and paste
    `github_release.txt` into the body (its download links point at this repository's `origin`).
 6. **Update server entry.** Only after the release and its archives are on GitHub, add a
    new `<update>` block for the version to the top of `updates.xml` (leave the older blocks
    in place), set the `version` attribute in `list.xml` to the new version, then commit and
-   push both to `3.10-dev`. Joomla only reads `updates.xml` when the `list.xml` version is
+   push both to `3.10-dev`, for 3.12.x releases too: every installed site reads these files
+   from `3.10-dev` (the address is in the code), whichever branch is the default on GitHub.
+   Then copy the same files to `3.12-dev` so its copies stay current. Joomla only reads
+   `updates.xml` when the `list.xml` version is
    higher than the installed one, so if `list.xml` is not bumped the release is never
    offered. Doing this last means sites are never offered a download link that does not
    exist yet. The copies of these two files inside the packages lag one release behind,
