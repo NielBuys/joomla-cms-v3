@@ -752,7 +752,7 @@ class JGoogleEmbedMapsTest extends TestCase
  *
  * @since   3.1.4
  */
-function mapsGeocodeCallback($url, array $headers = null, $timeout = null)
+function mapsGeocodeCallback($url, ?array $headers = null, $timeout = null)
 {
 	$query = parse_url($url, PHP_URL_QUERY);
 
@@ -794,7 +794,7 @@ function mapsGeocodeCallback($url, array $headers = null, $timeout = null)
  *
  * @since   3.1.4
  */
-function mapsGeocode400Callback($url, array $headers = null, $timeout = null)
+function mapsGeocode400Callback($url, ?array $headers = null, $timeout = null)
 {
 	$response = new stdClass;
 
@@ -816,7 +816,7 @@ function mapsGeocode400Callback($url, array $headers = null, $timeout = null)
  *
  * @since   3.1.4
  */
-function mapsGeocodeBadJsonCallback($url, array $headers = null, $timeout = null)
+function mapsGeocodeBadJsonCallback($url, ?array $headers = null, $timeout = null)
 {
 	$response = new stdClass;
 

@@ -281,6 +281,7 @@ class DataSet implements DumpableInterface, \ArrayAccess, \Countable, \Iterator
 	 *
 	 * @since   1.0
 	 */
+	#[\ReturnTypeWillChange]
 	public function count()
 	{
 		return count($this->objects);
@@ -308,6 +309,7 @@ class DataSet implements DumpableInterface, \ArrayAccess, \Countable, \Iterator
 	 *
 	 * @since   1.0
 	 */
+	#[\ReturnTypeWillChange]
 	public function current()
 	{
 		return is_scalar($this->current) ? $this->objects[$this->current] : false;
@@ -326,7 +328,7 @@ class DataSet implements DumpableInterface, \ArrayAccess, \Countable, \Iterator
 	 * @see     DataObject::dump()
 	 * @since   1.0
 	 */
-	public function dump($depth = 3, \SplObjectStorage $dumped = null)
+	public function dump($depth = 3, ?\SplObjectStorage $dumped = null)
 	{
 		// Check if we should initialise the recursion tracker.
 		if ($dumped === null)
@@ -335,7 +337,7 @@ class DataSet implements DumpableInterface, \ArrayAccess, \Countable, \Iterator
 		}
 
 		// Add this object to the dumped stack.
-		$dumped->attach($this);
+		$dumped->offsetSet($this);
 
 		$objects = array();
 
@@ -394,6 +396,7 @@ class DataSet implements DumpableInterface, \ArrayAccess, \Countable, \Iterator
 	 *
 	 * @since   1.0
 	 */
+	#[\ReturnTypeWillChange]
 	public function key()
 	{
 		return $this->current;
@@ -450,6 +453,7 @@ class DataSet implements DumpableInterface, \ArrayAccess, \Countable, \Iterator
 	 *
 	 * @since   1.0
 	 */
+	#[\ReturnTypeWillChange]
 	public function next()
 	{
 		// Get the object offsets.
@@ -489,6 +493,7 @@ class DataSet implements DumpableInterface, \ArrayAccess, \Countable, \Iterator
 	 *
 	 * @since   1.0
 	 */
+	#[\ReturnTypeWillChange]
 	public function offsetExists($offset)
 	{
 		return isset($this->objects[$offset]);
@@ -503,6 +508,7 @@ class DataSet implements DumpableInterface, \ArrayAccess, \Countable, \Iterator
 	 *
 	 * @since   1.0
 	 */
+	#[\ReturnTypeWillChange]
 	public function offsetGet($offset)
 	{
 		return isset($this->objects[$offset]) ? $this->objects[$offset] : null;
@@ -519,6 +525,7 @@ class DataSet implements DumpableInterface, \ArrayAccess, \Countable, \Iterator
 	 * @since   1.0
 	 * @throws  \InvalidArgumentException if an object is not an instance of Data\Object.
 	 */
+	#[\ReturnTypeWillChange]
 	public function offsetSet($offset, $object)
 	{
 		if (!($object instanceof DataObject))
@@ -539,6 +546,7 @@ class DataSet implements DumpableInterface, \ArrayAccess, \Countable, \Iterator
 	 *
 	 * @since   1.0
 	 */
+	#[\ReturnTypeWillChange]
 	public function offsetUnset($offset)
 	{
 		if (!$this->offsetExists($offset))
@@ -577,6 +585,7 @@ class DataSet implements DumpableInterface, \ArrayAccess, \Countable, \Iterator
 	 *
 	 * @since   1.0
 	 */
+	#[\ReturnTypeWillChange]
 	public function rewind()
 	{
 		// Set the current position to the first object.
@@ -598,6 +607,7 @@ class DataSet implements DumpableInterface, \ArrayAccess, \Countable, \Iterator
 	 *
 	 * @since   1.0
 	 */
+	#[\ReturnTypeWillChange]
 	public function valid()
 	{
 		// Check the current position.

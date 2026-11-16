@@ -2,17 +2,17 @@
     "packages": [
         {
             "name": "google/recaptcha",
-            "version": "1.2.5",
-            "version_normalized": "1.2.5.0",
+            "version": "1.2.6",
+            "version_normalized": "1.2.6.0",
             "source": {
                 "type": "git",
                 "url": "https://github.com/NielBuys/recaptcha.git",
-                "reference": "0b125c79915f83ed8dc9fda5032fa5d743cdb2aa"
+                "reference": "e69af3f1b7dffb43e984bce43aaffa4be0b6d25c"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/NielBuys/recaptcha/zipball/0b125c79915f83ed8dc9fda5032fa5d743cdb2aa",
-                "reference": "0b125c79915f83ed8dc9fda5032fa5d743cdb2aa",
+                "url": "https://api.github.com/repos/NielBuys/recaptcha/zipball/e69af3f1b7dffb43e984bce43aaffa4be0b6d25c",
+                "reference": "e69af3f1b7dffb43e984bce43aaffa4be0b6d25c",
                 "shasum": ""
             },
             "require": {
@@ -23,7 +23,7 @@
                 "php-coveralls/php-coveralls": "^2.1",
                 "phpunit/phpunit": "^4.8.36|^5.7.27|^6.59|^7.5.11"
             },
-            "time": "2026-10-31T13:55:51+00:00",
+            "time": "2026-11-05T14:49:55+00:00",
             "type": "library",
             "extra": {
                 "branch-alias": {
@@ -69,17 +69,17 @@
         },
         {
             "name": "joomla/application",
-            "version": "1.9.5",
-            "version_normalized": "1.9.5.0",
+            "version": "1.9.6",
+            "version_normalized": "1.9.6.0",
             "source": {
                 "type": "git",
                 "url": "https://github.com/NielBuys/JoomlaApplication.git",
-                "reference": "27fd8c8ce5aa542ac0ceaf86b02e89d7e6d5e224"
+                "reference": "a066b6105b58d6d46a5cfd7b649362cf4baaa073"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/NielBuys/JoomlaApplication/zipball/27fd8c8ce5aa542ac0ceaf86b02e89d7e6d5e224",
-                "reference": "27fd8c8ce5aa542ac0ceaf86b02e89d7e6d5e224",
+                "url": "https://api.github.com/repos/NielBuys/JoomlaApplication/zipball/a066b6105b58d6d46a5cfd7b649362cf4baaa073",
+                "reference": "a066b6105b58d6d46a5cfd7b649362cf4baaa073",
                 "shasum": ""
             },
             "require": {
@@ -102,7 +102,7 @@
                 "joomla/session": "To use AbstractWebApplication with session support, install joomla/session",
                 "joomla/uri": "To use AbstractWebApplication, install joomla/uri"
             },
-            "time": "2026-10-31T12:03:01+00:00",
+            "time": "2026-11-05T14:49:50+00:00",
             "type": "joomla-package",
             "extra": {
                 "branch-alias": {
@@ -131,7 +131,7 @@
                 "joomla"
             ],
             "support": {
-                "source": "https://github.com/NielBuys/JoomlaApplication/tree/1.9.5"
+                "source": "https://github.com/NielBuys/JoomlaApplication/tree/1.9.6"
             },
             "funding": [
                 {
@@ -260,17 +260,17 @@
         },
         {
             "name": "joomla/data",
-            "version": "1.2.1",
-            "version_normalized": "1.2.1.0",
+            "version": "1.2.2",
+            "version_normalized": "1.2.2.0",
             "source": {
                 "type": "git",
                 "url": "https://github.com/NielBuys/JoomlaData.git",
-                "reference": "1489d359f37f785a986858b4b2c61389e5b923f7"
+                "reference": "0ed7c9045422a15a667fd404c08f4b00e8e28529"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/NielBuys/JoomlaData/zipball/1489d359f37f785a986858b4b2c61389e5b923f7",
-                "reference": "1489d359f37f785a986858b4b2c61389e5b923f7",
+                "url": "https://api.github.com/repos/NielBuys/JoomlaData/zipball/0ed7c9045422a15a667fd404c08f4b00e8e28529",
+                "reference": "0ed7c9045422a15a667fd404c08f4b00e8e28529",
                 "shasum": ""
             },
             "require": {
@@ -283,7 +283,7 @@
                 "phpunit/phpunit": "~4.8|~5.0",
                 "squizlabs/php_codesniffer": "1.*"
             },
-            "time": "2026-10-31T12:00:38+00:00",
+            "time": "2026-11-05T14:56:37+00:00",
             "type": "joomla-package",
             "extra": {
                 "branch-alias": {
@@ -308,23 +308,23 @@
                 "joomla"
             ],
             "support": {
-                "source": "https://github.com/NielBuys/JoomlaData/tree/1.2.1"
+                "source": "https://github.com/NielBuys/JoomlaData/tree/1.2.2"
             },
             "install-path": "../joomla/data"
         },
         {
             "name": "joomla/di",
-            "version": "1.5.2",
-            "version_normalized": "1.5.2.0",
+            "version": "1.5.3",
+            "version_normalized": "1.5.3.0",
             "source": {
                 "type": "git",
                 "url": "https://github.com/NielBuys/JoomlaDI.git",
-                "reference": "216319aa37483971df1ee2fe27bd6aa09ee72326"
+                "reference": "619f1acac817a75ff0ae82a494247e9868aefe63"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/NielBuys/JoomlaDI/zipball/216319aa37483971df1ee2fe27bd6aa09ee72326",
-                "reference": "216319aa37483971df1ee2fe27bd6aa09ee72326",
+                "url": "https://api.github.com/repos/NielBuys/JoomlaDI/zipball/619f1acac817a75ff0ae82a494247e9868aefe63",
+                "reference": "619f1acac817a75ff0ae82a494247e9868aefe63",
                 "shasum": ""
             },
             "require": {
@@ -338,7 +338,7 @@
                 "joomla/coding-standards": "~2.0@alpha",
                 "phpunit/phpunit": "^4.8.35|^5.4.3|~6.0"
             },
-            "time": "2026-10-31T12:00:40+00:00",
+            "time": "2026-11-05T14:56:41+00:00",
             "type": "joomla-package",
             "extra": {
                 "branch-alias": {
@@ -370,7 +370,7 @@
                 "joomla"
             ],
             "support": {
-                "source": "https://github.com/NielBuys/JoomlaDI/tree/1.5.2"
+                "source": "https://github.com/NielBuys/JoomlaDI/tree/1.5.3"
             },
             "install-path": "../joomla/di"
         },
@@ -431,17 +431,17 @@
         },
         {
             "name": "joomla/filesystem",
-            "version": "1.6.3",
-            "version_normalized": "1.6.3.0",
+            "version": "1.6.4",
+            "version_normalized": "1.6.4.0",
             "source": {
                 "type": "git",
                 "url": "https://github.com/NielBuys/JoomlaFilesystem.git",
-                "reference": "805be7fa8f0b75d913825e1effd8346f4bf08623"
+                "reference": "46864598974bcb79c4a0bea7a419e52deec227db"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/NielBuys/JoomlaFilesystem/zipball/805be7fa8f0b75d913825e1effd8346f4bf08623",
-                "reference": "805be7fa8f0b75d913825e1effd8346f4bf08623",
+                "url": "https://api.github.com/repos/NielBuys/JoomlaFilesystem/zipball/46864598974bcb79c4a0bea7a419e52deec227db",
+                "reference": "46864598974bcb79c4a0bea7a419e52deec227db",
                 "shasum": ""
             },
             "require": {
@@ -457,7 +457,7 @@
             "suggest": {
                 "paragonie/random_compat": "Required to use Joomla\\Filesystem\\Path::isOwner()"
             },
-            "time": "2026-10-31T12:00:43+00:00",
+            "time": "2026-11-05T14:56:45+00:00",
             "type": "joomla-package",
             "extra": {
                 "branch-alias": {
@@ -486,7 +486,7 @@
                 "joomla"
             ],
             "support": {
-                "source": "https://github.com/NielBuys/JoomlaFilesystem/tree/1.6.3"
+                "source": "https://github.com/NielBuys/JoomlaFilesystem/tree/1.6.4"
             },
             "install-path": "../joomla/filesystem"
         },
@@ -821,18 +821,18 @@
         },
         {
             "name": "joomla/session",
-            "version": "1.6.1",
-            "version_normalized": "1.6.1.0",
+            "version": "1.6.2",
+            "version_normalized": "1.6.2.0",
             "target-dir": "Joomla/Session",
             "source": {
                 "type": "git",
                 "url": "https://github.com/NielBuys/JoomlaSession.git",
-                "reference": "09c84426a8708ee725873371913e9769fd76680f"
+                "reference": "40b2e828de093a9628d26e1bee7327bf016f1c9a"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/NielBuys/JoomlaSession/zipball/09c84426a8708ee725873371913e9769fd76680f",
-                "reference": "09c84426a8708ee725873371913e9769fd76680f",
+                "url": "https://api.github.com/repos/NielBuys/JoomlaSession/zipball/40b2e828de093a9628d26e1bee7327bf016f1c9a",
+                "reference": "40b2e828de093a9628d26e1bee7327bf016f1c9a",
                 "shasum": ""
             },
             "require": {
@@ -852,7 +852,7 @@
             "suggest": {
                 "joomla/database": "Install joomla/database if you want to use Database session storage."
             },
-            "time": "2026-10-31T12:00:51+00:00",
+            "time": "2026-11-05T14:56:49+00:00",
             "type": "joomla-package",
             "extra": {
                 "branch-alias": {
@@ -876,7 +876,7 @@
                 "session"
             ],
             "support": {
-                "source": "https://github.com/NielBuys/JoomlaSession/tree/1.6.1"
+                "source": "https://github.com/NielBuys/JoomlaSession/tree/1.6.2"
             },
             "install-path": "../joomla/session/Joomla/Session"
         },

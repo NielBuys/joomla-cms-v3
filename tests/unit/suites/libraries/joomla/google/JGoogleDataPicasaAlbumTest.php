@@ -492,7 +492,7 @@ class JGoogleDataPicasaAlbumTest extends TestCase
  *
  * @since   3.1.4
  */
-function emptyPicasaCallback($url, array $headers = null, $timeout = null)
+function emptyPicasaCallback($url, ?array $headers = null, $timeout = null)
 {
 	$response = new stdClass;
 
@@ -514,7 +514,7 @@ function emptyPicasaCallback($url, array $headers = null, $timeout = null)
  *
  * @since   3.1.4
  */
-function picasaPhotolistCallback($url, array $headers = null, $timeout = null)
+function picasaPhotolistCallback($url, ?array $headers = null, $timeout = null)
 {
 	$response = new stdClass;
 
@@ -537,7 +537,7 @@ function picasaPhotolistCallback($url, array $headers = null, $timeout = null)
  *
  * @since   3.1.4
  */
-function dataPicasaUploadCallback($url, $data, array $headers = null, $timeout = null)
+function dataPicasaUploadCallback($url, $data, ?array $headers = null, $timeout = null)
 {
 	$response = new stdClass;
 

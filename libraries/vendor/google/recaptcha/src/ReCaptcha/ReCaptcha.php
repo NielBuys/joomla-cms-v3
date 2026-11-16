@@ -124,13 +124,43 @@ class ReCaptcha
     private $requestMethod;
 
     /**
+     * Expected hostname, set with setExpectedHostname().
+     * @var string
+     */
+    private $hostname;
+
+    /**
+     * Expected APK package name, set with setExpectedApkPackageName().
+     * @var string
+     */
+    private $apkPackageName;
+
+    /**
+     * Expected action, set with setExpectedAction().
+     * @var string
+     */
+    private $action;
+
+    /**
+     * Score threshold, set with setScoreThreshold().
+     * @var float
+     */
+    private $threshold;
+
+    /**
+     * Challenge timeout in seconds, set with setChallengeTimeout().
+     * @var int
+     */
+    private $timeoutSeconds;
+
+    /**
      * Create a configured instance to use the reCAPTCHA service.
      *
      * @param string $secret The shared key between your site and reCAPTCHA.
      * @param RequestMethod $requestMethod method used to send the request. Defaults to POST.
      * @throws \RuntimeException if $secret is invalid
      */
-    public function __construct($secret, RequestMethod $requestMethod = null)
+    public function __construct($secret, ?RequestMethod $requestMethod = null)
     {
         if (empty($secret)) {
             throw new \RuntimeException('No secret provided');

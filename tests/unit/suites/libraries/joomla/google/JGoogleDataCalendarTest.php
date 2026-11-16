@@ -514,7 +514,7 @@ class JGoogleDataCalendarTest extends TestCase
  *
  * @since   3.1.4
  */
-function jsonDataCalendarCallback($url, $data, array $headers = null, $timeout = null)
+function jsonDataCalendarCallback($url, $data, ?array $headers = null, $timeout = null)
 {
 	$response = new stdClass;
 
@@ -537,7 +537,7 @@ function jsonDataCalendarCallback($url, $data, array $headers = null, $timeout =
  *
  * @since   3.1.4
  */
-function emptyDataCalendarCallback($url, $data, array $headers = null, $timeout = null)
+function emptyDataCalendarCallback($url, $data, ?array $headers = null, $timeout = null)
 {
 	$response = new stdClass;
 
@@ -559,7 +559,7 @@ function emptyDataCalendarCallback($url, $data, array $headers = null, $timeout 
  *
  * @since   3.1.4
  */
-function jsonCalendarCallback($url, array $headers = null, $timeout = null)
+function jsonCalendarCallback($url, ?array $headers = null, $timeout = null)
 {
 	$response = new stdClass;
 
@@ -581,7 +581,7 @@ function jsonCalendarCallback($url, array $headers = null, $timeout = null)
  *
  * @since   3.1.4
  */
-function emptyCalendarCallback($url, array $headers = null, $timeout = null)
+function emptyCalendarCallback($url, ?array $headers = null, $timeout = null)
 {
 	$response = new stdClass;
 
@@ -603,7 +603,7 @@ function emptyCalendarCallback($url, array $headers = null, $timeout = null)
  *
  * @since   3.1.4
  */
-function calendarExceptionCallback($url, array $headers = null, $timeout = null)
+function calendarExceptionCallback($url, ?array $headers = null, $timeout = null)
 {
 	$response = new stdClass;
 
@@ -626,7 +626,7 @@ function calendarExceptionCallback($url, array $headers = null, $timeout = null)
  *
  * @since   3.1.4
  */
-function calendarDataExceptionCallback($url, $data, array $headers = null, $timeout = null)
+function calendarDataExceptionCallback($url, $data, ?array $headers = null, $timeout = null)
 {
 	$response = new stdClass;
 

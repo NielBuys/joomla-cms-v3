@@ -405,7 +405,7 @@ class JGoogleDataAdsenseTest extends TestCase
  *
  * @since   3.1.4
  */
-function jsonAdsenseCallback($url, array $headers = null, $timeout = null)
+function jsonAdsenseCallback($url, ?array $headers = null, $timeout = null)
 {
 	$response = new stdClass;
 
@@ -427,7 +427,7 @@ function jsonAdsenseCallback($url, array $headers = null, $timeout = null)
  *
  * @since   3.1.4
  */
-function jsonAdsenseReportCallback($url, array $headers = null, $timeout = null)
+function jsonAdsenseReportCallback($url, ?array $headers = null, $timeout = null)
 {
 	$response = new stdClass;
 
@@ -449,7 +449,7 @@ function jsonAdsenseReportCallback($url, array $headers = null, $timeout = null)
  *
  * @since   3.1.4
  */
-function adsenseExceptionCallback($url, array $headers = null, $timeout = null)
+function adsenseExceptionCallback($url, ?array $headers = null, $timeout = null)
 {
 	$response = new stdClass;
 

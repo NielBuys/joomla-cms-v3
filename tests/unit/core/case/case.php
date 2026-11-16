@@ -259,7 +259,7 @@ abstract class TestCase extends TestCasePhpunit
 	 *
 	 * @since   3.4
 	 */
-	public function getMockInput(array $options = null)
+	public function getMockInput(?array $options = null)
 	{
 		// Attempt to load the real class first.
 		class_exists('JInput');

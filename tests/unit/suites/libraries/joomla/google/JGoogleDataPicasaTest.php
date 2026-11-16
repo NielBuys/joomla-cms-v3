@@ -287,7 +287,7 @@ class JGoogleDataPicasaTest extends TestCase
  *
  * @since   3.1.4
  */
-function picasaAlbumCallback($url, array $headers = null, $timeout = null)
+function picasaAlbumCallback($url, ?array $headers = null, $timeout = null)
 {
 	$response = new stdClass;
 
@@ -310,7 +310,7 @@ function picasaAlbumCallback($url, array $headers = null, $timeout = null)
  *
  * @since   3.1.4
  */
-function dataPicasaAlbumCallback($url, $data, array $headers = null, $timeout = null)
+function dataPicasaAlbumCallback($url, $data, ?array $headers = null, $timeout = null)
 {
 	\PHPUnit\Framework\TestCase::assertStringContainsString('<title>New Title</title>', $data);
 
@@ -334,7 +334,7 @@ function dataPicasaAlbumCallback($url, $data, array $headers = null, $timeout = 
  *
  * @since   3.1.4
  */
-function picasaAlbumlistCallback($url, array $headers = null, $timeout = null)
+function picasaAlbumlistCallback($url, ?array $headers = null, $timeout = null)
 {
 	$response = new stdClass;
 
@@ -356,7 +356,7 @@ function picasaAlbumlistCallback($url, array $headers = null, $timeout = null)
  *
  * @since   3.1.4
  */
-function picasaExceptionCallback($url, array $headers = null, $timeout = null)
+function picasaExceptionCallback($url, ?array $headers = null, $timeout = null)
 {
 	$response = new stdClass;
 
@@ -379,7 +379,7 @@ function picasaExceptionCallback($url, array $headers = null, $timeout = null)
  *
  * @since   3.1.4
  */
-function picasaDataExceptionCallback($url, $data, array $headers = null, $timeout = null)
+function picasaDataExceptionCallback($url, $data, ?array $headers = null, $timeout = null)
 {
 	$response = new stdClass;
 
@@ -401,7 +401,7 @@ function picasaDataExceptionCallback($url, $data, array $headers = null, $timeou
  *
  * @since   3.1.4
  */
-function picasaBadXmlCallback($url, array $headers = null, $timeout = null)
+function picasaBadXmlCallback($url, ?array $headers = null, $timeout = null)
 {
 	$response = new stdClass;
 
