@@ -88,7 +88,8 @@ class PlgContentEmailcloak extends JPlugin
 	/**
 	 * Cloak all emails in text from spambots via Javascript.
 	 *
-	 * @param   string  &$text    The string to be cloaked.
+	 * @param   mixed   &$text    The string to be cloaked. Anything else (null when the item
+	 *                             has no text) is left as it is.
 	 * @param   mixed   &$params  Additional parameters. Parameter "mode" (integer, default 1)
 	 *                             replaces addresses with "mailto:" links if nonzero.
 	 *
@@ -96,6 +97,12 @@ class PlgContentEmailcloak extends JPlugin
 	 */
 	protected function _cloak(&$text, &$params)
 	{
+		// No text, nothing to cloak. Some callers pass null, which string functions reject.
+		if (!is_string($text) || $text === '')
+		{
+			return true;
+		}
+
 		/*
 		 * Check for presence of {emailcloak=off} which is explicits disables this
 		 * bot for the item.

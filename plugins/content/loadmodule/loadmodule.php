@@ -41,6 +41,12 @@ class PlgContentLoadmodule extends JPlugin
 			return true;
 		}
 
+		// No text, nothing to load into. Some callers pass null, which string functions reject.
+		if (!isset($article->text) || !is_string($article->text) || $article->text === '')
+		{
+			return true;
+		}
+
 		// Simple performance check to determine whether bot should process further
 		if (strpos($article->text, 'loadposition') === false && strpos($article->text, 'loadmodule') === false)
 		{
