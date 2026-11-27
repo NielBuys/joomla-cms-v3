@@ -96,6 +96,12 @@ class PlgContentEmailcloak extends JPlugin
 	 */
 	protected function _cloak(&$text, &$params)
 	{
+		// No text, nothing to cloak. Some callers pass null, which string functions reject.
+		if (!is_string($text) || $text === '')
+		{
+			return true;
+		}
+
 		/*
 		 * Check for presence of {emailcloak=off} which is explicits disables this
 		 * bot for the item.
